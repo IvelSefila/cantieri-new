@@ -22,7 +22,8 @@ const SLOT = [
 const SCHEDE = [
   { id: "progetto", nome: "Progetto" },
   { id: "costruzione", nome: "Costruzione" },
-  { id: "gsa", nome: "GSA" },
+  { id: "gsa", nome: "GSA antincendio" },
+  { id: "asol", nome: "Asol,est" },
   { id: "arredi", nome: "Arredi" },
   { id: "energia", nome: "Energia" },
   { id: "affidabilita", nome: "Affidabilità" },

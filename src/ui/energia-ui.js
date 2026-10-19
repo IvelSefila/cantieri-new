@@ -226,21 +226,21 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
     i.dataset.campo = chiave;
     i.value = v[chiave] ?? "";
     i.style.width = "90px";
-    i.onchange = () => { v[chiave] = numeroDaInput(i.value); aggiorna(); };
+    i.onchange = () => { v[chiave] = numeroDaInput(i.value); segna(); };
     l.append(i);
     griglia.append(l);
   }
   const selZona = document.createElement("select");
   selZona.dataset.campo = "zona";
   for (const z of ["A", "B", "C", "D", "E", "F"]) selZona.append(new Option(z, z, false, z === v.zona));
-  selZona.onchange = () => { v.zona = selZona.value; aggiorna(); };
+  selZona.onchange = () => { v.zona = selZona.value; segna(); };
   const lZ = document.createElement("label");
   lZ.style.display = "block";
   lZ.append("Zona climatica ", selZona);
   const selOr = document.createElement("select");
   selOr.dataset.campo = "orientamento_FV";
   for (const o of ["N", "NE", "E", "SE", "S", "SO", "O", "NO"]) selOr.append(new Option(o, o, false, o === v.orientamento_FV));
-  selOr.onchange = () => { v.orientamento_FV = selOr.value; aggiorna(); };
+  selOr.onchange = () => { v.orientamento_FV = selOr.value; segna(); };
   const l2 = document.createElement("label");
   l2.style.display = "block";
   l2.append("Orientamento fotovoltaico / solare termico ", selOr);
@@ -267,14 +267,26 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
     ponti.querySelector("#ponti-tipo-l").style.display = v.ponti_modo === "forfait" ? "block" : "none";
     ponti.querySelector("#ponti-nodi-l").style.display = v.ponti_modo === "psi" ? "block" : "none";
   };
-  selPonti.onchange = () => { v.ponti_modo = selPonti.value; mostraPonti(); aggiorna(); };
+  selPonti.onchange = () => { v.ponti_modo = selPonti.value; mostraPonti(); segna(); };
   ponti.querySelector("#ponti-tipo").value = v.ponti_tipo;
-  ponti.querySelector("#ponti-tipo").onchange = (e) => { v.ponti_tipo = e.target.value; aggiorna(); };
-  ponti.querySelector("#ponti-nodi").onchange = (e) => { v.ponti_nodi_testo = e.target.value; aggiorna(); };
+  ponti.querySelector("#ponti-tipo").onchange = (e) => { v.ponti_tipo = e.target.value; segna(); };
+  ponti.querySelector("#ponti-nodi").onchange = (e) => { v.ponti_nodi_testo = e.target.value; segna(); };
   mostraPonti();
 
+  const pulsante = document.createElement("button");
+  pulsante.className = "gsa-calcola";
+  pulsante.textContent = "Calcola energia";
+  pulsante.onclick = () => aggiorna();
+  const stale = document.createElement("div");
+  stale.className = "gsa-stale";
   const esito = document.createElement("div");
-  box.append(esito);
+  box.append(pulsante, stale, esito);
+
+  // Modifica dei dati: il risultato precedente non vale piu'. Si ricalcola solo con il pulsante.
+  function segna() {
+    esito.innerHTML = "";
+    stale.textContent = "Dati modificati: premi Calcola energia per il nuovo risultato.";
+  }
 
   function aggiorna() {
     esito.innerHTML = "";
@@ -337,6 +349,7 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
     } catch (e) {
       esitoPdf.textContent = `PDF non letto: ${e.message}. Inserisci i dati a mano.`;
     }
+    segna();
   };
 
   // Stato per la scheda Affidabilità
@@ -350,6 +363,6 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
     };
   }
 
-  aggiorna();
-  return { valori: v, aggiorna, contesto };
+  segna();
+  return { valori: v, aggiorna, segna, contesto };
 }

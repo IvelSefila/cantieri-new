@@ -29,6 +29,7 @@ import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js";
 import { montaArredo } from "./ui/arredo-ui.js";
+import { montaGSA } from "./ui/gsa-ui.js";
 
 let hud = null;
 
@@ -202,7 +203,6 @@ function renderGSA() {
     return d;
   };
   riga(`Vani vetrati: ${r.righe.length} • area vetro ${fmt(r.areaVetroTotale_m2)} m²`);
-  riga(`Asol semplificato (stima, non di legge): ${fmt(r.asolTotale_m2)} m²`, "ok");
 
   // orientamento di ogni muro con vani vetrati
   const muri = [...new Set(r.righe.map((x) => x.muro))];
@@ -240,6 +240,15 @@ function renderGSA() {
     riga(`${x.vano} · ${x.materiale} · ${fmt(x.area_m2)} m² · g ${String(x.g).replace(".", ",")} · Asol ${fmt(x.asol_m2)} m² · ${x.orientamento ?? "orientamento da indicare"}`);
   }
 
+  // Asol,est: risultato solo dopo il pulsante "Calcola Asol,est". Cambiando un dato il risultato va ricalcolato.
+  const firma = JSON.stringify({ o: stato.orientamenti ?? {}, g: stato.gsaGglsh ?? null, f: stato.gsaFfTelaio ?? 0.2, s: stato.gsaFshOb ?? null, n: stato.nordGradi ?? null, sc: !!stato.gsaDaScheda });
+  const pulsante = el_("button", "gsa-calcola", "Calcola Asol,est");
+  pulsante.onclick = () => { stato.asolFirma = firma; renderGSA(); };
+  box.appendChild(pulsante);
+  if (stato.asolFirma !== firma) {
+    rigaIn(box, "Premi Calcola Asol,est per il risultato. Il calcolo usa i dati sopra.", "info");
+    return finisciDettagli(r, box);
+  }
   // Asol,est secondo DM 26/06/2015 (verifica di legge): serve ggl+sh con schermo in uso e la frazione telaio FF
   const par2 = document.createElement("div");
   par2.className = "riga-azioni";
@@ -260,11 +269,29 @@ function renderGSA() {
   const esito = a.verifica === null ? "" : a.verifica ? " • VERIFICATO" : " • NON VERIFICATO";
   riga(`Asol,est (DM 26/06/2015): ${fmt(a.asolEst_m2)} m² • Asup utile ${fmt(asupUtile_m2)} m² • rapporto ${a.rapporto === null ? "—" : a.rapporto.toFixed(4).replace(".", ",")} (limite < ${a.limite.toFixed(3).replace(".", ",")})${esito}`, a.verifica ? "ok" : "avviso");
   if (!a.completo) riga(`Asol,est incompleto, mancano: ${a.mancanti.join("; ")}`, "avviso");
-  riga("Affidabilità: formula del DM 26/06/2015 aggiornato dal DM 28/10/2025. Fsol,est dai dati UNI 10349:2016 di Roma. Asup utile = somma delle stanze chiuse. Fsh,ob = 1 se non indicato (nessuna ombra). Dettagli nella scheda Affidabilità.");
+  riga("Formula del DM 26/06/2015 aggiornato dal DM 28/10/2025. Fsol,est dai dati UNI 10349:2016 di Roma. Asup utile = somma delle stanze chiuse. Fsh,ob = 1 se non indicato (nessuna ombra).");
+  finisciDettagli(r, box);
+}
+
+function rigaIn(box, t, classe = "") {
+  const d = document.createElement("div");
+  d.className = classe;
+  d.textContent = t;
+  box.appendChild(d);
+}
+
+function el_(tag, cls, testo) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (testo !== undefined) e.textContent = testo;
+  return e;
+}
+
+function finisciDettagli(r, box) {
 
   // dati mancanti per completare il calcolo
-  riga("Dati mancanti per il calcolo completo:", "avviso");
-  for (const m of [...r.mancanti, ...r.datiMancanti]) riga(`• ${m}`);
+  rigaIn(box, "Dati mancanti per il calcolo completo:", "avviso");
+  for (const m of [...r.mancanti, ...r.datiMancanti]) rigaIn(box, `• ${m}`);
 }
 
 // Modelli dettagliati di infissi (solo vani con un modello CDI montato) e arredi
@@ -315,7 +342,7 @@ function chiudiVistaFrontale() {
 function ricostruisci() {
   const p = stato.progetto;
   renderGSA();
-  stato.energia?.aggiorna();
+  stato.energia?.segna();
   aggiornaAffidabilita();
   aggiornaMisureVista();
   if (stato.vista2d) aggiornaVista2d();
@@ -674,6 +701,7 @@ async function init() {
   stato.viewer = createViewer($("vista"));
   stato.catalogo = await fetch("data/cdi-catalog.json").then((r) => r.json());
   costruisciPannello();
+  montaGSA($("sez-gsa-incendio"));
   stato.arredo = montaArredo({
     box: $("sez-arredi"),
     viewer: stato.viewer,
