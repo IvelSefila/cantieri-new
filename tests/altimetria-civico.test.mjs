@@ -315,21 +315,16 @@ test("pulisciIndirizzoPerGeocodifica: rimuove condominio, palazzo, scala e inter
   assert.equal(pulisciIndirizzoPerGeocodifica("Via Roma 10 scala B int. 4 Torino"), "Via Roma 10 Torino");
 });
 
-test("estraiDenominazioneCondominioDaTesto: estrae condominio, palazzo e scala", async () => {
-  const { estraiDenominazioneCondominioDaTesto } = await import("../src/core/altimetria-civico.js");
-  const s1 = "strada suniglia 4 savigliano condominio orione palazzo a";
-  const r1 = estraiDenominazioneCondominioDaTesto(s1);
-  assert.equal(r1.condominio, "Condominio Orione");
-  assert.equal(r1.palazzo, "Palazzo A");
-  assert.equal(r1.scala, null);
-
-  const s2 = "Via Dante 10 Milano Residenza Parco scala B";
-  const r2 = estraiDenominazioneCondominioDaTesto(s2);
-  assert.equal(r2.condominio, "Residenza Parco");
-  assert.equal(r2.scala, "SCALA B");
-
-  const s3 = "Corso Francia 50 Torino";
-  assert.equal(estraiDenominazioneCondominioDaTesto(s3), null);
+test("formattaIndirizzoItaliano: compone via, civico, cap, comune e provincia", async () => {
+  const { formattaIndirizzoItaliano } = await import("../src/core/altimetria-civico.js");
+  const s = formattaIndirizzoItaliano({
+    via: "Strada Suniglia",
+    civico: "4",
+    cap: "12038",
+    comune: "Savigliano",
+    provincia: "Cuneo",
+  });
+  assert.equal(s, "Strada Suniglia, 4, 12038 Savigliano (Cuneo)");
 });
 
 test("clusterVolumiResidenziali: raggruppa palazzine dello stesso cortile ed esclude edifici isolati di lotti confinanti", async () => {
@@ -346,43 +341,80 @@ test("clusterVolumiResidenziali: raggruppa palazzine dello stesso cortile ed esc
   assert.deepEqual(cluster.map(c => c.id), ["A", "B", "C"]);
 });
 
-test("estraiNomeDaSnippet: estrae condominio e residence da testo web", async () => {
-  const { estraiNomeDaSnippet } = await import("../src/core/altimetria-civico.js");
-  const t1 = "SAVIGLIANO: vendesi appartamento nel Condominio Orione con cantina e box auto.";
-  assert.equal(estraiNomeDaSnippet(t1), "Condominio Orione");
+test("autocompletaIndirizzo: supporta Photon OSM per lookup stile Amazon", async () => {
+  const { autocompletaIndirizzo } = await import("../src/core/altimetria-civico.js");
+  const mockFetch = async (url) => {
+    if (url.includes("photon")) {
+      return {
+        ok: true,
+        json: async () => ({
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              properties: {
+                street: "Strada Suniglia",
+                housenumber: "4",
+                city: "Savigliano",
+                county: "Cuneo",
+                state: "Piemonte",
+                postcode: "12038",
+                countrycode: "IT",
+              },
+              geometry: {
+                coordinates: [7.6554138, 44.6412359],
+              },
+            },
+          ],
+        }),
+      };
+    }
+    throw new Error(`URL inatteso: ${url}`);
+  };
 
-  const t2 = "In vendita trilocale presso il Residence Parco Graneris a due passi dal centro.";
-  assert.equal(estraiNomeDaSnippet(t2), "Residence Parco Graneris");
-
-  const t3 = "Testo generico senza menzioni di stabili.";
-  assert.equal(estraiNomeDaSnippet(t3), null);
-});
-
-test("cercaDenominazioneCondominio e salvaDenominazioneCondominio: apprendimento dinamico", async () => {
-  const { cercaDenominazioneCondominio, salvaDenominazioneCondominio } = await import("../src/core/altimetria-civico.js");
-  salvaDenominazioneCondominio("Strada Suniglia 4", "Savigliano", "Condominio Orione");
-  const r = await cercaDenominazioneCondominio("Strada Suniglia 4 Savigliano");
-  assert.equal(r.trovato, true);
-  assert.equal(r.nome, "Condominio Orione");
-});
-
-test("autocompletaIndirizzo: restituisce corrispondenze arricchite col condominio", async () => {
-  const { autocompletaIndirizzo, salvaDenominazioneCondominio } = await import("../src/core/altimetria-civico.js");
-  salvaDenominazioneCondominio("Via Roma 10", "Torino", "Palazzo Reale Test");
-
-  const mockFetch = async () => ({
-    ok: true,
-    json: async () => [{
-      lat: "45.07",
-      lon: "7.68",
-      display_name: "10, Via Roma, Torino, Piemonte, 10121, Italia",
-      address: { house_number: "10", road: "Via Roma", city: "Torino" }
-    }]
-  });
-
-  const res = await autocompletaIndirizzo("Via Roma 10 Torino", { fetchFn: mockFetch, autoCercaWeb: false });
+  const res = await autocompletaIndirizzo("via suniglia 4", { fetchFn: mockFetch });
   assert.equal(res.length, 1);
-  assert.equal(res[0].nome_condominio, "Palazzo Reale Test");
-  assert.ok(res[0].testo_completo.includes("Palazzo Reale Test"));
+  assert.equal(res[0].via, "Strada Suniglia");
+  assert.equal(res[0].civico, "4");
+  assert.equal(res[0].comune, "Savigliano");
+  assert.equal(res[0].lat, 44.6412359);
+  assert.equal(res[0].lon, 7.6554138);
+  assert.equal(res[0].display_name, "Strada Suniglia, 4, 12038 Savigliano (Cuneo)");
+});
+
+test("geocodificaIndirizzo: tolleranza odonimi (via suniglia 4 -> Strada Suniglia 4 Savigliano)", async () => {
+  const { geocodificaIndirizzo } = await import("../src/core/altimetria-civico.js");
+  const mockFetch = async (url) => {
+    if (url.includes("photon")) {
+      return {
+        ok: true,
+        json: async () => ({
+          type: "FeatureCollection",
+          features: [
+            {
+              properties: {
+                street: "Strada Suniglia",
+                housenumber: "4",
+                city: "Savigliano",
+                county: "Cuneo",
+                state: "Piemonte",
+                postcode: "12038",
+                countrycode: "IT",
+              },
+              geometry: { coordinates: [7.6554138, 44.6412359] },
+            },
+          ],
+        }),
+      };
+    }
+    throw new Error(`URL inatteso: ${url}`);
+  };
+
+  const geo = await geocodificaIndirizzo("via suniglia 4 savigliano", { fetchFn: mockFetch });
+  assert.equal(geo.ok, true);
+  assert.equal(geo.comune, "Savigliano");
+  assert.equal(geo.regione, "Piemonte");
+  assert.equal(geo.lat, 44.6412359);
+  assert.equal(geo.lon, 7.6554138);
 });
 
