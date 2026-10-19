@@ -8,6 +8,7 @@ export const FUNZIONI = {
   bagno: "Bagno",
   disimpegno: "Disimpegno",
   ripostiglio: "Ripostiglio",
+  comune: "Parte comune (corridoio, ascensore)",
 };
 
 
@@ -45,4 +46,5 @@ export const ARREDO_PER_FUNZIONE_ELENCO = {
   bagno: (m2) => (m2 >= 5 ? ["wc", "lavabo", "doccia", "bidet"] : ["wc", "lavabo", "doccia"]),
   disimpegno: () => ["armadio"],
   ripostiglio: () => [],
+  comune: () => [],
 };

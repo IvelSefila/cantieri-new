@@ -30,7 +30,7 @@ import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js";
 import { montaArredo } from "./ui/arredo-ui.js";
 import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js";
-import { alloggiDelProgetto } from "./core/alloggi.js";
+import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
 import { impostaFunzioneStanza } from "./core/project.js";
 
 // Arreda tutto: prima si sceglie l'alloggio (se ce ne sono piu' di uno), poi si confermano le funzioni delle sue stanze
@@ -93,10 +93,14 @@ function flussoArredo(mostraRisultato) {
     box.appendChild(conferma);
   };
 
+  const analisi = analizzaAlloggi(stato.progetto);
+  const info = (testo) => { const d = document.createElement("div"); d.style.cssText = "margin:4px 0;opacity:.85"; d.textContent = testo; return d; };
   if (alloggi.length === 1) {
     mostraEtichette(alloggi[0]);
   } else {
     box.replaceChildren(titolo("Quale alloggio vuoi arredare?"));
+    for (const c of analisi.comuni) box.appendChild(info(`Parte comune, non arredata: ${c.stanza.id} (${c.m2} m²), ${c.motivo}`));
+    for (const c of analisi.isolate) box.appendChild(info(`Vano chiuso, non arredato: ${c.stanza.id} (${c.m2} m²), ${c.motivo}`));
     for (const a of alloggi) {
       const b = document.createElement("button");
       b.textContent = `Alloggio ${a.id.split("_")[1]} · ${a.stanze.length} stanze · ${a.m2} m²`;
