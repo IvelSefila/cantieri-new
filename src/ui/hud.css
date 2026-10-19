@@ -309,3 +309,10 @@ body.pp-on .hud-hotbar, body.pp-on .hud-coord, body.pp-on .hud-top { display: no
   .hud-top .hud-mode button { padding: 8px 9px !important; }
   .hud-top .switch-2d { width: 96px !important; flex: 0 0 96px !important; }
 }
+
+/* Telefono: menu hamburger a destra; avvisi e messaggi sempre sotto il menu */
+@media (max-width: 700px) {
+  .hud-burger { order: 3; margin-left: auto; }
+  .hud-top { z-index: 60; }
+  .hud-toasts, #msg-pp { z-index: 25 !important; }
+}
