@@ -1,11 +1,16 @@
 // Calcolo del livello di prestazione GSA per edifici di civile abitazione (DM 246/1987 + DM 25/1/2019, punto 9-bis).
 // Funzioni pure, aritmetica intera in millimetri (nessun numero binario in virgola mobile sulle quote).
 // Ogni dato ha uno stato: verificato | dichiarato | stimato | non_disponibile | non_applicabile.
-// Un dato decisivo mancante produce INDETERMINATO con l'elenco dei dati mancanti: mai un "no" implicito.
+// Un dato decisivo mancante, un conflitto tra fonti o un intervallo che tocca una soglia produce INDETERMINATO
+// con motivo e azione richiesta: mai un "no" implicito.
 import { REGOLE_DM246 as R } from "./regole-dm246.js";
 
 export const STATI_DATO = ["verificato", "dichiarato", "stimato", "non_disponibile", "non_applicabile"];
 export const SI_NO_VERIFICA = ["si", "no", "da_verificare"];
+
+const MANCANTE_APERTURA = "quota dell'apertura di riferimento (livello inferiore dell'apertura piu' alta, esclusi vani tecnici)";
+const MANCANTE_PIANO = "quota del piano esterno di riferimento (piano esterno accessibile ai mezzi di soccorso)";
+const AZIONE_SOGLIA = `acquisire una quota di dettaglio dell'apertura piu' alta dell'ultimo piano abitabile (rilievo puntuale o sezione quotata della pratica), con incertezza entro ${R.tolleranza_prossimita_mm} mm`;
 
 // Quote in mm intere: converte un valore in metri inserito dall'utente (2 decimali) in mm senza errori di arrotondamento
 export function metriAMm(valoreMetri) {
@@ -18,29 +23,88 @@ export function metriAMm(valoreMetri) {
   return neg ? -intero : intero;
 }
 
-// Altezza antincendi (DM 30/11/1983, p. 1.1 - formula di progetto, da verificare sul testo del 1983):
-// h = quota apertura di riferimento - quota piano esterno di riferimento. Tutto in mm interi.
+// Fonti dell'altezza antincendi. Ogni fonte e' un valore esatto { h_mm } oppure un intervallo { min_mm, max_mm } in mm.
+// Esempi: { fonte: "pratica", h_mm: 30000 }, { fonte: "LiDAR", min_mm: 29700, max_mm: 30300, stato: "stimato" }.
+function leggiFonti(lista) {
+  const fonti = [];
+  for (const f of lista) {
+    const min = Number.isInteger(f.h_mm) ? f.h_mm : f.min_mm;
+    const max = Number.isInteger(f.h_mm) ? f.h_mm : f.max_mm;
+    if (!Number.isInteger(min) || !Number.isInteger(max) || min > max) return { errore: `fonte non valida: ${f.fonte ?? "senza nome"} (serve h_mm, oppure min_mm <= max_mm, interi in mm)` };
+    const stato = f.stato ?? "dichiarato";
+    if (!STATI_DATO.includes(stato)) return { errore: `stato del dato non valido per la fonte ${f.fonte ?? "senza nome"}: ${stato}` };
+    fonti.push({ fonte: f.fonte ?? "senza nome", min_mm: min, max_mm: max, stato });
+  }
+  return { fonti };
+}
+
+// Altezza antincendi (DM 30/11/1983, p. 1.1): h = quota apertura di riferimento - quota piano esterno di riferimento.
+// Fusione conservativa: l'intervallo finale e' l'inviluppo di tutte le fonti; fonti in disaccordo oltre la tolleranza sono un conflitto.
+// Esito DETERMINATO solo se l'intervallo non attraversa e non sfiora (entro la tolleranza) una soglia di tipo/LP.
 export function altezzaAntincendi(d = {}) {
   const avvisi = [];
-  const mancanti = [];
   const stato = d.stato ?? "dichiarato";
   if (!STATI_DATO.includes(stato)) return { errore: `stato del dato non valido: ${stato}` };
-  if (!Number.isInteger(d.quota_apertura_mm)) mancanti.push("quota dell'apertura di riferimento (livello inferiore dell'apertura piu' alta, esclusi vani tecnici)");
-  if (!Number.isInteger(d.quota_piano_esterno_mm)) mancanti.push("quota del piano esterno di riferimento (piano esterno accessibile ai mezzi di soccorso)");
-  if (mancanti.length) return { h_mm: null, stato, esito: "INDETERMINATO", mancanti, avvisi };
-  const h = d.quota_apertura_mm - d.quota_piano_esterno_mm;
+  let fonti;
+  if (Array.isArray(d.fonti)) {
+    if (d.fonti.length === 0) return { h_mm: null, h_min_mm: null, h_max_mm: null, stato, esito: "INDETERMINATO", motivo: "nessuna_fonte", mancanti: ["nessuna fonte per l'altezza antincendi: indicare almeno un rilievo, una pratica o una stima"], conflitti: [], avvisi, azione: null };
+    const lette = leggiFonti(d.fonti);
+    if (lette.errore) return { errore: lette.errore };
+    fonti = lette.fonti;
+  } else {
+    const mancanti = [];
+    if (!Number.isInteger(d.quota_apertura_mm)) mancanti.push(MANCANTE_APERTURA);
+    if (!Number.isInteger(d.quota_piano_esterno_mm)) mancanti.push(MANCANTE_PIANO);
+    if (mancanti.length) return { h_mm: null, h_min_mm: null, h_max_mm: null, stato, esito: "INDETERMINATO", motivo: "dati_mancanti", mancanti, conflitti: [], avvisi, azione: null };
+    const h = d.quota_apertura_mm - d.quota_piano_esterno_mm;
+    fonti = [{ fonte: "quote dichiarate", min_mm: h, max_mm: h, stato }];
+  }
+  const statoGlobale = fonti.some((f) => f.stato === "stimato") ? "stimato" : stato;
   if (d.piano_esterno_accessibile_mezzi_vvf !== true) {
     avvisi.push({ bloccante: true, testo: "piano di riferimento non conforme al chiarimento ministeriale: il piano esterno deve essere accessibile ai mezzi di soccorso (DM 246/1987 nota 2, chiarimento P558/4122 del 24/03/2004)" });
   }
   if (d.vani_tecnici_esclusi !== true) avvisi.push({ bloccante: false, testo: "confermare che i vani tecnici sono esclusi dal calcolo dell'apertura di riferimento" });
-  if (stato === "stimato") avvisi.push({ bloccante: false, testo: "altezza stimata: risultato PROVVISORIO" });
-  if (Number.isInteger(d.altezza_dichiarata_mm) && Math.abs(h - d.altezza_dichiarata_mm) > R.tolleranza_incoerenza_mm) {
-    avvisi.push({ bloccante: false, testo: `altezza calcolata ${h} mm diversa da quella dichiarata ${d.altezza_dichiarata_mm} mm oltre ${R.tolleranza_incoerenza_mm} mm: verificare il rilievo` });
+  if (statoGlobale === "stimato") avvisi.push({ bloccante: false, testo: "altezza stimata: risultato PROVVISORIO" });
+
+  // Fusione: inviluppo conservativo e controllo di coerenza a coppie
+  const lo = Math.min(...fonti.map((f) => f.min_mm));
+  const hi = Math.max(...fonti.map((f) => f.max_mm));
+  const conflitti = [];
+  for (let i = 0; i < fonti.length; i++) {
+    for (let j = i + 1; j < fonti.length; j++) {
+      const a = fonti[i], b = fonti[j];
+      const distanza = Math.max(b.min_mm - a.max_mm, a.min_mm - b.max_mm);
+      if (distanza > R.tolleranza_incoerenza_mm) conflitti.push({ fonti: [a.fonte, b.fonte], distanza_mm: distanza });
+    }
   }
-  for (const s of R.soglie_prossimita_mm) {
-    if (Math.abs(h - s) <= R.tolleranza_prossimita_mm) avvisi.push({ bloccante: false, testo: `h = ${h} mm e' a meno di ${R.tolleranza_prossimita_mm} mm dalla soglia ${s} mm: verificare il rilievo` });
+  const base = { fonti, stato: statoGlobale, avvisi, conflitti, h_min_mm: lo, h_max_mm: hi };
+  if (conflitti.length) {
+    const coppie = conflitti.map((c) => `${c.fonti[0]} / ${c.fonti[1]} (${c.distanza_mm} mm)`).join("; ");
+    return { ...base, h_mm: null, esito: "INDETERMINATO", motivo: "conflitto", mancanti: [], azione: `le fonti sono in disaccordo oltre ${R.tolleranza_incoerenza_mm} mm: ${coppie}. Verificare quale fonte e' corretta` };
   }
-  return { h_mm: h, stato, esito: "DETERMINATO", mancanti: [], avvisi };
+
+  // Valore esatto: nessuna incertezza, si applicano solo gli avvisi di prossimita' alle soglie
+  if (lo === hi) {
+    const h = lo;
+    if (Number.isInteger(d.altezza_dichiarata_mm) && Math.abs(h - d.altezza_dichiarata_mm) > R.tolleranza_incoerenza_mm) {
+      avvisi.push({ bloccante: false, testo: `altezza calcolata ${h} mm diversa da quella dichiarata ${d.altezza_dichiarata_mm} mm oltre ${R.tolleranza_incoerenza_mm} mm: verificare il rilievo` });
+    }
+    for (const s of R.soglie_prossimita_mm) {
+      if (Math.abs(h - s) <= R.tolleranza_prossimita_mm) avvisi.push({ bloccante: false, testo: `h = ${h} mm e' a meno di ${R.tolleranza_prossimita_mm} mm dalla soglia ${s} mm: verificare il rilievo` });
+    }
+    return { ...base, h_mm: h, esito: "DETERMINATO", motivo: null, mancanti: [], azione: null };
+  }
+
+  // Intervallo: non deve attraversare una soglia e non deve sfiorarla entro la tolleranza
+  const M = R.tolleranza_prossimita_mm;
+  const attraversata = R.soglie_prossimita_mm.find((s) => lo < s && s < hi);
+  const vicina = R.soglie_prossimita_mm.find((s) => Math.abs(lo - s) < M || Math.abs(hi - s) < M);
+  if (attraversata !== undefined || vicina !== undefined) {
+    const soglia = attraversata ?? vicina;
+    return { ...base, h_mm: null, esito: "INDETERMINATO", motivo: attraversata !== undefined ? "soglia_attraversata" : "soglia_vicina", soglia_mm: soglia, mancanti: [], azione: `${AZIONE_SOGLIA} (soglia ${soglia} mm)` };
+  }
+  avvisi.push({ bloccante: false, testo: `altezza su intervallo [${lo}, ${hi}] mm: nessuna soglia attraversata o sfiorata` });
+  return { ...base, h_mm: null, esito: "DETERMINATO", motivo: null, mancanti: [], azione: null };
 }
 
 // Tipo di edificio (Tabella A, DM 246/1987 punto 2.0) e LP base (DM 25/1/2019 punto 9-bis.2)
@@ -70,12 +134,18 @@ function classeInSoglie(valore, classi, unita) {
   return c ? c.classe : null;
 }
 
-// Attivita' 77 (DPR 151/2011 all. I, n. 77): edificio civile con altezza antincendi > 24 m. Classe dalla sola h.
-export function categoriaAttivita77(h_mm) {
+// Attivita' 77 (DPR 151/2011 all. I, n. 77): edificio civile con altezza antincendi > 24 m. Classe dall'altezza.
+// Con un intervallo restituisce le classi possibili invece di una sola.
+export function categoriaAttivita77(lo_mm, hi_mm = lo_mm) {
   const c = R.dpr151["77"];
-  if (!Number.isInteger(h_mm)) return { stato: "non_calcolata", motivo: "altezza antincendi non disponibile" };
-  if (h_mm <= c.soglia_h_mm) return { stato: "non_soggetta", motivo: `h <= ${c.soglia_h_mm} mm: attivita' 77 non prevista` };
-  return { stato: "soggetta", classe: classeInSoglie(h_mm, c.classi, "mm"), motivo: `altezza antincendi ${h_mm} mm (DPR 151/2011 n. 77)` };
+  if (!Number.isInteger(lo_mm) || !Number.isInteger(hi_mm)) return { stato: "non_calcolata", motivo: "altezza antincendi non disponibile" };
+  if (hi_mm <= c.soglia_h_mm) return { stato: "non_soggetta", motivo: `h <= ${c.soglia_h_mm} mm: attivita' 77 non prevista` };
+  if (lo_mm <= c.soglia_h_mm) return { stato: "soggetta_incerta", motivo: `intervallo [${lo_mm}, ${hi_mm}] mm attraversa ${c.soglia_h_mm} mm` };
+  const bordi = c.classi.map((k) => k.fino_a_mm).filter(Number.isInteger);
+  const punti = [lo_mm, ...bordi.filter((b) => b > lo_mm && b < hi_mm).flatMap((b) => [b, b + 1]), hi_mm];
+  const possibili = [...new Set(punti.map((p) => classeInSoglie(p, c.classi, "mm")))];
+  if (possibili.length === 1) return { stato: "soggetta", classe: possibili[0], motivo: `altezza antincendi [${lo_mm}, ${hi_mm}] mm (DPR 151/2011 n. 77)` };
+  return { stato: "soggetta_classe_incerta", classi_possibili: possibili, motivo: `intervallo [${lo_mm}, ${hi_mm}] mm (DPR 151/2011 n. 77)` };
 }
 
 // Altre attivita' DPR 151/2011 dichiarate: { descrizione, categoria_dpr151: "74"|"49"|"75", potenza_kw, superficie_m2 }
@@ -98,7 +168,7 @@ export function classificaAttivitaDPR(a = {}) {
   return { ...base, stato: "non_classificata", motivo: "indicare la categoria DPR 151/2011 (74, 49 o 75); altre categorie non ancora codificate" };
 }
 
-// Valutazione completa. input: { quote: {...} , attivita: [...] , piano_esterno_accessibile_mezzi_vvf, ... }
+// Valutazione completa. input: { altezza: { fonti | quote, piano_esterno_accessibile_mezzi_vvf, ... }, attivita: [...] }
 export function valutaCivileAbitazione(input = {}) {
   const alt = altezzaAntincendi(input.altezza ?? {});
   if (alt.errore) return { esito: "ERRORE", errore: alt.errore };
@@ -107,17 +177,20 @@ export function valutaCivileAbitazione(input = {}) {
     versione_regole: R.versione_regole,
     stato_regole: R.stato,
     avvertenza: "Strumento di supporto al professionista. Non attesta la conformita' antincendio e non sostituisce la valutazione di un tecnico abilitato.",
-    altezza: { h_mm: alt.h_mm, stato: alt.stato, avvisi: alt.avvisi },
+    altezza: { h_mm: alt.h_mm, h_min_mm: alt.h_min_mm, h_max_mm: alt.h_max_mm, stato: alt.stato, fonti: alt.fonti ?? [], conflitti: alt.conflitti ?? [], avvisi: alt.avvisi },
     riferimenti,
     stato_dpr151: R.dpr151.stato,
-    categoria_attivita_77: categoriaAttivita77(alt.h_mm),
+    categoria_attivita_77: categoriaAttivita77(alt.h_min_mm, alt.h_max_mm),
     altre_attivita: (input.attivita ?? []).map(classificaAttivitaDPR),
     percorso_codice_v14: "non_calcolato: fuori dalla v1",
   };
-  if (alt.esito === "INDETERMINATO") return { ...base, esito: "INDETERMINATO", dati_mancanti: alt.mancanti, lp_finale: null };
-  const cls = classificaTipo(alt.h_mm);
+  if (alt.esito === "INDETERMINATO") {
+    return { ...base, esito: "INDETERMINATO", motivo: alt.motivo, soglia_mm: alt.soglia_mm, dati_mancanti: alt.mancanti.length ? alt.mancanti : [alt.azione].filter(Boolean), azione: alt.azione, lp_finale: null };
+  }
+  const lo = alt.h_min_mm;
+  const cls = classificaTipo(lo);
   if (cls.fuori_campo) return { ...base, esito: "FUORI_CAMPO", tipo: null, lp_finale: null, dati_mancanti: [], avvisi: [...alt.avvisi], nota: "h sotto 12 m: DM 246/1987 non applicabile (verificare altre attivita' soggette)." };
-  const inc = incrementoAttivita(alt.h_mm, input.attivita ?? []);
+  const inc = incrementoAttivita(lo, input.attivita ?? []);
   const lpBase = cls.lp_base;
   const conIncremento = Math.min(lpBase + (inc.stato === "applicato" || inc.stato === "da_verificare" ? R.incremento.passi : 0), R.incremento.tetto_lp);
   const scenari = inc.stato === "da_verificare" ? { senza_incremento: lpBase, con_incremento: conIncremento } : null;

@@ -130,6 +130,67 @@ test("altre attivita' 75: soglia 300 m2, classe di dettaglio non ancora codifica
   assert.equal(classificaAttivitaDPR({ descrizione: "deposito" }).stato, "non_classificata");
 });
 
+// Fonti a intervallo: fusione conservativa, conflitti e soglie
+const fontiAlt = (...f) => ({ altezza: { fonti: f, piano_esterno_accessibile_mezzi_vvf: true, vani_tecnici_esclusi: true } });
+
+test("F1 pratica 30,00 m e LiDAR [29,70; 30,30]: fusione su intervallo, DETERMINATO tipo b", () => {
+  const r = valutaCivileAbitazione(fontiAlt({ fonte: "pratica", h_mm: 30000 }, { fonte: "LiDAR", min_mm: 29700, max_mm: 30300 }));
+  assert.equal(r.esito, "DETERMINATO");
+  assert.equal(r.tipo, "b");
+  assert.equal(r.altezza.h_min_mm, 29700);
+  assert.equal(r.altezza.h_max_mm, 30300);
+  assert.equal(r.altezza.h_mm, null);
+});
+
+test("F2 LiDAR [23,60; 24,40] attraversa 24 m: INDETERMINATO, soglia e azione richiesta", () => {
+  const r = valutaCivileAbitazione(fontiAlt({ fonte: "LiDAR", min_mm: 23600, max_mm: 24400 }));
+  assert.equal(r.esito, "INDETERMINATO");
+  assert.equal(r.motivo, "soglia_attraversata");
+  assert.equal(r.soglia_mm, 24000);
+  assert.ok(r.azione.includes("rilievo"));
+  assert.equal(r.lp_finale, null);
+});
+
+test("F3 pratica 30,00 m e LiDAR [25,00; 25,40]: conflitto oltre 500 mm, INDETERMINATO", () => {
+  const r = valutaCivileAbitazione(fontiAlt({ fonte: "pratica", h_mm: 30000 }, { fonte: "LiDAR", min_mm: 25000, max_mm: 25400 }));
+  assert.equal(r.esito, "INDETERMINATO");
+  assert.equal(r.motivo, "conflitto");
+  assert.equal(r.altezza.conflitti.length, 1);
+});
+
+test("F4 intervallo a 250 mm dalla soglia 32 m: INDETERMINATO per soglia vicina", () => {
+  const r = valutaCivileAbitazione(fontiAlt({ fonte: "LiDAR", min_mm: 31750, max_mm: 31900 }));
+  assert.equal(r.esito, "INDETERMINATO");
+  assert.equal(r.motivo, "soglia_vicina");
+  assert.equal(r.soglia_mm, 32000);
+});
+
+test("F5 intervallo lontano dalle soglie [26,00; 28,00]: DETERMINATO tipo b", () => {
+  const r = valutaCivileAbitazione(fontiAlt({ fonte: "LiDAR", min_mm: 26000, max_mm: 28000 }));
+  assert.equal(r.esito, "DETERMINATO");
+  assert.equal(r.tipo, "b");
+});
+
+test("F6 fonte stimata: risultato provvisorio anche su intervallo", () => {
+  const r = valutaCivileAbitazione(fontiAlt({ fonte: "LiDAR", min_mm: 26000, max_mm: 28000, stato: "stimato" }));
+  assert.equal(r.altezza.stato, "stimato");
+  assert.ok(r.altezza.avvisi.some((a) => a.testo.includes("PROVVISORIO")));
+});
+
+test("F7 attivita 77 su intervallo [31,00; 33,00]: classi possibili A e B", () => {
+  const r = valutaCivileAbitazione(fontiAlt({ fonte: "LiDAR", min_mm: 31000, max_mm: 33000 }));
+  assert.equal(r.esito, "INDETERMINATO");
+  assert.equal(r.categoria_attivita_77.stato, "soggetta_classe_incerta");
+  assert.deepEqual(r.categoria_attivita_77.classi_possibili, ["A", "B"]);
+});
+
+test("F8 fonte non valida (min > max) produce ERRORE, nessuna fonte produce INDETERMINATO", () => {
+  assert.equal(valutaCivileAbitazione(fontiAlt({ fonte: "errata", min_mm: 30000, max_mm: 29000 })).esito, "ERRORE");
+  const r = valutaCivileAbitazione({ altezza: { fonti: [] } });
+  assert.equal(r.esito, "INDETERMINATO");
+  assert.equal(r.motivo, "nessuna_fonte");
+});
+
 test("dato mancante: quota assente -> INDETERMINATO con elenco, mai un 'no'", () => {
   const r = valutaCivileAbitazione({ altezza: { quota_apertura_mm: 30000, piano_esterno_accessibile_mezzi_vvf: true } });
   assert.equal(r.esito, "INDETERMINATO");
