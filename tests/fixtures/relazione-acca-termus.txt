@@ -1,0 +1,352 @@
+Comune di ROMA 
+Provincia di ROMA 
+RELAZIONE TECNICA 
+di cui al c. 1 dell’art. 8 del decreto legislativo 19 agosto 2005, n. 
+192, attestante la rispondenza alle prescrizioni in materia di 
+contenimento del consumo energetico degli edifici 
+OGGETTO: Costruzione di un fabbricato con tre appartamenti 
+TITOLO EDILIZIO: Permesso di costruire n. 123/111 del 03/04/2017 
+COMMITTENTE: Sig. Raffaele Bianchi 
+R
+oma, lì 13 ottobre 2017 
+Il Tecnico 
+_____________________________________ 
+SPAZIO RISERVATO ALL’U.T.C. 
+Per convalida di avvenuto deposito: 
+Protocollo N. …………………..  del ……………………..  
+ TIMBRO E FIRMA 
+TerMus by Guido Cianciulli - Copyright ACCA software S.p.A.
+
+"EOdC - Piano Rialzato" 
+RELAZIONE TECNICA 
+ 
+RELAZIONE TECNICA DI CUI AL COMMA 1 DELL’ARTICOLO 8 DEL DECRETO 
+LEGISLATIVO 19 AGOSTO 2005, N. 192, ATTESTANTE LA RISPONDENZA ALLE 
+PRESCRIZIONI IN MATERIA DI CONTENIMENTO DEL CONSUMO ENERGETICO DEGLI 
+EDIFICI 
+ 
+ 
+PROGETTO PER LA REALIZZAZIONE DI 
+edifici di nuova costruzione 
+ 
+ 
+ 
+1. INFORMAZIONI GENERALI 
+Comune di ROMA Provincia ROMA 
+Edificio pubblico NO 
+Edificio a uso pubblico NO 
+Sito in Via del Gelsomino  
+Mappale: - 
+Sezione: - 
+Foglio: 47 
+Particella: 495 
+Subalterni: 3 
+Richiesta Permesso di Costruire n. R123/11, del 03/02/2017 
+Permesso di Costruire n. 123/111, del 03/04/2017 
+Classificazione dell'edificio in base alla categoria di cui al punto 1.2 dell’ allegato 1 del decreto di cui 
+all’art. 4, comma 1 del Dlgs 192/2005, diviso per zone: 
+- Zona Termica "Appartamento Piano Rialzato": E1 (1) 
+Numero delle unità immobiliari: 3 
+Committente: Sig. Raffaele Bianchi (Amm.re) 
+Progettista degli impianti di climatizzazione (invernale ed estiva), dell'isolamento termico e del sistema 
+di ricambio dell'aria dell'edificio: Rossi Ing. Carlo, Verdi Ing. Mario 
+Direttore dei lavori degli impianti di climatizzazione (invernale ed estiva), dell'isolamento termico e del 
+sistema di ricambio dell'aria dell'edificio: Rossi Ing. Carlo, Verdi Ing. Mario 
+Progettista dei sistemi di illuminazione dell'edificio: Bianchi Ing. Fausto 
+Direttore dei lavori dei sistemi di illuminazione dell'edificio: Bianchi Ing. Fausto 
+Tecnico incaricato per la redazione dell'Attestato di Prestazione Energetica (APE): Arch. Gialli 
+Francesco 
+2. FATTORI TIPOLOGICI DELL'EDIFICIO (O DEL COMPLESSO DI EDIFICI) 
+Gli elementi tipologici da fornire, al solo scopo di supportare la presente relazione tecnica, sono i 
+seguenti (punto 8): 
+- piante di ciascun piano degli edifici con orientamento e indicazione d'uso prevalente dei singoli 
+locali e definizione degli elementi costruttivi 
+- prospetti e sezioni degli edifici con evidenziazione dei sistemi fissi di protezione solare e definizione 
+degli elementi costruttivi 
+- elaborati grafici relativi ad eventuali sistemi solari passivi specificatamente progettati per favorire 
+lo sfruttamento degli apporti solari 
+3. PARAMETRI CLIMATICI DELLA LOCALITÀ 
+Gradi Giorno (della zona d'insediamento, determinati in base al D.P.R. 412/93): 1415 GG 
+Temperatura minima di progetto (dell'aria esterna, secondo norma UNI 5364 e successivi 
+aggiornamenti): 0.00 °C 
+Temperatura massima estiva di progetto (dell'aria esterna, secondo norma UNI 5364): 34.00 °C 
+4. DATI TECNICI E COSTRUTTIVI DELL'EDIFICIO (O DEL COMPLESSO DI EDIFICI) 
+E DELLE RELATIVE STRUTTURE 
+Climatizzazione invernale 
+Volume delle parti di edificio abitabili al lordo delle strutture che li delimitano (V) 385.36 m3 
+Superficie disperdente che delimita il volume riscaldato (S) 242.26 m2 
+Rapporto S/V (fattore di forma) 0.63 m-1 
+Superficie utile riscaldata dell'edificio 92.80 m2 
+Zona Termica "Appartamento Piano Rialzato": 
+Valore di progetto della temperatura interna invernale 20.00 °C 
+Valore di progetto dell'umidità relativa interna invernale 50 % 
+Presenza sistema di contabilizzazione del calore NO 
+Climatizzazione estiva 
+Volume delle parti di edificio abitabili, al lordo delle strutture che lo delimitano (V) 385.36 m3 
+Superficie disperdente che delimita il volume condizionato (S) 242.26 m2 
+Superficie utile condizionata dell'edificio 92.80 m2 
+Zona Termica "Appartamento Piano Rialzato" 
+Valore di progetto della temperatura interna estiva 26.00 °C 
+Valore di progetto dell'umidità relativa interna estiva 50 % 
+Presenza sistema di contabilizzazione del freddo NO 
+Informazioni generali e prescrizioni 
+Presenza di reti di teleriscaldamento/raffreddamento a meno di 1000 m NO 
+Livello di automazione per il controllo la regolazione e la gestione delle tecnologie dell’ edificio e degli 
+impianti termici (BACS): CLASSE D - Sistema non efficiente (min = classe B - UNI EN 15232) 
+ Adozione di materiali ad elevata riflettenza solare per le coperture NO 
+ Valore di riflettenza solare coperture piane = 0.00 (> 0.65 per le coperture piane) 
+ Valore di riflettenza solare coperture a falda = 0.00 (> 0.30 per le coperture a falda) 
+Adozione di tecnologie di climatizzazione passiva per le coperture NO  
+Adozione di misuratori d’energia (Energy Meter)  NO   
+Adozione di sistemi di contabilizzazione diretta del calore NO 
+Adozione di sistemi di contabilizzazione diretta del freddo NO 
+Adozione di sistemi di contabilizzazione diretta dell’A.C.S. NO  
+Utilizzazione di fonti di energia rinnovabili per la copertura dei consumi di calore, di elettricità e per il 
+raffrescamento secondo i principi minimi di integrazione, le modalità e le decorrenze di cui all’allegato 
+3, del decreto legislativo 3 marzo 2011, n. 28.  
+Produzione di energia termica 
+Indicare la % di copertura tramite il ricorso ad energia prodotta da impianti alimentati da fonti 
+rinnovabili, dei consumi previsti per: 
+- acqua calda sanitaria:97.13% 
+- acqua calda sanitaria, climatizzazione invernale, climatizzazione estiva:84.60 % 
+Produzione di energia elettrica 
+Indicare la potenza elettrica degli impianti alimentati da fonti rinnovabili: 
+- superficie in pianta dell'edificio a livello del terreno S: 116.00 m2 
+- potenza elettrica P=(1/K)*S: 2.32 kW 
+Descrizione e potenza degli impianti alimentati da fonti rinnovabili: 
+Fotovoltaico 0.80 kW 
+Adozione sistemi di regolazione automatica della temperatura ambiente singoli locali o nelle zone 
+termiche servite da impianti di climatizzazione invernale  NO  
+Adozione sistemi di compensazione climatica nella regolazione automatica della temperatura 
+ambiente singoli locali o nelle zone termiche servite da impianti di climatizzazione invernale NO 
+Valutazione sull’efficacia dei sistemi schermanti delle superfici vetrate sia esterni che interni presenti:  
+Verifiche di cui alla lettera b) del punto 3.3.4 del decreto di cui all ’articolo 4, comma 1 del decreto 
+legislativo 192/2005. Il dettaglio delle singole pareti è contenuto nelle schede tecniche. 
+Tutte le pareti opache verticali ad eccezione di quelle comprese nel quadrante 
+nord-ovest/nord/nord-est: Verificato 
+valore della massa superficiale parete MS > 230 kg/m2 
+valore del modulo della trasmittanza termica periodica  YIE < 0,10 W/m2K 
+Tutte le pareti opache orizzontali e inclinate: Non richiesto 
+valore del modulo della trasmittanza termica periodica YIE = < 0,18 W/m2K 
+ 
+5. DATI RELATIVI AGLI IMPIANTI 
+5.1 Impianti termici 
+Impianto tecnologico destinato ai servizi di clim atizzazione invernale e/o estiva e/o produzione di 
+acqua calda sanitaria, indipendentemente dal vettore energetico utilizzato. 
+a) Descrizione impianto 
+- Tipologia: Impianto combinato per riscaldamento e raffrescamento con distribuzione ad acqua 
+- Sistemi di generazione: Pompa di Calore invertibile aria/acqua ad alimentazione elettrica -  Prod. 
+IMMERGAS Mod. Magis PRO 8 KW 
+- Sistemi di termoregolazione: Regolatori di zona più climatica 
+- Sistemi di contabilizzazione dell'energia termica: Assenti 
+- Sistemi di distribuzione del vettore termico: Sistema di distribuzione idraulico. Descrizione del 
+metodo di calcolo: UNI/TS 11300- 2 - Prospetti 21-23. Tipo di impianto: Impianto autonomo con 
+generatore unifamiliare in edificio condominiale. Tipo distribuzion e: a piano intermedio. 
+Isolamento distribuzione orizzontale: Isolamento conforme alle prescrizioni del DPR 412/93. 
+Altezza: 3 piani. Temperatura di mandata di progetto [°C]: 50. Temperatura di ritorno di 
+progetto [°C]: 30. Sistema di distribuzione idraulico. 
+- Sistemi di ventilazione forzata: Assente 
+- Sistemi di accumulo termico: Assente 
+- Sistema di produzione e di distribuzione dell'acqua calda sanitaria: Sistema di distribuzione 
+idraulico dedicato. Descrizione del metodo di calcolo: UNI/TS 11300 -2 - Prospetto 34. Sistemi 
+installati dopo l'entrata in vigore della legge 373/76. Trattamento di condizionamento chimico 
+per l'acqua, norma UNI 8065: NO 
+Durezza dell'acqua di alimentazione dei generatori di calore per potenza installata maggiore o 
+uguale a 100 kW: 0.00 gradi francesi 
+Filtro di sicurezza: NO 
+b) Specifiche dei generatori di energia a servizio dell'EOdC 
+Installazione di un contatore del volume di acqua calda sanitaria: NO 
+Installazione di un contatore del volume di acqua di reintegro dell'impianto: NO 
+Impianto "Riscaldamento e raffrescamento" 
+Servizio svolto: Climatizzazione Invernale/Estiva 
+Elenco dei generatori:   
+- Pompa di calore elettrica 
+Tipo di pompa di calore: Aria - Acqua 
+Potenza termica utile di riscaldamento: 7.71 kW 
+Potenza elettrica assorbita: 1.89 kW 
+Coefficiente di prestazione (COP): 4.08 
+Indice di efficienza energetica (EER): 3.77 
+Impianto "Sanitario" 
+Servizio svolto: ACS centralizzato 
+Elenco dei generatori:   
+- Pompa di calore elettrica 
+Tipo di pompa di calore: Aria - Acqua 
+Potenza termica utile di riscaldamento: 1.65 kW 
+Potenza elettrica assorbita: 0.39 kW 
+Coefficiente di prestazione (COP): 4.21 
+ 
+c) Specifiche relative ai sistemi di regolazione dell'impianto termico 
+Tipo di conduzione invernale prevista: Continua con attenuazione notturna 
+Tipo di conduzione estiva prevista: Intermittente 
+Sistema di gestione dell'impianto termico:  
+Sistema di regolazione climatica in centrale termica (solo per impianti centralizzati) 
+- centralina climatica: Centralina climatica che regola la temperatura di mandata in funzione 
+della temperatura esterna e della velocità del vento 
+- numero di livelli di programmazione della temperatura nelle 24 ore: 0.00 
+Regolatori climatici e dispositivi per la regolazione automatica della temperatura ambiente nei 
+singoli locali o nelle singole zone o unità immobiliari 
+Zona Termica "Appartamento Piano Rialzato" 
+Sistema di regolazione 
+- tipo di regolazione: Zona più climatica 
+- caratteristiche della regolazione: Proporzionale 1 °C 
+Numero di apparecchi: 0.00 
+Descrizione sintetica delle funzioni:  
+Numero dei livelli di programmazione della temperatura nelle 24 ore: 0.00 
+d) Dispositivi per la contabilizzazione del calore/freddo nelle singole unità immobiliari (solo 
+per impianti centralizzati) 
+Numero di apparecchi: 0.00 
+Descrizione sintetica del dispositivo:  
+e) Terminali di erogazione dell'energia termica 
+Il numero di apparecchi: 7 
+Il tipo e la potenza termica nominale sono elencati per zona termica: 
+ 
+IMPIANTO "Riscaldamento e raffrescamento" AD ACQUA 
+Zona Termica "Appartamento Piano Rialzato": 
+• Tipo terminale: Pannelli annegati a pavimento. 
+• Potenza termica nominale: 3 600 W. 
+• Potenza frigorifera nominale: 3 600 W. 
+• Potenza elettrica nominale: 0 W. 
+ 
+f) Condotti di evacuazione dei prodotti della combustione 
+Descrizione e caratteristiche principali: Condotti metallici circolari, con camino in calcestruzzo a 
+camino singolo 
+Norma di dimensionamento: UNI 9615  
+g) Sistemi di trattamento dell'acqua 
+Descrizione e caratteristiche principali: Trattamento dell'acqua conforme alla UNI 8065, mediante 
+condizionamento chimico con ammine alifatiche filmanti, di composizione compatibile con la 
+legislazione sulle acque di scarico 
+h) Specifiche dell'isolamento termico della rete di distribuzione 
+Non dichiarate. 
+i) Schemi funzionali degli impianti termici 
+Allegati alla presente relazione, gli schemi unifilari degli impianti termici con specificato: 
+ - il posizionamento e le potenze dei terminali di erogazione; 
+ - il posizionamento e tipo di generatori; 
+ - il posizionamento e tipo degli elementi di distribuzione; 
+ - il posizionamento e tipo degli elementi di controllo; 
+ - il posizionamento e tipo degli elementi di sicurezza. 
+5.2 Impianti fotovoltaici 
+Descrizione con caratteristiche tecniche e schemi funzionali in allegato 
+5.3 Impianti solari termici 
+Descrizione con caratteristiche tecniche e schemi funzionali in allegato 
+5.4 Impianti di illuminazione 
+Descrizione con caratteristiche tecniche e schemi funzionali in allegato 
+5.5 Altri impianti 
+Livello minimio di efficienza dei motori elettrici per ascensori e scale mobili: 
+6. PRINCIPALI RISULTATI DEI CALCOLI 
+Edificio a energia quasi zero: NO 
+a) Involucro edilizio e ricambi d'aria 
+Nelle schede tecniche allegate sono riportati: 
+• trasmittanza termica (U) degli elementi divisori tra alloggi o unità immobiliari confinanti di pareti 
+verticali e solai, confrontando con il valore limite pari a 0,8 W/m2K 
+• verifica termoigrometrica 
+Per ogni zona termica: 
+Zona Termica "Appartamento Piano Rialzato" 
+Numero di ricambi d'aria (media nelle 24 ore): 0.30 vol/h 
+ Portata d'aria di ricambio (G) nei casi di ventilazione meccanica controllata: 0 m3/h 
+Portata dell'aria circolante attraverso apparecchiature di recupero del calore disperso 
+- portata immessa: 0 m3/h 
+- portata estratta: 0 m3/h 
+Efficienza delle apparecchiature di recupero del calore disperso: 0 
+b) Indici di prestazione energetica per la climatizzazione invernale ed estiva, per la 
+produzione di acqua calda sanitaria, per la ventilazione e l'illuminazione 
+Coefficiente medio globale di scambio termico per trasmissione per unità di superficie disperdente 
+H'T 0.32 W/m2K   
+H'T,lim 0.58 W/m2K VERIFICATA 
+Area solare equivalente estiva dei componenti finestrati 
+Asol,est /Asup,utile 0.01 
+(Asol,est /Asup,utile)lim 0.03 VERIFICATA 
+Indice di prestazione termica utile per la climatizzazione invernale dell'edificio 
+EPH,nd 12.15 kWh/m2 
+EPH,nd,lim 12.38 kWh/m2 VERIFICATA 
+Indice di prestazione termica utile per la climatizzazione estiva dell'edificio 
+EPC,nd 18.58 kWh/m2 
+EPC,nd,lim 19.22 kWh/m2 VERIFICATA 
+Indice di prestazione energetica globale dell'edificio (energia primaria) 
+EPgl,tot 41.01 kWh/m2 
+EPgl,tot,lim 65.38 kWh/m2 VERIFICATA 
+Efficienza media stagionale dell'impianto di riscaldamento 
+ηH  0.96 
+ηH,lim 0.59 VERIFICATA 
+Efficienza media stagionale dell'impianto di produzione dell'acqua calda sanitaria 
+ηW 0.91 
+ηW,lim 0.59 VERIFICATA 
+Efficienza media stagionale dell'impianto di raffrescamento 
+ηC  1.50 
+ηC,lim 0.98 VERIFICATA 
+c) Impianti solari termici per la produzione di acqua calda sanitaria 
+- tipo collettore: Assente 
+- tipo installazione: - 
+- tipo supporto: - 
+- inclinazione: - e orientamento: - 
+- capacità accumulo scambiatore: - l 
+- impianto integrazione (specificare tipo e alimentazione): Assente 
+Potenza installata: 0.00 m2 
+Percentuale di copertura del fabbisogno annuo: 0.00 % 
+d) Impianti fotovoltaici 
+- connessione impianto: Grid connect 
+- tipo moduli: Silicio multi-cristallino 
+- tipo installazione: Integrati 
+- tipo supporto: Supporto metallico 
+- inclinazione: 33.00 ° e orientamento: SUD 
+Potenza installata: 0.80 kW 
+Percentuale di copertura del fabbisogno annuo: 77.82 % 
+e) Consuntivo energia 
+• Energia consegnata o fornita (Edel): 1 846.86 kWh/anno 
+• Energia rinnovabile (EPgl,ren): 34.70 kWh/m2 anno 
+• Energia esportata: 274.21 kWh 
+• Energia rinnovabile in situ: 282.86 kWh/anno 
+• Fabbisogno globale di energia primaria (EPgl,tot): 41.01 kWh/m2 anno 
+f) Valutazione della fattibilità  tecnica, ambientale ed economica per l'inserimento di 
+sistemi ad alta efficienza 
+Schede in allegato 
+ 
+7. ELEMENTI SPECIFICI CHE MOTIVANO EVENTUALI DEROGHE A NORME FISSATE 
+DALLA NORMATIVA VIGENTE 
+Non si è fatto ricorso ad alcuna deroga.  
+8. DOCUMENTAZIONE ALLEGATA (obbligatoria) 
+• N. 3 piante di ciascun piano degli edifici con orientamento e indicazione d'uso prevalente dei 
+singoli locali e definizione degli elementi costruttivi 
+• N. 6 prospetti e sezioni degli edifici con evidenziazione dei sistemi fissi di protezione solare e 
+definizione degli elementi costruttivi 
+• N. 0 elaborati grafici relativi ad eventuali sistemi solari passivi specificatamente progettati per 
+favorire lo sfruttamento degli apporti solari 
+• N. 1 schemi funzionali degli impianti contenenti gli elementi di cui all'analoga voce del paragrafo 
+"Dati relativi agli impianti, punto 5.1, lettera i e dei punti 5.2, 5.3, 5.4 e 5.5" 
+• N. 9 tabelle con indicazione delle caratteristiche termiche, termoigrometr iche e della massa 
+efficace dei componenti opachi dell'involucro edilizio con verifica dell'assenza di rischio di 
+formazione di muffe e di condensazioni interstiziali 
+• N. 3 tabelle con indicazione delle caratteristiche termiche dei componenti finestrati d ell'involucro 
+edilizio e della loro permeabilità all'aria 
+• N. 0 schede con indicazione della valutazione della fattibilità tecnica, ambientale ed economica per 
+l'inserimento di sistemi alternativi ad alta efficienza 
+ 
+9. DICHIARAZIONE DI RISPONDENZA 
+Il sottoscritto Rossi Ing. Carlo, iscritto all'Ordine degli Ingegneri di Roma, essendo a conoscenza delle 
+sanzioni previste dall'articolo 15, commi 1 e 2, del D.Lgs. 192/05 e s.m.i. (recepimento della Direttiva 
+2002/91/CE), 
+dichiara sotto la propria personale responsabilità che: 
+a) il progetto relativo alle opere di cui sopra è rispondente alle prescrizioni contenute nel D.Lgs. 
+192/05 nonché dal decreto di cui all'articolo 4, comma 1 del decreto legislativo 192/2005; 
+b) il progetto relativo alle opere di cu i sopra rispetta gli obblighi di integrazione delle fonti rinnovabili 
+secondo i principi minimi e le decorrenze di cui all'allegato 3, paragrafo 1, lettera c, del decreto 
+legislativo 3 marzo 2011, n. 28; 
+c) i dati e le informazioni contenuti nella relazion e tecnica sono conformi a quanto contenuto o 
+desumibile dagli elaborati progettuali. 
+ 
+DICHIARAZIONE SOSTITUTIVA DI ATTO NOTORIO 
+Ai sensi dell ’art.15, comma 1 del D.Lgs. 192/2005 come modificato dall ’art.12 del D.L. 63/2013 
+(convertito in legge con L.90/2013), la presente RELAZIONE TECNICA è resa, dal sottoscritto, in forma 
+di dichiarazione sostitutiva di atto notorio ai sensi dell’art.47 del D.P.R. 445/2000. 
+Si allega copia fotostatica del documento di identità. 
+ 
+ 
+Data 
+Roma, lì 13 ottobre 2017 
+ 
+Firma 
+ 
+ 
+_____________________________________ 
+ 
+ 
+ 

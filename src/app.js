@@ -18,7 +18,8 @@ import { montaHud } from "./ui/hud.js";
 import { rapportoAntincendio } from "./core/antincendio.js";
 import { apriScheda } from "./ui/scheda.js";
 import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
-import { calcolaGSA, ORIENTAMENTI } from "./core/gsa.js";
+import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js";
+import { montaScheda } from "./ui/energia-ui.js";
 
 let hud = null;
 
@@ -137,7 +138,7 @@ function renderGSA() {
     return d;
   };
   riga(`Vani vetrati: ${r.righe.length} • area vetro ${fmt(r.areaVetroTotale_m2)} m²`);
-  riga(`Asol totale: ${fmt(r.asolTotale_m2)} m²`, "ok");
+  riga(`Asol semplificato (stima, non di legge): ${fmt(r.asolTotale_m2)} m²`, "ok");
 
   // orientamento di ogni muro con vani vetrati
   const muri = [...new Set(r.righe.map((x) => x.muro))];
@@ -173,6 +174,24 @@ function renderGSA() {
     riga(`${x.vano} · ${x.materiale} · ${fmt(x.area_m2)} m² · g ${String(x.g).replace(".", ",")} · Asol ${fmt(x.asol_m2)} m² · ${x.orientamento ?? "orientamento da indicare"}`);
   }
 
+  // Asol,est secondo DM 26/06/2015 (verifica di legge): serve ggl+sh con schermo in uso e la frazione telaio FF
+  const par2 = document.createElement("div");
+  par2.className = "riga-azioni";
+  par2.innerHTML = `<label>ggl+sh <input id="gsa-gglsh" type="number" step="0.01" min="0" max="1" value="${stato.gsaGglsh ?? ""}" style="width:70px"></label>
+    <label>FF telaio <input id="gsa-ff-telaio" type="number" step="0.05" min="0" max="0.99" value="${stato.gsaFfTelaio ?? 0.2}" style="width:70px"></label>`;
+  box.appendChild(par2);
+  par2.querySelector("#gsa-gglsh").onchange = (e) => { stato.gsaGglsh = e.target.value === "" ? null : Number(e.target.value); renderGSA(); };
+  par2.querySelector("#gsa-ff-telaio").onchange = (e) => { stato.gsaFfTelaio = Number(e.target.value); renderGSA(); };
+  const asupUtile_m2 = stanze(stato.progetto.walls).reduce((s, x) => s + x.superficieMm2, 0) / 1e6;
+  const a = calcolaAsolEst(
+    r.righe.map((x) => ({ id: x.vano, orientamento: x.orientamento, Aw_m2: x.area_m2, FF: stato.gsaFfTelaio ?? 0.2, gglsh: stato.gsaGglsh ?? null })),
+    { asupUtile_m2 },
+  );
+  const esito = a.verifica === null ? "" : a.verifica ? " • VERIFICATO" : " • NON VERIFICATO";
+  riga(`Asol,est (DM 26/06/2015): ${fmt(a.asolEst_m2)} m² • Asup utile ${fmt(asupUtile_m2)} m² • rapporto ${a.rapporto === null ? "—" : a.rapporto.toFixed(4).replace(".", ",")} (limite < ${a.limite.toFixed(3).replace(".", ",")})${esito}`, a.verifica ? "ok" : "avviso");
+  if (!a.completo) riga(`Asol,est incompleto, mancano: ${a.mancanti.join("; ")}`, "avviso");
+  riga("Asup utile = somma delle stanze chiuse (stima). Fsh,ob = 1 se non indicato. Fsol,est derivato da PVGIS per Roma, non dalla tabella UNI/TS 11300-1.");
+
   // dati mancanti per completare il calcolo
   riga("Dati mancanti per il calcolo completo:", "avviso");
   for (const m of [...r.mancanti, ...r.datiMancanti]) riga(`• ${m}`);
@@ -181,6 +200,7 @@ function renderGSA() {
 function ricostruisci() {
   const p = stato.progetto;
   renderGSA();
+  stato.energia?.aggiorna();
   aggiornaMisureVista();
   if (stato.vista2d) aggiornaVista2d();
   const check = verificaProgetto(p);
@@ -533,6 +553,13 @@ async function init() {
   stato.catalogo = catalogo;
   stato.arrediEsempio = arredi.arredi;
   costruisciPannello();
+  stato.energia = montaScheda($("sez-energia"), {
+    getRigheGSA: () => calcolaGSA(stato.progetto, {
+      orientamenti: stato.orientamenti ?? {},
+      Fsh: stato.gsaFsh ?? 1,
+      Ff: stato.gsaFf ?? 0.8,
+    }).righe,
+  });
   $("stile").onchange = (e) => stato.viewer.setStile(e.target.value);
   const q = document.createElement("div");
   q.innerHTML = `<div style="margin-top:8px;">Qualità di resa:

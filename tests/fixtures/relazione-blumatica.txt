@@ -1,0 +1,1164 @@
+ 
+ 
+ 
+RELAZIONE TECNICA 
+Ai sensi dell’Art. 28 della  
+LEGGE 9 GENNAIO 1991, N. 10 
+      
+ 
+ 
+   
+ 
+ 
+ 
+     Area geografica 
+Regione Lazio 
+Provincia di Roma 
+Comune di ROMA 
+ 
+   
+ 
+Ubicazione intervento 
+Via Trento, 12 
+ 
+ 
+  
+  
+  
+  
+  
+    
+     
+ Proprietà    
+ Rossi Mario 
+  
+ 
+ 
+ 
+ 
+ 
+    
+ Progettista   
+ Ing. Bianchi Luca   
+    
+ Costruttore   
+ Tecnoedil 
+   
+    
+ Tecnico   
+ Ing. Trotta Paolo 
+   
+  
+Revisione n° 0  
+ 
+    
+  
+ 
+ 
+ 
+Data elaborazione: 17/11/2017 
+ 
+ 
+ 
+ 
+ 
+RELAZIONE TECNICA DI CUI AL COMMA 1 DELL’ARTICOLO 8 DEL DECRETO 
+LEGISLATIVO 19 AGOSTO 2005 E DM 26 GIUGNO 2015, ATTESTANTE LA 
+RISPONDENZA ALLE PRESCRIZIONI IN MATERIA DI CONTENIMENTO DEL 
+CONSUMO ENERGETICO DEGLI EDIFICI 
+ 
+ 
+X 
+ 
+ 
+NUOVA COSTRUZIONE 
+ 
+Edifici di nuova costruzione o oggetto di demolizione e ricostruzione 
+ 
+1.0 DESCRIZIONE DELL'OPERA 
+Nessuna descrizione 
+ 
+L'opera oggetto del presente intervento è ubicata in via Via Trento, n.° 12, del Comune di ROMA, Provincia di 
+Roma. 
+ 
+Dati catastali: 
+Sezione:  
+Foglio: 123 
+Particella/Mappale: 1432 
+Subalterno: 142 
+ 
+1.1 TITOLO ABILITATIVO 
+Titolo abilitativo: Concessione Edilizia, n.° 123 del 10/11/2017 
+ 
+Classificazione dell'edificio (o complesso di edifici) in base alla categoria di cui all'articolo 3 del DPR 26 agosto 
+1993, n. 412 ed alla definizione di "edificio" del presente provvedimento: 
+Numero delle unità immobiliari: 1 Destinazione d'uso prevalente: E.1.1 
+ 
+Dettaglio delle destinazioni d'uso previste per nel progetto corrente: 
+DENOMINAZIONE ZONA TERMICA DESTINAZIONE D'USO 
+DPR 419/93 
+VOLUME 
+m³ 
+Zona Termica 1 - Piano terra E.1.1 358,56 
+Zona Termica 2 - Piano Primo E.1.1 318,84 
+ 
+1.2 SOGGETTI COINVOLTI 
+[ X  ] Committente/i :  Tipologia Persona fisica 
+Cognome e Nome / Denominazione Rossi Mario 
+Indirizzo Via Roma 
+Cap 00100 
+Città ROMA 
+Provincia RM 
+ 
+ 
+[ X  ] Costruttore/i :  Denominazione Tecnoedil 
+ 
+ 
+[ X  ] Progettista/i :  Denominazione Ing. Nervi Luca 
+ 
+ 
+[ X  ] Direttore/i :  
+ 
+Denominazione Ing. Nervi Luca 
+ 
+ 
+2. FATTORI TIPOLOGICI DELL'EDIFICIO (O DEL COMPLESSO DI EDIFICI) 
+ 
+Gli elementi tipologici sono indicati al punto 8. della presente relazione tecnica. 
+ 
+ 
+2.1 EDIFICIO A ENERGIA QUASI ZERO (NZEB) 
+Le caratteristiche del sistema edificio/i mpianti sono tali da poter classificare l'edificio come edificio ad energia 
+quasi zero: 
+[ X  ]  Sì 
+[    ]  No 
+ 
+ 
+3. PARAMETRI CLIMATICI DELLA LOCALITA' 
+ 
+Gradi giorno della zona d'insediamento, determinati in base al DPR 412/93 1415 GG 
+Temperatura minima di progetto dell'aria esterna 273,2 °K 
+Temperatura massima estiva di progetto dell'aria esterna 307,0 °K 
+ 
+ 
+4. DATI TECNICI E COSTRUTTIVI DELL’EDIFICIO 
+ 
+Climatizzazione invernale estiva u.m. 
+Volume lordo climatizzato dell'edificio (V) 677,40 0,00 m³ 
+Superficie esterna che delimita il volume climatizzato (S) 499,05 0,00 m² 
+Rapporto S/V 0,74   
+Superficie utile energetica dell'edificio 194,81 0,00 m² 
+Valore di progetto della temperatura interna 20,0 26,0 °C 
+Valore di progetto dell'umidità relativa interna 50,0 50,0 % 
+ 
+4.1 INFORMAZIONI GENERALI E PRESCRIZIONI 
+ 
+ Presenza di reti di teleriscaldamento/teleraffrescamento a meno di 1000 m  No 
+ 
+ 
+ Livello di automazione per il controllo, la regolazione e la gestione delle tecnologie 
+dell'edificio e degli impianti termici (BACS)  - 
+ 
+ Adozione di materiali ad elevata riflettenza solare per le coperture  Sì 
+ 
+Valori di riflettenza solare Per coperture piane 0,7 > 0,65 
+Per coperture a falde 0,45 > 0,30 
+ 
+ Adozione di tecnologie di climatizzazione passiva per le coperture  Sì 
+ 
+ Adozione di misuratori d’energia (Energy Meter)  No 
+ 
+ 
+ Adozione di sistemi di contabilizzazione diretta del calore, del freddo e dell’A.C.S.  Sì 
+ 
+ Adozione di valvole termostatiche o altro sistema di termoregolazione per singolo 
+ambiente o singola unità immobiliare  No 
+ 
+ Utilizzazione di fonti di energia rinnovabili per la copertura dei consumi di calore, elettricit à e per il 
+raffrescamento secondo i principi minimi di integrazione, le modalità e le decorrenze di cui all’allegato 3, 
+del decreto legislativo 3 marzo 2011, n. 28. 
+ 
+Verifica (D. Lgs. 28/2011) Percentuale di copertura 
+del fabbisogno [%]  
+Verifica della copertura di almeno il 50,0 % del fabbisogno derivante da fonti 
+rinnovabili per la produzione di acqua calda sanitaria 75,3 % 
+Verifica della copertura di almeno il 35,0 % del fabbisogno derivante da fonti 
+rinnovabili per la produzione di acqua calda sanitaria, riscaldamento e 
+raffrescamento 
+45,3 % 
+ 
+ 
+Tipologia impianto Solare Termico 
+"Solare termico" 
+ Riscaldamento ACS Raffrescamento 
+Energia primaria rinnovabile (kWh anno) 0,000 2802,337 0,000 
+    
+Percentuale di copertura del fabbisogno annuo (Media) 0,000 % 81,934 % 0,000 
+ 
+ 
+ Adozione di sistemi di regolazione automatica della temperatura ambiente singoli 
+locali o nelle zone termiche servite da impianti di climatizzazione invernale  No 
+ 
+ Adozione di sistemi di compensazione climatica nella regolazione automatica della 
+temperatura ambiente nei singoli locali o nelle zone termiche servite da impianti di 
+climatizzazione invernale 
+ No 
+ 
+Ragioni tecnico-economiche che hanno portato al non utilizzo: 
+ 
+ 
+ Verifiche della massa superficiale e della trasmittanza termica periodica dei componenti opachi (Rif. 
+Lettera b) del punto 3.3.4 del decreto di cui all’art.4): 
+ 
+Componenti opachi verticali 
+ 
+Codice Descrizione Ms 
+[kg/m2] 
+Ms minimo 
+[kg/m2] 
+Yie 
+[W/m2K] 
+Yie limite 
+[W/m2K] Verifica 
+PAR-000090 Muratura a cassa vuota in 
+laterizio forato (26,5 cm) 149,87 230,00 0,094 0,10 Positiva 
+ 
+5. DATI RELATIVI AGLI IMPIANTI 
+ 
+5.1 Impianti termici 
+ 
+a) Descrizione impianto 
+ 
+Tipologia 
+Impianto termico autonomo riscaldamento â€“ acqua calda sanitaria 
+ 
+Sistema di generazione 
+Centrale termica composta da caldaia a condensazione 
+ 
+Sistema di termoregolazione 
+Termoregolazione per singola zona tramite apposito cronotermostato 
+ 
+Sistema di contabilizzazione dell’energia termica 
+Contabilizzazione del calore tramite contatori di calore diretti installati nei sistemi di zona 
+ 
+Sistema di distribuzione del vettore termico 
+Impianto a collettori. 
+ 
+Sistemi di ventilazione forzata 
+Non presente 
+ 
+Sistemi di accumulo termico 
+Accumulo solare centralizzato ad integrazione dedicato al servizio di acqua calda sanitaria 
+ 
+Sistemi di produzione e di distribuzione dell’acqua calda sanitaria 
+Produzione mediante caldaia a condensazione combinata (riscaldamento + acqua calda sanitaria) collegata 
+acollettori solari. 
+ 
+Trattamento di condizionamento chimico per l'aqua (rif. UNI 3065) No 
+ 
+Durezza dell’acqua di alimentazione dei generatori di calore per potenza installata 
+maggiore o uguale a 100 kW  0,0 gradi francesi 
+ 
+Filtro di sicurezza No 
+ 
+b) Specifiche dei generatori 
+ 
+Installazione di un contatore del volume di acqua calda sanitaria No 
+ 
+Installazione di un contatore del volume di acqua di reintegro dell’impianto No 
+ 
+Tipologia di generatore Generatore fossile 
+Descrizione Caldaia a condensazione 
+Uso Riscaldamento / ACS 
+Combustibile utilizzato Gas naturale (Metano) 
+Fluido termovettore Acqua 
+Valore nominale della potenza termica utile 24,0 
+Rendimento termico utile al 100% della potenza: 
+ Valore di progetto 100,8 % 
+ Valore minimo prescritto dal regolamento 
+      90 + 2 * Log(24,0) % 92,8 % 
+ Verifica rendimento VERIFICATO 
+c) Specifiche relative ai sistemi di regolazione dell'impianto termico 
+ 
+Tipo di conduzione invernale prevista 
+Continua con attenuazione notturna 
+ 
+Tipo di conduzione estiva prevista 
+Nessuna descrizione. 
+ 
+Sistema di regolazione climatica in centrale termica (solo per impianti centralizzati) 
+Nessuna descrizione. 
+ 
+Regolatori climatici delle singole zone o unità immobiliari 
+Nessuna descrizione. 
+ 
+Dispositivi per la regolazione automatica della temperatura ambiente nei singoli locali  
+Nessuna descrizione. 
+ 
+Le zone termiche sono dotate dei seguenti sistemi di regolazione: 
+ 
+Zona Termica “Villetta - Zona Termica 1 - Piano terra”: 
+- Tipo di regolazione Zona + climatica 
+- Caratteristiche della regolazione P banda prop. 0,5 °C 
+ 
+Zona Termica “Villetta - Zona Termica 2 - Piano Primo”: 
+- Tipo di regolazione Zona + climatica 
+- Caratteristiche della regolazione P banda prop. 0,5 °C 
+ 
+ 
+d) Dispositivi per la contabilizzazione del calore/freddo nelle singole unità immobiliari 
+ 
+Nessuna descrizione. 
+ 
+e) Terminali di erogazione dell'energia 
+ 
+Pannelli annegati a pavimento 
+ 
+Dettaglio dei sottosistemi di emissione delle singole zone termiche: 
+ 
+Zona Termica “Zona Termica 1 - Piano terra”: 
+- Tipologia locali: Fino a 4 metri 
+- Terminali di erogazione: Pannelli annegati a pavimento 
+- Potenza termica nominale: 2539,598 W 
+ 
+Zona Termica “Zona Termica 2 - Piano Primo”: 
+- Tipologia locali: Fino a 4 metri 
+- Terminali di erogazione: Pannelli annegati a pavimento 
+- Potenza termica nominale: 2731,761 W 
+ 
+ 
+f) Condotti di evacuazione dei prodotti della combustione 
+ 
+Nessuna descrizione. 
+ 
+g) Sistemi di trattamento dell'acqua (tipo di trattamento) 
+ 
+Nessuna descrizione. 
+ 
+h) Specifiche dell'isolamento termico della rete di distribuzione 
+ 
+Zona Termica “Zona Termica 1 - Piano terra”: 
+Nessun tratto definito. 
+ 
+Zona Termica “Zona Termica 2 - Piano Primo”: 
+Nessun tratto definito. 
+ 
+ 
+i) Schemi funzionali degli impianti termici 
+ 
+Alla presente relazione è allegato lo schema unifilare degli impianti termici con specificato: 
+- Il posizionamento e la potenza dei terminali di erogazione; 
+- Il posizionamento e il tipo di generatori; 
+- Il posizionamento e tipo degli elementi di distribuzione; 
+- Il posizionamento e tipo degli elementi di controllo; 
+- Il posizionamento e tipo degli elementi di sicurezza. 
+ 
+5.2 Impianti fotovoltaici 
+ 
+Nessun impianto fotovoltaico presente 
+ 
+5.3 Impianti solari termici 
+ 
+Descrizione: Solare termico 
+Orientamento rispetto al SUD (Υ) - Azimut: 0,000 ° 
+Inclinazione orizzontale dei pannelli (β): 31,300 ° 
+Tipo riflessione ambientale: Coefficiente di riflessione standard (albedo) 
+Coefficiente di riflessione: 0,200 
+Anno di installazione:  
+  
+Ostruzioni: Assente 
+  
+Energia irraggiata sul piano dei moduli [kWh/m2] 
+ 
+ 
+ 
+ GEN FEB MAR APR MAG GIU LUG AGO SET OTT NOV DIC 
+E 88,29 100,41 140,10 164,48 177,14 195,09 223,15 200,80 164,67 137,53 92,45 90,23 
+ 
+Totale Irradiazione: 1774,336 kWh/m² 
+ 
+ 
+Caratteristiche collettori solari 
+ 
+Tipologia Collettori a tubi sottovuoto con assorbitore piano 
+Rendimento a perdite nulle (ƞ0) 0,900 
+Coefficiente di perdita lineare (a1) 1,800 (W/m2K) 
+Coefficiente di perdita quadratico (a2) 0,008 (W/m2K2) 
+Coefficiente angolo di incidenza (IAM) 0,970 
+Superficie apertura singolo collettore 4,000 (m2) 
+ 
+Coeff. globale di perdita di calore delle tubazioni (Uloop,p) 7,000 (W/K) 
+Coeff. di perdita di energia del circuito (Uloop) 3,870 (W/m2K) 
+Rendimento circuito (ƞloop) 0,800 
+Potenza nominale ausiliari (Waux) 70,000 (W) 
+Ore di funzionamento annuali (taux) 166,67  (ore) 
+ 
+Dati accumulo 
+ 
+Servizio Acqua 
+Capacità nominale del serbatoio di accumulo 343,225 (l) 
+Volume solare (Vsol) 343,225 (l) 
+Tipo di accumulo Accumulo ad acqua 
+Coeff. di correlazione della capacità di accumulo (fst) 0,967 
+Coefficiente Kboll 1,300  (W/K) 
+Ubicazione serbatoio In ambiente climatizzato 
+Temperatura media del locale di installazione 23,000 °C 
+Temperatura media dell’acqua nel serbatoio 60,000 °C 
+Integrazione Permanente 
+ 
+Energia prodotta dall’impianto solare termico per riscaldamento (Qsol,H) e servizio ACS (Qsol,W) [kWh] 
+ GEN FEB MAR APR MAG GIU LUG AGO SET OTT NOV DIC 
+Qsol,H 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 
+Qsol,W 148,78 172,05 237,41 271,50 287,87 278,59 287,87 287,87 275,88 239,36 162,04 153,10 
+ 
+Differenza di temperatura di riferimento ΔT [°C] 
+ GEN FEB MAR APR MAG GIU LUG AGO SET OTT NOV DIC 
+ΔTH 91,90 90,90 88,50 84,10 80,80 77,40 73,60 73,40 78,30 82,20 87,30 91,30 
+ΔTW 104,44 102,12 96,55 86,34 78,69 70,80 61,98 61,52 72,89 81,93 93,77 103,05 
+ 
+Fattori adimensionali 
+ GEN FEB MAR APR MAG GIU LUG AGO SET OTT NOV DIC 
+XH 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 
+YH 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 
+XW 3,17 3,10 2,93 2,62 2,44 2,19 1,92 1,90 2,26 2,54 2,84 3,13 
+YW 0,84 1,06 1,33 1,62 1,72 1,96 2,17 1,95 1,65 1,33 0,91 0,86 
+ 
+ 
+Quota di copertura del fabbisogno applicato [%] 
+ GEN FEB MAR APR MAG GIU LUG AGO SET OTT NOV DIC 
+% QH 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 
+% QW 50,66 64,86 80,84 95,53 100,00 100,00 100,00 100,00 99,03 83,15 57,01 52,13 
+ 
+Fabbisogno residuo [kWh] 
+ GEN FEB MAR APR MAG GIU LUG AGO SET OTT NOV DIC 
+Qres,H 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 
+Qres,W 144,90 93,20 56,27 12,70 0,00 0,00 0,00 0,00 2,71 48,51 122,17 140,57 
+6. PRINCIPALI RISULTATI DEI CALCOLI 
+ 
+Si dichiara che l ’edificio oggetto della presente relazione può essere definito “edificio ad energia quasi 
+zero” in quanto sono contemporaneamente rispettati: 
+ Tutti i requisiti previsti dalla lettera b), del comma 2, del paragrafo 3.3 del decreto di cui all’articolo 
+4, comma 1 del decreto legislativo, secondo i valori vigenti dal 1° gennaio 2019 per gli edifici p ubblici 
+e dal 1° gennaio 2021 per tutti gli altri edifici; 
+ Gli obblighi di integrazione delle fonti rinnovabili nel rispetto dei principi minimi di cui all’allegato 3, 
+paragrafo 1, lettera c), del decreto legislativo 3 marzo 2011, n.28. 
+ 
+ 
+a) Involucro edilizio e ricambi d'aria 
+ 
+STRUTTURE OPACHE VERTICALI, VERSO ESTERNO, AMBIENTI NON CLIMATIZZATI O CONTRO TERRA 
+ 
+Codice Tipologia Descrizione U 
+[W/m2K] 
+PAR-000090 PareteEsterna Muratura a cassa vuota in laterizio forato (26,5 cm) 0,344 
+PAR-000091 PareteEsterna Muratura a cassa vuota in laterizio forato (26,5 cm) 0,446 
+ 
+STRUTTURE OPACHE ORIZZONTALI O INCLINATE, VERSO ESTERNO O AMBIENTI NON CLIMATIZZATI 
+ 
+Codice Tipologia Descrizione U 
+[W/m2K] 
+SOL-000093 SolaioEsterno Solaio prefabbricato tipo predalles (31 cm) 0,447 
+ 
+STRUTTURE OPACHE ORIZZONTALI DI PAVIMENTO, VERSO ESTERNO, AMBIENTI NON CLIMATIZZATI O 
+CONTRO TERRA 
+ 
+Codice Tipologia Descrizione U 
+[W/m2K] 
+PAV-000089 PavimentoEsterno Solaio in laterocemnto - blocchi non collaboranti (29,5 
+cm) 0,437 
+ 
+STRUTTURE TECNICHE TRASPARENTI E OPACHE 
+ 
+Codice Tipologia Descrizione U 
+[W/m2K] 
+INF-000088 Infisso singolo Nuovo infisso vetro camera 2,000 
+ 
+STRUTTURE OPACHE VERTICALI E ORIZZONTALI DI SEPARAZIONE TRA EDIFICI O UNITA' CONFINATI 
+ 
+Codice Tipologia Descrizione U 
+[W/m2K] 
+SOL-000092 Partizione Solaio prefabbricato tipo predalles (31 cm) 0,636 
+PAV-000094 Partizione Solaio in laterocemnto - blocchi non collaboranti (29,5 
+cm) 0,776 
+ 
+RICAMBI D’ARIA 
+ 
+ 
+Zona Termica “Zona Termica 1 - Piano terra” 
+ 
+Ambiente 1 
+Tipologia di ventilazione   Naturale 
+Tasso di ricambio d’aria 1/h 0,500 
+ 
+Zona Termica “Zona Termica 2 - Piano Primo” 
+ 
+Ambiente 2 
+Tipologia di ventilazione   Naturale 
+Tasso di ricambio d’aria 1/h 0,500 
+ 
+ 
+b) Indici di prestazione energetica 
+Coefficiente medio globale di scambio termico per trasmissione per unità di superficie H’T) [W/m2K] 
+ 
+H'T 0,333 coefficiente medio globale di scambio termico per trasmissione per unità di superficie 
+H'T,L 0,530 coefficiente medio globale limite di scambio termico per trasmissione per unità di superficie 
+Verifica H'T < H'T,L VERIFICATO 
+ 
+ 
+Area solare equivalente estiva per unità di superficie (Asol,est/Asup,utile) [ - ] 
+ 
+Asol,est/Asup,utile 0,005 area solare equivalente estiva per unità di superficie 
+(Asol,est/Asup,utile)limite 0,030 area solare equivalente estiva limite per unità di superficie 
+Verifica Asol,est/Asup,utile < (Asol,est/Asup,utile)limite VERIFICATO 
+ 
+Indice di prestazione termica utile per la climatizzazione invernale (EPH,nd) [kWh/ m2] 
+ 
+EPH,nd 12,7 indice di prestazione termica utile per la climatizzazione invernale dell’edificio 
+EPH,nd,limite 14,9 indice di prestazione termica utile per la climatizzazione invernale calcolato nell ’edificio di 
+riferimento 
+Verifica QH,nd < QH,nd,limite VERIFICATO 
+ 
+Indice di prestazione termica utile per la climatizzazione estiva (EPC,nd) [kWh/ m2] 
+ 
+EPC,nd 14,9 indice di prestazione termica utile per la climatizzazione estiva dell’edificio 
+EPC,nd,limite 17,0 indice di prestazione termica utile per la climatizzazione estiva calcolato nell’edificio di riferimento 
+Verifica QC,nd < QC,nd,limite VERIFICATO 
+ 
+Indice di prestazione energetica globale dell'edificio - energia primaria totale (EPgl,tot) [kWh/ m2] 
+ 
+EPgl,tot 32,1 indice di prestazione energetica globale dell’edificio  
+EPgl,tot,limite 43,0 indice di prestazione energetica globale dell’edificio calcolato nell’edificio di riferimento  
+Verifica EPgl,tot < 
+EPgl,tot,limite VERIFICATO 
+ 
+Indice di prestazione energetica globale dell'edificio - energia primaria non rinnovabile (EPgl,nr) 
+ 
+EPgl,nr 17,3 indice di prestazione energetica globale dell’edificio  
+EPgl,nr,limite 32,1 indice di prestazione energetica globale dell’edificio calcolato nell’edificio di riferimento  
+Verifica EPgl,nr < EPgl,nr,limite VERIFICATO 
+ 
+Efficienza media stagionale dell'impianto di riscaldamento (ηH) [ - ] 
+ 
+ηH 1,010 efficienza media stagionale dell’impianto di riscaldamento  
+ηH,limite 0,733 efficienza media stagionale dell’impianto di riscaldamento calcolato nell’edificio di riferimento  
+Verifica ηH > ηH,limite VERIFICATO 
+ 
+Fabbisogno di combustibile:   
+ - Gas naturale (Metano) (PCI: 9,940 kWh/Nm3) kWh/anno 2457,5 
+Fabbisogno di energia elettrica da rete kWhe 0 
+Fabbisogno di energia elettrica da produzione locale kWhe 0 
+Indice di prestazione energetica normalizzato per la 
+climatizzazione invernale kJ/m3GG 36 
+ 
+Efficienza media stagionale dell'impianto di produzione acqua calda sanitaria(ηW) [ - ] 
+ 
+ηW 3,022 efficienza media stagionale dell’impianto di produzione acqua calda sanitaria 
+ηW,limite 1,222 efficienza media stagionale dell’impianto di produzione acs calcolato nell’edificio di riferimento  
+Verifica ηW > ηW,limite VERIFICATO 
+ 
+Fabbisogno di combustibile:   
+ - Gas naturale (Metano) (PCI: 9,940 kWh/Nm3) kWh/anno 646,9 
+ - Elettricità (PCI: 1,000 kWh/Nm3) kWh/anno 273,0 
+Fabbisogno di energia elettrica da rete kWhe 140 
+Fabbisogno di energia elettrica da produzione locale kWhe 0 
+ 
+ 
+c) Impianti solari termici per la produzione di acqua calda sanitaria 
+ 
+Solare termico 
+Energia prodotta e consumata kWh anno 2802,3 
+Fabbisogno di energia termica kWh anno 3002,3 
+Fabbisogno di energia primaria per la produzione ACS kWh anno 3423,4 
+Percentuale di copertura del fabbisogno annuo % 81,9 
+ 
+ 
+d) Impianti fotovoltaici 
+ 
+Nessun impianto fotovoltaico presente 
+ 
+e) Consuntivo energia 
+ 
+Energia consegnata o fornita (Edel) kWh anno 140,0 
+Energia rinnovabile (EPgl, ren) kWh/m2 anno 14,7 
+Energia esportata (Eesp) kWh anno 0,0 
+Energia rinnovabile in situ kWh anno 2802,3 
+Fabbisogno globale di energia primaria (EPgl, tot) kWh/m2 anno 32,1 
+ 
+f) Rendimenti medi sottosistemi 
+ 
+ZONA TERMICA Zona Termica 1 - Piano terra 
+Sottosistema H W C 
+Sottosistema di emmissione/erogazione 99,00 100,00  -  
+Sottosistema di regolazione 97,00  -   -  
+Sottosistema di distribuzione acqua 99,00 92,60  -  
+ 
+ZONA TERMICA Zona Termica 2 - Piano Primo 
+Sottosistema H W C 
+Sottosistema di emmissione/erogazione 99,00 100,00  -  
+Sottosistema di regolazione 97,00  -   -  
+Sottosistema di distribuzione acqua 99,00 92,60  -  
+ 
+7. ELEMENTI SPECIFICI CHE MOTIVANO EVENTUALI DEROGHE A NORME 
+FISSATE DALLA NORMATIVA VIGENTE  
+ 
+Nei casi in cui la normativa vigente consente di derogare ad obblighi generalmente validi in questa 
+sezione vanno adeguatamente illustrati i motivi che giustificano la deroga nel caso specifico.  
+ 
+ 
+8. DOCUMENTAZIONE ALLEGATA 
+ 
+[X] Piante di ciascun piano degli edifici con orientamento e indicazioni d ’uso prevalente dei singoli 
+locali e definizione degli elementi costruttivi; 
+[X] Prospetti e sezioni degli edifici con evidenziazione dei sistemi fissi di protezione solare e 
+definizione degli elementi costruttivi; 
+[X] Elaborati grafici relativi ad eventuali sistemi solari passivi specificatamente progettati per 
+favorire lo sfruttamento degli apporti solari; 
+[X] Schemi funzionali dell ’impianto termico contenenti gli elementi di cui all’analoga voce del 
+paragrafo “Dati relativi agli impianti termici”; 
+[X] Tabelle con indicazione delle caratteristiche termiche, termo igrometriche e del la massa 
+efficace dei componenti opachi dell ’involucro edilizio con verifica dell’assenza di rischio di 
+formazione di muffe e di condensa interstiziale; 
+[X] Tabelle con indicazione delle caratteristiche termiche dei componenti finestrati dell ’involucro 
+edilizio e della loro permeabilità all’aria; 
+[X] Schede con indicazione della valutazione della fattibilit à tecnica, ambientale ed economica per 
+l’inserimento di sistemi alternativi ad alta efficienza. 
+ 
+I calcoli e le documentazioni che seguono sono disponibili ai fini di eventuali verifiche da parte dell’ente 
+di controllo presso i progettisti: 
+ Calcolo della potenza invernale: dispersioni dei componenti e potenza di progetto dei locali; 
+ Calcolo energia utile invernale (Qh,nd) ed estiva (QC,nd) mensile, secondo UNI/TS 11300-1; 
+ Calcolo dei coefficienti di dispersione termica HT, HU, HG, HA, HV; 
+ Calcolo mensile delle perdite (Q h,ht), degli apporti solari (Q sol) e degli apporti interni (Qint) 
+secondo UNI/TS 11300-1; 
+ Calcolo dei rendimenti: emissione, regolazione, distribuzione, produzione; 
+ Calcolo di energia primaria (Q), mensile-stagionale secondo UNI/TS 11300 – 2/4; 
+ Calcolo del fabbisogno annuo di energia primaria di progetto; 
+ Calcolo del fabbisogno di energia primaria limite. 
+ 
+9. DICHIARAZIONE DI RISPONDENZA 
+ 
+Il sottoscritto mario, inscritto a , essendo a conoscenza delle sanzioni previste dall’articolo 15, commi 1 e 
+2, del decreto legislativo di attuazione della direttiva 2002/91/CE dichiara sotto la propria personale 
+responsabilità che: 
+ 
+ il progetto relativo alle opere di cui sopra rispetta gli obblighi di integrazione delle fonti rinnovabili 
+secondo i principi minimi e le decorrenze di cui all’ allegato 3, paragrafo 1, lettera c), del decreto 
+legislativo 3 marzo 2011, n.28; 
+ il progetto relativo alle opere di cui sopra è rispondente alle prescrizioni contenute nel decreto 
+legislativo 192/2005 nonché dal decreto di cui all’articolo 4, comma 1 de l decreto legislativo 
+192/2005; 
+ i dati e le informazioni contenuti nella relazione tecnica sono conformi a quanto contenuto o 
+desumibile dagli elaborati progettuali.  
+ 
+ROMA, 17/11/2017 
+ 
+  IL TECNICO 
+   
+ 
+ 
+ALLEGATO 1 – CARATTERISTICHE TERMICHE E IGROMETRICHE COMPONENTI OPACHI 
+ 
+Componenti opachi verticali 
+ 
+Cod. Tipologia Confinante con ... Descrizione 
+PAR-00009
+0 Parete Esterna OVEST Muratura a cassa vuota in laterizio forato 
+(26,5 cm) 
+ 
+Proprietà dei materiali 
+N. Descrizione 
+(dall’interno verso l’esterno) 
+s 
+[m] 
+λ 
+[W/mK] 
+ρ 
+[kg/m3] 
+c 
+[J/KgK] 
+μ 
+[-] 
+R 
+[m2K/W] 
+1 Intonaco di calce e gesso (interno) 0,020 0,700 1400,000 840,000 11,000 0,029 
+2 Mattone forato cm 8 0,080 0,000 775,000 840,000 9,000 0,200 
+3 Aria non ventilata 25 mm (flusso orizzontale) 0,025 0,000 1,300 1000,000 1,000 0,180 
+4 Mattone forato cm 12 0,120 0,000 717,000 840,000 9,000 0,310 
+5 Pannello in polistirene espanso estruso (XPS) con pelle 0,060 0,030 30,000 1450,000 50,000 2,000 
+6 Malta di calce o di calce e cemento 0,020 0,900 1800,000 840,000 27,000 0,022 
+ Spessore totale [m]: 0,325  
+ Resistenza superficiale interna (Ri): 0,130 [m2K/W] 
+ Resistenza superficiale esterna (Re): 0,040 [m2K/W] 
+ Resistenza termica totale: 2,911 [m2K/W] 
+ Trasmittanza termica totale (U): 0,344 [W/m2K] 
+ Valore limite trasmittanza (Ulim): 0,3400 [W/m2K] 
+ 
+Rappresentazione stratigrafia 
+ 
+ 
+ 
+Pressione parziale del vapore (P) e di saturazione (Psat) [Pa] 
+ 
+Int. Dato Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+1 P 1131,0 1134,0 1141,0 1155,0 1651,0 1666,0 1682,0 1683,0 1662,0 1645,0 1145,0 1133,0 
+ Psat 2261,2 2267,5 2282,6 2310,6 3299,6 3329,4 3363,0 3364,8 3321,5 3287,4 2290,2 2264,9 
+2 P 1123,7 1119,8 1135,3 1155,5 1633,5 1663,5 1679,9 1696,0 1658,2 1632,8 1140,6 1124,7 
+ Psat 2244,8 2252,4 2270,8 2304,8 3286,6 3322,9 3363,8 3366,0 3313,2 3271,8 2280,0 2249,4 
+3 P 1099,7 1073,3 1116,8 1157,2 1576,3 1655,4 1672,9 1738,7 1645,6 1592,8 1126,4 1097,6 
+ Psat 2133,1 2149,6 2189,7 2264,9 3196,7 3277,2 3369,3 3374,2 3255,7 3164,0 2210,0 2143,0 
+4 P 1098,9 1071,6 1116,1 1157,3 1574,3 1655,1 1672,6 1740,2 1645,2 1591,4 1125,9 1096,7 
+ Psat 2036,8 2060,7 2118,9 2229,4 3117,6 3236,5 3374,2 3381,6 3204,7 3069,7 2148,6 2051,1 
+5 P 1062,9 1001,9 1088,3 1159,9 1488,5 1642,9 1662,1 1804,2 1626,3 1531,5 1104,5 1056,0 
+ Psat 1879,8 1915,0 2001,6 2169,5 2985,3 3167,6 3382,7 3394,3 3118,4 2913,0 2046,3 1900,8 
+6 P 963,0 808,0 1011,0 1167,0 1250,0 1609,0 1633,0 1982,0 1574,0 1365,0 1045,0 943,0 
+ Psat 1098,4 1173,5 1372,7 1815,8 2243,9 2752,7 3438,0 3477,8 2609,1 2059,6 1482,9 1142,9 
+7 P 963,0 808,0 1011,0 1167,0 1250,0 1609,0 1633,0 1982,0 1574,0 1365,0 1045,0 943,0 
+ Psat 1091,6 1167,0 1366,8 1812,2 2236,7 2748,4 3438,6 3478,8 2603,9 2051,5 1477,5 1136,3 
+ 
+Verifica Esito 
+Condensa interstiziale Non si verifica condensa interstiziale. 
+ 
+Temperature [° C] 
+ 
+Int. Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+1 20,0 20,0 20,0 20,0 26,0 26,0 26,0 26,0 26,0 26,0 20,0 20,0 
+2 19,5 19,5 19,6 19,8 25,7 25,8 26,0 26,0 25,8 25,6 19,7 19,5 
+3 19,4 19,4 19,5 19,8 25,6 25,8 26,0 26,0 25,8 25,6 19,6 19,4 
+4 18,5 18,7 19,0 19,5 25,2 25,6 26,0 26,1 25,5 25,0 19,1 18,6 
+5 17,8 18,0 18,4 19,2 24,7 25,4 26,1 26,1 25,2 24,5 18,6 17,9 
+6 16,5 16,8 17,5 18,8 24,0 25,0 26,1 26,2 24,7 23,6 17,9 16,7 
+7 8,4 9,3 11,7 16,0 19,3 22,7 26,4 26,6 21,8 18,0 12,9 8,9 
+8 8,3 9,2 11,6 16,0 19,3 22,6 26,4 26,6 21,8 17,9 12,8 8,9 
+9 8,1 9,1 11,5 15,9 19,2 22,6 26,4 26,6 21,7 17,8 12,7 8,7 
+ 
+ 
+Caratteristiche termiche dinamiche 
+Trasmittanza termica periodica |Yie| 0,094 W/m2K 
+Fattore di attenuazione fd 0,275 - 
+Sfasamento dell’onda termica φ 8,839 h 
+Massa superficiale (escluso intonaco) Ms 149,873 kg/m2 
+Massa superficiale Ms,t 213,873 kg/m2 
+Capacità termica areica interna k1 48,774 kJ/m2K 
+Capacità termica areica esterna k2 32,569 kJ/m2K 
+Ammettenza termica lato interno   Yii 3,454 [W/m²K,h] 
+Ammettenza termica lato esterno   Yee 2,283 [W/m²K,h] 
+ 
+Diagramma di Glaser e delle Temperature con valori di progetto 
+ 
+ 
+ 
+ 
+ 
+Temperatura interna  20,0  °C 
+Temperatura esterna  0,0  °C 
+Umidità relativa interna  50,0  % 
+Umidità relativa esterna  66,3  % 
+ 
+Verifica Igrometrica 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+  
+  
+ 
+Verifica della condensa superficiale 
+ 
+ Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+Temperature di riferimento 8,100 9,100 11,500 15,900 19,200 22,600 26,400 26,600 21,700 17,800 12,700 8,700 
+Pressioni vapore acqueo 953,283 800,400 1003,411 1162,051 1241,298 1601,917 1629,825 1978,485 1565,793 1353,945 1038,546 934,152 
+Umidità relativa esterna 88,300 69,300 74,000 64,400 55,800 58,500 47,400 56,800 60,400 66,500 70,800 83,100 
+Umidità relativa interna 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 
+Temperature interne 20,000 20,000 20,000 20,000 26,000 26,000 26,000 26,000 26,000 26,000 20,000 20,000 
+Pressioni vapore acqueo 
+interno 
+1519,018 1519,018 1519,018 1519,018 2183,647 2183,647 2183,647 2183,647 2183,647 2183,647 1519,018 1519,018 
+fRsi,min 0,429 0,376 0,200 -0,659 -0,044 -1,088 -17,750 -11,833 -0,651 0,134 0,068 0,398 
+fRsi 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 
+ 
+Verifica Esito 
+Condensa superficiale Non è presente condensa superficiale. 
+Mese critico Gennaio (fRsi=0,914; fRsi,min=0,429) 
+ 
+ 
+Verifica formazione muffe 
+ 
+ Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+Temperature di riferimento 8,100 9,100 11,500 15,900 19,200 22,600 26,400 26,600 21,700 17,800 12,700 8,700 
+Pressioni vapore acqueo 953,283 800,400 1003,411 1162,051 1241,298 1601,917 1629,825 1978,485 1565,793 1353,945 1038,546 934,152 
+Umidità relativa esterna 88,300 69,300 74,000 64,400 55,800 58,500 47,400 56,800 60,400 66,500 70,800 83,100 
+Umidità relativa interna 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 
+Temperature interne 20,000 20,000 20,000 20,000 26,000 26,000 26,000 26,000 26,000 26,000 20,000 20,000 
+Pressioni vapore acqueo 
+interno 
+1519,018 1519,018 1519,018 1519,018 2183,647 2183,647 2183,647 2183,647 2183,647 2183,647 1519,018 1519,018 
+fRsi,min 0,723 0,697 0,612 0,195 0,485 -0,029 -8,750 -5,833 0,186 0,573 0,548 0,708 
+fRsi 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 
+ 
+Verifica Esito 
+Condensa superficiale Non è prevista la formazione di muffe. 
+Mese critico Gennaio (fRsi=0,914; fRsi,min=0,723) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Cod. Tipologia Confinante con ... Descrizione 
+PAR-00009
+1 Parete Esterna NORD Muratura a cassa vuota in laterizio forato 
+(26,5 cm) 
+ 
+Proprietà dei materiali 
+N. Descrizione 
+(dall’interno verso l’esterno) 
+s 
+[m] 
+λ 
+[W/mK] 
+ρ 
+[kg/m3] 
+c 
+[J/KgK] 
+μ 
+[-] 
+R 
+[m2K/W] 
+1 Intonaco di calce e gesso (interno) 0,020 0,700 1400,000 840,000 11,000 0,029 
+2 Mattone forato cm 8 0,080 0,000 775,000 840,000 9,000 0,200 
+3 Aria non ventilata 25 mm (flusso orizzontale) 0,025 0,000 1,300 1000,000 1,000 0,180 
+4 Mattone forato cm 12 0,120 0,000 717,000 840,000 9,000 0,310 
+5 Pannello in polistirene espanso estruso (XPS) con pelle 0,040 0,030 30,000 1450,000 50,000 1,333 
+6 Malta di calce o di calce e cemento 0,020 0,900 1800,000 840,000 27,000 0,022 
+ Spessore totale [m]: 0,305  
+ Resistenza superficiale interna (Ri): 0,130 [m2K/W] 
+ Resistenza superficiale esterna (Re): 0,040 [m2K/W] 
+ Resistenza termica totale: 2,244 [m2K/W] 
+ Trasmittanza termica totale (U): 0,446 [W/m2K] 
+ Valore limite trasmittanza (Ulim): 0,3400 [W/m2K] 
+ 
+Rappresentazione stratigrafia 
+ 
+ 
+ 
+Pressione parziale del vapore (P) e di saturazione (Psat) [Pa] 
+ 
+Int. Dato Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+1 P 1120,0 1124,0 1133,0 1152,0 1642,0 1661,0 1683,0 1684,0 1656,0 1634,0 1138,0 1122,0 
+ Psat 2239,1 2247,2 2266,7 2302,8 3282,0 3320,5 3364,1 3366,4 3310,3 3266,3 2276,5 2243,9 
+2 P 1111,6 1106,9 1126,5 1152,9 1620,8 1658,3 1680,3 1700,2 1651,6 1619,5 1133,1 1112,4 
+ Psat 2218,0 2227,8 2251,5 2295,4 3265,2 3312,0 3365,1 3367,9 3299,6 3246,1 2263,4 2223,9 
+3 P 1084,2 1051,0 1105,1 1155,7 1551,4 1649,4 1671,4 1753,3 1637,4 1572,2 1116,9 1081,1 
+ Psat 2075,7 2096,6 2147,6 2243,8 3149,6 3253,1 3372,2 3378,5 3225,4 3107,9 2173,5 2088,2 
+4 P 1083,3 1049,1 1104,4 1155,8 1549,0 1649,1 1671,1 1755,1 1636,9 1570,5 1116,3 1080,0 
+ Psat 1954,4 1984,3 2057,7 2198,3 3048,7 3200,8 3378,6 3388,2 3159,9 2987,9 2095,2 1972,3 
+5 P 1042,1 965,3 1072,3 1160,1 1444,8 1635,7 1657,7 1834,7 1615,6 1499,5 1092,0 1033,0 
+ Psat 1760,1 1803,2 1910,5 2121,9 2881,4 3112,5 3389,6 3404,8 3049,8 2790,8 1966,3 1785,8 
+6 P 966,0 810,0 1013,0 1168,0 1252,0 1611,0 1633,0 1982,0 1576,0 1368,0 1047,0 946,0 
+ Psat 1104,0 1179,0 1377,6 1818,9 2250,0 2756,3 3437,5 3477,1 2613,4 2066,4 1487,4 1148,5 
+7 P 966,0 810,0 1013,0 1168,0 1252,0 1611,0 1633,0 1982,0 1576,0 1368,0 1047,0 946,0 
+ Psat 1095,2 1170,5 1369,9 1814,2 2240,5 2750,7 3438,3 3478,3 2606,7 2055,9 1480,4 1139,8 
+ 
+Verifica Esito 
+Condensa interstiziale Non si verifica condensa interstiziale. 
+ 
+Temperature [° C] 
+ 
+Int. Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+1 20,0 20,0 20,0 20,0 26,0 26,0 26,0 26,0 26,0 26,0 20,0 20,0 
+2 19,3 19,4 19,5 19,8 25,6 25,8 26,0 26,0 25,8 25,5 19,6 19,3 
+3 19,2 19,2 19,4 19,7 25,5 25,8 26,0 26,0 25,7 25,4 19,5 19,2 
+4 18,1 18,3 18,6 19,3 24,9 25,5 26,1 26,1 25,3 24,7 18,8 18,2 
+5 17,1 17,4 18,0 19,0 24,4 25,2 26,1 26,1 25,0 24,0 18,2 17,3 
+6 15,5 15,9 16,8 18,4 23,4 24,7 26,2 26,2 24,4 22,9 17,2 15,7 
+7 8,4 9,4 11,7 16,0 19,4 22,7 26,4 26,6 21,8 18,0 12,9 9,0 
+8 8,3 9,3 11,7 16,0 19,3 22,7 26,4 26,6 21,8 17,9 12,8 8,9 
+9 8,1 9,1 11,5 15,9 19,2 22,6 26,4 26,6 21,7 17,8 12,7 8,7 
+ 
+Caratteristiche termiche dinamiche 
+Trasmittanza termica periodica |Yie| 0,135 W/m2K 
+Fattore di attenuazione fd 0,303 - 
+Sfasamento dell’onda termica φ 8,541 h 
+Massa superficiale (escluso intonaco) Ms 149,273 kg/m2 
+Massa superficiale Ms,t 213,273 kg/m2 
+Capacità termica areica interna k1 49,314 kJ/m2K 
+Capacità termica areica esterna k2 33,764 kJ/m2K 
+Ammettenza termica lato interno   Yii 3,456 [W/m²K,h] 
+Ammettenza termica lato esterno   Yee 2,325 [W/m²K,h] 
+ 
+Diagramma di Glaser e delle Temperature con valori di progetto 
+ 
+ 
+ 
+ 
+ 
+Temperatura interna  20,0  °C 
+Temperatura esterna  0,0  °C 
+Umidità relativa interna  50,0  % 
+Umidità relativa esterna  66,3  % 
+ 
+Verifica Igrometrica 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+  
+  
+ 
+Verifica della condensa superficiale 
+ 
+ Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+Temperature di riferimento 8,100 9,100 11,500 15,900 19,200 22,600 26,400 26,600 21,700 17,800 12,700 8,700 
+Pressioni vapore acqueo 953,283 800,400 1003,411 1162,051 1241,298 1601,917 1629,825 1978,485 1565,793 1353,945 1038,546 934,152 
+Umidità relativa esterna 88,300 69,300 74,000 64,400 55,800 58,500 47,400 56,800 60,400 66,500 70,800 83,100 
+Umidità relativa interna 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 
+Temperature interne 20,000 20,000 20,000 20,000 26,000 26,000 26,000 26,000 26,000 26,000 20,000 20,000 
+Pressioni vapore acqueo 
+interno 
+1519,018 1519,018 1519,018 1519,018 2183,647 2183,647 2183,647 2183,647 2183,647 2183,647 1519,018 1519,018 
+fRsi,min 0,429 0,376 0,200 -0,659 -0,044 -1,088 -17,750 -11,833 -0,651 0,134 0,068 0,398 
+fRsi 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 
+ 
+Verifica Esito 
+Condensa superficiale Non è presente condensa superficiale. 
+Mese critico Gennaio (fRsi=0,889; fRsi,min=0,429) 
+ 
+ 
+Verifica formazione muffe 
+ 
+ Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+Temperature di riferimento 8,100 9,100 11,500 15,900 19,200 22,600 26,400 26,600 21,700 17,800 12,700 8,700 
+Pressioni vapore acqueo 953,283 800,400 1003,411 1162,051 1241,298 1601,917 1629,825 1978,485 1565,793 1353,945 1038,546 934,152 
+Umidità relativa esterna 88,300 69,300 74,000 64,400 55,800 58,500 47,400 56,800 60,400 66,500 70,800 83,100 
+Umidità relativa interna 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 
+Temperature interne 20,000 20,000 20,000 20,000 26,000 26,000 26,000 26,000 26,000 26,000 20,000 20,000 
+Pressioni vapore acqueo 
+interno 
+1519,018 1519,018 1519,018 1519,018 2183,647 2183,647 2183,647 2183,647 2183,647 2183,647 1519,018 1519,018 
+fRsi,min 0,723 0,697 0,612 0,195 0,485 -0,029 -8,750 -5,833 0,186 0,573 0,548 0,708 
+fRsi 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 0,889 
+ 
+Verifica Esito 
+Condensa superficiale Non è prevista la formazione di muffe. 
+Mese critico Gennaio (fRsi=0,889; fRsi,min=0,723) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Cod. Tipologia Confinante con ... Descrizione 
+PAR-00009
+0 Parete Esterna EST Muratura a cassa vuota in laterizio forato 
+(26,5 cm) 
+ 
+Proprietà dei materiali 
+N. Descrizione 
+(dall’interno verso l’esterno) 
+s 
+[m] 
+λ 
+[W/mK] 
+ρ 
+[kg/m3] 
+c 
+[J/KgK] 
+μ 
+[-] 
+R 
+[m2K/W] 
+1 Intonaco di calce e gesso (interno) 0,020 0,700 1400,000 840,000 11,000 0,029 
+2 Mattone forato cm 8 0,080 0,000 775,000 840,000 9,000 0,200 
+3 Aria non ventilata 25 mm (flusso orizzontale) 0,025 0,000 1,300 1000,000 1,000 0,180 
+4 Mattone forato cm 12 0,120 0,000 717,000 840,000 9,000 0,310 
+5 Pannello in polistirene espanso estruso (XPS) con pelle 0,060 0,030 30,000 1450,000 50,000 2,000 
+6 Malta di calce o di calce e cemento 0,020 0,900 1800,000 840,000 27,000 0,022 
+ Spessore totale [m]: 0,325  
+ Resistenza superficiale interna (Ri): 0,130 [m2K/W] 
+ Resistenza superficiale esterna (Re): 0,040 [m2K/W] 
+ Resistenza termica totale: 2,911 [m2K/W] 
+ Trasmittanza termica totale (U): 0,344 [W/m2K] 
+ Valore limite trasmittanza (Ulim): 0,3400 [W/m2K] 
+ 
+Rappresentazione stratigrafia 
+ 
+ 
+ 
+Pressione parziale del vapore (P) e di saturazione (Psat) [Pa] 
+ 
+Int. Dato Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+1 P 1131,0 1134,0 1141,0 1155,0 1651,0 1666,0 1682,0 1683,0 1662,0 1645,0 1145,0 1133,0 
+ Psat 2261,2 2267,5 2282,6 2310,6 3299,6 3329,4 3363,0 3364,8 3321,5 3287,4 2290,2 2264,9 
+2 P 1123,7 1119,8 1135,3 1155,5 1633,5 1663,5 1679,9 1696,0 1658,2 1632,8 1140,6 1124,7 
+ Psat 2244,8 2252,4 2270,8 2304,8 3286,6 3322,9 3363,8 3366,0 3313,2 3271,8 2280,0 2249,4 
+3 P 1099,7 1073,3 1116,8 1157,2 1576,3 1655,4 1672,9 1738,7 1645,6 1592,8 1126,4 1097,6 
+ Psat 2133,1 2149,6 2189,7 2264,9 3196,7 3277,2 3369,3 3374,2 3255,7 3164,0 2210,0 2143,0 
+4 P 1098,9 1071,6 1116,1 1157,3 1574,3 1655,1 1672,6 1740,2 1645,2 1591,4 1125,9 1096,7 
+ Psat 2036,8 2060,7 2118,9 2229,4 3117,6 3236,5 3374,2 3381,6 3204,7 3069,7 2148,6 2051,1 
+5 P 1062,9 1001,9 1088,3 1159,9 1488,5 1642,9 1662,1 1804,2 1626,3 1531,5 1104,5 1056,0 
+ Psat 1879,8 1915,0 2001,6 2169,5 2985,3 3167,6 3382,7 3394,3 3118,4 2913,0 2046,3 1900,8 
+6 P 963,0 808,0 1011,0 1167,0 1250,0 1609,0 1633,0 1982,0 1574,0 1365,0 1045,0 943,0 
+ Psat 1098,4 1173,5 1372,7 1815,8 2243,9 2752,7 3438,0 3477,8 2609,1 2059,6 1482,9 1142,9 
+7 P 963,0 808,0 1011,0 1167,0 1250,0 1609,0 1633,0 1982,0 1574,0 1365,0 1045,0 943,0 
+ Psat 1091,6 1167,0 1366,8 1812,2 2236,7 2748,4 3438,6 3478,8 2603,9 2051,5 1477,5 1136,3 
+ 
+Verifica Esito 
+Condensa interstiziale Non si verifica condensa interstiziale. 
+ 
+Temperature [° C] 
+ 
+Int. Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+1 20,0 20,0 20,0 20,0 26,0 26,0 26,0 26,0 26,0 26,0 20,0 20,0 
+2 19,5 19,5 19,6 19,8 25,7 25,8 26,0 26,0 25,8 25,6 19,7 19,5 
+3 19,4 19,4 19,5 19,8 25,6 25,8 26,0 26,0 25,8 25,6 19,6 19,4 
+4 18,5 18,7 19,0 19,5 25,2 25,6 26,0 26,1 25,5 25,0 19,1 18,6 
+5 17,8 18,0 18,4 19,2 24,7 25,4 26,1 26,1 25,2 24,5 18,6 17,9 
+6 16,5 16,8 17,5 18,8 24,0 25,0 26,1 26,2 24,7 23,6 17,9 16,7 
+7 8,4 9,3 11,7 16,0 19,3 22,7 26,4 26,6 21,8 18,0 12,9 8,9 
+8 8,3 9,2 11,6 16,0 19,3 22,6 26,4 26,6 21,8 17,9 12,8 8,9 
+9 8,1 9,1 11,5 15,9 19,2 22,6 26,4 26,6 21,7 17,8 12,7 8,7 
+ 
+Caratteristiche termiche dinamiche 
+Trasmittanza termica periodica |Yie| 0,094 W/m2K 
+Fattore di attenuazione fd 0,275 - 
+Sfasamento dell’onda termica φ 8,839 h 
+Massa superficiale (escluso intonaco) Ms 149,873 kg/m2 
+Massa superficiale Ms,t 213,873 kg/m2 
+Capacità termica areica interna k1 48,774 kJ/m2K 
+Capacità termica areica esterna k2 32,569 kJ/m2K 
+Ammettenza termica lato interno   Yii 3,454 [W/m²K,h] 
+Ammettenza termica lato esterno   Yee 2,283 [W/m²K,h] 
+ 
+Diagramma di Glaser e delle Temperature con valori di progetto 
+ 
+ 
+ 
+ 
+ 
+ 
+Temperatura interna  20,0  °C 
+Temperatura esterna  0,0  °C 
+Umidità relativa interna  50,0  % 
+Umidità relativa esterna  66,3  % 
+ 
+Verifica Igrometrica 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+  
+  
+ 
+Verifica della condensa superficiale 
+ 
+ Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+Temperature di riferimento 8,100 9,100 11,500 15,900 19,200 22,600 26,400 26,600 21,700 17,800 12,700 8,700 
+Pressioni vapore acqueo 953,283 800,400 1003,411 1162,051 1241,298 1601,917 1629,825 1978,485 1565,793 1353,945 1038,546 934,152 
+Umidità relativa esterna 88,300 69,300 74,000 64,400 55,800 58,500 47,400 56,800 60,400 66,500 70,800 83,100 
+Umidità relativa interna 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 
+Temperature interne 20,000 20,000 20,000 20,000 26,000 26,000 26,000 26,000 26,000 26,000 20,000 20,000 
+Pressioni vapore acqueo 
+interno 
+1519,018 1519,018 1519,018 1519,018 2183,647 2183,647 2183,647 2183,647 2183,647 2183,647 1519,018 1519,018 
+fRsi,min 0,429 0,376 0,200 -0,659 -0,044 -1,088 -17,750 -11,833 -0,651 0,134 0,068 0,398 
+fRsi 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 
+ 
+Verifica Esito 
+Condensa superficiale Non è presente condensa superficiale. 
+Mese critico Gennaio (fRsi=0,914; fRsi,min=0,429) 
+ 
+ 
+Verifica formazione muffe 
+ 
+ Gen Feb Mar Apr Mag Giu Lug Ago Set Ott Nov Dic 
+Temperature di riferimento 8,100 9,100 11,500 15,900 19,200 22,600 26,400 26,600 21,700 17,800 12,700 8,700 
+Pressioni vapore acqueo 953,283 800,400 1003,411 1162,051 1241,298 1601,917 1629,825 1978,485 1565,793 1353,945 1038,546 934,152 
+Umidità relativa esterna 88,300 69,300 74,000 64,400 55,800 58,500 47,400 56,800 60,400 66,500 70,800 83,100 
+Umidità relativa interna 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 65,000 
+Temperature interne 20,000 20,000 20,000 20,000 26,000 26,000 26,000 26,000 26,000 26,000 20,000 20,000 
+Pressioni vapore acqueo 
+interno 
+1519,018 1519,018 1519,018 1519,018 2183,647 2183,647 2183,647 2183,647 2183,647 2183,647 1519,018 1519,018 
+fRsi,min 0,723 0,697 0,612 0,195 0,485 -0,029 -8,750 -5,833 0,186 0,573 0,548 0,708 
+fRsi 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 0,914 
+ 
+Verifica Esito 
+Condensa superficiale Non è prevista la formazione di muffe. 
+Mese critico Gennaio (fRsi=0,914; fRsi,min=0,723) 
+ 
+ 
+ 
+…OMISSIS
+ALLEGATO 2 – CARATTERISTICHE TERMICHE COMPONENTI FINESTRATI 
+ 
+ 
+ 
+…OMISSI
+ 
