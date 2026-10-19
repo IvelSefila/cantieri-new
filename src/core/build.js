@@ -48,7 +48,9 @@ function toWorld(local, wall, ux, uy, L) {
 
 // plan: modello validato. catalog: { items: [...] } con id, categoria, nome.
 // assignment: opzionale { [openingId]: itemId | null } (sovrascrive op.cdi).
-export function buildModel(plan, catalog, assignment = {}) {
+// arredi (opzionale): [{ id, min:[x,y,z] mm, dimensioni:[L,D,H] mm, colore:[r,g,b] }]
+// Sono decorativi: non entrano nelle verifiche di muri e vani.
+export function buildModel(plan, catalog, assignment = {}, arredi = []) {
   const report = validatePlan(plan);
   if (!report.ok) return { ok: false, report, boxes: [] };
 
@@ -81,6 +83,25 @@ export function buildModel(plan, catalog, assignment = {}) {
       if (item) local.push(...openingLocalBoxes(op, wall.t, item).map((b) => ({ ...b, n0: b.n0, n1: b.n1 })));
     }
     for (const lb of local) boxes.push(toWorld(lb, wall, ux, uy, L));
+  }
+
+  for (const a of arredi) {
+    const [L, D, H] = a.dimensioni;
+    boxes.push({
+      kind: "arredo",
+      id: a.id,
+      wall: null,
+      cx: a.min[0] + L / 2,
+      cy: a.min[1] + D / 2,
+      cz: a.min[2] + H / 2,
+      L,
+      D,
+      H,
+      ang: 0,
+      colore: a.colore,
+      s0: 0,
+      s1: L,
+    });
   }
 
   const stats = {

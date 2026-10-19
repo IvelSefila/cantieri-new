@@ -133,3 +133,17 @@ test("misure: superfici in mm^2 esatte e coerenti con la somma per muro", () => 
   assert.equal(m.lunghezza_muri_obliqui_mm, 0);
   assert.ok(Number.isInteger(m.lunghezza_muri_mm));
 });
+
+test("arredi: 56 elementi decorativi in mm interi, dentro l'edificio, senza alterare i muri", () => {
+  const arredi = load("arredi-ar02.json").arredi;
+  const senza = buildModel(plan, catalog, {}, []);
+  const con = buildModel(plan, catalog, {}, arredi);
+  assert.equal(arredi.length, 56);
+  assert.equal(con.boxes.filter((b) => b.kind === "arredo").length, 56);
+  assert.equal(con.boxes.filter((b) => b.kind.startsWith("muro")).length, senza.boxes.filter((b) => b.kind.startsWith("muro")).length);
+  for (const a of arredi) {
+    assert.ok([...a.min, ...a.dimensioni].every(Number.isInteger), `${a.id} non intero`);
+    assert.ok(a.min[0] >= 0 && a.min[0] + a.dimensioni[0] <= 22000, `${a.id} fuori in x`);
+    assert.ok(a.min[1] >= 0 && a.min[1] + a.dimensioni[1] <= 14000, `${a.id} fuori in y`);
+  }
+});

@@ -73,7 +73,7 @@ function renderModello() {
     return;
   }
 
-  const res = buildModel(plan, stato.catalog, stato.assegnazioni);
+  const res = buildModel(plan, stato.catalog, stato.assegnazioni, plan.name?.includes("AR-02") || plan.name?.includes("Piano tipo") ? stato.arredi : []);
   for (const w of res.report.warnings) if (!check.warnings.includes(w)) righe.push({ tipo: "avviso", testo: `avviso: ${w}` });
   stato.viewer.setBoxes(res.boxes);
 
@@ -98,11 +98,13 @@ function caricaPlan(plan, nome) {
 
 async function init() {
   stato.viewer = createViewer($("vista"));
-  const [plan, catalog] = await Promise.all([
+  const [plan, catalog, arredi] = await Promise.all([
     fetch("data/plan-ar02.json").then((r) => r.json()),
     fetch("data/cdi-catalog.json").then((r) => r.json()),
+    fetch("data/arredi-ar02.json").then((r) => r.json()),
   ]);
   stato.catalog = catalog;
+  stato.arredi = arredi.arredi;
   caricaPlan(plan, "planimetria di esempio");
   montaTracciamento(document.getElementById("trc-root"), {
     onPianta: (p) => caricaPlan(p, "tracciata su immagine"),

@@ -1,0 +1,1014 @@
+{
+ "fonte": "cad_processor.py (arredi Unità A e B), in mm interi: angolo minimo + dimensioni",
+ "unita": "mm",
+ "arredi": [
+  {
+   "id": "Divano_A_Base",
+   "min": [
+    1500,
+    2700,
+    0
+   ],
+   "dimensioni": [
+    3000,
+    1000,
+    500
+   ],
+   "colore": [
+    70,
+    95,
+    130
+   ]
+  },
+  {
+   "id": "Divano_A_Penisola",
+   "min": [
+    1000,
+    3700,
+    0
+   ],
+   "dimensioni": [
+    1000,
+    1600,
+    500
+   ],
+   "colore": [
+    70,
+    95,
+    130
+   ]
+  },
+  {
+   "id": "Divano_A_Schienale",
+   "min": [
+    1500,
+    2600,
+    0
+   ],
+   "dimensioni": [
+    3000,
+    200,
+    700
+   ],
+   "colore": [
+    70,
+    95,
+    130
+   ]
+  },
+  {
+   "id": "Tavolino_Living_A",
+   "min": [
+    2600,
+    3850,
+    0
+   ],
+   "dimensioni": [
+    1200,
+    700,
+    350
+   ],
+   "colore": [
+    245,
+    245,
+    242
+   ]
+  },
+  {
+   "id": "Cucina_A_Basi",
+   "min": [
+    2800,
+    5725,
+    0
+   ],
+   "dimensioni": [
+    2400,
+    950,
+    900
+   ],
+   "colore": [
+    42,
+    45,
+    50
+   ]
+  },
+  {
+   "id": "Cucina_A_Top_Marmo",
+   "min": [
+    2775,
+    5700,
+    900
+   ],
+   "dimensioni": [
+    2450,
+    1000,
+    60
+   ],
+   "colore": [
+    245,
+    245,
+    242
+   ]
+  },
+  {
+   "id": "Piano_Induzione_A",
+   "min": [
+    3200,
+    5950,
+    960
+   ],
+   "dimensioni": [
+    800,
+    500,
+    10
+   ],
+   "colore": [
+    15,
+    15,
+    18
+   ]
+  },
+  {
+   "id": "Lavello_Inox_A",
+   "min": [
+    4350,
+    6000,
+    960
+   ],
+   "dimensioni": [
+    500,
+    400,
+    10
+   ],
+   "colore": [
+    210,
+    215,
+    222
+   ]
+  },
+  {
+   "id": "Tavolo_Pranzo_A",
+   "min": [
+    6450,
+    5050,
+    725
+   ],
+   "dimensioni": [
+    1500,
+    1500,
+    50
+   ],
+   "colore": [
+    180,
+    135,
+    90
+   ]
+  },
+  {
+   "id": "Gamba_Tavolo_A",
+   "min": [
+    7125,
+    5725,
+    0
+   ],
+   "dimensioni": [
+    150,
+    150,
+    720
+   ],
+   "colore": [
+    40,
+    40,
+    42
+   ]
+  },
+  {
+   "id": "Letto_Matrimoniale_A",
+   "min": [
+    1550,
+    9900,
+    0
+   ],
+   "dimensioni": [
+    2100,
+    2200,
+    480
+   ],
+   "colore": [
+    235,
+    230,
+    222
+   ]
+  },
+  {
+   "id": "Testata_Letto_A",
+   "min": [
+    1450,
+    12010,
+    0
+   ],
+   "dimensioni": [
+    2300,
+    180,
+    1050
+   ],
+   "colore": [
+    90,
+    85,
+    80
+   ]
+  },
+  {
+   "id": "Cuscino_A1",
+   "min": [
+    1650,
+    11375,
+    445
+   ],
+   "dimensioni": [
+    700,
+    450,
+    150
+   ],
+   "colore": [
+    245,
+    245,
+    245
+   ]
+  },
+  {
+   "id": "Cuscino_A2",
+   "min": [
+    2850,
+    11375,
+    445
+   ],
+   "dimensioni": [
+    700,
+    450,
+    150
+   ],
+   "colore": [
+    245,
+    245,
+    245
+   ]
+  },
+  {
+   "id": "Comodino_A1",
+   "min": [
+    850,
+    11700,
+    0
+   ],
+   "dimensioni": [
+    500,
+    400,
+    350
+   ],
+   "colore": [
+    180,
+    135,
+    90
+   ]
+  },
+  {
+   "id": "Comodino_A2",
+   "min": [
+    3850,
+    11700,
+    0
+   ],
+   "dimensioni": [
+    500,
+    400,
+    350
+   ],
+   "colore": [
+    180,
+    135,
+    90
+   ]
+  },
+  {
+   "id": "Armadio_Camera_A",
+   "min": [
+    675,
+    6900,
+    0
+   ],
+   "dimensioni": [
+    650,
+    3200,
+    1235
+   ],
+   "colore": [
+    240,
+    238,
+    235
+   ]
+  },
+  {
+   "id": "Mobile_Bagno_A",
+   "min": [
+    7300,
+    3250,
+    250
+   ],
+   "dimensioni": [
+    1400,
+    500,
+    500
+   ],
+   "colore": [
+    60,
+    65,
+    70
+   ]
+  },
+  {
+   "id": "Specchio_Bagno_A",
+   "min": [
+    7300,
+    3775,
+    500
+   ],
+   "dimensioni": [
+    1400,
+    50,
+    800
+   ],
+   "colore": [
+    210,
+    215,
+    222
+   ]
+  },
+  {
+   "id": "Piatto_Doccia_A",
+   "min": [
+    8000,
+    750,
+    0
+   ],
+   "dimensioni": [
+    1200,
+    900,
+    30
+   ],
+   "colore": [
+    235,
+    235,
+    238
+   ]
+  },
+  {
+   "id": "Box_Doccia_Vetro_A",
+   "min": [
+    8000,
+    1640,
+    0
+   ],
+   "dimensioni": [
+    1200,
+    20,
+    1170
+   ],
+   "colore": [
+    160,
+    215,
+    245
+   ]
+  },
+  {
+   "id": "Muro_Divisorio_B_Ovest",
+   "min": [
+    12500,
+    7425,
+    0
+   ],
+   "dimensioni": [
+    2000,
+    150,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Muro_Divisorio_B_Est",
+   "min": [
+    15400,
+    7425,
+    0
+   ],
+   "dimensioni": [
+    6320,
+    150,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Porta_Disimpegno_B",
+   "min": [
+    14575,
+    7780,
+    0
+   ],
+   "dimensioni": [
+    850,
+    40,
+    1235
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Muro_Cucina_B1",
+   "min": [
+    15425,
+    280,
+    0
+   ],
+   "dimensioni": [
+    150,
+    1320,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Muro_Cucina_B2",
+   "min": [
+    15425,
+    2800,
+    0
+   ],
+   "dimensioni": [
+    150,
+    1700,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Muro_Cucina_B_Orizzontale",
+   "min": [
+    12500,
+    4425,
+    0
+   ],
+   "dimensioni": [
+    3000,
+    150,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Porta_Scrigno_Cucina_B",
+   "min": [
+    15485,
+    1625,
+    0
+   ],
+   "dimensioni": [
+    30,
+    1150,
+    1235
+   ],
+   "colore": [
+    160,
+    215,
+    245
+   ]
+  },
+  {
+   "id": "Tramezzo_Suite_B1",
+   "min": [
+    17425,
+    7500,
+    0
+   ],
+   "dimensioni": [
+    150,
+    1100,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Tramezzo_Suite_B2",
+   "min": [
+    17425,
+    9450,
+    0
+   ],
+   "dimensioni": [
+    150,
+    4270,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Porta_Suite_B",
+   "min": [
+    17730,
+    8625,
+    0
+   ],
+   "dimensioni": [
+    40,
+    800,
+    1235
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Bagno_Padronale_B1",
+   "min": [
+    14500,
+    9425,
+    0
+   ],
+   "dimensioni": [
+    1000,
+    150,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Bagno_Padronale_B2",
+   "min": [
+    16250,
+    9425,
+    0
+   ],
+   "dimensioni": [
+    1250,
+    150,
+    1300
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Porta_Bagno_Suite_B",
+   "min": [
+    15515,
+    9780,
+    0
+   ],
+   "dimensioni": [
+    720,
+    40,
+    1235
+   ],
+   "colore": [
+    200,
+    200,
+    200
+   ]
+  },
+  {
+   "id": "Divano_B_Base",
+   "min": [
+    17300,
+    2650,
+    0
+   ],
+   "dimensioni": [
+    3800,
+    1100,
+    520
+   ],
+   "colore": [
+    85,
+    90,
+    100
+   ]
+  },
+  {
+   "id": "Divano_B_Penisola",
+   "min": [
+    16250,
+    3100,
+    0
+   ],
+   "dimensioni": [
+    1100,
+    2200,
+    520
+   ],
+   "colore": [
+    85,
+    90,
+    100
+   ]
+  },
+  {
+   "id": "Divano_B_Schienale",
+   "min": [
+    17300,
+    2500,
+    0
+   ],
+   "dimensioni": [
+    3800,
+    200,
+    720
+   ],
+   "colore": [
+    85,
+    90,
+    100
+   ]
+  },
+  {
+   "id": "Tavolino_Living_B",
+   "min": [
+    18300,
+    3800,
+    0
+   ],
+   "dimensioni": [
+    1400,
+    800,
+    320
+   ],
+   "colore": [
+    180,
+    135,
+    90
+   ]
+  },
+  {
+   "id": "Mobile_TV_B",
+   "min": [
+    17600,
+    800,
+    0
+   ],
+   "dimensioni": [
+    2800,
+    400,
+    400
+   ],
+   "colore": [
+    50,
+    52,
+    58
+   ]
+  },
+  {
+   "id": "Tavolo_Pranzo_B",
+   "min": [
+    17250,
+    5675,
+    720
+   ],
+   "dimensioni": [
+    2500,
+    1050,
+    60
+   ],
+   "colore": [
+    45,
+    48,
+    55
+   ]
+  },
+  {
+   "id": "Gamba_B1",
+   "min": [
+    17340,
+    5740,
+    0
+   ],
+   "dimensioni": [
+    120,
+    120,
+    720
+   ],
+   "colore": [
+    210,
+    215,
+    222
+   ]
+  },
+  {
+   "id": "Gamba_B2",
+   "min": [
+    19540,
+    5740,
+    0
+   ],
+   "dimensioni": [
+    120,
+    120,
+    720
+   ],
+   "colore": [
+    210,
+    215,
+    222
+   ]
+  },
+  {
+   "id": "Gamba_B3",
+   "min": [
+    17340,
+    6540,
+    0
+   ],
+   "dimensioni": [
+    120,
+    120,
+    720
+   ],
+   "colore": [
+    210,
+    215,
+    222
+   ]
+  },
+  {
+   "id": "Gamba_B4",
+   "min": [
+    19540,
+    6540,
+    0
+   ],
+   "dimensioni": [
+    120,
+    120,
+    720
+   ],
+   "colore": [
+    210,
+    215,
+    222
+   ]
+  },
+  {
+   "id": "Colonne_Cucina_B",
+   "min": [
+    12875,
+    1450,
+    0
+   ],
+   "dimensioni": [
+    650,
+    3500,
+    1235
+   ],
+   "colore": [
+    220,
+    215,
+    205
+   ]
+  },
+  {
+   "id": "Basi_Cucina_B",
+   "min": [
+    13300,
+    800,
+    0
+   ],
+   "dimensioni": [
+    2600,
+    800,
+    920
+   ],
+   "colore": [
+    40,
+    44,
+    50
+   ]
+  },
+  {
+   "id": "Top_Cucina_B",
+   "min": [
+    13275,
+    775,
+    915
+   ],
+   "dimensioni": [
+    2650,
+    850,
+    50
+   ],
+   "colore": [
+    245,
+    245,
+    242
+   ]
+  },
+  {
+   "id": "Letto_King_B",
+   "min": [
+    18400,
+    9850,
+    0
+   ],
+   "dimensioni": [
+    2200,
+    2300,
+    500
+   ],
+   "colore": [
+    235,
+    230,
+    222
+   ]
+  },
+  {
+   "id": "Testata_Cannettata_B",
+   "min": [
+    18200,
+    12125,
+    0
+   ],
+   "dimensioni": [
+    2600,
+    150,
+    1150
+   ],
+   "colore": [
+    75,
+    65,
+    55
+   ]
+  },
+  {
+   "id": "Cuscino_B1",
+   "min": [
+    18425,
+    11350,
+    460
+   ],
+   "dimensioni": [
+    750,
+    500,
+    180
+   ],
+   "colore": [
+    250,
+    250,
+    250
+   ]
+  },
+  {
+   "id": "Cuscino_B2",
+   "min": [
+    19825,
+    11350,
+    460
+   ],
+   "dimensioni": [
+    750,
+    500,
+    180
+   ],
+   "colore": [
+    250,
+    250,
+    250
+   ]
+  },
+  {
+   "id": "Vasca_Freestanding_B",
+   "min": [
+    13150,
+    11575,
+    0
+   ],
+   "dimensioni": [
+    1700,
+    850,
+    550
+   ],
+   "colore": [
+    250,
+    250,
+    252
+   ]
+  },
+  {
+   "id": "Mobile_Doppio_Lavabo_B",
+   "min": [
+    13100,
+    9540,
+    225
+   ],
+   "dimensioni": [
+    1800,
+    520,
+    550
+   ],
+   "colore": [
+    60,
+    62,
+    68
+   ]
+  },
+  {
+   "id": "Specchio_LED_B",
+   "min": [
+    13100,
+    9580,
+    525
+   ],
+   "dimensioni": [
+    1800,
+    40,
+    850
+   ],
+   "colore": [
+    160,
+    215,
+    245
+   ]
+  },
+  {
+   "id": "Letto_Singolo_B",
+   "min": [
+    15400,
+    9950,
+    0
+   ],
+   "dimensioni": [
+    1200,
+    2100,
+    450
+   ],
+   "colore": [
+    130,
+    150,
+    175
+   ]
+  },
+  {
+   "id": "Scrivania_Studio_B",
+   "min": [
+    15300,
+    8150,
+    0
+   ],
+   "dimensioni": [
+    1400,
+    700,
+    750
+   ],
+   "colore": [
+    180,
+    135,
+    90
+   ]
+  }
+ ]
+}
