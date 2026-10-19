@@ -303,11 +303,47 @@ export function createViewer(container) {
   }
 
   // Rendering su richiesta: si disegna solo se qualcosa e' cambiato.
+  // Movimento con frecce e WASD nella vista orbitale: camera e bersaglio si spostano insieme, passo proporzionale allo zoom
+  const TASTI_MOVIMENTO = { w: "avanti", arrowup: "avanti", s: "indietro", arrowdown: "indietro", a: "sinistra", arrowleft: "sinistra", d: "destra", arrowright: "destra" };
+  const tastiPremuti = new Set();
+  window.addEventListener("keydown", (e) => {
+    if (e.target.closest?.("input, textarea, select, [contenteditable]")) return;
+    const k = e.key.toLowerCase();
+    if (k in TASTI_MOVIMENTO) { tastiPremuti.add(k); e.preventDefault(); }
+  });
+  window.addEventListener("keyup", (e) => tastiPremuti.delete(e.key.toLowerCase()));
+  window.addEventListener("blur", () => tastiPremuti.clear());
+  function muoviConTasti() {
+    if (passeggiata.attiva() || inVolo || tastiPremuti.size === 0) return false;
+    // Avanti orizzontale: dalla direzione dello sguardo; se si guarda dall'alto, dalla direzione "alto" dello schermo
+    const dir = new THREE.Vector3();
+    camera.getWorldDirection(dir);
+    let avanti = new THREE.Vector3(dir.x, 0, dir.z);
+    if (avanti.length() < 0.05) avanti = new THREE.Vector3(camera.up.x, 0, camera.up.z);
+    if (avanti.length() < 1e-6) return false;
+    avanti.normalize();
+    const destra = new THREE.Vector3().crossVectors(avanti, new THREE.Vector3(0, 1, 0)).normalize();
+    const v = new THREE.Vector3();
+    for (const k of tastiPremuti) {
+      const a = TASTI_MOVIMENTO[k];
+      if (a === "avanti") v.add(avanti);
+      if (a === "indietro") v.sub(avanti);
+      if (a === "destra") v.add(destra);
+      if (a === "sinistra") v.sub(destra);
+    }
+    if (v.lengthSq() === 0) return false;
+    v.normalize().multiplyScalar(Math.max(20, camera.position.distanceTo(controls.target) * 0.02));
+    camera.position.add(v);
+    controls.target.add(v);
+    return true;
+  }
+
   function ciclo() {
     frame = requestAnimationFrame(ciclo);
     const inMoto = passoVolo();
     const camminata = passeggiata.aggiorna();
-    const cambiata = inMoto || camminata || (!passeggiata.attiva() && controls.update());
+    const spostata = muoviConTasti();
+    const cambiata = inMoto || camminata || spostata || (!passeggiata.attiva() && controls.update());
     if (!richiesta && !cambiata) return;
     richiesta = false;
     if (post) post.disegna();
@@ -434,24 +470,6 @@ export function createViewer(container) {
   });
   function setDoppioClicHandler(fn) { doppioHandler = fn; }
 
-  // Tasto destro: scheda dell'elemento colpito (muri, pavimenti, arredi, vani)
-  let contestoHandler = null;
-  renderer.domElement.addEventListener("contextmenu", (ev) => {
-    ev.preventDefault();
-    if (!contestoHandler) return;
-    puntatoreDa(ev);
-    const hit = colpito();
-    const piani = raycaster.intersectObject(piano, false);
-    const punto = hit ? hit.point : piani[0] ? piani[0].point : null;
-    contestoHandler({
-      mm: punto ? [Math.round(punto.x / MM_TO_M), Math.round(punto.z / MM_TO_M)] : null,
-      id: hit ? hit.id : null,
-      kind: hit ? hit.kind : null,
-      wall: hit ? hit.wall : null,
-      vano: hit ? hit.vano ?? null : null,
-    });
-  });
-  function setContestoHandler(fn) { contestoHandler = fn; }
 
   // Evidenziazione di un muro (tutti i suoi tratti): contorno dorato e velo
   let evMuro = null;
@@ -844,7 +862,7 @@ export function createViewer(container) {
     avviaPasseggiata, esciPasseggiata, passeggiataAttiva: () => passeggiata.attiva(),
     setPasseggiataHandler: (fn) => { passeggHandler = fn; },
     setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
-    setDoppioClicHandler, setContestoHandler, setEvidenzaMuro, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
+    setDoppioClicHandler, setEvidenzaMuro, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
     setDettagli, setFantasma, setSelezione, volaA, vistaDallAltoSubito, ripristinaVistaCamera, vistaAttuale, pianoDaEvento, oggettoDaEvento,
     inVolo: () => inVolo, ridisegna: () => { richiesta = true; },
     domElement: renderer.domElement,

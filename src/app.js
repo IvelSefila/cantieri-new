@@ -33,6 +33,50 @@ import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI 
 import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
 import { impostaFunzioneStanza } from "./core/project.js";
 
+// Legenda dei comandi: pulsante "?" in basso a sinistra, pannello che si apre e si chiude
+function montaLegenda() {
+  const pulsante = document.createElement("button");
+  pulsante.textContent = "?";
+  pulsante.title = "Legenda dei comandi";
+  pulsante.setAttribute("aria-label", "Legenda dei comandi");
+  pulsante.style.cssText = "position:fixed;left:16px;bottom:24px;z-index:70;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,196,77,.6);background:rgba(16,22,38,.9);color:#f2f4f8;font:700 16px system-ui,sans-serif;cursor:pointer";
+  const pannello = document.createElement("div");
+  pannello.style.cssText = "position:fixed;left:16px;bottom:72px;z-index:70;width:330px;max-height:70vh;overflow:auto;padding:14px 16px;border-radius:14px;background:rgba(16,22,38,.95);color:#f2f4f8;font:13px/1.55 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4);display:none";
+  const voce = (tasto, testo) => {
+    const r = document.createElement("div");
+    r.style.cssText = "display:flex;gap:10px;margin:4px 0;align-items:flex-start";
+    const k = document.createElement("span");
+    k.textContent = tasto;
+    k.style.cssText = "min-width:92px;padding:2px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);font:600 12px system-ui,sans-serif;text-align:center;white-space:nowrap";
+    const t = document.createElement("span");
+    t.textContent = testo;
+    r.append(k, t);
+    return r;
+  };
+  const titolo = (t) => { const d = document.createElement("div"); d.textContent = t; d.style.cssText = "font:700 12px system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#ffc44d;margin:10px 0 4px"; return d; };
+  pannello.append(
+    titolo("Mouse"),
+    voce("Clic sinistro", "Seleziona, isola o evidenzia un elemento"),
+    voce("Doppio clic", "Scheda dell'elemento: muro, pavimento, arredo, vano o stanza"),
+    voce("Trascina", "Ruota la vista"),
+    voce("Rotella", "Zoom"),
+    titolo("Tastiera: vista"),
+    voce("W A S D / frecce", "Muovi la vista (avanti, indietro, lati)"),
+    voce("Tab", "Mostra o nascondi il pannello laterale"),
+    titolo("Tastiera: costruzione"),
+    voce("1 – 6", "Strumenti: muro, vano, pavimento, arredo, sposta, elimina"),
+    voce("R", "Ruota l'arredo"),
+    voce("Ctrl + Z", "Annulla l'ultima modifica"),
+    voce("Esc", "Annulla l'operazione in corso o chiudi"),
+    titolo("Prima persona"),
+    voce("W A S D / frecce", "Cammina"),
+    voce("Shift", "Corri"),
+    voce("Esc", "Esci dalla prima persona"),
+  );
+  pulsante.onclick = () => { pannello.style.display = pannello.style.display === "block" ? "none" : "block"; };
+  document.body.append(pulsante, pannello);
+}
+
 // Arreda tutto: prima si sceglie l'alloggio (se ce ne sono piu' di uno), poi si confermano le funzioni delle sue stanze
 function flussoArredo(mostraRisultato) {
   // Vista dall'alto, perfettamente verticale, con la planimetria a sinistra e il pannello a destra
@@ -691,14 +735,6 @@ function gestisciDoppio(hit) {
   });
 }
 
-// Tasto destro: il muro si evidenzia e si apre la sua scheda (niente doppio clic)
-function gestisciTasto(hit) {
-  if (hit.kind && hit.kind.startsWith("muro")) {
-    stato.viewer.setEvidenzaMuro(hit.wall);
-    return gestisciDoppio(hit);
-  }
-  return gestisciDoppio(hit);
-}
 
 function gestisciClic(hit) {
   if (stato.modo !== "costruzione") { gestisciVista(hit); return; }
@@ -931,6 +967,7 @@ async function init() {
     messaggio,
   });
   montaAutomatismi();
+  montaLegenda();
   stato.energia = montaScheda($("sez-energia"), {
     getRigheGSA: () => calcolaGSA(stato.progetto, {
       orientamenti: stato.orientamenti ?? {},
@@ -955,7 +992,6 @@ async function init() {
   }, 1000);
   stato.viewer.setPickHandler(gestisciClic);
   stato.viewer.setDoppioClicHandler(gestisciDoppio);
-  stato.viewer.setContestoHandler(gestisciTasto);
   // Il menu del browser non si apre su tutta l'app: il tasto destro e' dell'editor 3D (campi di testo esclusi)
   document.addEventListener("contextmenu", (ev) => {
     if (!ev.target.closest?.("input, textarea, [contenteditable]")) ev.preventDefault();
