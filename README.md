@@ -48,13 +48,21 @@ tests/core.test.mjs      test del motore (Node)
 - Ogni arrotondamento a mm intero è contato e riportato; nessuna correzione silenziosa.
 - I vani non vengono importati dal DXF: si aggiungono nel modello JSON.
 
+## Tracciamento su immagine
+
+1. Carica un'immagine (PNG/JPG). Imposta la **distanza di calibrazione** in mm, poi clicca **1. Calibra**: primo clic sull'origine, secondo clic su un punto di distanza nota.
+2. **2. Muro**: due clic per ogni segmento. **3. Vano**: due clic sullo stesso muro (tipo, altezza, davanzale nei campi accanto).
+3. **Invia al 3D** o **Esporta JSON**.
+- Le coordinate sono interi in mm. Lo **zoom** non cambia la scala, ma permette di cliccare con più precisione.
+- **Precisione reale = risoluzione dell'immagine**: con 20 mm per pixel nessun clic può essere più preciso di 20 mm. Per il millimetro serve una rasterizzazione ad alta risoluzione.
+
 ## Test
 
 ```bash
 npm test
 ```
 
-I test DXF usano file costruiti nel test, non disegni del progetto.
+I test DXF e di tracciamento usano dati costruiti nel test, non disegni del progetto.
 
 I test verificano: precisione al mm (pieni + vani = lunghezza del muro), nessuna scatola che attraversa un vano, perimetro chiuso, validazione dei dati errati, avvisi di mazzetta, infissi dentro il vano, catalogo e misure.
 

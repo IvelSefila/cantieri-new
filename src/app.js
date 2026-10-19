@@ -6,6 +6,7 @@ import { TIPO_PER_CATEGORIA } from "./core/cdi.js";
 import { createViewer } from "./view/scene.js";
 import { parseDxf } from "./io/dxf.js";
 import { dxfToPlan } from "./io/toPlan.js";
+import { montaTracciamento } from "./trace/ui.js";
 
 const $ = (id) => document.getElementById(id);
 const stato = { plan: null, catalog: null, assegnazioni: {}, viewer: null };
@@ -103,6 +104,9 @@ async function init() {
   ]);
   stato.catalog = catalog;
   caricaPlan(plan, "planimetria di esempio");
+  montaTracciamento(document.getElementById("trc-root"), {
+    onPianta: (p) => caricaPlan(p, "tracciata su immagine"),
+  });
 
   $("carica").addEventListener("change", async (ev) => {
     const file = ev.target.files[0];

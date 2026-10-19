@@ -65,6 +65,39 @@
       <div id="nome-plan"></div>
       <div id="messaggi" data-tipo="info">Caricamento…</div>
       <div id="esito"></div>
+      <details id="trc-root" style="margin-top:12px;">
+        <summary><b>Tracciamento su immagine</b> (calibrato in mm)</summary>
+        <div style="margin-top:6px;"><input id="trc-file" type="file" accept="image/*"></div>
+        <div style="margin-top:6px;">
+          Spessore muri (mm): <input id="trc-spessore" type="number" value="250" step="2" style="width:80px">
+          Altezza muri (mm): <input id="trc-altezza-muri" type="number" value="2800" style="width:80px">
+        </div>
+        <div style="margin-top:6px;">
+          Griglia: <select id="trc-snap"><option value="0">libera</option><option value="10" selected>10 mm</option><option value="50">50 mm</option></select>
+        </div>
+        <div style="margin-top:6px; display:flex; gap:4px; flex-wrap:wrap;">
+          Distanza di calibrazione (mm): <input id="trc-dist" type="number" value="4000" step="1" style="width:90px">
+          <button id="trc-calibra">1. Calibra</button>
+          <button id="trc-muro">2. Muro</button>
+          <button id="trc-vano">3. Vano</button>
+          <button id="trc-annulla">Annulla</button>
+          <button id="trc-esc">Esc</button>
+        </div>
+        <div style="margin-top:6px;">
+          Tipo vano: <select id="trc-tipo"><option value="porta">porta</option><option value="finestra">finestra</option><option value="scorrevole">scorrevole</option></select>
+          Altezza: <input id="trc-altezza" type="number" value="2100" style="width:70px">
+          Davanzale: <input id="trc-sill" type="number" value="0" style="width:60px">
+        </div>
+        <div class="trc-stato" style="margin-top:6px; font-size:12px; color:#52606d;"></div>
+        <div style="margin-top:6px; display:flex; gap:4px;">
+          <button id="trc-invia">Invia al 3D</button>
+          <button id="trc-esporta">Esporta JSON</button>
+        </div>
+        <div style="margin-top:6px;">Zoom: <input id="trc-zoom" type="range" min="1" max="4" step="0.5" value="1" style="width:160px"></div>
+        <div class="trc-wrap" style="max-height:60vh; overflow:auto; border:1px solid #d5dbe3; margin-top:4px;">
+          <canvas style="display:block; width:100%; cursor:crosshair;"></canvas>
+        </div>
+      </details>
       <h2 style="font-size:14px; margin-top:14px;">Vani e infissi CDI (prototipo generato a codice)</h2>
       <div id="vani"></div>
     </aside>
