@@ -203,6 +203,14 @@ export function impostaPavimentoStanza(p, poligono, materiale) {
   return { p: { ...p, floors: [...p.floors, { id, poligono: pts, materiale }] }, id };
 }
 
+// Funzione di una stanza (camera, bagno, ...), scelta dall'utente e salvata per poligono della stanza.
+export function impostaFunzioneStanza(p, poligono, funzione) {
+  const pts = poligono.map(([x, y]) => [Math.round(x), Math.round(y)]);
+  const chiave = JSON.stringify(pts);
+  const altre = (p.funzioniStanze ?? []).filter((f) => JSON.stringify(f.poligono) !== chiave);
+  return { p: { ...p, funzioniStanze: [...altre, { poligono: pts, funzione }] } };
+}
+
 // Verifica completa del progetto: muri/vani con il validatore, pavimenti e arredi con i loro vincoli.
 export function verificaProgetto(p) {
   const base = validatePlan(p);

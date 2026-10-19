@@ -77,15 +77,12 @@ function montaAutomatismi() {
   bFiniture.style.cssText = stile;
   bFiniture.onclick = () => esegui("Finiture", (p) => finiturTutto(p));
 
-  const livello = document.createElement("select");
-  livello.style.cssText = stile;
-  livello.innerHTML = `<option value="base">Infissi: base</option><option value="avanzato">Infissi: avanzato</option>`;
   const bInfissi = document.createElement("button");
   bInfissi.textContent = "Inserisci finestre";
   bInfissi.style.cssText = stile;
-  bInfissi.onclick = () => esegui("Finestre automatiche", (p) => infissiAutomatici(p, { livello: livello.value }));
+  bInfissi.onclick = () => esegui("Finestre (DM 5/7/1975 e orientamento)", (p) => infissiAutomatici(p));
 
-  barra.append(bArredo, bFiniture, livello, bInfissi);
+  barra.append(bArredo, bFiniture, bInfissi);
   document.body.append(barra, pannello);
 }
 import { montaGSA } from "./ui/gsa-ui.js";
@@ -546,7 +543,7 @@ function gestisciDoppio(hit) {
     if (s) { tipo = "stanza"; id = s; dati = descrivi(p, "stanza", s); stato.viewer.setEvidenza(s.interno); }
   }
   if (!dati) return messaggio("Nessun elemento qui.", "info");
-  apriScheda({ titolo: dati.titolo, portante: dati.portante, righe: dati.righe, azioni: dati.azioni, finiture: dati.finiture, tinte: dati.tinte }, (az) => {
+  apriScheda({ titolo: dati.titolo, portante: dati.portante, righe: dati.righe, azioni: dati.azioni, finiture: dati.finiture, tinte: dati.tinte, funzioni: dati.funzioni }, (az) => {
     const nuovo = eseguiAzione(p, tipo, id, az);
     if (!nuovo) return;
     applica(nuovo);

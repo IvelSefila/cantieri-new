@@ -68,6 +68,23 @@ export function apriScheda(dati, onAzione) {
     box.append(titoloFin, griglia);
   }
 
+  // Funzione della stanza: ne decide arredi e finestre (la planimetria non porta le etichette)
+  if (dati.funzioni) {
+    const titoloFun = document.createElement("div");
+    titoloFun.className = "scheda-sezione";
+    titoloFun.textContent = dati.funzioni.titolo + (dati.funzioni.attiva ? "" : " (suggerita, da confermare)");
+    const griglia = document.createElement("div");
+    griglia.className = "scheda-finiture";
+    for (const op of dati.funzioni.opzioni) {
+      const b = document.createElement("button");
+      b.className = `scheda-finitura${op.id === dati.funzioni.attiva ? " attiva" : ""}`;
+      b.textContent = op.nome;
+      b.onclick = () => { chiudiScheda(); onAzione(`funzione:${op.id}`); };
+      griglia.appendChild(b);
+    }
+    box.append(titoloFun, griglia);
+  }
+
   // Colori: campioni cliccabili; la scelta applica "tinta:<id>"
   if (dati.tinte) {
     const titoloTinte = document.createElement("div");

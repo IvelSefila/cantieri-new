@@ -1,7 +1,7 @@
 // Dati e azioni degli elementi del progetto (funzioni pure, testabili).
 import { wallLengthMm } from "./model.js";
 import { stanze } from "./rooms.js";
-import { ingombroArredo, LIBRERIA_ARREDI, MATERIALI_MURO, MATERIALI_PAVIMENTO, TINTE_MURO, impostaMaterialePavimento, impostaFinituraMuro, impostaTintaMuro, impostaPavimentoStanza } from "./project.js";
+import { ingombroArredo, LIBRERIA_ARREDI, MATERIALI_MURO, MATERIALI_PAVIMENTO, TINTE_MURO, impostaMaterialePavimento, impostaFinituraMuro, impostaTintaMuro, impostaPavimentoStanza, impostaFunzioneStanza } from "./project.js";
 
 // Opzioni di finitura nella scheda: l'azione e' "finitura:<id>"
 function opzioniFinitura(elenco, attiva) {
@@ -47,6 +47,13 @@ export function dentroPoligono(p, poly) {
 
 export function stanzaAPunto(p, progetto) {
   return stanze(progetto.walls).find((s) => dentroPoligono(p, s.interno)) ?? null;
+}
+
+// Funzione attuale della stanza: scelta salvata, altrimenti quella suggerita (vedi automatismi.js)
+function funzioneAttiva(progetto, s) {
+  const chiave = JSON.stringify(s.interno.map(([x, y]) => [Math.round(x), Math.round(y)]));
+  const scelta = (progetto.funzioniStanze ?? []).find((f) => JSON.stringify(f.poligono) === chiave);
+  return scelta ? scelta.funzione : null;
 }
 
 // Scheda di un elemento: titolo, righe di dati, azioni possibili.
@@ -128,6 +135,11 @@ export function descrivi(progetto, tipo, id) {
         ["Pavimento", pavimento ? (MATERIALI_PAVIMENTO[pavimento.materiale]?.nome ?? pavimento.materiale) : "non ancora scelto"],
       ],
       finiture: opzioniFinitura(MATERIALI_PAVIMENTO, pavimento?.materiale ?? null),
+      funzioni: {
+        titolo: "Funzione della stanza",
+        attiva: funzioneAttiva(progetto, s),
+        opzioni: [["soggiorno", "Soggiorno"], ["cucina", "Cucina"], ["camera", "Camera"], ["bagno", "Bagno"], ["disimpegno", "Disimpegno"], ["ripostiglio", "Ripostiglio"]].map(([id, nome]) => ({ id, nome })),
+      },
       azioni: [],
     };
   }
@@ -143,6 +155,9 @@ export function eseguiAzione(progetto, tipo, id, azione) {
       : tipo === "stanza" ? impostaPavimentoStanza(progetto, id.interno, v)
       : null;
     return r?.p ?? null;
+  }
+  if (azione.startsWith("funzione:") && tipo === "stanza") {
+    return impostaFunzioneStanza(progetto, id.interno, azione.slice("funzione:".length)).p;
   }
   if (azione.startsWith("tinta:")) {
     const r = tipo === "muro" ? impostaTintaMuro(progetto, id, azione.slice("tinta:".length)) : null;
