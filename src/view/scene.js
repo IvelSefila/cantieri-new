@@ -711,6 +711,19 @@ export function createViewer(container) {
   // Volo della camera: posizione e bersaglio in mm del piano ([x, y, quota])
   let inVolo = false;
   let volo = null;
+  // Vista dall'alto immediata e verticale: posiziona la camera di colpo, senza volo ne' inerzia della rotazione
+  function vistaDallAltoSubito(dest) {
+    volo = null;
+    inVolo = false;
+    controls.enabled = true;
+    controls.enableDamping = false;
+    camera.position.set(dest.camera[0] * MM_TO_M, dest.camera[2] * MM_TO_M, dest.camera[1] * MM_TO_M);
+    controls.target.set(dest.bersaglio[0] * MM_TO_M, dest.bersaglio[2] * MM_TO_M, dest.bersaglio[1] * MM_TO_M);
+    camera.lookAt(controls.target);
+    controls.update();
+    controls.enableDamping = true;
+    richiesta = true;
+  }
   function volaA(dest, ms = 900) {
     const da = { p: camera.position.clone(), t: controls.target.clone() };
     const a = {
@@ -821,7 +834,7 @@ export function createViewer(container) {
     setPasseggiataHandler: (fn) => { passeggHandler = fn; },
     setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
     setDoppioClicHandler, setContestoHandler, setEvidenzaMuro, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
-    setDettagli, setFantasma, setSelezione, volaA, vistaAttuale, pianoDaEvento, oggettoDaEvento,
+    setDettagli, setFantasma, setSelezione, volaA, vistaDallAltoSubito, vistaAttuale, pianoDaEvento, oggettoDaEvento,
     inVolo: () => inVolo, ridisegna: () => { richiesta = true; },
     domElement: renderer.domElement,
     statistiche, camera, controls, dispose: () => cancelAnimationFrame(frame),
