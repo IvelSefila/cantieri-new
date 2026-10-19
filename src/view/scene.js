@@ -720,6 +720,7 @@ export function createViewer(container) {
     volo = { da, a, t0: performance.now(), ms };
     inVolo = true;
     controls.enabled = false;
+    richiesta = true; // senza richiesta il ciclo di render non si accorge del volo
   }
   function passoVolo() {
     if (!volo) return false;

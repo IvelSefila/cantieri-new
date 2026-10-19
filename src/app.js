@@ -35,6 +35,18 @@ import { impostaFunzioneStanza } from "./core/project.js";
 
 // Arreda tutto: prima si sceglie l'alloggio (se ce ne sono piu' di uno), poi si confermano le funzioni delle sue stanze
 function flussoArredo(mostraRisultato) {
+  // Vista dall'alto, perfettamente verticale, con la planimetria a sinistra e il pannello a destra
+  const xs = stato.progetto.walls.flatMap((w) => [w.a[0], w.b[0]]);
+  const ys = stato.progetto.walls.flatMap((w) => [w.a[1], w.b[1]]);
+  if (xs.length) {
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+    const span = Math.max(x1 - x0, y1 - y0);
+    stato.viewer.volaA({
+      camera: [Math.round(cx), Math.round(cy) + 1, Math.round(span * 1.15 + 3000)], // +1 mm: evita il polo della camera
+      bersaglio: [Math.round(cx + span * 0.35), Math.round(cy), 0], // il bersaglio spostato a destra porta la planimetria a sinistra
+    });
+  }
   const alloggi = alloggiDelProgetto(stato.progetto);
   if (!alloggi.length) return messaggio("Nessuna stanza da arredare: disegna prima i muri.", "info");
   const velo = document.createElement("div");
