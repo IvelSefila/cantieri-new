@@ -314,3 +314,20 @@ test("pulisciIndirizzoPerGeocodifica: rimuove condominio, palazzo, scala e inter
   assert.equal(pulisciIndirizzoPerGeocodifica(s), "strada suniglia 4 savigliano");
   assert.equal(pulisciIndirizzoPerGeocodifica("Via Roma 10 scala B int. 4 Torino"), "Via Roma 10 Torino");
 });
+
+test("estraiDenominazioneCondominioDaTesto: estrae condominio, palazzo e scala", async () => {
+  const { estraiDenominazioneCondominioDaTesto } = await import("../src/core/altimetria-civico.js");
+  const s1 = "strada suniglia 4 savigliano condominio orione palazzo a";
+  const r1 = estraiDenominazioneCondominioDaTesto(s1);
+  assert.equal(r1.condominio, "Condominio Orione");
+  assert.equal(r1.palazzo, "Palazzo A");
+  assert.equal(r1.scala, null);
+
+  const s2 = "Via Dante 10 Milano Residenza Parco scala B";
+  const r2 = estraiDenominazioneCondominioDaTesto(s2);
+  assert.equal(r2.condominio, "Residenza Parco");
+  assert.equal(r2.scala, "SCALA B");
+
+  const s3 = "Corso Francia 50 Torino";
+  assert.equal(estraiDenominazioneCondominioDaTesto(s3), null);
+});

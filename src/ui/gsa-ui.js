@@ -105,7 +105,7 @@ export function montaGSA(box) {
 
   const inpIndirizzo = el("input");
   inpIndirizzo.type = "text";
-  inpIndirizzo.placeholder = "Indirizzo e civico (es. Corso Nizza 10 Cuneo, Via Dante 10 Milano, Via del Corso 20 Roma)";
+  inpIndirizzo.placeholder = "Indirizzo, civico ed eventuale condominio (es. Strada Suniglia 4 Savigliano Condominio Orione)";
   inpIndirizzo.style.cssText = "width: 100%; box-sizing: border-box;";
 
   const rowGe = el("div", "riga-azioni");
@@ -130,7 +130,7 @@ export function montaGSA(box) {
   btnCalcolaCivico.onclick = async () => {
     const txt = inpIndirizzo.value.trim();
     if (!txt) {
-      statoCivico.textContent = "Inserisci un indirizzo valido (es. Via Po 14 Torino, Via Dante 10 Milano, Via del Corso 20 Roma).";
+      statoCivico.textContent = "Inserisci un indirizzo valido (es. Via Po 14 Torino, Via Dante 10 Milano, Strada Suniglia 4 Savigliano).";
       statoCivico.style.color = "#ff7b86";
       return;
     }
@@ -164,7 +164,22 @@ export function montaGSA(box) {
         const r2 = el("div", "hud-stat", `Regione: ${risposta.regione}${risposta.comune ? ` (${risposta.comune})` : ""} • Coordinate: ${risposta.coordinate.lat.toFixed(5)}, ${risposta.coordinate.lon.toFixed(5)}`);
         const rProv = el("div", "hud-stat", `Fonte Dati: ${risposta.provider}`);
         rProv.style.cssText = "color: var(--hud-ciano); font-size: 11px; margin-bottom: 6px;";
-        card.append(r1, r2, rProv);
+
+        // Sezione Denominazione Condominio / Complesso
+        const rCondo = el("div");
+        rCondo.style.cssText = "margin: 6px 0; padding: 6px 8px; background: rgba(61,220,247,0.06); border: 1px solid rgba(61,220,247,0.2); border-radius: 6px; display: flex; align-items: center; gap: 6px;";
+        const lblC = el("span", "", "🏷️ Nome Condominio / Palazzo:");
+        lblC.style.cssText = "font-weight: 600; font-size: 11px; color: var(--hud-ciano); white-space: nowrap;";
+        const valC = el("input");
+        valC.type = "text";
+        valC.value = risposta.nome_condominio
+          ? `${risposta.nome_condominio}${risposta.nome_palazzo ? ` (${risposta.nome_palazzo})` : ""}`
+          : "";
+        valC.placeholder = "Es. Condominio Orione (opzionale o digitato nell'indirizzo)";
+        valC.style.cssText = "flex: 1; padding: 3px 6px; font-size: 11px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; color: #fff;";
+        rCondo.append(lblC, valC);
+
+        card.append(r1, r2, rProv, rCondo);
 
         // Se ci sono più corpi di fabbrica nel complesso o tipologie selezionabili
         if (risposta.volumi_rilevati && risposta.volumi_rilevati.length > 1) {

@@ -239,6 +239,44 @@ export function stimaAltezzaAntincendiDaPiani(numeroPiani, { altezzaPianoM = 3.0
   };
 }
 
+// Estrae il nome del condominio, palazzo o scala dal testo inserito dall'utente
+export function estraiDenominazioneCondominioDaTesto(testo) {
+  if (!testo || typeof testo !== "string") return null;
+
+  const res = {
+    condominio: null,
+    palazzo: null,
+    scala: null,
+  };
+
+  const mCond = testo.match(/\b(condominio|cond\.|residence|residenza|complesso|villa)\s+([^,]+?)(?=\s+\b(palazzina|palazzo|pal\.|edificio|torre|corpo|scala|sc\.|interno|int\.|piano|p\.)\b|$|,)/i);
+  if (mCond) {
+    const nome = `${mCond[1]} ${mCond[2].trim()}`;
+    res.condominio = nome
+      .split(/\s+/)
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(" ");
+  }
+
+  const mPal = testo.match(/\b(palazzina|palazzo|pal\.|edificio|torre|corpo)\s+([a-zA-Z0-9]+)/i);
+  if (mPal) {
+    res.palazzo = mPal[0]
+      .split(/\s+/)
+      .map((w, idx) => (idx === 1 ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()))
+      .join(" ");
+  }
+
+  const mSc = testo.match(/\b(scala|sc\.)\s+([a-zA-Z0-9]+)/i);
+  if (mSc) {
+    res.scala = mSc[0].toUpperCase();
+  }
+
+  if (!res.condominio && !res.palazzo && !res.scala) {
+    return null;
+  }
+  return res;
+}
+
 // Rimuove specificatori secondari (condominio, palazzo, scala, interno) che mandano in fallimento i geocoder
 export function pulisciIndirizzoPerGeocodifica(testo) {
   if (!testo || typeof testo !== "string") return "";
@@ -260,11 +298,21 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
 
   const tentaGeocodifica = async (q) => {
     const query = q.trim();
-    const url = `${NOMINATIM_URL}?q=${encodeURIComponent(query)}&format=json&addressdetails=1&countrycodes=it&limit=1`;
+    const url = `${NOMINATIM_URL}?q=${encodeURIComponent(query)}&format=json&addressdetails=1&countrycodes=it&limit=5`;
     const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; antincendio-gsa)" } });
     if (!res.ok) return null;
     const dati = await res.json();
-    return Array.isArray(dati) && dati.length > 0 ? dati[0] : null;
+    if (!Array.isArray(dati) || dati.length === 0) return null;
+
+    // Se l'utente ha specificato una città (es. palermo, milano, torino),
+    // privilegia il risultato il cui comune coincide con il testo digitato
+    const qLower = query.toLowerCase();
+    const matchCitta = dati.find((d) => {
+      const c = (d.address?.city || d.address?.municipality || d.address?.town || "").toLowerCase();
+      return c && qLower.includes(c);
+    });
+
+    return matchCitta || dati[0];
   };
 
   try {
@@ -513,11 +561,15 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
   });
 
   const idxSelezionato = typeof indice_volume === "number" ? indice_volume : 0;
+  const infoCondominio = estraiDenominazioneCondominioDaTesto(indirizzo);
 
   return {
     esito: "OK",
     indirizzo_inserito: indirizzo,
     indirizzo_trovato: geo.display_name,
+    nome_condominio: infoCondominio?.condominio || null,
+    nome_palazzo: infoCondominio?.palazzo || null,
+    scala: infoCondominio?.scala || null,
     regione: geo.regione,
     comune: geo.comune,
     provincia: geo.provincia,
@@ -543,17 +595,23 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
       metodo: volumeScelto.modo_prod,
       indice_selezionato: idxSelezionato,
     },
-    volumi_rilevati: volumi.map((v, i) => ({
-      indice: i,
-      altezza_m: v.altezza_volumetrica_m,
-      piani: v.piani || null,
-      quota_estradosso_m: v.quota_estradosso_m || null,
-      lat: v.lat || geo.lat,
-      lon: v.lon || geo.lon,
-      distanza_m: v.distM || null,
-      tipo_presunto: v.tipo_presunto || (v.piani ? `${v.piani} piani` : (v.altezza_volumetrica_m >= 12 ? "Corpo principale alto" : v.altezza_volumetrica_m >= 7 ? "Corpo secondario / basso" : "Box / accessorio")),
-      selezionato: i === idxSelezionato,
-    })),
+    volumi_rilevati: volumi.map((v, i) => {
+      let desc = v.tipo_presunto || (v.piani ? `${v.piani} piani` : (v.altezza_volumetrica_m >= 12 ? "Corpo principale alto" : v.altezza_volumetrica_m >= 7 ? "Corpo secondario / basso" : "Box / accessorio"));
+      if (infoCondominio?.condominio && !desc.startsWith(infoCondominio.condominio)) {
+        desc = `${infoCondominio.condominio} — ${desc}`;
+      }
+      return {
+        indice: i,
+        altezza_m: v.altezza_volumetrica_m,
+        piani: v.piani || null,
+        quota_estradosso_m: v.quota_estradosso_m || null,
+        lat: v.lat || geo.lat,
+        lon: v.lon || geo.lon,
+        distanza_m: v.distM || null,
+        tipo_presunto: desc,
+        selezionato: i === idxSelezionato,
+      };
+    }),
     fonti_utilizzate: fonti,
     valutazione_gsa: valutazione,
   };
