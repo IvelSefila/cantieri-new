@@ -331,13 +331,18 @@ async function renderMiniatura(chiave, costruisci, { larghezza = 260, altezza = 
       r.setClearColor(0x000000, 0);
       r.outputColorSpace = THREE.SRGBColorSpace;
       r.toneMapping = THREE.ACESFilmicToneMapping;
+      r.toneMappingExposure = 1.1;
       const sc = new THREE.Scene();
       const pm = new THREE.PMREMGenerator(r);
       sc.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
-      sc.add(new THREE.HemisphereLight(0xffffff, 0x556070, 1.1));
-      const sole = new THREE.DirectionalLight(0xffffff, 2.2);
-      sole.position.set(3, 5, 4);
+      // Luce neutra (niente tinta blu dal suolo): chiave dall'alto a sinistra, riempimento da destra
+      sc.add(new THREE.HemisphereLight(0xffffff, 0x9a9ca3, 1.0));
+      const sole = new THREE.DirectionalLight(0xffffff, 2.6);
+      sole.position.set(-3, 5, 4);
       sc.add(sole);
+      const riempi = new THREE.DirectionalLight(0xffffff, 0.9);
+      riempi.position.set(4, 2, 2);
+      sc.add(riempi);
       RENDER_MINI = { r, sc, cam: new THREE.PerspectiveCamera(28, larghezza / altezza, 0.01, 50) };
     }
     const { r, sc, cam } = RENDER_MINI;
