@@ -185,7 +185,7 @@ function flussoArredo(mostraRisultato) {
 function montaAutomatismi() {
   const barra = document.createElement("div");
   barra.id = "barra-auto";
-  barra.style.cssText = "display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:112px;z-index:50;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:95vw";
+  barra.style.cssText = "display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:112px;z-index:50;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:95vw"; // nascosta per ora: display:none e' l'ultima regola che conta
   const stile = "padding:8px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(16,22,38,.85);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer";
   const pannello = document.createElement("div");
   pannello.id = "pannello-auto";
