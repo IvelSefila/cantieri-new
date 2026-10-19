@@ -350,6 +350,20 @@ async function renderMiniatura(chiave, costruisci, { larghezza = 260, altezza = 
     sc.add(g);
     if (g.userData.pronto) await g.userData.pronto;
     await texturePronte(g);
+    // Metalli (inox, acciaio) riflettono solo l'ambiente, che in miniatura e' troppo scuro e li rende neri.
+    // Si schiarisce il riflesso solo sulle copie dei materiali usate da questa miniatura, non su quelli della scena.
+    const copie = [];
+    g.traverse((o) => {
+      if (!o.isMesh) return;
+      const sost = [].concat(o.material).map((m) => {
+        if (!m.isMeshStandardMaterial || !(m.metalness > 0.3)) return m;
+        const c2 = m.clone();
+        c2.envMapIntensity = (m.envMapIntensity ?? 1) * 2.4;
+        copie.push(c2);
+        return c2;
+      });
+      o.material = Array.isArray(o.material) ? sost : sost[0];
+    });
     g.updateMatrixWorld(true);
     const bb = new THREE.Box3().setFromObject(g);
     const c = bb.getCenter(new THREE.Vector3());
@@ -359,6 +373,7 @@ async function renderMiniatura(chiave, costruisci, { larghezza = 260, altezza = 
     r.render(sc, cam);
     const url = r.domElement.toDataURL("image/png");
     sc.remove(g);
+    copie.forEach((m) => m.dispose());
     MINIATURE.set(chiave, url);
     return url;
   } catch {
