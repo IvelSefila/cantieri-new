@@ -358,10 +358,31 @@ test("estraiNomeDaSnippet: estrae condominio e residence da testo web", async ()
   assert.equal(estraiNomeDaSnippet(t3), null);
 });
 
-test("cercaDenominazioneCondominio: trova il nome da registro civici e precompila", async () => {
-  const { cercaDenominazioneCondominio, calcolaGsaDaCivico } = await import("../src/core/altimetria-civico.js");
+test("cercaDenominazioneCondominio e salvaDenominazioneCondominio: apprendimento dinamico", async () => {
+  const { cercaDenominazioneCondominio, salvaDenominazioneCondominio } = await import("../src/core/altimetria-civico.js");
+  salvaDenominazioneCondominio("Strada Suniglia 4", "Savigliano", "Condominio Orione");
   const r = await cercaDenominazioneCondominio("Strada Suniglia 4 Savigliano");
   assert.equal(r.trovato, true);
   assert.equal(r.nome, "Condominio Orione");
+});
+
+test("autocompletaIndirizzo: restituisce corrispondenze arricchite col condominio", async () => {
+  const { autocompletaIndirizzo, salvaDenominazioneCondominio } = await import("../src/core/altimetria-civico.js");
+  salvaDenominazioneCondominio("Via Roma 10", "Torino", "Palazzo Reale Test");
+
+  const mockFetch = async () => ({
+    ok: true,
+    json: async () => [{
+      lat: "45.07",
+      lon: "7.68",
+      display_name: "10, Via Roma, Torino, Piemonte, 10121, Italia",
+      address: { house_number: "10", road: "Via Roma", city: "Torino" }
+    }]
+  });
+
+  const res = await autocompletaIndirizzo("Via Roma 10 Torino", { fetchFn: mockFetch, autoCercaWeb: false });
+  assert.equal(res.length, 1);
+  assert.equal(res[0].nome_condominio, "Palazzo Reale Test");
+  assert.ok(res[0].testo_completo.includes("Palazzo Reale Test"));
 });
 

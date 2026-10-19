@@ -2,7 +2,7 @@
 // dopo il pulsante "Calcola GSA". Ogni obbligo mostra l'articolo o l'allegato del decreto.
 import { calcolaGSA, LIVELLO3, PLANIMETRIA_ELEMENTI, PIANO_CONTENUTI, GSA_FONTE } from "../core/gsa-incendio.js";
 import { classificaRischio, verificaEsodo, CRITERI_ELEVATO, CRITERI_MEDIO, CRITERI_BASSO, RIDUZIONI, FONTE_1998, RIF_ESODO } from "../core/rischio-incendio.js";
-import { calcolaGsaDaCivico, salvaDenominazioneCondominio, cercaDenominazioneCondominio } from "../core/altimetria-civico.js";
+import { calcolaGsaDaCivico, salvaDenominazioneCondominio, cercaDenominazioneCondominio, autocompletaIndirizzo } from "../core/altimetria-civico.js";
 
 function el(tag, cls, testo) {
   const e = document.createElement(tag);
@@ -100,13 +100,140 @@ export function montaGSA(box) {
   const subCivico = el("div", "sub", "Inserisci qualsiasi indirizzo in Italia: interroga il LiDAR regionale BDTRE (Piemonte / ARPA) o i volumi 3D cartografici nazionali (OpenStreetMap 3D / Modello DM 5/7/1975) e calcola altezza antincendi e livello GSA (DM 246/1987 + DM 25/1/2019).");
   subCivico.style.cssText = "font-size: 11px; margin-bottom: 8px; color: var(--hud-muto);";
 
+  // Switch Auto-ricerca Nome Condominio (OSINT Web)
+  let autoOsintAttivo = true;
+  try {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("cantieri_auto_osint") !== null) {
+      autoOsintAttivo = localStorage.getItem("cantieri_auto_osint") === "true";
+    }
+  } catch (e) {}
+
+  const rowSwitch = el("div");
+  rowSwitch.style.cssText = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; padding: 5px 10px; background: rgba(0,0,0,0.3); border-radius: 6px; border: 1px solid rgba(61,220,247,0.2);";
+
+  const lblSwitch = el("span", "", "⚡ Auto-ricerca Nome Condominio sul Web (Live OSINT & Catasto):");
+  lblSwitch.style.cssText = "font-size: 11px; font-weight: 600; color: var(--hud-ciano);";
+
+  const btnToggleSwitch = el("button", "", autoOsintAttivo ? "✓ ATTIVO (Automatico)" : "✗ DISATTIVATO (Manuale)");
+  btnToggleSwitch.style.cssText = autoOsintAttivo
+    ? "background: #7ef2b5 !important; color: #0a0e18 !important; font-weight: 700; font-size: 10.5px; padding: 3px 10px; border-radius: 999px; cursor: pointer; border: none;"
+    : "background: rgba(255,255,255,0.15) !important; color: #fff !important; font-size: 10.5px; padding: 3px 10px; border-radius: 999px; cursor: pointer; border: none;";
+
+  btnToggleSwitch.onclick = () => {
+    autoOsintAttivo = !autoOsintAttivo;
+    try {
+      localStorage.setItem("cantieri_auto_osint", String(autoOsintAttivo));
+    } catch (e) {}
+    btnToggleSwitch.textContent = autoOsintAttivo ? "✓ ATTIVO (Automatico)" : "✗ DISATTIVATO (Manuale)";
+    btnToggleSwitch.style.background = autoOsintAttivo ? "#7ef2b5 !important" : "rgba(255,255,255,0.15) !important";
+    btnToggleSwitch.style.color = autoOsintAttivo ? "#0a0e18 !important" : "#fff !important";
+  };
+  rowSwitch.append(lblSwitch, btnToggleSwitch);
+
   const rowIndirizzo = el("div", "riga-azioni");
   rowIndirizzo.style.cssText = "display: flex; gap: 6px; flex-direction: column; margin-bottom: 8px;";
 
+  const wrapIndirizzo = el("div");
+  wrapIndirizzo.style.cssText = "position: relative; width: 100%;";
+
   const inpIndirizzo = el("input");
   inpIndirizzo.type = "text";
-  inpIndirizzo.placeholder = "Indirizzo, civico ed eventuale condominio (es. Strada Suniglia 4 Savigliano Condominio Orione)";
+  inpIndirizzo.placeholder = "Digita via, civico o nome condominio (es. Strada Suniglia 4 Savigliano)";
   inpIndirizzo.style.cssText = "width: 100%; box-sizing: border-box;";
+
+  // Dropdown floating dei suggerimenti in tempo reale
+  const boxSuggerimenti = el("div");
+  boxSuggerimenti.style.cssText = "display: none; position: absolute; top: calc(100% + 3px); left: 0; right: 0; background: #0c121e; border: 1px solid rgba(61,220,247,0.4); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.85); z-index: 9999; max-height: 240px; overflow-y: auto; padding: 4px 0;";
+
+  // Pill live sotto l'input che fa comparire subito il nome intero mentre l'utente digita
+  const livePreview = el("div");
+  livePreview.style.cssText = "display: none; margin-top: 5px; font-size: 11px; padding: 5px 9px; background: rgba(126,242,181,0.08); border: 1px solid rgba(126,242,181,0.3); border-radius: 6px; color: #7ef2b5; align-items: center; justify-content: space-between;";
+
+  let debounceTimer = null;
+  inpIndirizzo.oninput = () => {
+    const val = inpIndirizzo.value.trim();
+    if (debounceTimer) clearTimeout(debounceTimer);
+
+    if (val.length < 3) {
+      boxSuggerimenti.style.display = "none";
+      boxSuggerimenti.innerHTML = "";
+      livePreview.style.display = "none";
+      return;
+    }
+
+    debounceTimer = setTimeout(async () => {
+      const items = await autocompletaIndirizzo(val, { autoCercaWeb: autoOsintAttivo });
+      if (!items || items.length === 0) {
+        boxSuggerimenti.style.display = "none";
+        boxSuggerimenti.innerHTML = "";
+        return;
+      }
+
+      boxSuggerimenti.innerHTML = "";
+      boxSuggerimenti.style.display = "block";
+
+      items.forEach((item) => {
+        const row = el("div");
+        row.style.cssText = "padding: 7px 10px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 11.5px; display: flex; align-items: center; justify-content: space-between; gap: 8px;";
+        row.onmouseover = () => { row.style.background = "rgba(61,220,247,0.15)"; };
+        row.onmouseout = () => { row.style.background = "transparent"; };
+
+        const sinistro = el("div");
+        sinistro.style.cssText = "flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;";
+
+        if (item.nome_condominio) {
+          sinistro.innerHTML = `🏢 <b style="color: #7ef2b5;">${item.nome_condominio}</b> — <span style="color: #ddd;">${item.via ? `${item.via} ${item.civico}, ${item.comune}` : item.display_name}</span>`;
+        } else {
+          sinistro.innerHTML = `📍 <span style="color: #ddd;">${item.display_name}</span>`;
+        }
+
+        const badge = el("span", "", item.nome_condominio ? (item.fonte_condominio || "OSINT") : "Civico");
+        badge.style.cssText = item.nome_condominio
+          ? "font-size: 9.5px; padding: 2px 6px; border-radius: 4px; background: rgba(126,242,181,0.2); color: #7ef2b5; font-weight: 700; white-space: nowrap;"
+          : "font-size: 9.5px; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.1); color: #aaa; white-space: nowrap;";
+
+        row.append(sinistro, badge);
+
+        row.onclick = () => {
+          if (item.nome_condominio) {
+            inpIndirizzo.value = `${item.nome_condominio}, ${item.via || ""} ${item.civico || ""} ${item.comune || ""}`.trim();
+            salvaDenominazioneCondominio(inpIndirizzo.value, item.comune, item.nome_condominio);
+          } else {
+            inpIndirizzo.value = item.display_name;
+          }
+          boxSuggerimenti.style.display = "none";
+          livePreview.style.display = "none";
+          btnCalcolaCivico.click();
+        };
+
+        boxSuggerimenti.append(row);
+      });
+
+      // Se tra i risultati compare un nome condominio, mostra la live preview banner immediata
+      const primoConNome = items.find((it) => it.nome_condominio);
+      if (primoConNome) {
+        livePreview.innerHTML = `<span>🏢 Condominio individuato: <b>${primoConNome.nome_condominio}</b> (${primoConNome.fonte_condominio})</span> <button style="background: #7ef2b5; color: #0a0e18; border: none; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; cursor: pointer;">Applica</button>`;
+        livePreview.style.display = "flex";
+        livePreview.querySelector("button").onclick = () => {
+          inpIndirizzo.value = `${primoConNome.nome_condominio}, ${primoConNome.via || ""} ${primoConNome.civico || ""} ${primoConNome.comune || ""}`.trim();
+          livePreview.style.display = "none";
+          boxSuggerimenti.style.display = "none";
+          btnCalcolaCivico.click();
+        };
+      } else {
+        livePreview.style.display = "none";
+      }
+    }, 280);
+  };
+
+  document.addEventListener("click", (evt) => {
+    if (!wrapIndirizzo.contains(evt.target)) {
+      boxSuggerimenti.style.display = "none";
+    }
+  });
+
+  wrapIndirizzo.append(inpIndirizzo, boxSuggerimenti, livePreview);
+  rowIndirizzo.append(wrapIndirizzo);
 
   const rowGe = el("div", "riga-azioni");
   rowGe.style.cssText = "display: flex; gap: 8px; align-items: center; margin-bottom: 8px;";
@@ -142,7 +269,7 @@ export function montaGSA(box) {
     try {
       const valGe = inpGe.value.trim() ? parseFloat(inpGe.value.replace(",", ".")) : null;
       statoCivico.textContent = "2/2 Acquisizione volumetria (LiDAR BDTRE / OpenStreetMap 3D)…";
-      const res = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe });
+      const res = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe, auto_cerca_web: autoOsintAttivo });
 
       if (res.esito !== "OK") {
         statoCivico.textContent = `Errore: ${res.errore}`;
@@ -326,8 +453,7 @@ export function montaGSA(box) {
     }
   };
 
-  rowIndirizzo.append(inpIndirizzo);
-  sezCivico.append(titCivico, subCivico, rowIndirizzo, rowGe, btnCalcolaCivico, statoCivico, esitoCivico);
+  sezCivico.append(titCivico, subCivico, rowSwitch, rowIndirizzo, rowGe, btnCalcolaCivico, statoCivico, esitoCivico);
   box.append(sezCivico);
 
   const avviso = el("div", "riga info", "Inserisci i dati, poi premi Calcola GSA. Il calcolo segue il DM 2 settembre 2021 (GU n. 237 del 4/10/2021), in vigore dal 4/10/2022.");
