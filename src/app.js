@@ -759,6 +759,10 @@ async function init() {
   stato.viewer.setPickHandler(gestisciClic);
   stato.viewer.setDoppioClicHandler(gestisciDoppio);
   stato.viewer.setContestoHandler(gestisciTasto);
+  // Il menu del browser non si apre su tutta l'app: il tasto destro e' dell'editor 3D (campi di testo esclusi)
+  document.addEventListener("contextmenu", (ev) => {
+    if (!ev.target.closest?.("input, textarea, [contenteditable]")) ev.preventDefault();
+  });
   stato.viewer.setHoverHandler((mm) => hud?.coordinate(mm));
   hud = montaHud({
     onScheda: (id) => {
