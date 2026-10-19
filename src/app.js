@@ -39,9 +39,9 @@ function montaLegenda() {
   pulsante.textContent = "?";
   pulsante.title = "Legenda dei comandi";
   pulsante.setAttribute("aria-label", "Legenda dei comandi");
-  pulsante.style.cssText = "position:fixed;left:16px;bottom:24px;z-index:70;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,196,77,.6);background:rgba(16,22,38,.9);color:#f2f4f8;font:700 16px system-ui,sans-serif;cursor:pointer";
+  pulsante.style.cssText = "position:fixed;left:16px;bottom:150px;z-index:70;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,196,77,.6);background:rgba(16,22,38,.9);color:#f2f4f8;font:700 16px system-ui,sans-serif;cursor:pointer";
   const pannello = document.createElement("div");
-  pannello.style.cssText = "position:fixed;left:16px;bottom:72px;z-index:70;width:330px;max-height:70vh;overflow:auto;padding:14px 16px;border-radius:14px;background:rgba(16,22,38,.95);color:#f2f4f8;font:13px/1.55 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4);display:none";
+  pannello.style.cssText = "position:fixed;left:16px;bottom:200px;z-index:70;width:330px;max-height:70vh;overflow:auto;padding:14px 16px;border-radius:14px;background:rgba(16,22,38,.95);color:#f2f4f8;font:13px/1.55 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4);display:none";
   const voce = (tasto, testo) => {
     const r = document.createElement("div");
     r.style.cssText = "display:flex;gap:10px;margin:4px 0;align-items:flex-start";
@@ -185,7 +185,7 @@ function flussoArredo(mostraRisultato) {
 function montaAutomatismi() {
   const barra = document.createElement("div");
   barra.id = "barra-auto";
-  barra.style.cssText = "position:fixed;left:50%;transform:translateX(-50%);bottom:112px;z-index:50;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:95vw";
+  barra.style.cssText = "display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:112px;z-index:50;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:95vw";
   const stile = "padding:8px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(16,22,38,.85);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer";
   const pannello = document.createElement("div");
   pannello.id = "pannello-auto";
@@ -967,7 +967,7 @@ async function init() {
     messaggio,
   });
   montaAutomatismi();
-  // Legenda dei comandi nascosta per ora: montaLegenda() resta nel codice, da riattivare quando implementata
+  montaLegenda();
   stato.energia = montaScheda($("sez-energia"), {
     getRigheGSA: () => calcolaGSA(stato.progetto, {
       orientamenti: stato.orientamenti ?? {},
