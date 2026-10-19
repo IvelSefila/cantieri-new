@@ -1,0 +1,2472 @@
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+1 
+ 
+Testo coordinato del  
+ 
+DM 16 maggio 1987 
+Norme di sicurezza antincendi per gli edifici di civile abitazione 
+ 
+ 
+INDICE 
+ 
+Attività n. 77 del DPR 01 agosto 2015 - Criteri di assoggettabilità......................................................................... 2 
+Stato normativo ............................................................................................................................................................................ 2 
+Note sull’assoggettabilità ai controlli di prevenzione incendi .................................................................................. 4 
+DM  16  maggio  1987,  n. 246 ................................................................................................................................................ 8 
+Note al DM 16/05/1987 n° 246 .......................................................................................................................................... 19 
+DM 25 gennaio 2019 ................................................................................................................................................................ 30 
+Lettera Circolare 15/04/2013 n. 5043 (facciate degli edifici) ............................................................................... 32 
+ 
+ 
+ 
+Ottobre 2020 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+2 
+Attività n. 77 del DPR 01 agosto 2015 - Criteri di assoggettabilità 
+ 
+Edifici destinati ad uso civile, con altezza antincendio superiore a 24 m 
+ 
+N. ATTIVITÀ 
+(DPR 151/2011) 
+CATEGORIA 
+A B C 
+77 Edifici destinati ad uso civile con altezza 
+antincendio superiore a 24 m 1, 2, 3, 4, 5 Fino a 32 m  Oltre 32 m e fino a 54 m  Oltre 54 m  
+Equiparazione con le attività di cui all’allegato ex DM 16/02/82 
+94 Edifici destinati a civile abitazione con altezza in gronda superiore a 24 metri 
+Principali differenze fra le attività di equiparazione 
+Cambia il termine di destinazione “a civile abitazione ” con “a uso civile ”  e, al posto di “altezza in gronda ”, viene 
+considerata l’ “altezza antincendio” come definita dal DM 30/11/83. 
+ 
+ 
+Stato normativo 
+Gli edifici civili con altezza antincendi superiore a 24 m., devono essere progettati in modo da consentire una 
+rapida a sicura evacuazione in caso d’incendio; la norma specifica è il D.M. 16/05/1987 n° 246.  
+Il decreto riporta pure le misure di prevenzione incendi per gli edifici con altezza antincendi superiore a 12 m  ed 
+inferiore a 24 m , anche se non soggette a controllo da parte dei VV.F. . E sse dovranno essere adottate sotto la 
+responsabilità del titolare e del progettista. 
+Ai fini di migliorare la sicurezza è stato pubblicato il DM 25/01/2019, che introduce le misure per la g estione della 
+sicurezza antincendio degli edifici di civile abitazione ed i requisiti di sicurezza antincendio delle facciate degli stessi. 
+ 
+ 
+ 
+ 
+NB 
+Si deve porre cura alla lettura di alcune circolari e chiarimenti, riportate di seguito, emanate prima della 
+pubblicazione del DPR 01/08/2011, n. 151, in quanto possono riportare argomenti superati dalla pubblicazione 
+del DPR stesso. Alcune di esse sono state riportate per un confronto fra le procedure che si sono succedute.  
+ 
+Alcune circolari e chiarimenti potrebbero essere richiamate in più note in quanto interessano più aspetti del 
+decreto, esse sono state riportate una s ola volta richiamando i vari numeri delle note per contenere la 
+dimensione del documento. 
+ 
+ 
+ 
+ 
+                                                 
+1 Vedasi, in merito al rilasciare, per gli edifici civili con alt ezza in gronda > 24 m comprensivi di altre attività soggette 
+a controllo, centrali termiche, autorimesse, differenti CPI per ogni singola attività, i commi. 2, 3 e 4 del punto 2.b),  
+della circolare n° 25/MI.SA (82) 9 prot. n° 14314/3403 del 02/06/1982. N.d.R. 
+2 Vedasi, in merito quale altezza ( “altezza in gronda” o “altezza ai fini antincendio”) considerare per l ’assoggettabilità 
+alle visite ed ai controlli di prevenzione incendi  di un edificio di civile abitazione, la lettera circolare prot. n° 
+6140/4122 del 28/03/1987. N.d.R. 
+3 Vedasi, sui criteri per l ’assoggettabilità alle visite ed ai controlli di prevenzione incendi  di un edificio di civile 
+abitazione, il chiarimento prot. n° P924/4122 sott. 67 del 17/08/2001. N.d.R. 
+4 Vedasi, per l ’assoggettabilità alle visite ed ai controlli di prevenzione incendi  delle residenze turistico -alberghiere, 
+qualora situate in edifici con altezza in gronda superiore a 24 metri , il chiarimento prot. n° P360/4122/1 sott. 3 del 
+17/07/2002. N.d.R. 
+5 Vedasi, sul come calcolare il numero di attività 94 e 95 per l ’assoggettabilità alle visite ed ai controlli di prevenzione 
+incendi, il chiarimento prot. n° P1014/4122 sott. 67 del 26/09/2005. N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+3 
+ 
+Esonero di responsabilità : nonostante si sia operato col massimo impegno per la realizzazione 
+del presente lavoro, si declina ogni responsabilità per possibili e rrori e/o omissioni e 
+per eventuali danni risultanti dall’uso delle informazioni contenute nello stesso. 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+4 
+Note sull’assoggettabilità ai controlli di prevenzione incendi 
+ 
+ 
+ 
+[1] 
+ 
+Circolare n. 25/MI.SA (82) 9 
+ 
+Prot. n 14314/3403 
+Roma,  02 giugno 1982 
+ 
+OGGETTO: Decreto ministeriale 16 febbraio 1982 - Modificazioni del decreto ministeriale 27 settembre 1965, 
+concernente la determinazione delle attività soggette alle visite di prevenzione incendi - 
+Chiarimenti e criteri applicativi.  
+ 
+1) Generalità  
+Sulla Gazzetta Ufficiale n. 98 del 9 aprile 1982 è stato pubblicato il decreto del Ministro dell ’interno 16 febbraio 
+1982 recante modificazioni del decreto ministeriale 27 settembre 1965, concernente la determinazione delle attività 
+soggette alle visite di prevenzione incendi.  
+Le modificazioni apportate al precedente elenco delle attività soggette al controllo dei Comandi provinciali dei 
+vigili del fuoco si sono basate su una attenta ed approfondita analisi dei rischi potenziali di incendio tenendo conto dei 
+dati statistici disponibili, delle esperienze acquisite nell ’attività di estinzione e prevenzione incendi svolta dal 1965 ad 
+oggi dal Corpo nazionale dei vigili del fuoco e della opportunità di graduare gli adempimenti secondo i criteri 
+emergenti dalla anzidetta analisi.  
+Nella elaborazione del nuovo elenco delle attività da sottoporre al controllo si è ritenuto opportuno introdurre gli 
+aggiornamenti conseguenti lo sviluppo tecnologico registrato negli ultimi vent ’anni nonché di proporre, in luogo di 
+generiche indicazioni di attività industriali e commerciali, indicazioni più precise basate sulle caratteristiche dei 
+prodotti trattati e delle relative lavorazioni al fine di ridurre gli inconvenienti e le incertezze verificatisi nel passato.   
+Si è ritenuto anche di dover inserire direttamente nell’elenco una serie di attività che, pur presentando limitati rischi 
+di incendio, sono da considerarsi pericolose per le conseguenze che eventi, anche di limitata rilevanza, possono avere a 
+causa dell’affollamento delle persone e della loro particolare destinazione.  
+Per quanto riguarda poi la scelta della periodicità dei controlli, sono stati seguiti i seguenti criteri:  
+1) individuazione di quelle attività maggiormente suscettibili di dare luogo a situ azioni di rischio di particolare 
+rilevanza ai fini della pubblica incolumità;  
+2) responsabilizzazione dei gestori delle diverse attività, per i quali è stato ribadito l ’obbligo di richiedere il 
+rinnovo del certificato di prevenzione incendi in occasione di ogni modifica apportata agli ambienti o agli impianti;  
+3) individuazione di intervalli di tempo più brevi per l ’effettuazione delle visite, correlata alla presumibile esigenza 
+di più frequenti modifiche delle situazioni ambientali o impiantistiche in re lazione alla più rapida evoluzione delle 
+tecnologie e della organizzazione del lavoro;  
+4) mantenimento dei controlli, con intervalli di tempo più distanziati, per le altre attività che, pur presentando 
+minori probabilità di modificazioni e trasformazioni ambientali o impiantistiche, possono costituire fonti di pericolo 
+anche in relazione a variazioni dell’assetto del territorio esterno.  
+Le considerazioni di cui sopra e la valutazione dei tempi necessari agli Enti e ai privati ed ai Comandi provinciali 
+VV.F. per i rispettivi adempimenti, hanno portato alla scelta di due intervalli di tempo da interporre fra successivi 
+controlli: il primo di tre ed il secondo di sei anni. Per un numero molto limitato di attività, per le quali è lecito 
+presumere la conservazi one nel tempo delle caratteristiche costruttive e funzionali originarie ed ininfluenti le 
+modificazioni esterne, è stata prevista una visita “una tantum”, essendosi ritenuto superfluo ogni successivo intervento.  
+Considerate le motivazioni in forza delle q uali è stata stabilita la periodicità delle visite per le diverse categorie di 
+attività, e, fermo restando l ’obbligo dei responsabili di richiedere i necessari controlli in occasione di modificazioni ai 
+locali o agli impianti, la scadenza dei certificati d i prevenzione incendi già rilasciati e validi alla data di emanazione 
+del nuovo decreto, dovrà intendersi modificata secondo i nuovi termini da questo previsti.  
+Per facilitare l’applicazione della norma relativa ai nuovi termini di validità dei certificat i di prevenzione incendi i 
+Comandi provinciali dei vigili del fuoco invieranno apposita comunicazione alle Autorità locali competenti al rilascio 
+delle licenze di esercizio (Comuni, Camere di commercio, ecc.) alla quale sarà unito anche l ’allegato “B” contenente 
+l’analisi comparativa fra l ’elenco precedente e quello recentemente emanato che consentirà di individuare non solo le 
+attività di nuovo inserimento o quelle eliminate ma anche la corrispondenza tra le voci che, pur modificate 
+formalmente, restano sostanzialmente immutate.  
+I Comandi stessi tuttavia, a richiesta anche verbale degli interessati, procederanno al rinnovo cartolario dei 
+certificati medesimi.  
+  
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+5 
+2) Criteri applicativi tecnici  
+ 
+(Omissis. N.d.R.) 
+ 
+Per complessi edilizi ad uso civile include nti più attività distintamente indicate nel nuovo decreto possono, in via 
+generale, considerarsi due casi:  
+a) complesso edilizio ad unica gestione nel quale coesistono più attività soggette ai controlli di prevenzione incendi 
+e che sono a servizio esclusivo del complesso edilizio stesso (ad esempio ospedali includenti impianti di produzione di 
+calore, depositi, lavanderie, ecc.; alberghi includenti autorimesse, sale di riunione, centrali termiche, locali di 
+spettacolo e trattenimento includenti centrali termiche, di condizionamento, ecc.).  
+In tale caso, anche a norma dell ’art. 2 della legge n. 966/1965, dovrà essere rilasciato un unico certificato di 
+prevenzione incendi relativo a tutto il complesso, con la scadenza prevista nel decreto, e che dovrà conten ere le 
+indicazioni relative alle singole attività in analogia a quanto già indicato per gli stabilimenti ed impianti industriali;  
+b) complesso edilizio polifunzionale a gestione non unica nel quale coesistono più attività soggette ai controlli di 
+prevenzione incendi e che non sono a servizio del complesso edilizio stesso (ad esempio attività commerciali, locali di 
+trattenimento o spettacolo, scuole, ecc.).  
+In tale caso dovrà essere rilasciato a ciascuna gestione dell ’attività un certificato di prevenzione  incendi con le 
+relative scadenze previste nel decreto.  
+Al punto 94 del decreto sono indicati gli “Edifici destinati a civile abitazione con altezza in gronda superiore a 24 
+metri”. La ragione della visita “una tantum” risiede nel fatto che l ’esigenza che comporta il rilascio del certificato di 
+prevenzione incendi “una tantum ” è rivolta principalmente alla situazione strutturale del complesso edilizio in 
+relazione alle previste destinazioni.  
+Tuttavia, per tener conto della ipotesi di gestioni separate di attività inserite nel complesso abitativo, nonchè 
+dell’esigenza di controllare la rispondenza degli impianti, nel tempo, alle norme di sicurezza, come prescritto per tutti 
+gli edifici anche se di altezza inferiore ai 24 metri, le attività di per se stesse soggette ai controlli devono avere 
+ciascuna un proprio certificato di prevenzione incendi con la validità corrispondente.  
+In base a ciò, al completamento della realizzazione del complesso edilizio o della sua ristrutturazione a seguito di 
+modifiche sostanziali, verranno effettuate la visita per il rilascio del certificato di prevenzione incendi “una tantum” 
+per il fabbricato di civile abitazione, nonché le visite per le altre attività soggette ed inserite nel complesso edilizio 
+(produzione calore, autorimesse, ecc.), rilasciando a queste ultime appositi e separati certificati di prevenzione incendi.  
+Al punto 95 del decreto sono indicati i “vani di ascensori e montacarichi in servizio privato, aventi corsa sopra il 
+piano terreno maggiore di 20 metri, instal lati in edifici civili aventi altezza in gronda maggiore di 24 metri e quelli 
+installati in edifici industriali di cui all’art. 9 del decreto del Presidente della Repubblica 29 maggio 1963, n. 1497 ”.  
+Per tali attività, in luogo della comunicazione contene nte indicazioni sulla conformità o meno ai criteri di sicurezza 
+vigenti secondo la prassi attuale dovrà essere rilasciato un certificato di prevenzione incendi con validità “una tantum”, 
+se i criteri stessi risultano osservati.  
+Ai fini delle presenti disp osizioni per altezza in gronda si intende l ’altezza massima misurata dal piano esterno 
+accessibile ai mezzi di soccorso dei vigili del fuoco all’intradosso del soffitto del più elevato locale abitabile.  
+Nei casi di attività, per legge soggette anche a con trolli di organi collegiali, i Comandi possono effettuare le visite 
+di loro competenza in occasione di tali visite collegiali.  
+ 
+(Omissis. N.d.R.) 
+ 
+ 
+ 
+[2] 
+ 
+Lettera Circolare 
+ 
+Prot. N 6140/4122                                                                
+                                     Roma, 28 marzo 1987 
+ 
+OGGETTO: Edifici di civile abitazione con altezza in gronda superiore a 24 m.  
+ 
+Pervengono da più parti a questo Ministero quesiti intesi a conoscere se, ai fini dell ’assoggettabilità ai controlli di 
+prevenzione incendi, l ’altezza degli edifici di civile abitazione, di cui al punto 94 del D.M. 16.2.1982 , debba essere 
+quella in gronda o quella definita nel D.M. 30.11.1983. 
+Al riguardo, su conforme parere del Comitato  centrale  tecnico scientifico per la prevenzione incendi, si chiarisce 
+che, ai suddetti fini, si deve fare riferimento all ’altezza in gronda come definito al punto 2.b), penultimo comma, della 
+circolare n. 25 del 2.6.1982. L ’altezza ai fini antincendi, definita nel  D.M. 30.11.1983, é un parametro che viene 
+utilizzato attualmente per l’elaborazione delle normative da parte del citato Comitato. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+6 
+ 
+ 
+ 
+[3] 
+ 
+Chiarimento) 
+PROT. n°  P924/4122 sott. 67                          
+Roma, 17 agosto 2001 
+ 
+OGGETTO: Assoggettabilità al D.M. 16 febbraio 1982 dell’edificio di civile abitazione sito in Cremona, Via 
+XXXXX - Condominio XXXXX  - Quesito. - 
+ 
+Con riferimento al quesito di pari oggetto trasmesso dal Comando VV.F. di Cremona, si concorda con il parere 
+espresso al riguardo da codesti Uffici. 
+ 
+Parere dell’Ispettorato 
+Si trasmette l’unito quesito pervenuto dal Comando Provinciale di Cremona, relativo all ’assoggettabilità al DM n. 
+246 dei 16.05.1987 dell’edificio di civile abitazione in oggetto indicato. 
+Il DM n. 246 del 1987 detta le norme di sicurezza antincendi da applicare agli edifici destinati a civile abitazione 
+che abbiano una altezza antincendi (come definita dal DM 30.11.1983) uguale o superiore ai 12 m. L ’edificio in 
+oggetto pertanto è assoggettabil e al DM n. 246 del 16.05.1987, è classificabile nella tipologia a) di cui alla tabella A 
+dello stesso Decreto e vanno applicate le misure di sicurezza previste dal Decreto per tale tipo di edificio.  
+Il DM 16.02.1982 stabilisce l’elenco delle attività soggette alle visite e ai controlli di prevenzione incendi, al punto 
+94) prevede l ’assoggettabilità degli “Edifici destinati a civile abitazione con altezza in gronda superiore a 24 m ”  
+Poiché l’altezza in gronda risulta  essere di 25,57 m, l’edificio rientra tra quelli assoggettabili al controllo dei Vigili dei 
+Fuoco. 
+Il vano ascensore non è attività soggetta a rilascio di Certificato di Prevenzione Incendi, di cui al punto 95) del DM 
+16.02.1982  (Vani ascensori e montacarichi in servizio privato, aventi corsa sopra il piano terreno maggiore di 20 
+metri, installati in edifici civili aventi altezza in gronda maggiore di 24 metri) poiché ha corsa inferiore ai 20 metri. 
+Tuttavia deve rispettare i criteri tecnici di sicurezza previsti nel DM n. 246 del 16.05.1987 pe r tale impianto, inserito in 
+un edificio di tipo a). 
+ 
+ 
+ 
+[4] 
+ 
+(Chiarimento) 
+PROT. n°  P360/4122/1 sott. 3 
+Roma, 17 luglio 2002 
+ 
+OGGETTO: Residenza turistico alberghiera - Campo di applicazione del D.M. 16 febbraio 1982.- 
+ 
+In relazione al quesito inerente l ’oggetto di cui alle note che si riscontrano, lo scrivente Ufficio concorda con il 
+parere espresso al riguardo dall’Ispettorato in indirizzo. 
+ 
+Parere dell’Ispettorato 
+Si è esaminato il quesito proposto dal Comando provinciale di Mi lano, che si trasmette a codesto Ministero per il 
+parere finale, relativo all ’assoggettabilità al controlli di prevenzione incendi delle attività in oggetto, qualora situate in 
+edifici con altezza in gronda superiore a 24 metri. 
+Al riguardo, considerata la nota ministeriale prot. n° P1236/4122/1 sott. 3 del 16.10.99 di risposta ad analogo 
+quesito formulato da questo Ispettorato, si ritiene di poter affermare che tali attività non sono comprese tra quelle 
+di cui al punti 84 e 94 del D.M. 16.02.82, mentre risultano soggette al rilascio del certificato di prevenzione incendi 
+le eventuali aree a rischio specifico. 
+ 
+ 
+ 
+[5] 
+ 
+(Chiarimento) 
+PROT. n°  P1014/4122 sott. 67 
+Roma, 26 settembre 2005 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+7 
+ 
+OGGETTO: D.M. 16 febbraio 1982. Determinazione delle attività di cui ai punti 94-95. 
+ 
+Con riferimento alla richiesta di chiarimenti pervenuta con nota indicata a margine, questo Ufficio concorda con il 
+parere espresso da codesta Direzione Regionale. 
+ 
+Parere della Direzione Regionale 
+Si trasmette, condi videndone il parere espresso, il quesito proposto dal Comando VV.F. di Milano relativo alla 
+corretta determinazione delle attività soggette al controllo VV.F. ai fini degli adempimenti amministrativi di cui al 
+D.P.R. 37/98. 
+Si resta in attesa delle determinazioni di Codesto Ministero. 
+ 
+Parere del Comando 
+Come noto ai punti 94, 95 del D.M. 16.02.1982 sono riportate le seguenti definizioni:  
+94. Edifici  destinati  a  civile abitazione con altezza in gronda superiore a 24 metri (validità u.t.);  
+95. Vani di asc ensori e montacarichi in servizio privato, aventi corsa sopra il piano terreno maggiore di 20 metri, 
+installati in  edifici civili  aventi altezza in gronda maggiore di 24 metri  e  quelli  installati  in  edifici industriali  di  
+cui all’art. 9 del Decreto del Presidente della  Repubblica 29  maggio 1963, n.  1497 (validità u.t.) 
+In particolare l ’att. 94 si parla di “edifici”. Si suppone quindi che per ogni singolo edificio, inteso quale plesso 
+strutturale isolato, occorra individuare l ’attività di cui al suddetto punto 94. Ne consegue che l ’eventuale pagamento 
+degli importi di prevenzione incendi dovrà essere ripetuto per il numero delle attività “edificio” riscontrabili nella 
+istanza del richiedente. 
+In tal senso è opinione del comando scrivente che allo stesso modo fabbricati contigui, strutturalmente e 
+fisicamente separati, provvisti di scale di accesso indipendenti, configurino “edifici” distinti ai fini della 
+individualbilità del punto 94 dell’allegato al D.M. 16.02.1982. 
+Ancora, al punto 95 si parla di “vani” di ascensori e montacarichi. 
+Orbene, è opinione del comando scrivente che ogni “vano”, come letteralmente specificato dalla norma, costituisca 
+singola e definita attività soggetta a CPI, indipendentemente dal fatto che contenga uno, due o anche, t eoricamente, più 
+ascensori. Nel caso di edifici aventi più “vani” corsa, quindi, si dovrebbero riscontrare, corrispondentemente, più 
+attività di cui al punto 95 del D.M. 16.02.1982. In considerazione di ciò eventuali versamenti inerenti le procedure di 
+cui al D.P.R. 37/1998 dovranno essere richiesti e predisposti in base alle suddette considerazioni.  
+Si rimane in attesa di un superiore parere di codesto Ministero. 
+ 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+8 
+MINISTERO DELL’INTERNO 
+DM  16  maggio  1987,  n. 246 
+(Gazz. Uff., 27 giugno,  n. 148). 
+ 
+Norme di sicurezza antincendi per gli edifici di civile abitazione. 
+ 
+ 
+Il Ministro dell’interno: 
+ 
+Vista  la legge 27 dicembre 1941, n. 1570;  
+Vista la legge 13 maggio 1961,  n. 469, articoli 1 e 2;  
+Vista la legge 26 luglio 1965, n. 966, art.   2;   
+Rilevata  la  necessità  di  emanare  norme  di  sicurezza antincendi  per  gli  edifici  di  civile  abitazione;  
+Viste le norme elaborate   dal   comitato   centrale   tecnico  scientifico  per  la prevenzione  incendi  di  cui  
+all’art. 10 del decreto del Presidente della  Repubblica  29 luglio 1982, n. 577;  
+Visto l’art. 11 del citato decreto del Presidente della Repubblica 29 luglio 1982, n. 577;  
+ 
+Decreta: 
+ 
+Sono  approvate le norme di sicurezza antincendi per gli edifici di civile abitazione contenute in all egato al 
+presente decreto. 1 
+Sono  abrogate  tutte le disposizioni in vigore non conformi con le presenti norme.  
+ 
+ 
+ALLEGATO 
+ 
+NORME DI SICUREZZA ANTINCENDI PER GLI EDIFICI DI CIVILE ABITAZIONE  
+ 
+1. Generalità. 
+ 
+1.0. Scopo. 
+Le  presenti  norme  hanno  per  og getto  i  criteri  di  sicurezza antincendi  da  applicare agli edifici destinati a 
+civile abitazione, con altezza antincendi uguale o superiore a 12 m. 2 
+Si  fa  riferimento  ai  termini  e  definizioni generali di cui al decreto  ministeriale 30 novembre 1983 (Gazzetta 
+Ufficiale n. 339 del 12 dicembre 1983). 
+ 
+1.1. Campo di applicazione. 
+Le  presenti norme si applicano agli edifici di cui al punto 1.0 di nuova costruzione o agli  edifici esistenti   in caso   
+di ristrutturazione  che comportino modifiche so stanziali i cui progetti siano  presentati agli organi competenti per le 
+approvazioni previste dalle  vigenti  disposizioni  dopo  l ’entrata  in vigore del presente decreto. Si intendono per 
+modifiche sostanziali lavori che comportino il rifacimento di olt re il 50% dei solai o il rifacimento strutturale delle  
+scale  o  l’aumento  di  altezza.3 Per gli edifici esistenti si applicano le disposizioni contenute nel successivo punto 8.  * 
+ 
+2. Caratteristiche costruttive. 
+ 
+2.0. Classificazione. 
+Gli  edifici  di  cui  al  punto 1 vengono classificati in funzione della  loro  altezza antincendi secondo quanto 
+indicato nella tabella A. 
+ 
+2.1. Comportamento al fuoco. 
+                                                 
+1 Per le caratteristiche dei prodotti da costruzione devono essere tenute presenti le disposizioni previste dal 
+Regolamento (UE) 09/03/2011, n. 305 (cd CPR) e dal D. Lgs. 16/06/2017. N.d.R.  
+2 Vedasi, in merito a quale pi ano riferirsi per la determinazione della “altezza ai fini antincendio degli edifici civili ”, il 
+chiarimento prot. n° P558/4122 sott. 67 del 24/03/2004. N.d.R. 
+3 Vedasi, in merito al considerare come “intervento di rifacimento strutturale” il taglio della scala per l ’installazione di 
+impianti ascensore in edifici per civile abitazione preesistenti, il chiarimento prot. n° P118/4135 sott. 5 del 17/02/2003 . 
+N.d.R. 
+* Per le modifiche alle facciate degli edifici si veda l’art. 2 del DM 25/01/2019 al quale si rimanda nel presente lavoro. 
+N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+9 
+2.1.0. Resistenza al fuoco delle strutture. 
+I requisiti di resistenza al fuoco degli elementi struttura li vanno valutati  secondo  le  prescrizioni  e le modalità di 
+prova stabilite nella  circolare  del  Ministero  dell ’interno n. 91 del 14 settembre 1961,   prescindendo   dal   tipo   di   
+materiale   impiegato  nella realizzazione   degli   elementi  med esimi  (calcestruzzo,  laterizi, acciaio, legno massiccio, 
+legno lamellare, elementi compositi). 
+Il  dimensionamento  degli  spessori e delle protezioni da adottare per i vari tipi di materiali suddetti nonché la 
+classificazione degli edifici  in funzione del carico di incendio, vanno determinati con le tabelle  e  con le modalità 
+specificate nella circolare n. 91 citata, tenendo conto delle disposizioni contenute nel decreto ministeriale 6 marzo 
+1986 (Gazzetta Ufficiale n. 60 del 13 marzo 1986). 4 
+Per  le  strutture  di  pertinenza  delle  aree a rischio specifico devono applicarsi le disposizioni emanate nelle 
+relative normative. 
+ 
+TABELLA A 
+              
+Tipo di 
+edificio Altezza antincendi 
+Massima superficie 
+del compartimento 
+( m2 ) 
+Massima superficie di 
+competenza di ogni scala 
+per ogni piano 
+Tipo dei vani scala e di almeno un 
+vano ascensore 
+Caratteristica 
+REI del vano 
+scala e ascensore, 
+filtri, porta, 
+elementi di 
+suddivisione tra i 
+compartimenti. 
+a Da 12 m a 24 m 8.000 500 
+ 
+Nessuna prescrizione 
+ 
+         60 (**) 
+   500 
+ 
+Almeno protetto se non sono 
+osservati i requisiti del punto 2.2.1 
+ 
+60 
+   550 
+ 
+Almeno a prova di fumo interno 
+ 
+60 
+   600 
+ 
+A prova di fumo 
+ 
+60 
+b Da oltre 24 m a 32 m 6.000 500 
+ 
+Nessuna prescrizione 
+ 
+        60 (**) 
+   500 
+ 
+Almeno a prova di fumo interno se 
+non sono osservati i requisiti del 
+punto 2.2.1 
+ 
+60 
+   550 
+ 
+Almeno a prova di fumo interno 
+ 
+60 
+   600 
+ 
+A prova di fumo 
+ 
+60 
+c Da oltre 32 m a 54 m 5.000 500 
+ 
+Almeno a prova di fumo interno 
+ 
+90 
+d Da oltre 54 m a 80 m 4.000 500 
+ 
+Almeno a prova di fumo interno con 
+filtro avente camino di ventilazione 
+di sezione non inferiore a 0,36 m2 
+ 
+90 
+e Oltre 80 m 2.000 350 (*) 
+ 
+Almeno a prova di fumo interno con 
+filtro avente camino di ventilazione 
+di sezione non inferiore a 0,36 m2 
+ 
+120 
+           
+  (*)  Con  un  minimo  di 2 scale per ogni edificio. Sulla copertura dell ’edificio  deve  essere prevista una area per l ’atterraggio ed il decollo  degli  
+elicotteri  di  soccorso raggiungibile da ogni scala. 
+(**) Solo per gli elementi di suddivisione tra i compartimenti.  
+ 
+2. 1.1.  Reazione  al  fuoco  dei  materiali.  
+                                                 
+4 Per gli aspetti relativi alla resistenza al fuoco ci si deve riferire al DM 16/02/2007 e al DM 09/0 3/2007. N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+10 
+Per la reazione al fuoco dei materiali,  si  fa riferimento al decreto ministeriale 26 giugno 1984 (supplemento 
+ordinario alla Gazzetta Ufficiale n. 234 del 25 agosto). 5 
+ 
+2.2. Scelta dell’area. 
+2.2.0. Accesso all’area. 
+Gli accessi all’area ove sorgono gli edifici oggetto delle presenti norme devono avere i seguenti requisiti minimi:  
+larghezza: 3,50 m; 
+altezza libera: 4,00 m; 
+raggio di volta: 13,00 m; 
+pendenza: non superiore al 10%; 
+resistenza al carico: almeno 20 tonnellate (8 sull’asse anteriore e 12 sull’asse posteriore; passo 4,00 m). 
+ 
+2. 2. 1. Accostamento autoscale. 
+Per  gli  edifici  di  tipo  «a»  e  «b»  deve essere assicurata la possibilità  di  accostamento  delle  autoscale dei 
+vigili del fuoco, sviluppate  come da schema allegato, almeno ad una qualsiasi finestra o balcone di ogni piano.  
+Qualora tale requisito non sia soddisfatto gli edifici del tipo «a» devono  essere  dotati almeno di scale protette e 
+gli edifici di tipo «b» almeno di scale a prova di fumo interna (vedi tabella A). 
+ 
+2.3. Compartimentazione. 
+Gli   edifici   devono  essere  suddivisi  in  compartimenti  anche costituiti  da più piani, di superficie non 
+eccedente quella indicata nella tabella A. 
+Gli elementi costr uttivi di suddivisione tra i compartimenti devono soddisfare i requisiti di resistenza al fuoco 
+indicati in tabella A. 
+ 
+2.4. Scale. 
+Le  caratteristiche  di  resistenza  al  fuoco  dei vani scala sono quelle  previste  nella tabella A. Negli edifici di 
+tipo «a», di tipo «b», di tipo «c», la larghezza minima delle scale deve essere di 1.05 m,  negli edifici di tipo «d» e di 
+tipo «e» la larghezza minima delle scale deve essere di 1.20 m. 6, 7, 8 
+Le  rampe  devono  preferibilmente  essere rettilinee; sono ammesse rampe non rettilinee a condizione che vi siano 
+pianerottoli di riposo e  che  la  pedata  del gradino sia almeno 30 cm misurata a 40 cm dal montante centrale o dal 
+parapetto interno. 
+Il  vano  scala deve avere superficie netta di aerazione permanente in  sommità non inferiore ad 1 m 2. Nel vano di 
+aerazione è consentita l’installazione   di  dispositivi  per  la  protezione  dagli  agenti atmosferici.  
+Il  tipo  e  il numero delle scale sono stabilite in funzione della superficie  lorda  di ogni piano e del  tipo di edificio 
+(vedi tabella A). 
+ 
+2.5. Ascensori.9 
+2.5.0. Vano corsa. 
+Il  vano  corsa dell ’ascensore deve avere le stesse caratteristiche REI  del  vano scala (vedi tabella A). Nel vano 
+corsa sono ammesse le seguenti aperture: 
+a) accessi alle porte di piano; 
+b) aperture permanenti consentite dalle specifiche normative fra il vano corsa e il locale macchine e/o delle 
+pulegge di rinvio; 
+c)  portelli  d’ispezione  e/o  porte  di soccorso con le stesse caratteristiche di resistenza al fuoco del vano corsa;  
+d) aperture  di  aerazione  e  di  scarico  dei  prodotti  di combustione come di seguito indicato.  
+Il  vano corsa deve avere superficie netta di aerazione permanente in  sommità  non  inferiore al 3% dell ’area della 
+sezione orizzontale del  vano stesso, e comunque non inferiore a 0,20 m 2. Tale aerazione può essere ottenuta anche 
+tramite camini, che possono attraversare il locale  macchine,  purché  realizzati  con  elementi di resistenza al fuoco 
+equivalente a quella del vano corsa. 
+Nel  vano di aerazione è consentita l’installazione di dispositivi per la protezione dagli agenti atmosferici.  
+                                                 
+5 Per gli aspetti relativi alla reazione al fuoco ci si deve riferire anche al DM 10/03/2005 e al DM 15/03/2005. N.d.R.  
+6 Vedasi, in merito alla possibilità di installare un ascensore in un edificio civile attraverso la riduzione della largh ezza 
+della rampa di scala, il chiarimento prot. n° P1052/4135 sott. 5 del 28/08/2002. N.d.R. 
+7 Vedasi, in merito alla possibilità di restringimento della larghezza delle scale in edifici esistenti, ma dotati di re quisiti 
+già conformi a quelli richiesti dal presente D.M., il chiarimento prot. n° P1424/4122 sott. 67, del 24/12/2002. N.d.R. 
+8 Vedasi, in merito alla larghezza che devono avere le porte di comunicazione tra “filtri a prova di fumo ” e vani scale, 
+il chiarimento prot. n° 8379 del 27/06/2014 (col chiarimento prot. n° 12581 del 02/09/2010) . N.d.R. 
+9 Tale punto è stato sostituito dal c. 2 dell ’art. 5 del DM 15/09/2005 , al qual e fare riferimento per le caratteristiche 
+degli ascensori di nuova realizzazione. N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+11 
+Nel  vano  corsa  non  possono essere poste in opera canne fumarie, condutture o tubazioni che non appartengono 
+all’impianto ascensore. 
+Quando  il  numero  degli  ascens ori  è superiore a due essi devono essere disposti in almeno due vani di corsa 
+distinti. 
+Il filtro a prova di fumo per vano scale e vano corsa dell’ascensore può essere comune. 
+ 
+2.5.1. Locale macchine. 
+Il  locale  macchine  deve  essere  separato  dagli  a ltri ambienti dell’edificio  con  strutture  di  resistenza  al fuoco 
+equivalente a quella del vano corsa. 
+L’accesso  al  locale macchine deve avere le stesse caratteristiche del  vano corsa; qualora il locale macchine sia 
+ubicato sul terrazzo, l’accesso   può  avvenire  anche  attraverso  vano  munito  di  porta metallica. 
+Il  locale  macchine  deve  avere  superficie  netta  di aerazione permanente non inferiore al 3% della superficie del 
+pavimento, con un minino  di 0,05 m2, realizzata con finestre e/o c amini aventi sezione non  inferiore a quella sopra 
+precisata e sfociante all’aperto ad una altezza  almeno  pari  a  quella dell’apertura di aerazione del vano corsa. 
+ 
+2.6. Comunicazioni. 
+Per  le  comunicazioni  con  le  aree  a  rischio  specifico devono applicarsi le disposizioni emanate con le relative 
+normative. 
+Sono  consentite  le  comunicazioni  tra  scale, ascensori e locali cantinati  pertinenti  le  abitazioni  dell ’edificio  
+secondo  quanto indicato nella tabella B. 
+ 
+ 
+TABELLA B 
+ 
+ 
+Tipo di edificio 
+ 
+Tipo di comunicazione 
+ 
+a 
+ 
+Diretta 
+ 
+b 
+ 
+Tramite disimpegno con pareti REI 60 e por porte REI 60 
+ 
+c 
+ 
+Tramite filtro a prova di fumo con pareti REI 60 e por porte REI 60 
+ 
+d, e 
+ 
+Accesso diretto esclusivamente da spazio scoperto 
+ 
+ 
+2.7.  Scale,  androni  e  passaggi  comuni - reazioni  al  fuoco dei materiali. 
+Le  scale  ed  i  gradini  per gli androni e passaggi comuni devono essere realizzati con materiali di classe 0.  
+Sono  ammessi  materiali di rivestimento di classe 1, per androni e passaggi  comuni  e , limitatamente agli edifici 
+di tipo «a» e di tipo «b», anche per i rivestimenti delle scale e gradini. 
+Non sono soggetti a tali prescrizioni le scale e i passaggi ubicati all’interno della stessa unità immobiliare. 
+ 
+3. Aree a rischio specifico. 
+ 
+Per   le   aree   a   rischio   specifico  pertinenti  gli  edifici (autorimesse,  locali di esposizione o vendita, depositi 
+di materiali combustibili, ecc.) valgono le disposizioni in vigore. 
+ 
+4. Impianti di produzione di calore.10 
+ 
+Per gli impianti di produzione d i calore devono essere osservate le norme  vigenti oltre a quanto indicato nella 
+tabella C.11 
+TABELLA C   
+ 
+                                                 
+10 Vedasi, in merito al tipo di accesso al locale caldaia negli edifici di altezza antincendio > 54 m, il chiarimento prot. 
+n° P868/4108 sott. 22/20 del 05/11/2007. N.d.R. 
+11 Vedasi, in merito a quale potenzialità degli impianti di produzione di calore sono riferite le disposizioni contenute 
+nella tabella C dell’art. 4 del presente decreto, la lettera circolare prot. n° 24648/4122 sott. 67 del 22/12/1987. N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+12 
+TIPO DI COMBUSTIBILE 
+Tipo di edificio Liquido o 
+solido 
+Gas con densità rispetto all’aria 
+< 0.8 
+Gas con densità rispetto 
+all’aria > 0.8 
+a ∆ ∆ ▲ 
+b ∆ ∆ ● 
+c ∆ ∆ ● 
+d ●  ● 
+e ●  ● 
+ 
+ ● = divieto di installazione entro il volume degli edifici 
+ = divieto di installazione entro il volume degli edifici ma ammessa sul terrazzo più elevato 
+▲ = divieto di installazione nei piani interrati 
+ ∆ = ammesso entro il volume degli edifici. 
+N.B. In corpi di fabbrica separati sono ammessi impianti alimentati da  qualsiasi tipo di combustibile con la sola condizione , per quelli 
+funzionanti  a  gas  con  densità rispetto all’aria ≥ 0,8, che siano ubicati in locali fuori terra. 
+ 
+5. Impianti elettrici. 
+ 
+Devono  essere  realizzati in conformità della legge 1° marzo 1968, n. 186.  
+Negli  edifici  di  tipo  «c»,  «d», «e», deve essere installato un sistema   di   illuminazione   di   sicurezza,   che  
+deve  garantire un’affidabile illuminazione e la segnalazione delle vie di esodo. 
+Esso deve avere alimentazione autonoma, centralizzata o localizzata che,  per  durata  e  livello  di illuminamento, 
+consenta un ordinato sfollamento. 
+ 
+6. Impiego gas combustibili. 
+ 
+Le condutture principali dei gas combustibili devono essere esterne al fabbricato ed a vista. 12 
+Sono  ammessi  attraversamenti  di locali purché le tubazioni siano poste  in  guaina metallica aperta alle due 
+estremità comunicante con l ’esterno e di diametro superiore di alme no 2 cm rispetto al diametro della tubazione 
+interna. 
+ 
+7. Impianti antincendi.13 
+ 
+Gli  edifici  di  tipo  «b», «c», «d», «e», devono essere dotati di reti idranti conformi a quanto di seguito riportato.  
+La  rete  idranti  deve  essere  costituita  da  almen o una colonna montante  in  ciascun  vano  scala dell ’edificio; 
+da essa deve essere derivato  ad  ogni  piano,  sia  fuori terra che interrato, almeno un idrante   con  attacco  45  UNI  
+804  a  disposizione  per  eventuale collegamento di tubazione flessibile o attacco per naspo. 
+Il naspo deve essere corredato di tubazione semirigida con diametro minimo  di  25 mm e di lunghezza idonea ad 
+assicurare l’intervento in tutte le aree del piano medesimo. 
+Tale  naspo  deve  essere  installato nel locale filtro, qualora la scala sia a prova di fumo interna. 
+Al  piede di ogni colonna montante deve essere installato un idoneo attacco di mandata per autopompa.  
+L’impianto  deve  essere  dimensionato  per  garantire  una portata minima  di  360  l/min  per  ogni colonna  
+montante e, nel caso di più colonne, il funzionamento contemporaneo di 2. 
+L’alimentazione   idrica   deve   essere  in  grado  di  assicurare l ’erogazione,  ai  3 idranti idraulicamente più 
+sforiti, di 120 l/min cad.,  con una pressione residua al bocchello di bar 1,5 per un tempo di almeno 60 min. 
+Qualora  l ’acquedotto  non garantisca le condizioni di cui al punto precedente  dovrà essere installata idonea 
+riserva idrica; questa può essere  ubicata  a  qualsiasi  piano  e  deve  essere  alimentata  da acq uedotto pubblico e/o da 
+altre fonti. 
+Tale riserva deve essere mantenuta costantemente piena. 
+                                                 
+12 Vedasi, in merito a cosa intendere per «condutture princi pali », il punto 3) della lettera circolare  prot. n° 
+14795/4101 del 26/07/1988. N.d.R. 
+13 Vedasi, in merito alle caratteristiche che deve avere la rete idrica antincendio ed alla normativa tecnica da seguire: 
+a. il chiarimento prot. n° P1566/4122/sott. 67 del 12/12/2008; 
+b. il DM 20/12/2012 al quale si rimanda. N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+13 
+Le  elettropompe  di  alimentazione  della  rete antincendio devono essere  collegate  all ’alimentazione  elettrica 
+dell’edificio tramite linea propria non utilizzata per altre utenze. 
+Negli  edifici  di  tipo «d», «e», i gruppi di pompaggio della rete antincendio  devono  essere  costituiti  da due 
+pompe, una di riserva all’altra,  alimentate  da  fonti di energia indipendenti (ad esempio elettropompa  e motopompa) . 
+L’avviamento dei gruppi di pompaggio deve essere automatico. 
+Le  tubazioni  di alimentazione e quelle costituenti la rete devono essere  protette  dal  gelo, da urti e dal fuoco. Le 
+colonne montanti possono  correre,  a  giorno  o  incassate,  nei vani s cale oppure in appositi alloggiamenti resistenti al 
+fuoco REI 60. 
+ 
+8. Norme transitorie.14, 15 
+ 
+Negli edifici esistenti, entro cinque anni della data di entrata in vigore  delle  presenti  norme,  devono  essere  
+attuate  le seguenti prescrizioni. 
+ 
+8.0. Comunicazioni. 
+Negli  edifici  di  tipo  «b»,  «c»,  «d»,  «e»,  sono  ammesse  le comunicazioni  di cui al secondo comma del punto 
+2.6 attraverso porte RE  30,  anche  senza  disimpegno,  filtro  a prova di fumo o accesso diretto da spazio scoperto.  
+ 
+8.1. Illuminazione di sicurezza. 
+Negli  edifici  di  tipo  «c»,  «d», «e», deve essere installato un sistema  di  illuminazione  di  sicurezza  in  
+conformità  con quanto specificato al punto 5. 
+ 
+8.2. Impianti antincendio.16, 
+Negli  edifici  di  tipo  «c»,  «d»,  «e», devono essere installati impianti antincendio fissi conformi al punto 7. 
+Restano tuttavia validi di impianti già installati a condizione che siano sempre assicurate le prestazioni idrauliche 
+di cui al punto 7.17 
+ 
+9. Deroghe.  
+(Punto come di seguito  mod ificato dall’allegato 1 al DM 25/01/2019 in conformità al c. 1 dell’art. 1 dello stesso 
+decreto. N.d.R.) 
+ 
+Qualora per particolari esigenze di carattere tecnico o di esercizio non fosse possibile attuare qualcuna delle 
+prescrizioni contenute nelle presenti norme potrà essere avanzata istanza di deroga con le procedure di cui all’articolo 
+7 del decreto del Presidente della Repubblica 1° agosto 2011, n. 151. 
+ 
+9-bis. – Gestione della sicurezza antincendio 18 
+(Punto aggiunto dall’allegato 1 al DM 25/01/2019 in conformità al c. 1 dell’art. 1 dello stesso decreto. N.d.R.) 
+ 
+9-bis.1 - Definizioni: 
+                                                 
+14 Vedasi, in merito a quale misure di prevenzione incendi considerare, per ascensori esistenti, alla luce di quanto 
+riportato nel DPR 1497/63 e nel DM 08/03/85, il punto 4) del chiarimento prot. n° P401/4101 sott. 106/33 del 
+23/04/1998. N.d.R. 
+15 Vedasi, in merito alla possibilità di installare un ascensore, in un edificio civile esistente, attraverso la riduzione 
+della larghezza della rampa di scala, il chiarimento prot. n° P1052/4135 sott. 5 del 28/08/2002. N.d.R. 
+16 Vedasi, in merito all’installazione  dell’impianto idrico antincendi, per gli edifici di tipo “b” preesistenti; 
+a. il chiarimento prot. n° P331/4122 sott. 67 del 18/04/2002; 
+b. la lettera circolare prot. n° P1362/4122 sott. 67 del 24/08/2004. N.d.R. 
+17 Vedasi, in merito all’obbligo di permanenza , possibilità di sostituzione con naspi  e caratteristiche  degli impianti 
+idrici antincendio esistenti negli edifici di tipo “b”, il chiarimento prot. n° 6532 del 14/05/2014. N.d.R. 
+18 Il comma 1 dell’art. 3 del DM 25/01/2019 riporta: 
+“1. Gli edifici di civile abitazione esistent i alla data di entrata in vigore del presente decreto sono adeguati alle  
+disposizioni dell’allegato 1 del presente decreto entro i seguenti termini: 
+a. due anni dalla data di entrata in vigore del presente decreto per le disposizioni riguardanti l ’installazione, ove 
+prevista, degli impianti di segnalazione manuale di allarme incendio e dei sistemi di allarme vocale per scopi 
+di emergenza; 
+b. un anno dalla data di entrata in vigore del presente decreto per le restanti disposizioni.” 
+Il termine di cui alla le ttera b. è stato rinviato di sei mesi dal termine dello stato di emergenza  COVID-19 dall’art. 
+63-bis del DL 14/08/2020, n. 104 convertito con modificazioni dalla L 13/10/2020, n. 126  (il termine dello stato di 
+emergenza è stato fissato al 15/10/2020 con delibera dal Consiglio dei ministri de l 29 luglio 2020 e successivamente 
+prorogato al 31 gennaio 2021 con delibera del Consiglio dei ministri del 07/10/2020 ). N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+14 
+Ai fini del presente decreto, si definisce: 
+- EVAC (Sistema di allarme vocale per scopi di emergenza): impianto destinato  principalmente a diffondere 
+informazioni vocali per la salvaguardia della vita durante un’emergenza; 
+- GSA (Gestione della Sicurezza Antincendio): insieme delle misure di tipo organizzativo - gestionale 
+finalizzate all’esercizio dell’attività in condizioni di sicurezza, sia in fase ordinaria che in fase di eme rgenza, 
+attraverso l ’adozione di una struttura organizzativa che prevede compiti, azioni e procedure; essa si attua 
+attraverso l’adozione di misure antincendio preventive e di pianificazione dell’emergenza; 
+- Misure antincendio preventive : misure tecnico - gestionali, integrative di quelle già previste nelle norme di 
+sicurezza allegate al D.M. 16 maggio 1987, n. 246, che completano la  strategia antincendio da adottare per 
+l’attività, al fine di diminuire il rischio incendio; 
+- L.P.: Livello di prestazione; 
+- h: altezza antincendi dell’edificio, di cui al D.M. 30 novembre 1983. 
+ 
+9-bis.2- Attribuzione dei L.P.: 
+Ai fini del presente decreto, i L.P. devono essere attribuiti secondo lo schema di seguito indicato:  
+- L.P. 0 → per edifici di tipo a) (altezza antincendi da 12 m a 24 m); 
+- L.P. 1 → per edifici di tipo b) e c) (altezza antincendi oltre 24 m a 54 m); 
+- L.P. 2 → per edifici di tipo d) (altezza antincendi oltre 54 m fino a 80); 
+- L.P. 3 → per edifici di tipo e) (altezza antincendi oltre 80 m); 
+- Per gli edifici di altezza  antincendi superiore a 24 m, qualora siano presenti attività ricomprese in allegato I 
+al D.P.R. 151/2011, e comunicanti con l’edificio stesso ma ad esso non pertinenti e funzionali  1, dovrà essere 
+adottato un livello di prestazione superiore, indipendentemente dal tipo di comunicazione. 
+______________ 
+1 Per attività pertinenti e funzionali all ’edificio si intendono, ad esempio, impianti  produzione calore, autorimesse, 
+gruppi elettrogeni ecc… 
+ 
+ 
+9-bis. 3 - Misure gestionali in funzione dei L.P. 
+Ai fini del presente decreto, il responsabile dell’attività deve adottare quanto previsto dal corrispondente livello di 
+prestazione: 
+ 
+9-bis.3.1 - L.P.0 (12 m ≤ h < 24 m) 
+ Compiti e funzioni 
+Responsabile dell’attività • identifica le misure standard da attuare in caso d ’incendio; (come sotto 
+dettagliata) 
+• fornisce informazione agli occupanti sulle misure da attuare in caso d’incendio; 
+• espone un foglio informativo riportante divieti e precauzioni da osservare, 
+numeri telefonici per l’attivazione dei servizi di emergenza, no nché le istruzioni 
+per garantire l ’esodo in caso d ’incendio, come previsto nelle misure  da attuare 
+in caso d’incendio; 
+• mantiene in efficienza i sistemi, dispositivi, attrezzature e le altre misure  
+antincendio adottate, effettuando verifiche di controllo ed  interventi di  
+manutenzione; 
+Occupanti In condizioni ordinarie: 
+• osservano le indicazioni sui divieti e precauzioni riportati nel foglio  
+informativo; 
+• non alterano la fruibilità delle vie d ’esodo e l ’efficacia delle misure di  
+protezione attiva e passiva; 
+In condizioni d’emergenza, attuano quanto previsto nel foglio informativo; 
+Misure da attuare in  
+caso d’incendio (Nota 0) 
+Le misure standard da attuare in caso d ’incendio consistono nell ’informazione agli  
+occupanti sui comportamenti da tenere: 
+• istruzioni per la chiamata di soccorso e le informazioni da fornire per  consentire 
+un efficace soccorso; 
+• azioni da effettuare per la messa in sicurezza di apparecchiature ed impianti; 
+• istruzioni per l ’esodo degli occupanti, anche in relazione alla presenza di  
+persone con limitate capacità motorie, ove presenti; 
+• divieto di utilizzo degli ascensori per l ’evacuazione in caso di incendio, ad  
+eccezione degli eventuali ascensori antincendio da utilizzare con le modalità  di 
+cui al D.M. 15 settembre 2005; 
+Nota 0 : In attività ca ratterizzate da promiscuità strutturale, impiantistica, dei sistemi di vie d ’esodo ed esercite da  
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+15 
+responsabili dell’attività diversi, le pianificazioni d ’emergenza delle singole attività devono tenere conto di  eventuali 
+interferenze o relazioni con le atti vità limitrofe. In tali attività, devono essere previste planimetrie per  gli occupanti 
+indicanti le vie d’esodo, installate in punti opportuni ed essere chiaramente visibili. 
+Tabella 0: Misure gestionali per il livello di prestazione 0 
+ 
+ 
+ 
+9-bis.3.2 - L.P.1 (24 m < h ≤ 54 m) 
+ Compiti e funzioni 
+Responsabile dell’attività Organizza la GSA attraverso: 
+• predisposizione e verifica periodica della pianificazione d ’emergenza; (come  
+sotto dettagliata) 
+• informazione agli occupanti su procedure di emergenza da adotta re in caso  
+d’incendio e sulle misure antincendio preventive che essi devono osservare; 
+• mantenimento in efficienza dei sistemi, dispositivi, attrezzature e delle altre 
+misure antincendio adottate, effettuando verifiche di controllo ed interventi di  
+manutenzione, riportando gli esiti in un registro dei controlli; 
+• esposizione di foglio informativo e cartellonistica riportante divieti e 
+precauzioni da osservare, numeri telefonici per l ’attivazione dei servizi di 
+emergenza, nonché riportante istruzioni per garan tire l ’esodo in caso 
+d’incendio; tali istruzioni saranno redatte in lingua italiana ed eventualmente, su 
+esplicita richiesta dell ’assemblea dei Condomini o qualora l ’Amministratore lo 
+ritenga opportuno, potranno essere redatte anche in altre lingue fermo r estando 
+l’utilizzo di cartellonistica di sicurezza conforme alla normativa vigente; 
+• verifica, per le aree comuni, dell ’osservanza dei divieti, delle limitazioni e  delle 
+condizioni normali di esercizio; 
+• adozione delle misure antincendio preventive. (come sotto dettagliato) 
+Occupanti In condizioni ordinarie, osservano le disposizioni della GSA, in particolare: 
+• osservano le misure antincendio preventive, predisposte dal Responsabile  
+dell’attività; 
+• non alterano la fruibilità delle vie d ’esodo e l ’efficacia del le misure di  
+protezione attiva e passiva; 
+In condizioni d’emergenza, attuano quanto previsto nella pianificazione di emergenza,  in 
+particolare: 
+• attuano le procedure di allarme e comunicazioni; 
+• attuano l’evacuazione secondo le procedure della pianificazione di emergenza; 
+Misure antincendio 
+preventive (Nota 1) 
+Le misure antincendio previste consistono in: 
+• corretto deposito ed impiego dei materiali combustibili, delle sostanze  
+infiammabili liquide e gassose; 
+• mantenimento della disponibilità di vie d’esodo sgombre e sicuramente fruibili; 
+• corretta chiusura delle porte tagliafuoco nei varchi tra compartimenti; 
+• riduzione delle sorgenti di innesco (es. limitazioni nell ’ uso di fiamme libere 
+senza le opportune precauzioni, divieto di fumo in aree ove sia vietato, di vieto 
+di impiego di apparecchiature elettriche malfunzionanti o impropriamente  
+impiegate, ...); 
+• gestione dei lavori di manutenzione, e valutazione delle sorgenti di rischio 
+aggiuntive, in particolare: operazioni pericolose (es. lavori a caldo, …), 
+temporanea disattivazione impianti di sicurezza, temporanea sospensione della 
+continuità di compartimentazione, impiego delle sostanze o miscele  pericolose 
+(es. solventi, colle, infiammabili); 
+• valutazione dei rischi di incendio in caso di modifiche alle strutture,  alle 
+finiture, al rivestimento delle facciate, all ’isolamento termico e acustico e agli  
+impianti; 
+Pianificazione 
+dell’emergenza (Nota 2) 
+La pianificazione dell ’emergenza può essere limitata all ’informazione agli occupanti sui  
+comportamenti da tenere. Tal i informazioni potranno essere trasmesse anche  
+semplicemente con avvisi in bacheca, ove presente, o secondo le modalità ritenute più  
+opportune. 
+Essa deve riguardare: 
+• istruzioni per la chiamata di soccorso e le informazioni da fornire per  consentire 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+16 
+un efficace soccorso; 
+• informazioni da fornire alle squadre di soccorso intervenute sul posto  
+• azioni da effettuarsi per la messa in sicurezza di apparecchiature ed impianti;  
+• istruzioni per l ’esodo degli occupanti, anche in relazione alla presenza di  
+persone con limitate capacità motorie, ove presenti; 
+• divieto di utilizzo degli ascensori per l ’evacuazione in caso di incendio, ad 
+eccezione degli eventuali ascensori antincendio da utilizzare con le modalità  di 
+cui al D.M. 15 settembre 2005; 
+• Ove presente l ’impianto riv elazione automatica o manuale dell ’incendio, 
+dovranno essere previste apposite istruzioni di impiego e attivazione  
+dell’allarme. 
+Nota 1: Sono fatti salvi gli adempimenti previsti dalla normativa vigente, per le aree indicate al punto 3 del D.M.  16 
+maggio 1987 n. 246, individuate quali luoghi di lavoro; 
+Nota 2 : In attività caratterizzate da promiscuità strutturale, impiantistica, dei sistemi di vie d ’esodo ed esercite da  
+responsabili dell’attività diversi, le pianificazioni d ’emergenza delle singole attivit à devono tenere conto di  eventuali 
+interferenze o relazioni con le attività limitrofe. In tali attività, devono essere previste planimetrie per  gli occupanti 
+indicanti le vie d’esodo, installate in punti opportuni ed essere chiaramente visibili. 
+Tabella 1: Misure gestionali per il livello di prestazione I 
+ 
+ 
+ 
+9-bis.3.3 - L.P. 2 (54m < h ≤ 80 m) 
+ Compiti e funzioni 
+Responsabile dell’attività Come per il livello di prestazione 1 ed in aggiunta: 
+• Prevede l ’installazione di un impianto di segnalazione manuale di allarme 
+incendio con indicatori di tipo ottico ed acustico, realizzato a regola d’arte; 
+Occupanti Come per il livello di prestazione 1 
+Misure antincendio  
+preventive 
+Tutti gli adempimenti del livello di prestazione 1 ed in aggiunta i seguenti: 
+• impianto di segnalazione manuale di allarme incendio con indicatori di tipo 
+ottico ed acustico; 
+Pianificazione 
+dell’emergenza 
+• In aggiunta a quanto previsto per il livello di prestazione 1, la pianificazione  
+dell’emergenza deve contenere le procedure di attivazione e diffusione 
+dell’allarme; 
+ 
+Tabella 2: Misure gestionali per il livello di prestazione 2 
+ 
+ 
+ 
+9-bis.3.4 - L.P. 3 (oltre 80 m) 
+ Compiti e funzioni 
+Responsabile dell’attività Come per il livello di prestazione 2 ed in aggiunta: 
+• predispone centro di gestione dell ’emergenza conforme a quanto sotto 
+dettagliato; 
+• designa il Responsabile della GSA; 
+• designa il Coordinatore dell ’emergenza (soggetto in possesso di attestato di 
+idoneità tecnica a seguito di frequenza di corso di rischio elevato ex D.M. 10  
+marzo 1998); 
+• prevede l’installazione di un impianto EVAC a regola d’arte; 
+Responsabile della GSA 
+(Nota 3) 
+Pianifica e organizza le attività della GSA, di seguito indicate: 
+• predispone le procedure gestionali ed operative, relative alle misure  antincendio 
+preventive; 
+• aggiorna la pianificazione dell’emergenza; 
+• effettua il controllo periodico delle misure di prevenzione adottate 
+• fornisce al Coordinatore dell ’emergenza le necessarie informazioni e  procedure 
+da adottare previste nella pianificazione dell’emergenza; 
+• segnala al Responsabile dell ’attività le non conformità e le inadempienze di  
+sicurezza antincendio; 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+17 
+Coordinatore 
+dell’emergenza 
+Sovrintende all ’attuazione della pianificazione di emergenza e delle misure di  
+evacuazione previste e si interfaccia con i responsabili delle squadre dei soccorritori.  
+• se presente in posto, collabora alla gestione del l’emergenza presso il centro di  
+gestione dell’emergenza; 
+• se non presente in posto, deve essere immediatamente reperibile secondo le  
+procedure di pianificazione di emergenza 
+Occupanti Come per il livello di prestazione 2 
+Misure antincendio  
+preventive 
+Tutti gli adempimenti del livello di prestazione 2 ed in aggiunta i seguenti: 
+• centro di gestione dell’emergenza; 
+• Sistema EVAC realizzato a regola d’arte; 
+Pianificazione emergenza • In aggiunta a quanto previsto per il LP2, la pianificazione dell ’emergenza deve 
+contenere le procedure di attivazione del centro di gestione dell’emergenza; 
+Centro di gestione 
+dell’emergenza 
+Il centro di gestione dell ’emergenza è un locale utilizzato per il coordinamento delle  
+operazioni da effettuarsi in condizioni di emergenza e pu ò essere realizzato in locale  
+anche ad uso non esclusivo (es. portineria, reception, centralino, ...). 
+Il centro di gestione dell’ emergenza deve essere fornito almeno di: 
+• informazioni necessarie alla gestione dell ’emergenza (es. pianificazioni,  
+planimetrie, schemi funzionali di impianti, numeri telefonici...); 
+• centrale gestione sistema EVAC; 
+• centrale di controllo degli impianti rilevanti ai fini antincendio, ove presenti;  
+Il centro di gestione dell ’emergenza deve essere chiaramente individuato da apposita  
+segnaletica di sicurezza. 
+Nota 3: Il responsabile della GSA può coincidere anche con il Responsabile dell’attività 
+Tabella 3: Misure gestionali per il livello di prestazione 3 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+18 
+ 
+ALLEGATO 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+19 
+Note al DM 16/05/1987 n° 246 
+ 
+ 
+[2] 
+ 
+Chiarimento) 
+PROT. n°  P558/4122 sott. 67 
+Roma, 24 marzo 2004 
+ 
+OGGETTO: Definizione di altezza ai fini antincendio degli edifici civili, di cui al pun to 1.1 del D.M. 30                     
+novembre 1983.  
+ 
+In relazione a quanto richiesto, si conferma che nella definizione di “altezza ai fini antincendio degli edifici 
+civili”, pur se non esplicitato, il piano esterno più basso al quale riferirsi è quello  accessibile ai mezzi di soccorso dei 
+vigili del fuoco. 
+Il concetto che sta alla base della definizione è connesso, infatti, alla possibilità di effettuare il soccorso tecnico 
+urgente dall ’esterno dell ’edificio, restando inteso che dall ’accesso esterno pos sano essere raggiungibili, con un 
+percorso interno, i vari locali dell’edificio. 
+ 
+ 
+ 
+[3] 
+ 
+(Chiarimento) 
+PROT. n° P118/4135 sott. 5  
+Roma, 17 febbraio 2003 
+ 
+OGGETTO: Installazione di impianti ascensore in edifici per civile abitazione preesistenti.  
+ 
+In riferimento al quesito in oggetto, si concorda con il parere di codesto Comando significando che, nel caso in 
+specie, il taglio della scala non è da considerarsi come intervento di rifacimento strutturale.  
+ 
+Parere del Comando 
+ Pervengono a questo Comando numerose richieste di parere di conformità per l ’installazione di impianti ascensore 
+in vani scala di edifici per civile abitazione (h. in gronda > di 24 mt.) preesistenti alla data di emanazione del D.M. 
+16/5/87. Orbene gran parte degli interventi di installazione vengono motivati dall ’esigenza di adeguare gli stabili alle 
+norme per il superamento delle barriere architettoniche (Legge 9.1.1989 n° 13). Inoltre, in molti casi, l ’installazione 
+dell’impianto ascensore richiede il restringimento, mediante taglio, delle rampe della scala in cui l ’impianto medesimo 
+viene realizzato. Tra le altre cose, in gran parte dei casi, le scale oggetto di taglio sono delle scale in muratura con 
+voltine alla “romana”.  
+Anche al fine di chiarire in maniera inequivocabile all’utenza le modalità di esecuzione degli interventi di cui sopra 
+si richiede a codesto superiore Ministero se lo scrivente Comando può continuare a considerare il taglio della scala non 
+come un intervento di rifacimento strutturale e quindi consentire l ’applicazione delle norme transitorie di cui al punto 
+8 della regola tecnica pubblicata con D.M. 16/5/1987. 
+ 
+ 
+ 
+[6]; [15] 
+ 
+(Chiarimento) 
+PROT. n°  P1052/4135 sott. 5                          
+Roma, 28 agosto 2002 
+ 
+OGGETTO: Provvedimento edilizio ai sensi dell ’art. 1 della L. 10/1977 - Condominio di Via XXXXX - 
+Milano - Installazione ascensore. - Quesito. - 
+ 
+In riferimento al quesito In oggetto, si concorda con il parere espresso al riguardo da codesto ispettorato.  
+ 
+Parere dell’Ispettorato 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+20 
+Si trasmette il quesito pervenuto tramite il Comando VV.F. di Milano, relativo alla possibilità di installare un 
+ascensore in un edificio civile attraverso la riduzione della larghezza della rampa di scala. 
+Al riguardo si ritiene che la larghezza minima della rampa non possa comunque essere inferiore al valori previsti 
+dal punto 2.4 del D.M. 16.05.87 n. 246 (1,05 m per edifici di altezza antincendi fino a 54 m e 1,20 per edifici di altezza 
+superiore).  Per edifici esistenti alla data di entrata in vigore del suddetto decreto la larghezza della rampa, se inferiore  
+al valori sopra riportati, non potrà ulteriormente essere ridotta. 
+Casi particolari potranno essere esaminati facendo ricorso alla richiesta di deroga, secondo la procedura prevista 
+all’art. 6 del DPR 12.01.1998 n. 37. 
+ 
+ 
+ 
+[7] 
+ 
+(Chiarimento) 
+PROT. n°  P1424/4122 sott. 67 
+Roma, 24 dicembre 2002 
+ 
+OGGETTO: Larghezza delle scale di edifici esistenti. 
+ 
+ In relazione a quanto prospettato e richiesto con la nota che si riscontra, necessita premettere che il D.M. n° 
+246/87 prescrive espressamente una larghezza minima delle scale solamente per gli edifici di nuova  costruzione, 
+mantenendo, invece, il silenzio sulle caratteristiche delle scale a servizio di edifici esistenti all ’entrata in vigore del 
+decreto stesso.  
+Al riguardo, è parere di questo Ufficio che il legislatore, con il silenzio della norma, abbia voluto  ratificare le 
+situazioni di fatto confermandone, così, le caratteristiche in essere.  
+In armonia con tale posizione interpretativa, questo Ministero, su analoghi quesiti pervenuti nel tempo, ha sempre 
+espresso il proprio parere contrario alla riduzione de lla larghezza delle scale, costituendo, tale intervento, diminuzione 
+delle condizioni di sicurezza in atto.  
+Peraltro, a sostegno di tale impostazione, giova richiamare l ’esplicita avvertenza di cui al punto 6.2 dell ’art. 6 del 
+Decreto Ministero Lavori Pub blici n° 236 del 14 giugno 1989 concernente il superamento e l ’eliminazione delle 
+barriere architettoniche, punto che recita testualmente:  
+“L’installazione dell ’ascensore all ’interno del vano scala non deve compromettere la fruibilità delle rampe e dei 
+ripiani orizzontali, soprattutto in relazione alla necessità di garantire un adeguato deflusso in caso di evacuazione in 
+situazione di emergenza”.  
+Sin qui è quanto oggettivamente deducibile dalla normativa di sicurezza. A ciò, si ritiene tuttavia opportuno 
+soggiungere che, a fronte di situazioni che richiedono la necessità dell ’installazione di un impianto ascensore e 
+quest’ultimo non sia altrimenti realizzabile se non esclusivamente all ’interno del vano scala, lo scrivente Ufficio è del 
+parere che tale installazione non debba comportare un’eccessiva diminuzione degli spazi di transito.  
+Al riguardo, un utile riferimento per il dimensionamento al minimo delle scale, può senz ’altro essere costituito dal 
+D.Lgs. n° 626/94, così come modificato dal D.L.gs. n° 242 /96, che stabilisce in m. 0,80 la larghezza minima di porte e 
+portoni degli ambienti di lavoro. 
+ 
+Quesito 
+ Con riferimento all’oggetto, sottopongo al parere di codesto Ufficio un quesito di carattere generale chiedendo:  
+- Se in edifici preesistenti al D.M.  246/’87, dotati di requisiti già conformi a quelli richiesti dallo stesso D.M. per i 
+nuovi edifici, sia lecito intervenire (poiché al di fuori dell ’ambito di applicazione del medesimo decreto) 
+riducendo i requisiti originari al di sotto dei limiti prescri tti per gli edifici di nuova costruzione e per le 
+ristrutturazioni, ed in caso affermativo se vi sia normativa di riferimento ovvero sia ammessa 
+incondizionatamente la discrezionalità professionale del progettista;  
+ed un quesito di carattere specifico, nel merito del punto “2.4. Scale” del D.M. 246/’87, chiedendo:  
+- se in un edificio di cinque piani (con tre unità immobiliari a piano) preesistente al D.M. 246/ ’87, classificabile di 
+tipologia “a”, ospitante uno studio medico dentistico ed uno studio legale , con scala interna in struttura di voltine 
+“alla romana ” della larghezza di cm. 110, sia ammessa la riduzione della scala a crc. cm 83 - 86 per la 
+collocazione di un impianto ascensore nel residuo “pozzo” della scala di crc. cm. 76.  
+In attesa di un cortese riscontro formale, ringrazio per l’attenzione ed invio distinti saluti. 
+ 
+ 
+ 
+[8] 
+ 
+(Chiarimento) 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+21 
+PROT. n°  0008379 
+Roma, 27 giugno 2014 
+ 
+OGGETTO: Edifici di civile abitazione – Porte di piano. 
+ 
+Con riferimento al  quesito in oggetto, pervenuto con le note a margine indicate con il quale sì approfondisce e 
+chiarisce la problematica esposta, si concorda con i pareri espressi al riguardo da codesti Uffici.  
+ 
+Parere della Direzione Regionale 
+Si trasmette il quesito prop osto dal Comando di XXXXX relativo alla larghezza delle porte di adduzione alle scale 
+in edifici di civile abitazione. 
+Tenuto conto che la regola tecnica di prevenzione incendi di cui al DM 246/87 non fornisce indicazioni sulla 
+larghezza dei corridoi e del le porte che adducono al vano scala e tenuto conto del principio generale di progettazione 
+della larghezza delle uscite di piano e della scala utilizzato in altre regole tecniche, si ritiene, a modifica del parere 
+espresso con la nota prot. 12796 del 12/07 /2010, che la larghezza delle porte di adduzione al vano scala di un edificio 
+civile possa essere commisurata all’affollamento del piano. 
+Nel condividere pertanto il parere espresso dal Comando si resta in attesa delle determinazioni di codesto Ufficio.  
+ 
+Parere del Comando 
+Con parere prot. n. 15777 del 08.09.2010 codesta Direzione Centrale, concordando in sostanza con l ’orientamento 
+della Direzione Regionale XXXXX espresso con nota prot. n. 12796 del 12.07.2010, ha ritenuto che nei fabbricati di 
+civile abitazione soggetti alla regola tecnica di cui al D.M. 16/05/1987, n.  246 le porte di adduzione alla scala debbano 
+avere “una dimensione non inferiore a quella prescritta per la scala”. 
+Lo stesso parere, peraltro, chiarisce preliminarmente che “le porte di ad duzione alla scala in edificio di civile 
+abitazione non devono compromettere il sistema delle vie di uscita ” e che “esse dovranno consentire l’esodo ordinato 
+in caso di emergenza, prendendo in considerazione l ’eventuale presenza nell ’edificio di persone di sabili e 
+appartamenti adibiti a luoghi di lavoro”. 
+Il chiarimento trae origine da un fabbricato di civile abitazione di tipo “c” in base al citato DM n. 246/1987, dotato 
+di scala a prova di fumo di larghezza m. 1,20, superiore al minimo prescritto di m. 1, 05, nel quale le porte di piano 
+hanno larghezza di m. 0,90, a fronte di affollamenti previsti, per i singoli corridoi che adducono alla scala, ampiamente 
+compresi nei valori di riferimento indicanti dal D.M. 10/03/1998. 
+Vincoli strutturali, connessi al sis tema di controventamento del fabbricato, impediscono l ’allargamento dei vani 
+porta di piano, in quanto ne risulterebbe compromessa l’integrità delle armature. 
+Per completezza, si specifica che il progetto del fabbricato era stato regolarmente approvato nel  2006 e che la 
+problematica relativa alle porte di piano era stata sollevata in sede di sopralluogo dal funzionario incaricato, con 
+conseguente diniego al rilascio del CPI. 
+Si intende, tuttavia, a prescindere dallo specifico caso che ha originato l ’approfondimento, rappresentare 
+l’opportunità di meglio chiarire e, nel caso, rivedere le posizioni espresse, affinché vi sia coerenza nell ’applicazione 
+dei criteri di sicurezza e certezza di interpretazione normativa. 
+Più precisamente, si ritiene che l ’imposizione di una larghezza minima delle porte, correlata alla larghezza della 
+scala, debba essere riferita alle porte inserite lungo il percorso principale di esodo, ovvero allo sbarco delle scale 
+all’esterno o su eventuali atrii o corridoi. 
+Per quanto attiene al percorso che dai singoli corridoi di piano conduce alle scale, in considerazione della forte 
+variabilità del relativo affollamento, pare correttamente applicabile il criterio secondo cui la larghezza dei corridoi 
+stessi e delle porte che immettono sulle scale sia correlata a tale affollamento parziale. 
+Non va sottaciuto, al riguardo, che la citata regola tecnica allegata al DM n. 246/1987, nel fissare la larghezza 
+minima delle scale, nulla prescrive in ordine ai corridoi ed alle porte di piano.  
+Nel richiede re, per quanto espresso, le valutazioni di codesti Uffici, si allega per completezza e prontezza di 
+documentazione: 
+* il citato parere ministeriale prot. n. 12581 del 02.09.2010 
+* la citata nota regionale prot. n. 12796 del 12.07.2010 
+* la memoria integrativa e riepilogativa in data 30.05.2011, redatta dal tecnico incaricato p.i. XXXXX, con la quale 
+viene ricostruita la procedura, richiamate le problematiche tecniche ed esposte le controdeduzioni dell ’utente. 
+ 
+Richiesta del Tecnico del 30.05.2011 
+In merito all’oggetto, in qualità di tecnico incaricato dalla proprietà, il sottoscritto per. ind. XXXXX, iscritto al 
+Collegio dei Periti Industriali e Periti Industriali Laureati della provincia di XXXXX, al n. xx, in possesso 
+dell’abilitazione di cui alla L. 818/1984 al n, xx, presenta la seguente istanza. 
+L’immobile in oggetto è un edificio civile abitazione di tipo “c” (altezza antincendi da 32 m a 54 m) e comprende, 
+oltre alle attività 94 e 95, anche le attività 91, 92 e 64. 
+Il progetto ha ricevuto l’iniziale parere di conformità favorevole di codesto Comando VV.F. il 31/5/2006. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+22 
+L’edificio è dotato di tre scale a “prova di fumo” aventi larghezza pari a 1,20 m le cui porte di comunicazione tra i 
+pianerottoli degli appartamenti e le rampe delle scale (uscite di piano) hanno larghezza pari a 0,90 m. 
+Si specifica al riguardo che nel progetto approvato da codesto Comando, la larghezza di dette porte non è quotata 
+né esplicitamente indicata nella relazione tecnica: è misurabile solo sugli elaborati grafici, in scala 1:1 00. 
+In corso d ’opera il titolare dell ’attività – verosimilmente su indicazione informale del Comando – ha inoltrato 
+istanza di deroga perché la larghezza delle porte delle uscite di piano (0,90 m) è inferiore a quella delle scale (1,20 m) 
+anche se  l’art. 2.4 del D.M. 16/05/87 n.246 nulla prescrive in merito. 
+La richiesta di deroga formulata il 20/07/2009, è stata rigettata in quanto non sono stati riconosciuti ostacoli “al 
+rispetto integrale della norma”. 
+A questo punto il titolare dell ’attività ha rivolto  alla Direzione Regionale un “quesito” allo scopo di chiarire 
+l’argomento, atteso che la norma di riferimento (D.M. 16/5/87, n. 246 art. 2.4) non fornisce prescrizioni precise.  
+Con prot.n. 032101.01.4122.067  1 la Direzione Centrale per la Prevenzione e la Sicurezza Tecnica ha individuato, 
+concordando con la Direzione Regionale, per le porte di adduzione alla scala di un fabbricato di civile abitazione, per 
+non compromettere l ’esodo in emergenza anche di lavoratori e disabili, una larghezza minima non inferi ore a quella 
+prevista per la scala. 
+La titolarità è seriamente intenzionata a concludere il percorso di regolarizzazione tecnico -amministrativa del 
+fabbricato ed ha pertanto approfondito la fattibilità di un intervento di allargamento delle porte di piano,  allo scopo di 
+superare alla radice la problematica interpretativa. 
+A tale proposito, però, devono essere riproposte le valutazioni tecniche strutturali già promosse in precedenza, che 
+individuano nei vani scale gli elementi di controventamento dei corpi d i fabbrica, con l ’esigenza di un rinforzo delle 
+armature che renderebbe molto problematico l’allargamento dei vani porte di piano. 
+Ciò premesso si rappresenta che: 
+ i piani hanno affollamento massimo di 15 persone: valore inferiore al limite di 50 previste dalle norme per i 
+luoghi di lavoro (art. 3.5 D.M. 10/3/1998); 
+ la larghezza minima prescritta per le porte, tanto per i lavoratori che per gli invalidi, è di 0,80 m;  
+ le porte di piano, aventi larghezza effettiva pari a 0,90 m, soddisfano pertanto le suddett e prescrizioni; 
+ le scale hanno una larghezza di 1,20 m, superiore al valore minimo dì 1,05 m prescritto dal citato D.M. 
+246/1987. 
+Per quanto richiamato, si richiede un approfondimento del parere espresso dal Ministero ritenendo che, nella 
+configurazione at tuale del fabbricato, le uscite di piano rispettino integralmente le norme applicabili ed anche le 
+caratteristiche prestazionali indicate nel parere ministeriale stesso, mentre le porte che adducono alle scale (ovvero che 
+sbarcano) a piano terra, debbono essere portate a 1,05 metri, con le tolleranze di legge (5%). 
+Nella speranza che la presente istanza sia favorevolmente accolta porgo distinti saluti.  
+ 
+_________ 
+ 
+(Chiarimento) 
+PROT. n°  0012581 
+032101.01.4122.067 
+Roma, 02 settembre 2010 
+ 
+OGGETTO: Edifici di civile abitazione. D.M. 16 maggio 2010 e s.m.i. 
+ Larghezza porte di comunicazione tra “filtri a prova di fumo” e vani scale. 
+ 
+Si fa riferimento alla nota indicata a margine, concernente l ’oggetto, per chiarire che l e porte dì adduzione a lla 
+scala in un edificio di civile abitazione non devono compromettere il sistema delle vie d’uscita. 
+Pertanto, seppure la specifica norma antincendio no n ne indi chi l a larghezza, esse dovranno consentire l’esodo 
+ordinato in caso di emergenza, prendendo in considerazione l’eventuale pres enza nell’edificio di pe rsone disabili e 
+appartamenti adibiti a luoghi di lavoro. 
+In tal senso, si ri tiene di poter concordare con il par ere di codesta Di rezione Regionale che individua come 
+larghezza della porta una dimensione non inferiore a quella prescritta per la scala. 
+ 
+Parere della Direzione Regionale prot. n. 12796 del 12/07/2010 
+In allegato si trasmette il quesito pervenuto dalla Società XXXXX. 
+Per quanto di competenza, pur in considerazione che del singolo piano di un palazzo di civ ile abitazione le scale e 
+la relative port e possono essere utilizzate da un numero limitato di persone, si ri tiene che le  porte di adduzione alla 
+scala non possano avere un a larghezza inferiore a quella prevista per la scala  stessa dal D.M 16/05/1987 in re lazione 
+alla tipologia dell’edificio. 
+                                                 
+1 Da intendere prot. n. 12581 (del 02/09/2010). N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+23 
+Nel caso specifico trattandosi di edificio ili tipo “C” la larghezza della porta e delle scale non deve  essere inferiore 
+a mt. 1,05. 
+ 
+(Si omette il quesito della società. N.d.R.) 
+ 
+ 
+ 
+[10] 
+ 
+(Chiarimento) 
+PROT. n°  P868/4108 sott. 22/20 
+Roma, 05 novembre 2007 
+ 
+OGGETTO: Decreto del Ministero dell ’Interno 12 aprile 1996. Impianti per la produzione di calore 
+alimentati a gas metano in apposito locale e autorimesse. Accesso dall’interno. Quesito 
+ 
+Con riferimento al quesito indicato in oggetto, si concorda con il parere fornito dalla Direzione Regionale VV.F. 
+per la Lombardia. 
+ 
+Parere della Direzione Regionale 
+Si trasmette il quesito formulato dal Comando VV.F. di Como riguardante le m odalità di accesso ai locali caldaia 
+di potenza termica > 35 kW installati in edifici destinati anche ad autorimesse con capacita di parcamento > 9 
+autoveicoli. 
+Con riferimento agli specifici quesiti proposti si ritiene che: 
+ nel caso di coesistenza nello s tesso edificio di autorimessa e di impianto termico, come indicato in 
+premessa, la prescrizione riguardante l ’accesso alla centrale termica dall ’esterno o da intercapedine 
+antincendi sia prevalente rispetto alle modalità di comunicazione previste dal D.M. 1/02/1986 in quanto 
+derivante da normative più recenti (D.M. 12/04/1996 e D.M. 28/04/2005). Si ritiene inoltre che, nel caso 
+di impianti termici in locali interrati, l ’intercapedine di accesso possa essere la stessa sulla quale sono 
+attestate le aperture d i aerazione (a condizione che, ai fini della sicurezza dei soccorritori,  gli organi di 
+intercettazione siano posti sullo spazio scoperto) e che l ’accesso all ’intercapedine stessa non debba 
+avvenire necessariamente dall’esterno; 
+ nel caso di edifici civili di altezza antincendio > 54 m il D.M. 16/05/1987 n. 246 vieta l ’installazione di 
+impianti termici a gas metano all ’interno del volume dell ’edificio, consentendola invece sul terrazzo più 
+elevato. In tal caso l ’accesso al locale caldaia dovrà avvenire diret tamente da terrazzo avente 
+caratteristiche di spazio scoperto. 
+Si resta in attesa delle determinazioni di codesto Ministero. 
+ 
+ 
+ 
+ 
+[11] 
+ 
+Lettera Circolare 
+ 
+Prot. N 24648/4122 sott. 67       
+                                                       Roma, 22 dicembre 1987 
+ 
+OGGETTO: Art. 4 D.M. 16 maggio 1987, n. 246 “Norme di sicurezza antincendi per edifici di civile 
+abitazione” – Chiarimenti. 
+ 
+Su conforme parere del Comitato centrale tecnico scientifico per la prevenz ione incendi, si chiarisce che le 
+disposizioni contenute nella tabella C dell ’art. 4 del D.M. indicato in oggetto sono riferite agli impianti di produzione 
+di calore aventi potenzialità superiore a 30.000 Kcal/h. 
+Restano ovviamente valide le disposizioni contenute nella legge 6 dicembre 1971, n. 1083. 
+ 
+ 
+ 
+[12] 
+ 
+Lettera Circolare 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+24 
+ 
+Prot. N. 14795/4101                                 
+Roma, 26 luglio 1988 
+ 
+OGGETTO:  Chiarimenti interpretativi su problemi di prevenzione incendi. 
+ 
+Per uniformità di indirizzo si riportano di seguito alcuni chiarimenti a quesiti di caratte re generale pervenuti a 
+questo Ministero su problemi di prevenzione incendi. 
+1) È consentita la comunicazione dei lo cali ove sono ubicati gli impianti ter mici per forni di panificazione con i 
+locali destinati alla vendita unicamente dei prodotti dei forni alle stesse condizioni previste dalla lettera -
+circolare n. 8242/4183 del 5 aprile 1979 relativa ad impianti cucina a servizio di ristoranti, mense ecc.  
+2) È consentita l ’installazione dì impianti termici a gas composti da uno o più moduli accoppiati tra loro e 
+contenuti in armadi metallici, direttamente addossati al muro senza osservare la prescritta distanza di 0,6 m tra 
+un lato dell’involucro ed il muro, a c ondizione che tutti i dispositivi di sicurezza siano facil mente raggiungibili 
+negli altri tre lati. 
+3) Il punto 6 del D.M. 16 maggio 1987, n. 246, avente per oggetto « Norme di sicurezza antincendi per gli edifici 
+di civile abitazione» così recita: «Le condu tture principali dei gas combustibili devono essere esterne al fabbri -
+cato ed a vista. 
+Sono ammessi attraversamenti di locali pur ché le tubazioni siano poste in guaina metallica aperta alle due 
+estremità comunicante con l’esterno e di diametro superiore d i almeno 2 cm rispetto al diametro della tubazione 
+interna ». 
+3.1 - Si definiscono «condutture princi pali » le tubazioni al servizio comune delle uten ze dell ’edificio 
+alimentato dall’impianto gas, cioè le sottocolonne e le colonne montanti (ved. Allegato 1). 
+3.2 - È consentita l’installazione delle condutture principali all’interno dell’edificio in apposito alloggiamento il 
+quale: 
+a) sia ad esclusivo servizio dell’impianto gas; 
+b) abbia le pareti impermeabili ai gas; 
+c) sia permanentemente aerato con a perture alle due estremità; l ’apertura di aerazione alla quota più bassa 
+deve essere provvista di rete tagliafiamma e, nel caso di gas con densità superiore a 0,8, deve essere ubicata 
+ad una quota superiore ai piano di campagna ad una distanza, misurata or izzontalmente, di al meno 10 m da 
+altre aperture alla stessa quota o quota inferiore; 
+d) sia dotato, ad ogni piano, di sportello di ispezione a tenuta di gas e di resistenza al fuoco almeno REI 30.  
+L’alloggiamento suddetto può essere desti nato a contenere  anche i misuratori per l ’utenza dei vari piani del 
+fabbricato. 
+Si pregano gli Uffici in indirizzo di tenere conto di quanto sopra nell’espletamento del servizio di prevenzione 
+incendi. 
+ 
+Allegato 1 
+ 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+25 
+ 
+ 
+ 
+ 
+[13 a.] 
+ 
+(Chiarimento) 
+PROT. n°  P1566 
+4122/sott. 67 
+Roma, 12 dicembre 2008 
+ 
+OGGETTO: Rete idrica antincendio in edificio di civile abitazione - D.M. 06/05/19872 n. 246 - Quesito. 
+ 
+Con riferimento alla richiesta di chiarimenti, pervenuta con la nota a indicat a margine, questo Ufficio chiarisce 
+quanto segue. Le caratteristiche prestazionali e di installazione dell ’impianto idrico antincendio di un edificio di civile 
+abitazione sono state definite da specifica regola tecnica e precisamente il D.M. n. 246 del 16 maggio 1987. Di 
+conseguenza, nel ribadire il contenuto della nota ministeriale di prot. P412/4101 del 24/05/2000 si precisa altresì che, 
+in generale, qualora il titolare di un ’attività ritenga appropriato adottare soluzioni impiantistiche diverse da quelle  
+previste dalle regole tecniche, deve necessariamente seguire le procedure di deroga previste all ’art. 6 del D.P.R. n. 37 
+del 12/01/1998. Si soggiunge, inoltre, che alcune delle tematiche poste dal Comando in indirizzo sono state oggetto di 
+approfondimento, i cui sviluppi saranno trattati in un prossimo provvedimento legislativo al fine di superare le 
+contraddizioni fra le caratteristiche e le prestazioni idrauliche richieste dalle regole tecniche di prevenzione incendi 
+rispetto a quelle indicate dalle norme UNI 10779.  
+ 
+Parere della Direzione Regionale 
+Si trasmette il quesito pervenuto attraverso il Comando Provinciale Vigili del Fuoco di Lecco relativo alle 
+caratteristiche prestazionali e di installazione degli impianti idrici antincendio con naspi a servi zio di edifici di civile 
+abitazione.  
+Al riguardo, tenuto anche conto dei chiarimenti forniti con nota ministeriale prot. P412/4101 del 24/05/2000 e 
+considerato che per il caso specifico la regola tecnica di prevenzione incendi non fornisce le caratteristi che richieste, si 
+condivide il parere del Comando circa l ’applicazione dei requisiti prestazionali e di alimentazione previsti dalla norma 
+UNI 10779 per aree con livello di rischio 2.  
+Per quanto riguarda i criteri di installazione dei naspi o idranti in p resenza di scala a prova di fumo interna, pur 
+tenendo conto che la regola tecnica ne prescrive l ’installazione all ’interno del locale filtro, si ritiene maggiormente 
+idonea l’installazione all’interno dei compartimenti, in accordo con il punta 7.5.1 della norma UNI 10779 e con le più 
+recenti regole tecniche di prevenzione incendi (es. strutture sanitarie ed uffici).  
+ 
+Si resta in attesa delle determinazioni di codesto Ministero. 
+ 
+Parere del Comando 
+Si trasmette il quesito dell ’ing. XXX YYYY relativamente al le prestazioni idrauliche di un impianto idrico 
+antincendio con naspi a servizio di un edificio di civile abitazione.  
+A parere dello scrivente Comando, in assenza di specifiche disposizioni regolamentari, si possono applicare le 
+norme di buona tecnica vigenti. Pertanto appare adeguato riferirsi alla norma UNI 10779.  
+In essa le prestazioni di tre idranti UNI45 - per aree di livello 2 - sono ritenute equivalenti alle prestazioni di 
+quattro naspi (e non tre, come richiesto dal professionista) in posizione id raulicamente più sfavorita con le seguenti 
+caratteristiche:  
+q > 60 l/min; p > 3 bar per ciascun naspo;  
+dimensionamento: Q > 240 l/min, P > 3 bar, autonomia > 60 min per ogni colonna montante  
+(due colonne in caso di più colonne)  
+Inoltre - come chiarito dalla norma stessa al punto 7.5.1 - in presenza di filtro a prova di fumo è più idoneo il 
+posizionamento di naspi su entrambi i compartimenti collegati attraverso il filtro (e non all ’interno del filtro).  
+ 
+Si rimane in attesa di conoscere le determinazioni di codesti superiori Uffici 
+ 
+Parere del Tecnico 
+Spett. Comando, 
+                                                 
+2 Leggasi “16/05/1987” al posto di “06/05/1987” N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+26 
+con riferimento al decreto pari oggetto si evidenzia che per quanto attiene agli impianti an tincendio viene prescritto 
+al punto 7.:  
+La rete idranti deve essere costituita da almeno una col onna montante in ciascun vano scala dell ’edificio; da essa 
+deve essere derivato ad ogni piano, sia fuori terra che interrato, almeno un idrante con attacco 45 UNI 804 a 
+disposizione per eventuale collegamento di tubazione flessibile o attacco per naspo.  
+II naspo deve essere corredato di tubazione semirigida con diametro minimo di 25 mm e di lunghezza idonea ad 
+assicurare l’intervento in tutte le aree del piano medesimo.  
+Tale naspo deve essere installato nel locale filtro, qualora la scala sia a prova di f umo interna.  
+Al piede di ogni colonna montante deve essere installato un idoneo attacco di mandata per autopompa.  
+L’impianto deve essere dimensionato per garantire una portata minima di 360 l/min per ogni colonna montante e, 
+nel caso di più colonne, il funzionamento contemporaneo di 2.  
+L’alimentazione idrica deve essere in grado di assicurare l ’erogazione, ai 3 idranti idraulicamente più sfavoriti, di 
+120 l/min cad., con una pressione residua al bocchello di bar 1,5 per un tempo di almeno 60 min.  
+ 
+I r equisiti prestazionali della rete idrica antincendio sono nella norma esattamente definiti in presenza di un 
+impianto che preveda idranti con attacco UNI 45 e sono (supponiamo la pre senza di una sola colonna montante):  
+ portata minima 360 l/min.; 
+ portata minima ai tre idranti maggiormente sfavoriti: 120 l/min; 
+ pressione residua al bocchello: 1,5 bar; 
+ caratteristiche di erogazione garantite per 60 min.  
+Le prestazioni richieste sono sostanzialmente conformi alle indicazioni della norma UNI 10779 per le aree  con 
+livello 2 di rischio.  
+Il Decreto consente l ’installazione di naspi (diametro 25 mm) in luogo di idranti con attacco UNI 45 ma non 
+precisa differenti requisiti di portata e/o pressione in funzione delle diverse caratteristiche idrauliche dei due 
+dispositivi. 
+Adottando come riferimento le indicazioni connesse alle caratteristiche di portata e pressione della citata UNI 
+10779 (la cui osservanza viene richiesta da Codesto Spettabile Comando in assenza di specifiche prescrizioni nelle 
+regole tecniche di riferimento per attività normate) per le aree di rischio di livello 2 dovranno essere garantite:  
+ portata minima ai tre naspi maggiormente sfavoriti: 60 l/min; 
+ pressione residua al bocchello: 3 bar; 
+ caratteristiche di erogazione garantite per 60 min.  
+Mutuando quindi le indicazioni prestazionali dalla norma di buona tecnica (pubbli cata in data successiva al D.M. 
+in oggetto) la portata minima richiesta per una co lonna interna con attacco a naspi sarebbe pari a 180 l/min in luogo 
+dei prescritti 360 l/min.  
+Si richiede pertanto a Codesto Spettabile Comando un parere formale circa la conformità alle norme di legge e di 
+buona tecnica vigenti di una rete idrica antincendio a servizio di edifici di civile abitazione soggetti a sopralluogo di 
+controllo da parte dei Vigili del Fuoco che risponda alle seguenti requisiti:  
+ installazione di una colonna montante in ciascun vano scala dell ’edificio con un attac co a naspo per ogni 
+piano; 
+ i naspi saranno costituiti da una tubazione semirigida con diametro minimo di 25 mm e di lunghezza idonea 
+ad assicurare l ’intervento in tutte le aree del piano medesimo con dispositivo di erogazione conforme alle 
+applicabili norme di prodotto; 
+ i naspi saranno installati nel locale filtro, qualora la scala sia a prova di fumo inter na; 
+ al piede di ogni colonna montante sarà installato un idoneo attacco di mandata per autopompa;  
+ l’impianto sarà dimensionato per garantire una portata minima di 180 l/min per ogni colonna montante e, 
+nel caso di più colonne, il funzionamento contemporaneo di 2; 
+ l’alimentazione idrica sarà in grado di assicurare l ’erogazione, ai 3 naspi idraulicamente più sfavoriti, di 60 
+l/min cad., con una pressione residua al bocchello di 3,0 bar per un tempo minimo pari a 60 min.  
+ 
+In attesa di un Vostro gradito chiarimento porgo distinti saluti. 
+ 
+ 
+ 
+[14] 
+ 
+(Chiarimento) 
+PROT. n°  P401/4101 sott. 106/33 
+Roma, 23 aprile 1998 
+ 
+OGGETTO: Quesiti vari di prevenzione incendi. 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+27 
+Con riferimento ai quesiti posti da codesto Comando Provinciale VV .F., si forniscono di seguito i chiarimenti 
+richiesti. 
+ 
+(Omissis. N.d.R.) 
+ 
+Punto 4 
+Gli ascensori realizzati successivamente alla data di entrata in vigore del D.M. n° 246/1987 devono osservare le 
+disposizioni previste al punto 2.5; gli impianti esistenti a  tale data devono rispettare le misure minime di sicurezza di 
+cui al D.M. 8 marzo 1985, inoltre codesto Comando, stante quanto disposto dall ’art. 3 del D.P.R. 1497 del 29 maggio 
+1963, potrà prescrivere ulteriori misure ritenute necessarie ai fini della sic urezza antincendio, valutando caso per caso 
+se accettare ascensori con cabina e/o porte di piano realizzate in legno. 
+ 
+(Omissis. N.d.R.) 
+ 
+Parere della Direzione Regionale 
+Si trasmette in allegato la nota n° 11200 del 5 giugno 1997 pervenuta dal Comando Pro vinciale dei Vigili del 
+Fuoco di Venezia e riguardante vari quesiti inerenti ad attività inserite nel D.M. 16 febbraio 1982.  
+Poiché, a parere dello scrivente la pratica riveste carattere di interesse interregionale, si prega codesta Direzione 
+Generale di voler fornire ogni utile indicazione in merito.  
+ 
+Parere del Comando 
+Questo Comando invia, per il parere di competenza, una serie di quesiti inerenti varie attività di cui al D.M. 16 
+FEB 1982. 
+Ciò premesso, si resta in attesa delle determinazioni di codesta Direzione Generale. 
+ 
+QUESITI: 
+ 
+(Omissis. N.d.R.) 
+ 
+4) Att. 94 Ascensori 
+  
+a) il DPR 1497 del 29.5.63 all ’art 3, prevede per gli impianti esistenti alla data di pubblicazione del decreto il rispetto 
+di alcune prescrizioni (capo VI), fra le quali non rientr ano quelle antincendio di cui all ’art. 9. Considerato che il DM 
+246/87 non prevede alcun adeguamento per gli impianti esistenti e che il DM 8.3.85 al punto 12 richiede per il rilascio 
+del NOP, che il vano corsa ed il locale macchine abbiano una aerazione n aturale non inferiore a 0,05 mq e che il locale 
+macchine abbia la porta di accesso incombustibile. Si chiede se ai fini del rilascio del CPI di un impianto esistente 
+debbano comunque essere rispettate le misure minime del DM 8.3.85 o possa essere accettato  un impianto rispondente 
+alle misure del capo VI del DPR, ovvero possano essere prescritte misure ritenute necessarie dal Comando Provinciale 
+tenuto conto che l ’art. 3 del DPR stesso prevede che “gli uffici di controllo debbano accertare che gli stessi off rano 
+necessarie garanzie di sicurezza, stabilendo le prescrizioni necessarie per il loro esercizio ”.  
+ 
+b) sempre per gli impianti ricadenti nell ’art. 3 si richiede se possano essere accettati impianti ascensore con cabina e/o 
+porte di accesso ai piani in legno.  
+ 
+(Omissis. N.d.R.) 
+ 
+ 
+ 
+[16 a.] 
+ 
+(Chiarimento) 
+PROT. n° P331/4122 sott. 67 
+ Roma, 18 aprile 2002 
+ 
+OGGETTO: D.M. 16 maggio 1987, n° 246. – Quesito. – 
+ 
+Codesta ditta, con nota pervenuta il 19 marzo c.a., ha formulato un quesito sul decreto in oggetto indicato e relativo 
+agli edifici di tipo “b” (altezza antincendi compressa tra 24 e 32 metri), esistenti alla data di entrata in vigore del 
+decreto medesimo e sprovvisti di impianto idrico antincendio. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+28 
+Il citato decreto, abroga la previgente normativa di settore, ivi compresa la circolare del Ministero dell ’Interno n° 6 
+del 16 gennaio 1949, e pertanto per gli edifici di tipo “b” preesistenti, non sussiste l ’obbligo di installare l ’impianto 
+idrico antincendi, qualora ne siano sprovvisti. 
+Si rammenta che per gli edifici esistenti e dotati di tali impianti, sussiste l ’obbligo di mantenerli in esercizio e 
+pienamente efficienti. 
+ 
+ 
+ 
+[16 b.] 
+ 
+Lettera Circolare 
+ 
+Prot. n°  P1362/4122 sott. 67   
+     Roma, 24 agosto 2004 
+ 
+OGGETTO: D.M. 16 maggio 1987 n. 246 –”Norme di sicurezza antincendi per gli edifici di civile abitazione ” – 
+Chiarimenti al punto 8 – Norme transitorie. 
+ 
+Il punto 8.2 – Impianto antincendio – dell’allegato al decreto ministeriale indicato in oggetto recita: “Negli edifici 
+di tipo “c”, “d”, “e”, devono essere installati impianti antincendio fissi conformi al punto 7. Restano tuttavia validi gli 
+impianti già installati a condizione che siano sempre assicurate le prestazioni idrauliche di cui al punto 7”. 
+Pervengono richieste di chiarimenti circa l ’obbligo di prevedere l ’impianto idrico antincendio fisso in edifici 
+aventi altezza superiore a 24 metri e fino a 32 metri (edifici di tipo “b”), preesistenti alla data di entra ta in vigore del 
+D.M. 16/05/1987, N. 246. 
+Al riguardo si chiarisce che per i suddetti edifici sussiste l ’obbligo di protezione con impianto idrico antincendio 
+unicamente nel caso in cui l ’impianto stesso sia stato espressamente previsto all ’atto dell’approvazione del progetto o 
+del rilascio del certificato di prevenzione incendi da parte del Comando provinciale VV.F.. In tale eventualità 
+l’impianto deve assicurare le prestazioni idrauliche risultanti dal progetto approvato o dal C.P.I. e deve essere 
+mantenuto in efficienza secondo quanto previsto dall’articolo 5, commi 1 e 2, del D.P.R. n. 37/1998. 
+Per gli edifici di tipo “b”, esistenti alla data di entrata in vigore del citato decreto ed esclusi dalla precedente 
+fattispecie, non è quindi prescritta l’installazione di impianti idrici antincendio di tipo fisso in quanto tale misura non è 
+contemplata tra le norme di adeguamento di cui al punto 8 dell’allegato al D.M. n. 246/1987. 
+ 
+ 
+ 
+[17] 
+ 
+(Chiarimento) 
+PROT. n°  6532 
+Roma, 14 maggio 2014 
+ 
+OGGETTO: Impianto idrico antincendio negli edifici di civile abitazione di tipo “b”. 
+ 
+Con riferimento al quesito pervenuto con nota a margine indicata, si concorda con la soluzione prospettata dal 
+Comando di Milano limitatamente alla possibilità di sostituire la rete idranti esistente con altro impianto a naspi. 
+Giova in ultimo evidenziare che, in generale, l ’impianto idrico antincendio, ancorché esistente, costituendo 
+presidio antincendio, deve necessariamente possedere un livello di prestazione adeguato allo scopo, rinvenibile nelle 
+pertinenti regole tecniche di prevenzione incendi ovvero nella regola dell’arte. 
+ 
+Parere della Direzione Regionale 
+Si trasmette il quesito pervenuto attraverso il Comando provinciale VV.F. di Milano relati vo alle caratteristiche 
+degli impianti idrici antincendio installati in edifici di civile abitazione di tipo “b” esistenti ai sensi del DM 16/05/1987 
+n. 246 ai fini dei controlli sull’efficienza. 
+Considerato che le disposizioni transitorie di cui al punto 8.2 del decreto citato non prevedono l ’installazione di 
+impianti antincendio in edifici di tipo “a” e “b”, tenuto conto della necessità più volte affermata da codesta Direzione 
+di non rimuovere gli impianti già installati, si ritiene che le verifiche sugli  impianti esistenti, anche ai fini degli 
+adempimenti di cui all ’art. 4 e 5 del DPR 01/08/2011 n.151, possano essere per analogia quelle previste dalle vigenti 
+norme UNI, escludendo la verifica delle prestazioni idrauliche, i cui valori sono spesso non spec ificati nei progetti 
+approvati in passato. 
+Si resta in attesa delle determinazioni di codesto Ufficio. 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+29 
+Parere del Comando 
+La società XXXX di XXXXX ha inoltrato a quest ’Ufficio un quesito inerente gli impianti di protezione attiva degli 
+edifici di civile abitazione di tipo “b” esistenti. 
+Negli edifici esistenti di civile abitazione di tipo “b”, quindi di altezza antincendi compresa tra 24 e 32 metri, le 
+norme transitorie di cui all ’art. 8 del decreto del Ministero dell ’Interno 16 maggio 1987, n. 246 non pre vedono alcun 
+obbligo di adeguamento o di installazione per gli impianti antincendio fissi, qualora i fabbricati ne siano sprovvisti.  
+La problematica segnalata riguarda gli edifici esistenti nel caso in cui tali impianti siano già installati (e presenti in 
+pratiche approvate) ma non rispondenti alle caratteristiche richieste dal decreto. A tal proposito il punto 8 del decreto 
+del Ministero dell ’Interno 16 maggio 1987, n. 246 prescrive che “restano tuttavia validi gli impianti già installati a 
+condizione che siano sempre assicurate le prestazioni idrauliche di cui al punto 7”. 
+Su tale tematica il Ministero si è più volte espresso ribadendo che per gli edifici esistenti e dotati di tali impianti, 
+sussiste l’obbligo di mantenerli in esercizio e pienamente effici enti, in quanto l ’obiettivo della norma non è quello di 
+ridurre le prestazioni degli impianti realizzati. 
+In particolare, con la lettera circolare del 24 agosto 2004, prot. n. P 1362/4122, il Dipartimento dei Vigili del fuoco 
+ha ulteriormente espresso che, nei casi in cui l’impianto sia presente nel progetto approvato, l ’impianto deve assicurare 
+quantomeno le prestazioni idrauliche risultanti dal progetto approvato, che possono essere diverse da quelle previste al 
+punto 7. 
+In molti edifici di tipo “b” esistenti al 1987, l ’acquedotto comunale non è in grado di soddisfare le richieste 
+idrauliche degli impianti antincendio e pertanto il problema può essere risolto con la realizzazione di una riserva idrica 
+dotata di gruppo di pompaggio in grado di soddisfare i requisiti idraulici previsti dalla normativa per gli edifici di 
+nuova realizzazione o con la sostituzione di un impianto antincendio a idranti con un impianto a naspi, che 
+notoriamente richiede prestazioni idrauliche inferiori rispetto all’impianto a idranti. 
+Il Comando ritiene, nei casi in cui l ’impianto non risponda ai requisiti idraulici previsti nei progetti approvati, che 
+l’impianto stesso possa rispondere ai requisiti di cui al punto 4.1 tabella 1 del decreto del Ministero dell ’Interno 20 
+dicembre 2012 (Regola tecnica di prevenzione incendi per gli impianti di protezione attiva contro l ’incendio installati 
+nelle attività soggette ai controlli di prevenzione incendi) e pertanto possa essere realizzato un impianto a naspi in 
+luogo di una rete a idranti, nel rispetto della norma UNI 10779. Poiché tali fabbricati ricadono in categoria A del 
+decreto del Presidente della Repubblica 1 agosto 2011, n. 151, le modifiche all ’impianto antincendio possono essere 
+effettuate liberamente, a seguito delle quali l ’Amministratore potrà presentare la SCIA senza attivare il procedimento 
+di valutazione del progetto antincendio di modifica degli impianti. 
+In molteplici altri casi accade che l ’acquedotto non garantisce le prestazioni idrauliche necessarie per il 
+funzionamento degli impianti a naspi e che non è neanche possibile realizzare la predetta riserva idrica per mancanza 
+di adeguati spazi, soprattutto nella città di Milano, per cui l ’impianto antincendio, ancorché previsto nel progetto agli 
+atti, non è adeguabile ai requ isiti richiesti dal punto 8. In tali ulteriori casi il Comando ritiene che si possa far ricorso 
+all’istituto della deroga al punto 8 del decreto del Ministero dell’Interno 16 maggio 1987, n. 246. 
+Si richiede pertanto il parere della Direzione Regionale sul quesito proposto, trasmesso in allegato. 
+ 
+Parere della Società 
+In merito all ’argomento di cui all ’oggetto, vorrei sottoporle un quesito che divento sempre più pressante per noi 
+professionisti e per gli amministratori condominiali, vista lo mole di pratiche “bloccate” da questa problematica. 
+Negli edifici esistenti di civile abitazione di tipo “b”, le norme transitorie (art. 8) del D.M. 246/87 non prevedono 
+alcun obbligo di adeguamento o di installazione per gli impianti antincendio fissi, qualora ne siano sprovvisti. Il 
+problema nasce nel caso in cui tali impianti siano già installati (e presenti in pratiche approvate) ma non rispondenti 
+alle caratteristiche indicate nell’art. 7 del suddetto decreto. 
+Tenuto conto che il Ministero dell ’interno si è già espre sso più volte sulla necessitò di non disattivare o rimuovere 
+tali impianti, si chiede se, ai fini dei controlli sull ’efficienza degli impianti preesistenti, ci si possa limitare alla verifica 
+dei seguenti requisiti minimi (così come determinato con chiarim enti interpretativi da altri comandi come quello della 
+provincia di Udine): 
+- prestazione dell’idrante più sfavorito: portata 120 l/min e pressione residua di 2 bar, per un tempo di 30 ’; 
+- in caso di prestazioni insufficienti, possa essere consentita la sostit uzione degli idranti con naspi, con portata 
+di 35 l/min e pressione residua di 2 bar; 
+- idoneità delle tubazioni flessibili; 
+- idoneità delle lance erogatrici; 
+- segnalazione dell’attacco autopompe; 
+- buon funzionamento generale dell’impianto. 
+In attesa di un vostro riscontro, si porgono distinti saluti. 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+30 
+MINISTERO DELL’INTERNO 
+DM 25 gennaio 2019  
+(G.U.  05 febbraio 2019, n. 30) 
+ 
+Modifiche ed integrazioni all’allegato del decreto 16 maggio 1987, n. 246 concernente norme di sicurezza 
+antincendi per gli edifici di civile abitazione. 
+ 
+il Ministro dell’interno 
+ 
+Visto il decreto legislativo 8 marzo 2006, n. 139, recante «Riassetto delle disposizioni relative alle funzioni ed ai  
+compiti del Corpo nazionale dei vigili del fuoco, a n orma dell’art. 11 della legge 29 luglio 2003, n. 229» e successive  
+modificazioni, e in particolare l’art. 16, comma 4; 
+Visto il decreto del Presidente della Repubblica 1° agosto 2011, n. 151 recante «Regolamento recante  
+semplificazione della disciplina dei procedimenti relativi alla prevenzione degli incendi, a norma dell ’art. 49, comma 4 
+-quater, del decreto-legge 31 maggio 2010, n. 78, convertito, con modificazioni, dalla legge 30 luglio 2010, n. 122»;  
+Visto il decreto del Ministro dell ’interno 30 novembr e 1983, recante «Termini, definizioni generali e simboli  
+grafici di prevenzione incendi», pubblicato nella Gazzetta Ufficiale della Repubblica italiana del 12 dicembre 1983,  n. 
+339; 
+Visto il decreto del Ministro dell ’interno 16 maggio 1987, n. 246, recante  «Norme di sicurezza antincendi per gli  
+edifici di civile abitazione» e successive modificazioni, pubblicato nella Gazzetta Ufficiale della Repubblica italiana  
+del 27 giugno 1987, n. 148; 
+Visto il decreto del Ministro dell ’interno 10 marzo 1998, recante «C riteri generali di sicurezza antincendio e per  la 
+gestione dell ’emergenza nei luoghi di lavoro», pubblicato nella Gazzetta Ufficiale della Repubblica italiana del  7 
+aprile 1998, n. 81; 
+Visto il decreto del Ministro dell ’interno 15 settembre 2005, recante « Approvazione della regola tecnica di  
+prevenzione incendi per i vani degli impianti di sollevamento ubicati nelle attività soggette ai controlli di prevenzione  
+incendi», pubblicato nella Gazzetta Ufficiale della Repubblica italiana del 5 ottobre 2005, n. 23 2; 
+Visto il decreto del Ministro dell ’interno 7 agosto 2012, recante «Disposizioni relative alle modalità di 
+presentazione delle istanze concernenti i procedimenti di prevenzione incendi e alla documentazione da allegare, ai 
+sensi dell’art. 2, comma 7, del  decreto del Presidente della Repubblica 1° agosto 2011, n. 151», pubblicato nella 
+Gazzetta Ufficiale della Repubblica italiana del 29 agosto 2012, n. 201; 
+Tenuto conto dell ’evoluzione dei criteri e della normativa di prevenzione incendi avvenuta nell ’ultimo trentennio 
+con particolare riferimento alle misure inerenti la gestione della sicurezza sia in condizioni ordinarie che in caso di  
+emergenza ed ai requisiti di sicurezza antincendio delle facciate degli edifici civili;  
+Ritenuto necessario integrare la v igente normativa per gli edifici di civile abitazione di grande altezza, con idonee  
+misure di esercizio commisurate al livello di rischio incendio ragionevolmente credibile e con l ’indicazione degli  
+obiettivi che devono essere valutati ai fini della sicurezza in caso di incendio dalle facciate degli edifici; 
+Acquisito il parere favorevole del Comitato centrale tecnico scientifico per la prevenzione incendi di cui all ’art. 21 
+del decreto legislativo 8 marzo 2006, n. 139;  
+Espletata la procedura di informazione ai sensi della direttiva (UE) 2015/1535; 
+ 
+Decreta: 
+ 
+Art. 1. 
+Modifiche ed integrazioni al decreto del Ministro dell’interno 16 maggio 1987, n. 246 
+ 
+1. È approvato l ’allegato 1 che costituisce parte integrante del presente decreto e che modifica le norme tecniche 
+contenute nell’allegato al decreto del Ministro dell ’interno 16 maggio 1987, n. 246, sostituendo il punto «9. Deroghe»  
+e introducendo, dopo il punto 9, il punto «9 -bis. Gestione della sicurezza antincendio». 
+2. Le disposizioni contenute nell’allegato 1 al presente decreto si applicano agli edifici di civile abitazione di  nuova 
+realizzazione ed a quelli esistenti alla data di entrata in vigore del presente decreto secondo le modalità previste  
+dall’art. 3. 
+ 
+Art. 2. 
+Requisiti di sicurezza antincendio delle facciate negli edifici di civile abitazione 
+ 
+1. Per gli edifici di civile abitazione soggetti ai procedimenti di prevenzione incendi di cui al decreto del Presidente  
+della Repubblica 1° agosto 2011, n. 151, i requisiti di sicurezza antincendio delle  facciate sono valutati avendo  come 
+obiettivi quelli di: 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+31 
+a) limitare la probabilità di propagazione di un incendio originato all ’interno dell ’edificio, a causa di fiamme o  
+fumi caldi che fuoriescono da vani, aperture, cavità verticali della facciata, inter stizi eventualmente presenti tra la testa  
+del solaio e la facciata o tra la testa di una parete di separazione antincendio e la facciata, con conseguente 
+coinvolgimento di altri compartimenti sia che essi si sviluppino in senso orizzontale che verticale, a ll’interno della 
+costruzione e inizialmente non interessati dall’incendio; 
+b) limitare la probabilità di incendio di una facciata e la successiva propagazione dello stesso a causa di un  fuoco 
+avente origine esterna (incendio in edificio adiacente oppure incendio a livello stradale o alla base dell’edificio); 
+c) evitare o limitare, in caso d ’incendio, la caduta di parti di facciata (frammenti di vetri o di altre parti comunque  
+disgregate o incendiate) che possono compromettere l ’esodo in sicurezza degli occu panti l’edificio e l’intervento delle 
+squadre di soccorso. 
+2. Ai fini del raggiungimento degli obiettivi previsti al comma 1, nelle more della determinazione di metodi di  
+valutazione sperimentale dei requisiti di sicurezza antincendio delle facciate negli edifici civili, la guida tecnica  
+«Requisiti di sicurezza antincendio delle facciate negli edifici civili» allegata alla lettera circolare n. 5043 del 15 aprile  
+2013 della Direzione centrale per la prevenzione e sicurezza tecnica del Dipartimento dei vigili  del fuoco del soccorso  
+pubblico e della difesa civile, del Ministero dell’interno può costituire un utile riferimento progettuale. 
+3. Le disposizioni di cui al comma 1 si applicano agli edifici di civile abitazione di nuova realizzazione e per  quelli 
+esistenti che siano oggetto di interventi successivi alla data di entrata in vigore del presente decreto comportanti  la 
+realizzazione o il rifacimento delle facciate per una superficie superiore al 50% della superficie complessiva delle  
+facciate. 
+4. Le disposi zioni di cui al comma 1 non si applicano per gli edifici di civile abitazione per i quali alla data di  
+entrata in vigore del presente decreto siano stati pianificati, o siano in corso, lavori di realizzazione o di rifacimento  
+delle facciate sulla base di u n progetto approvato dal competente Comando dei vigili del fuoco ai sensi dell ’art. 3 del 
+decreto del Presidente della Repubblica 1° agosto 2011, n. 151, ovvero che, alla data di entrata in vigore del presente  
+decreto, siano già in possesso degli atti abilitativi rilasciati dalle competenti autorità. 
+ 
+Art. 3. 
+Disposizioni transitorie e finali 
+ 
+1. Gli edifici di civile abitazione esistenti alla data di entrata in vigore del presente decreto sono adeguati alle  
+disposizioni dell’allegato 1 del presente decreto entro i seguenti termini: 
+a. due anni dalla data di entrata in vigore del presente decreto per le disposizioni riguardanti l ’installazione, ove 
+prevista, degli impianti di segnalazione manuale di allarme incendio e dei sistemi di allarme vocale per 
+scopi di emergenza; 
+b. un anno dalla data di entrata in vigore del presente decreto per le restanti disposizioni.  1 
+2. Per gli edifici di civile abitazione esistenti alla data di entrata in vigore del presente decreto soggetti agli  
+adempimenti di prevenzione inc endi di cui al decreto del Presidente della Repubblica 1° agosto 2011, n. 151, viene  
+comunicato al Comando dei vigili del fuoco l ’avvenuto adempimento agli adeguamenti previsti al comma 1, all ’atto 
+della presentazione della attestazione di rinnovo periodic o di conformità antincendio, di cui all ’art. 5 del decreto del  
+Presidente della Repubblica 1° agosto 2011, n. 151. 
+3. Il presente decreto entra in vigore il novantesimo giorno successivo alla data di pubblicazione nella Gazzetta  
+Ufficiale della Repubblica italiana. 
+ 
+ 
+ 
+Allegato 1 
+(Art. 1) 
+ 
+Modifiche ed integrazioni all’Allegato al decreto del Ministro dell’interno 16 maggio 1987, n. 246 
+ 
+ 
+(Le modifiche sono stati inserite nei punti specifici del DM 16/05/1987, n. 246. N.d.R.)  
+ 
+ 
+ 
+ 
+ 
+                                                 
+1 Tale termine è s tato rinviato di sei mesi dal termine dello stato di emergenza  COVID-19 dall’art. 63 -bis del DL 
+14/08/2020, n. 104 convertito con modificazioni dalla L 13/10/2020, n. 126  (il termine dello stato di emergenza è stato 
+fissato al 15/10/2020 con delibera dal Consiglio dei ministri de l 29 luglio 2020 e successivamente prorogato al 31 
+gennaio 2021 con delibera del Consiglio dei ministri del 07/10/2020). N.d.R. 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+32 
+MINISTERO DELL’INTERNO 
+ 
+DIPARTIMENTO DEI VIGILI DEL FUOCO, DEL SOCCORSO PUBBLICO E DELLA DIFESA CIVILE  
+DIREZIONE CENTRALE PER LA PREVENZIONE E LA SICUREZZA TECNICA  
+Lettera Circolare 15/04/2013 n. 5043 (facciate degli edifici) 
+ 
+PROT. n.  0005043 
+Allegati: n. 1  
+Roma, 15 aprile 2013 
+ 
+OGGETTO: GUIDA TECNICA su: “Requisiti di sicurezza antincendio delle facciate negli edifici civili ” - 
+AGGIORNAMENTO 
+ 
+La Lettera Circolare n. 5643 del 31.03.2010 riguardante l`oggetto , attraverso apposito allegato tecnico (Guida 
+Tecnica) approvato dal Comi tato Centrale Tecnico Scientifico per la Prevenzione Incendi nella seduta del 23 marzo 
+2010, ha affrontato, per la prima volta in Italia , il tema connesso alla sicurezza antincendio delle facciate negli edifici 
+civili. 
+Lo stesso atto ha stabilito , inoltre, che, trascorsi due anni di sperimentazione , sulla base delle osservazioni ricevute 
+dall’apposito gruppo di lavoro designato, il medesimo allegato sarebbe stato aggiornato. 
+Alla presente viene quindi annessa la nuova Guida Tecnica (che sostit uisce quindi l a precedente) che,  grazie ai 
+contributi pervenuti dai Comandi VF . dall’I ndustria nazionale delle facciate e dai professionisti che si occupano 
+speciﬁcatamente della materia, rappresenta oggi il migliore documento normativo nazionale nel settore specifico. 
+Si avverte, in particolare, che gli aggiornamenti introdotti riguardano , rispetto alla precedente versione , sia una più 
+appropriata caratterizzazione tipologica delle facciate in relazione agli aspetti di sicurezza antincendio da garantire , sia 
+una migliore impostazione formale del documento in relazione , soprattutto, alle specifiche caratteristiche prestazionali 
+richieste. 
+Si avverte inoltre , che,  pur raccomandandone l`utilizzo , la nuova Guida Tecnica , anche in attesa di ulteriori 
+sviluppi conoscitivi a livello europeo , continuerà a mantenere lo status di “Documento Volontario di Applicazione” e, 
+come avvenuto per la precedente versione, essa sarà da intendere riferita agli edifici aventi altezza antincendio 
+superiore a 12 metri. 
+È appena il caso , infine, di precisare che l`applica zione del medesimo documento normativo non espl ica 
+necessariamente gli effetti di indirizzo e coordinamento per l ’applicazione della normativa in materia di salute e 
+sicurezza secondo la definizione di cui all’art. 2, comma 1. lettera z) del D.lgs.vo 81/2008 e s.m.i. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+33 
+GUIDA PER LA DETERMINAZIONE DEI “REQUISITI DI SICUREZZA 
+ANTINCENDIO DELLE FACCIATE NEGLI EDIFICI CIVILI” 
+ 
+1 OBIETTIVI 
+ 
+La presente guida tecnica ha i seguenti obiettivi: 
+a. limitare la probabilità di propagazione di un incendio originato all ’interno dell’edificio, a causa di fiamme o 
+fumi caldi che fuoriescono da vani, aperture, cavità verticali della facciata, interstizi eventualmente presenti 
+tra la testa del solaio e la facciata o tra la testa di una parete di  separazione antincendio e la facciata, con 
+conseguente coinvolgimento di  altri compartimenti sia che essi si sviluppino in senso orizzontale che  
+verticale, all’interno della costruzione e inizialmente non interessati dall’incendio; 
+b. limitare la probabilità di incendio di una facciata e la sua successiva propaga zione, a causa di un fuoco avente 
+origine esterna (incendio in edificio adiacente oppure incendio a livello stradale o alla base  dell’edificio); 
+c.  evitare o limitare, in caso d ’incendio, la caduta di parti di facciata (frammenti di vetri o di altre parti 
+comunque disgregate o incendiate) che possono compromettere l ’esodo in sicurezza degli occupanti l ’edificio 
+e l’intervento in sicurezza delle squadre di soccorso. 
+ 
+2 DEFINIZIONI 
+ 
+2.1 Facciata: l’insieme dei componenti che costituiscono un sistema di  chiusura (materiali, elementi, accessori etc.), 
+progettati, assemblati ed installati al fine di realizzare l’involucro esterno verticale, o quasi - verticale, dell’edificio. 
+2.2 Facciata semplice: Facciata, anche di tipo multistrato, in cui gli strati e gli elemen ti funzionali sono assemblati 
+con continuità senza intercapedini d’aria tra gli strati. Sono considerati come unico strato elementi forati quali laterizi, 
+blocchetti in cls, vetro-camera, ecc. 
+Sono incluse le facciate rivestite con elementi prefabbricati, fissati con legante umido o a secco in aderenza alla 
+parete esistente sottostante (“cappotti termici”) e le facciate in mattoni o blocchi dotati di camere d ’aria non ventilata 
+per l’isolamento termico. 
+2.3 Facciata a doppia parete: Facciata di tipo multistrato, in cui gli starti e/o gli elementi funzionali sono separati da 
+una cavità o intercapedine d’aria (denominata “corridoio d’aria” o “spazio intermedio”).  
+Le facciate a doppia parete possono essere di tipo ventilato e non ventilato, con pareti opache o vetrate. Dal punto di 
+vista della sicurezza antincendio la facciata a doppia parete non ventilata è assimilabile ad una facciata semplice.  
+2.3.1 Facciata a doppia parete ventilata non ispezionabile: Facciata a doppia parete con circolazione d’aria 
+nell’intercapedine di tipo meccanico e/o naturale. L’intercapedine d’aria può assumere spessori variabili compresi tra 
+un minimo di 3 cm e un massimo di 60 cm. Generalmente gli spessori sono compresi tra 5 e 10 cm.  
+Tale tipologia di facciata può essere a doppia parete verticale sia verso l’interno che verso l’esterno. 
+2.3.2 Facciata a doppia parete ventilata ispezionabile: Facciata a doppia parete con circolazione d’aria 
+nell’intercapedine di tipo meccanico e/o naturale. L’intercapedine d’aria può assumere spessori  superiori a 60 cm. Nel 
+caso di intercapedini superiori a 120 cm le due pareti costituiscono, dal punto di vista della sicurezza antincendio, due 
+sistemi facciata indipendenti. 
+Tale tipologia di facciata è generalmente composta da una parete esterna vetrat a e una parete interna che può essere 
+semplice con o senza infissi, di tipo curtain wall opaca o vetrata. L ’intercapedine interna tra le due pareti è attrezzata 
+per consentire il passaggio di addetti alle operazioni di manutenzione. 
+2.4 Curtain wall (facciata continua): facciata esterna non portante, indipendente dall’ossatura strutturale dell’edificio 
+e generalmente fissata  davanti alla testa dei solai e dei muri trasversali. Una facciata continua include  telai, pannelli, 
+superfici vetrate, sigillature, sistemi di fissaggio, giunti, membrane di tenuta, ecc. 
+È solitamente formata da una intelaiatura, costituita da elementi strutturali lineari interconnessi, vincolata alla 
+struttura di supporto dell’edificio e riempita a formare una pelle continua leggera e a vvolgente, che fornisce, di per sé 
+o insieme all ’edificio, tutte le normali funzioni di una parete esterna, ma tale da non avere funzioni portanti per lo 
+stesso edificio. È caratterizzata da una continuità dell ’involucro rispetto alla struttura portante de ll’edificio, che in 
+genere resta interamente arretrata rispetto al piano della facciata (v. UNI-EN 13119:2007, EN 13830). 
+La facciata continua è generalmente progettata con struttura di alluminio estrusa (ma può essere anche con 
+intelaiatura di legno, acci aio, pvc o altro) è generalmente tamponata con pannelli in  vetro. Altre chiusure comuni 
+includono: rivestimenti esterni in pietra, in pannelli di metallo o di legno, in strisce distaccate di vario materiale (tipo 
+persiana o frangisole), finestre apribili ecc…. 
+2.5 Parete aperta: parete esterna costituita per almeno il 50% della sua superficie da giunti, griglie fisse o mobili (che 
+si aprono automaticamente in caso di incendio di almeno 60 gradi rispetto alla posizione di chiusura) distribuiti in 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+34 
+modo sufficientemente uniforme, o infine, da pannelli realizzati con materiali che a temperature inferiori a 200 °C si 
+rompono e cadono. 
+2.5 Parete chiusa: parete esterna che non rispetta i criteri della parete aperta. 
+2.6 Kit: nell’accezione della Direttiva Prodotti  da Costruzioni (DPC) e del nuovo Regolamento Prodotti da 
+Costruzioni1 (CPR), un kit è equivalente ad un prodotto da costruzione. Un prodotto da costruzione è un kit quando è 
+costituito da una serie di almeno due componenti separati che necessitano di esse re uniti per essere installati 
+permanentemente nelle opere (es.: per diventare un sistema assemblato). Per rientrare nello scopo della DPC (o del 
+CPR), un kit deve soddisfare le seguenti condizioni: 
+i) il kit deve essere collocato sul mercato consentendo all’ acquirente di comperarlo in un’unica transazione da 
+un singolo fornitore; 
+ii) il kit deve possedere caratteristiche che consentano alle opere nelle quali è incorporato di soddisfare i requisiti 
+essenziali, quando le opere sono soggette a regole che prevedano detti requisiti. 
+Esistono due possibili tipi di kit: quelli in cui il numero e il tipo dei componenti sono predefiniti e rimangono costanti 
+e quelli in cui il numero, il tipo e la disposizione dei componenti cambia in relazione a specifiche applicazioni.  
+ 
+3 REQUISITI DI RESISTENZA AL FUOCO E COMPARTIMENTAZIONE  
+ 
+3.1 Regole generali 
+Non sono richiesti requisiti di resistenza al fuoco per gli elementi della  facciata che appartengono a compartimenti 
+aventi carico d ’incendio specifico , al netto del contributo rap presentato dagli isolanti eventualmente presenti nella 
+facciata, minore o uguale a 200 MJ/mq. Non sono altresì richiesti requisiti di resistenza  al fuoco per gli elementi della 
+facciata che appartengono a compartimenti  all’interno dei quali il valore del c arico di incendio specifico è superiore a 
+200 MJ/mq se essi sono provvisti di un sistema di spegnimento ad attivazione automatica. 
+3.2 Facciate semplici e curtain walls 
+La facciata deve  presentare in corrispondenza di ogni solaio e di ogni muro trasversale , con  funzione di 
+compartimentazione, una fascia, realizzata come descritto in  Allegato, costituita da uno o più elementi costruttivi di 
+classe di resistenza al  fuoco E60 -ef (o→i). Nel caso delle facciate di tipo curtain walls ovvero in tutti i casi in cui  
+l’elemento di facciata non poggi direttamente sul solaio è inoltre richiesto che l’elemento di giunzione della facciata ai 
+solai e ai muri trasversali dei compartimenti sia di classe di resistenza al fuoco EI60. 
+Le parti di facciata appartenenti alla fasc ia di cui sopra, che devono possedere i requisiti di resistenza al fuoco, 
+possono presentare aperture a condizione che, in corrispondenza delle stesse, sia previsto, in caso di incendio, 
+l’intervento automatico di apposita serranda tagliafuoco, o sistema e quivalente, avente il medesimo requisito di 
+resistenza al fuoco previsto per le parti di facciata. 
+3.3 Facciate a doppia parete ventilate non ispezionabili 
+3.3.1 Parete esterna chiusa 
+Nel caso di facciate a doppia parete ventilate non ispezionabili con par ete esterna chiusa, se l’intercapedine è dotato in 
+corrispondenza di ogni vano per finestra e/o porta -finestra e in corrispondenza di ogni solaio di elementi di 
+interruzione non combustibili e che si mantengono integri durante l’esposizione al fuoco, la pa rete interna deve 
+obbedire alle stesse regole delle facciate semplici. Non sono richiesti gli elementi orizzontali di interruzione in  
+corrispondenza dei solai se nell’intercapedine è presente esclusivamente materiale isolante classificato almeno Bs3d0 
+ovvero se la parete interna ha, per l’intera altezza e per tutti i piani, una resistenza al fuoco EI30.  
+3.3.2 Parete esterna aperta 
+Nel caso di facciate a doppia parete ventilate non ispezionabili con parete esterna aperta, la parete interna dovrà 
+presentare analoghi requisiti di resistenza al fuoco delle facciate semplici, se nell’intercapedine è presente 
+esclusivamente materiale isolante classificato almeno Bs3d0 ovvero dovrà avere, per l’intera altezza e per tutti i piani, 
+una resistenza al fuoco EI30 se ne ll’intercapedine è presente materiale isolante con classificazione di reazione al fuoco 
+inferiore. 
+3.4 Facciate a doppia parete ventilate ispezionabili 
+3.4.1 Parete esterna chiusa – Intercapedine interrotta da elementi di interpiano resistenti al fuoco 
+Nel caso di facciate a doppia parete ventilate ispezionabili con parete esterna chiusa, se l’intercapedine è interrotta da 
+solai o setti di compartimentazione E60 per ciascun piano, la parete esterna ovvero la parete interna devono obbedire 
+alle stesse regole delle facciate semplici. 
+Nei solai e setti resistenti al fuoco che interrompono l’intercapedine, possono essere praticate aperture allo scopo di 
+consentire la circolazione di aria all’interno dell’intera intercapedine, a condizione che sia mantenuta salva  la 
+                                                 
+1 REGOLAMENTO (UE) N. 305/2011 DEL PARLAMENTO EUROPEO E DEL CONSIGLIO DEL 9 marzo 2011 
+che fissa condizioni armonizzate per la commercializz azione dei prodotti da costruzione e che abroga la direttiva 
+89/106 CEE del Consiglio (Gazzetta ufficiale dell’Unione europea L 88/5 del 4.4.2011).  
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+35 
+continuità della compartimentazione di interpiano attraverso l’intervento, in caso d’incendio, di dispositivi automatici 
+di chiusura aventi requisito di resistenza al fuoco E60. 
+3.4.2 Parete esterna chiusa – Intercapedine priva di interruzioni 
+Nel caso  di facciate a doppia parete ventilate ispezionabili con parete esterna chiusa, se l’intercapedine è priva di 
+interruzioni orizzontali, la parete interna dovrà avere, per l’intera altezza e per tutti i piani, una resistenza al fuoco 
+EW30 (i↔o). Nel caso in cui la parete interna sia di tipo Curtain Walls è inoltre richiesto che l’elemento di giunzione  
+della facciata ai solai e ai muri trasversali dei compartimenti sia di classe di resistenza al fuoco EI60.  
+3.4.3 Parete esterna aperta 
+Nel caso di facciate a doppia parete ventilate ispezionabili con parete esterna aperta, la parete interna dovrà presentare 
+analoghi requisiti di resistenza al fuoco delle facciate semplici. 
+3.4.4 Misure alternative 
+In alternativa alle prescrizioni 3.4.1, 3.4.2 e 3.4.3 è possibile dotare la facciata di un sistema automatico di 
+spegnimento ad acqua, posizionato all’interno delle due pareti e dimensionato in modo da garantire una densità di 
+scarica non inferiore a 10 l/min m2 sulle pareti interne della facciata che p otranno avere superfici vetrate purché in 
+vetro temperato con trattamento HST (Heat Soak Test). 
+La portata dell’impianto, da considerarsi aggiuntiva alla portata destinata ad altri impianti di spegnimento previsti per 
+l’edificio, deve essere tale da garant ire il funzionamento contemporaneo, in erogazione, degli ugelli del piano 
+immediatamente superiore a quello interessato dall’incendio, mentre la durata di scarica degli erogatori dovrà essere 
+almeno pari a 60 minuti. 
+L’impianto deve essere comandato da apposito sistema di rivelazione incendi a servizio di ciascun piano dell’edificio e 
+i dispositivi di erogazione, posti al di sopra di ciascun piano, devono essere orientati verso la parete interna.  
+Lo spazio intermedio o “corridoio d’aria”, inoltre, dovrà ess ere provvisto di sistema di evacuazione dei fumi, 
+orientativamente individuabile attraverso una superficie di ventilazione naturale, realizzata sia nella parte bassa che 
+nella parte alta della facciata, di area pari al 10% della sezione orizzontale dell’intercapedine stessa. 
+3.5 Verifica dei requisiti di resistenza al fuoco 
+La conformità di un sistema di facciata ai criteri stabiliti deve essere comprovata con riferimento ad  uno dei 
+seguenti metodi: 
+3.5.1 Metodo basato su prove 
+La porzione della facciata (f ascia) per la quale è previsto il requisito di resistenza al fuoco viene verificata 
+sperimentalmente secondo le seguenti indicazioni: 
+a) per facciate semplici poggianti sui solai si applica la norma EN 1364 –1 (Prove di resistenza al fuoco per 
+elementi non portanti – Muri); 
+b) per facciate tipo Curtain Walls si applica la norma EN 1364 –4 (Prove di resistenza al fuoco per elementi non 
+portanti – Facciate continue in configurazione parziale); 
+c) nel caso in cui la facciata di tipo Curtain Walls debba garantire il requi sito di resistenza al fuoco per tutto lo 
+sviluppo e non limitatamente alla fascia prospiciente i solai e i muri di compartimentazione, anziché la norma 
+indicata al punto precedente, si applica la norma EN 1364 –3 (Prove di resistenza al fuoco per elementi n on 
+portanti – Facciate continue in configurazione totale) 
+d) per prodotti di sigillatura lineare si applica la norma EN 1366 -4 (Prove di resistenza al fuoco per impianti di 
+fornitura servizi – Sigillanti per giunti lineari): 
+La norma di classificazione EN 135 01-2 fornisce la procedura di classificazione  delle facciate semplici e Curtain 
+Walls secondo i criteri E, I con i suffissi “i” (inside) e “o” (outside) legati da una freccia per indicare il verso di 
+esposizione al fuoco, nonché il suffisso –ef nel caso in  cui la classificazione sia resa nei  confronti dell’esposizione al 
+fuoco esterno, così come definito nel D.M. 9 marzo  2007. La norma di classificazione EN 13501 -2 fornisce altresì le 
+indicazioni circa le norme per le applicazioni estese dei risultati di pr ova (EXAP) che dovessero rendersi disponibili. 
+Sono comunque applicabili alle facciate i contenuti del punto B.8 del D.M. 16 febbraio 2007.  
+3.5.2 Metodo basato su calcoli e tabelle 
+Per gli elementi di facciata realizzati con elementi pesanti in calcestruzz o, pietra o muratura, ossia  costituiti da 
+materiali poco  deformabili alle alte temperature , la  verifica ai fini della classificazione di resistenza al fuoco  può 
+essere eseguita facendo ricorso al D.M. 16/2/2007.  Al tale proposito si rammenta che il requisi to EI60 di  una parete 
+garantisce automaticamente anche il requisito E60-ef (o→i). 
+Per gli elementi di facciata realizzati con elementi di tipo leggero sono al momento indisponibili soluzioni basate 
+su calcoli o riferimento a tabelle. 
+Per gli elementi strutturali la verifica ai fini della classificazione R60 -ef può essere eseguita f acendo ricorso al 
+D.M. 16/2/2007. 
+ 
+4. REAZIONE AL FUOCO 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+36 
+I prodotti isolanti presenti in una facciata , comunque realizzata secondo quanto indicato nelle definizioni di cui al 
+punto 2, devono essere almeno di classe 1 di reazione la fuoco ovvero  classe B-s3-d0, in accordo alla decisione della 
+Commissione europea 2000/147/CE del 8.2.2000. 
+La predetta classe di reazione al fuoco, nel caso in cui la funzione isolante della facciata sia garantita da un insieme 
+di componenti unitamente commercializzati come kit, deve essere riferita a quest’ultimo nelle sue condizioni finali di 
+esercizio. 
+I prodotti isolanti, con esclusione di quelli posti a ridosso dei vani finestra e porta -finestra per una fascia di 
+larghezza 0,60 m e di quelli posti alla base della facciata fin o a 3 m fuori terra, possono non rispettare i requisiti di 
+reazione al fuoco richiesti al primo capoverso purché siano installati protetti, anche all’interno di intercapedini o cavità 
+secondo le indicazioni seguenti: 
+prodotto isolante C-s3-d2 se protetto con materiali almeno di classe A2; 
+prodotto isolante di classe non inferiore ad E se protetto con materiali almeno di classe A1 aventi uno spessore 
+non inferiore a 14 mm. 
+soluzioni protettive ulteriori possono essere adottate purché supportate da specifiche  prove di reazione al fuoco 
+su combinazioni di prodotti (supporti, isolanti, protettivi) rappresentativi della situazione in pratica che 
+garantiscano una classe di reazione al fuoco non inferiore ad 1 ovvero B-s3-d0 
+Limitatamente alle pareti ventilate non ispezionabili le protezioni sopra definite possono non essere applicate se la 
+parete rispetta le prescrizioni di cui al precedente punto 3.3. 
+Le guarnizioni, i sigillanti e i materiali di tenuta, qualora occupino complessivamente una superficie maggiore de l 
+10% dell’intera superficie della facciata, dovranno garantire gli stessi requisiti di reazione al fuoco indicati per gli 
+isolanti. 
+Tutti gli altri componenti della facciata, qualora occupino complessivamente una superficie maggiore del 40% 
+dell’intera superficie della facciata, dovranno garantire gli stessi requisiti di reazione al fuoco indicati per gli isolanti.  
+Per gli elementi in vetro non viene richiesta alcuna prestazione di reazione al fuoco  
+Qualora elementi metallici (staffe, perni, viti, ecc.) o impianti, suscettibili in condizioni di esercizio di raggiungere 
+temperature superiori a 150 °C, attraversano prodotti isolanti che non rispettano i requisiti di reazione al fuoco richiesti 
+al primo capoverso, è necessario separare tali elementi dal contatto diretto con il prodotto isolante. 
+ 
+5. ESODO DEGLI OCCUPANTI E SICUREZZA DELLE SQUADRE DI SOCCORSO  
+ 
+Nel caso in cui le facciate siano composte da materiali fragili ovvero che in caso  di incendio possono dare luogo a 
+rotture e distacchi di parti non minut e, deve essere assicurato che gli sbarchi delle vie di esodo, i luoghi sicuri esterni 
+risultino protetti dalla caduta delle parti della facciata. 
+Il dimensionamento e/o la progettazione del sistema di esodo dovrà necessariamente tenere conto della difficol tà di 
+accesso all’edificio dall’esterno, in caso di incendio, da parte delle squadre di soccorso. È tuttavia possibile inserire in 
+zone ben individuabili dalle squadre di soccorso dei serramenti facilmente apribili dall’esterno, nel rispetto dei 
+requisiti di accessibilità dei mezzi VV.F.. 
+Nel sistema di esodo è vietato l’utilizzo della cavità o intercapedine nelle facciate a doppia parete da parte degli 
+occupanti ai fini della evacuazione. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+37 
+ALLEGATO 
+ 
+1. Fascia di separazione orizzontale tra i compartimenti (propagazione verticale dell’incendio) 
+La porzione della facciata (fascia) avente uno o più elementi costruttivi resistenti al fuoco è costituita da (Schemi A e 
+B): 
+una sporgenza orizzontale continua a protezione della parte della facc iata situata al di sopra del solaio, di 
+larghezza “a” uguale o superiore a 0,6 m, raccordata al solaio ovvero: 
+un insieme di elementi come di seguito descritti: 
+una sporgenza orizzontale continua a protezione della parte della facciata situata al di sopra del solaio di larghezza 
+“a”, raccordata al solaio; 
+un parapetto continuo di altezza “b” al piano superiore, raccordato al solaio; 
+un architrave continuo di altezza “c”, raccordato al solaio. 
+La somma delle dimensioni a, b, c e d (spessore del solaio) deve essere uguale o superiore ad un metro; ciascuno dei 
+valori a, b o c può eventualmente essere pari a 0. 
+ 
+ 
+Schema A 
+ 
+ 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+38 
+Schema B 
+ 
+ 
+ 
+ 
+ 
+2. Fascia di separazione verticale tra i compartimenti (propagazione orizzontale dell ’incendio) 
+La porzione della facci ata (fascia) avente uno o più elementi costruttivi resistenti al fuoco è costituita da una 
+sporgenza di profondità “b” rispetto alla superficie esterna della facciata e larghezza “a”, quest’ultima uguale, inferiore 
+o superiore alla larghezza del muro di separazione tra i compartimenti e comunque ad esso raccordata (Schema C). 
+ 
+La somma delle dimensioni “2b + a” deve essere uguale o superiore ad un metro. 
+ 
+ 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+39 
+Schema C 
+ 
+ 
+ 
+ 
+ 
+3 Facciate formanti un diedro (a contatto o no) 
+Quando l’angolo α formato dalle superfici esterne di due facciate o parti di facciate è compreso tra  0° (facciate una 
+davanti all’altra) e 180° (facciate allineate), la minima distanza (in metri), misurata  tra le porzioni che non presentano 
+requisiti di resistenza al fuo co almeno pari a E60ef (o→i) in  conformità alle specifiche modalità di valutazione 
+previste, deve essere pari a quella indicata nella seguente tabella: 
+ 
+α Distanza minima 
+0° d1 
+0° ÷ 90° d2 = 1 + (d1 – 1)·cos α 
+90° ÷ 180° d3 = 1 m 
+> 180° d3 = 1 m (applicato alla sviluppo) 
+ 
+dove d1 assume i seguenti valori in relazione all’altezza antincendio h dell’edificio: 
+ 
+Altezza antincendio [m] d1 [m] 
+h ≤ 24 3,5 
+24 < h ≤ 54 8 
+h > 54 12 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+40 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Schema D 
+<<PAGE>>

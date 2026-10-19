@@ -1,0 +1,43 @@
+{
+  "versione_regole": "dm246-gsa@2026-10-19",
+  "stato": "in_attesa_approvazione",
+  "approvato_da": null,
+  "nota": "Regole estratte dal testo ufficiale (vedi docs/rules_extraction_report.md). Non attive finche' l'ingegnere non le approva: il motore lo dichiara in ogni output.",
+  "fonti": {
+    "F1": "DM 16/05/1987 n. 246 (testo coordinato VVF, sources/vvf_coord_246_1987.pdf)",
+    "F2": "DM 25/01/2019 GU n. 30 del 5/2/2019 (sources/gu_2019_30.pdf)",
+    "F4": "DM 30/11/1983 p. 1.1 (non ancora estratto)"
+  },
+  "tipi": [
+    { "id": "a", "da_mm": 12000, "a_mm": 24000, "inclusivo_a": true, "lp_base": 0, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" },
+    { "id": "b", "da_mm": 24000, "a_mm": 32000, "inclusivo_a": true, "lp_base": 1, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" },
+    { "id": "c", "da_mm": 32000, "a_mm": 54000, "inclusivo_a": true, "lp_base": 1, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" },
+    { "id": "d", "da_mm": 54000, "a_mm": 80000, "inclusivo_a": true, "lp_base": 2, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" },
+    { "id": "e", "da_mm": 80000, "a_mm": null, "inclusivo_a": false, "lp_base": 3, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" }
+  ],
+  "limite_campo_mm": 12000,
+  "incremento": {
+    "soglia_h_mm": 24000,
+    "tetto_lp": 3,
+    "passi": 1,
+    "rif": "DM 25/1/2019 9-bis.2 (ultimo capoverso)",
+    "da_confermare": ["tetto LP 3 non scritto nel testo", "il passo +1 e' ricavato da 'un livello superiore'"]
+  },
+  "disomogeneita": [
+    { "h_mm": 24000, "avviso": "Tabella A include 24 m nel tipo a (LP 0); 9-bis.3.1 scrive 12 m <= h < 24 m; 9-bis.3.2 scrive 24 m < h <= 54 m. Applicata la Tabella A." }
+  ],
+  "esistenti": {
+    "scadenza_allarme_anni": 2,
+    "scadenza_altre_disposizioni_anni": 1,
+    "rinvio_covid_mesi": 6,
+    "rinvio_rif": "DL 104/2020 art. 63-bis conv. L. 126/2020 (nota 18 del testo VVF)",
+    "entrata_in_vigore": "2019-05-06",
+    "entrata_in_vigore_rif": "DM 25/1/2019 art. 3 comma 3 (90 giorni dalla pubblicazione)"
+  },
+  "misure_lp": {
+    "0": { "rif": "9-bis.3.1 Tabella 0", "contenuto": "non codificato" },
+    "1": { "rif": "9-bis.3.2 Tabella 1", "contenuto": "non codificato" },
+    "2": { "rif": "9-bis.3.3 Tabella 2", "contenuto": "non codificato" },
+    "3": { "rif": "9-bis.3.4 Tabella 3", "contenuto": "non codificato" }
+  }
+}

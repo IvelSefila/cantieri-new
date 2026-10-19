@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Motore planimetria -> modello 3D, puro browser, precisione al millimetro",
   "scripts": {
-    "test": "node --test tests/core.test.mjs tests/dxf.test.mjs tests/trace.test.mjs tests/project.test.mjs tests/view2d.test.mjs tests/geom2.test.mjs tests/materiali.test.mjs tests/elementi.test.mjs tests/gsa.test.mjs tests/energia.test.mjs tests/asol-est.test.mjs tests/stress.test.mjs tests/normativa.test.mjs tests/limiti.test.mjs tests/gsa-incendio.test.mjs tests/rischio-incendio.test.mjs tests/antincendio.test.mjs tests/mensile.test.mjs tests/precisione.test.mjs"
+    "test": "node --test tests/core.test.mjs tests/dxf.test.mjs tests/trace.test.mjs tests/project.test.mjs tests/view2d.test.mjs tests/geom2.test.mjs tests/materiali.test.mjs tests/elementi.test.mjs tests/gsa.test.mjs tests/energia.test.mjs tests/asol-est.test.mjs tests/stress.test.mjs tests/normativa.test.mjs tests/limiti.test.mjs tests/gsa-incendio.test.mjs tests/rischio-incendio.test.mjs tests/civile-abitazione.test.mjs tests/antincendio.test.mjs tests/mensile.test.mjs tests/precisione.test.mjs"
   },
   "license": "UNLICENSED"
 }
