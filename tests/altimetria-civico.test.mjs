@@ -116,3 +116,11 @@ test("calcolaGsaDaCivico (mock conflitto): LiDAR e Google Earth discordi oltre 5
   assert.equal(res.valutazione_gsa.motivo, "conflitto");
   assert.ok(res.valutazione_gsa.azione.includes("disaccordo"));
 });
+
+test("pulisciIndirizzoPerGeocodifica: rimuove condominio, palazzo, scala e interno", async () => {
+  const { pulisciIndirizzoPerGeocodifica } = await import("../src/core/altimetria-civico.js");
+  const s = "strada suniglia 4 savigliano condominio orione palazzo a";
+  assert.equal(pulisciIndirizzoPerGeocodifica(s), "strada suniglia 4 savigliano");
+  assert.equal(pulisciIndirizzoPerGeocodifica("Via Roma 10 scala B int. 4 Torino"), "Via Roma 10 Torino");
+});
+

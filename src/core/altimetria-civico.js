@@ -58,27 +58,53 @@ export function stimaAltezzaAntincendiDaEdificio(altezzaVolumetricaM) {
   };
 }
 
-// Geocodifica un indirizzo tramite Nominatim (OpenStreetMap)
+// Rimuove specificatori secondari (condominio, palazzo, scala, interno) che mandano in fallimento i geocoder
+export function pulisciIndirizzoPerGeocodifica(testo) {
+  if (!testo || typeof testo !== "string") return "";
+  return testo
+    .replace(/\b(condominio|cond\.)\s+[^,]+/gi, "")
+    .replace(/\b(palazzo|pal\.|edificio|residence)\s+[a-zA-Z0-9]+/gi, "")
+    .replace(/\b(scala|sc\.|sc)\s+[a-zA-Z0-9]+/gi, "")
+    .replace(/\b(interno|int\.|piano|p\.)\s+[a-zA-Z0-9]+/gi, "")
+    .replace(/\s+,/g, ",")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Geocodifica un indirizzo tramite Nominatim (OpenStreetMap) con fallback intelligente
 export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) {
   if (!indirizzo || typeof indirizzo !== "string" || !indirizzo.trim()) {
     return { ok: false, errore: "Indirizzo non valido o vuoto" };
   }
 
-  let query = indirizzo.trim();
-  // Se non e' specificata una regione o citta' piemontese, aiutiamo il geocoder
-  if (!/(piemonte|torino|cuneo|alessandria|novara|asti|biella|vercelli|verbania)/i.test(query)) {
-    query += ", Piemonte";
-  }
-
-  const url = `${NOMINATIM_URL}?q=${encodeURIComponent(query)}&format=json&limit=1`;
-  try {
-    const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; antincendio-gsa)" } });
-    if (!res.ok) return { ok: false, errore: `Errore geocoder HTTP ${res.status}` };
-    const dati = await res.json();
-    if (!Array.isArray(dati) || dati.length === 0) {
-      return { ok: false, errore: `Nessun risultato trovato per '${indirizzo}'` };
+  const tentaGeocodifica = async (q) => {
+    let query = q.trim();
+    if (!/(piemonte|torino|cuneo|alessandria|novara|asti|biella|vercelli|verbania)/i.test(query)) {
+      query += ", Piemonte";
     }
-    const primo = dati[0];
+    const url = `${NOMINATIM_URL}?q=${encodeURIComponent(query)}&format=json&limit=1`;
+    const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; antincendio-gsa)" } });
+    if (!res.ok) return null;
+    const dati = await res.json();
+    return Array.isArray(dati) && dati.length > 0 ? dati[0] : null;
+  };
+
+  try {
+    // 1. Primo tentativo con la stringa digitata
+    let primo = await tentaGeocodifica(indirizzo);
+
+    // 2. Se non trova nulla, prova con l'indirizzo ripulito dai dettagli interni (condominio, palazzo, scala...)
+    if (!primo) {
+      const pulito = pulisciIndirizzoPerGeocodifica(indirizzo);
+      if (pulito && pulito.toLowerCase() !== indirizzo.trim().toLowerCase()) {
+        primo = await tentaGeocodifica(pulito);
+      }
+    }
+
+    if (!primo) {
+      return { ok: false, errore: `Nessun risultato cartografico trovato per '${indirizzo}'` };
+    }
+
     return {
       ok: true,
       lat: parseFloat(primo.lat),
