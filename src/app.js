@@ -41,25 +41,58 @@ function montaAutomatismi() {
   pannello.id = "pannello-auto";
   pannello.style.cssText = "position:fixed;left:16px;top:120px;z-index:60;max-width:340px;padding:14px;border-radius:14px;background:rgba(16,22,38,.92);color:#f2f4f8;font:12px/1.5 system-ui,sans-serif;display:none;border:1px solid rgba(255,196,77,.4)";
 
+  // Icona per riaprire il pannello dopo averlo ridotto
+  const icona = document.createElement("button");
+  icona.id = "icona-auto";
+  icona.textContent = "▦ Automatismi";
+  icona.title = "Mostra il pannello degli automatismi";
+  icona.style.cssText = stile + ";position:fixed;left:16px;top:120px;z-index:60;display:none";
+  icona.onclick = () => { icona.style.display = "none"; pannello.style.display = "block"; };
+
+  const riduci = () => {
+    if (pannello.style.display === "none") return;
+    pannello.style.display = "none";
+    icona.style.display = "block";
+  };
+  // Clic fuori dal pannello: si riduce a icona
+  document.addEventListener("pointerdown", (ev) => {
+    if (pannello.style.display !== "block") return;
+    if (pannello.contains(ev.target) || barra.contains(ev.target) || icona.contains(ev.target)) return;
+    riduci();
+  });
+
   const mostra = (titolo, r) => {
     pannello.replaceChildren();
+    const testa = document.createElement("div");
+    testa.style.cssText = "display:flex;align-items:center;gap:6px;margin-bottom:8px";
     const t = document.createElement("b");
     t.textContent = titolo;
-    pannello.appendChild(t);
+    t.style.flex = "1";
+    const riduciBtn = document.createElement("button");
+    riduciBtn.textContent = "–";
+    riduciBtn.title = "Riduci a icona";
+    riduciBtn.style.cssText = stile;
+    riduciBtn.onclick = riduci;
+    const chiudiBtn = document.createElement("button");
+    chiudiBtn.textContent = "✕";
+    chiudiBtn.title = "Chiudi";
+    chiudiBtn.style.cssText = stile;
+    chiudiBtn.onclick = () => { pannello.style.display = "none"; icona.style.display = "none"; };
+    testa.append(t, riduciBtn, chiudiBtn);
+    pannello.appendChild(testa);
+    const corpo = document.createElement("div");
+    corpo.style.cssText = "max-height:60vh;overflow:auto";
     const elenco = r.aggiunti.length ? r.aggiunti : ["nulla da aggiungere"];
-    for (const riga of elenco) { const d = document.createElement("div"); d.textContent = `• ${riga}`; pannello.appendChild(d); }
+    for (const riga of elenco) { const d = document.createElement("div"); d.textContent = `• ${riga}`; corpo.appendChild(d); }
     for (const avviso of r.fuoriPlanimetria ?? []) {
       const d = document.createElement("div");
       d.style.color = "#ffb4b4";
       d.textContent = `⚠ ${avviso}`;
-      pannello.appendChild(d);
+      corpo.appendChild(d);
     }
-    const chiudi = document.createElement("button");
-    chiudi.textContent = "Chiudi";
-    chiudi.style.cssText = stile + ";margin-top:8px";
-    chiudi.onclick = () => { pannello.style.display = "none"; };
-    pannello.appendChild(chiudi);
+    pannello.appendChild(corpo);
     pannello.style.display = "block";
+    icona.style.display = "none";
   };
   const esegui = (titolo, fn) => {
     const r = fn(stato.progetto);
@@ -83,7 +116,7 @@ function montaAutomatismi() {
   bInfissi.onclick = () => esegui("Finestre (DM 5/7/1975 e orientamento)", (p) => infissiAutomatici(p));
 
   barra.append(bArredo, bFiniture, bInfissi);
-  document.body.append(barra, pannello);
+  document.body.append(barra, pannello, icona);
 }
 import { montaGSA } from "./ui/gsa-ui.js";
 
