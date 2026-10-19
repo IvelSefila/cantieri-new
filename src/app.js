@@ -461,6 +461,8 @@ function offsetSuMuro(p, muro) {
 
 // Vista: clic su pavimento o stanza evidenzia la stanza
 function gestisciVista(hit) {
+  // Clic su un pavimento: scelta della finitura (parquet, marmo)
+  if (hit.kind === "pavimento") return gestisciDoppio(hit);
   if (hit.kind && hit.kind !== "pavimento") return;
   if (!hit.mm) return;
   const s = stanzaAPunto(hit.mm, stato.progetto);
@@ -485,13 +487,22 @@ function gestisciDoppio(hit) {
     if (s) { tipo = "stanza"; id = s; dati = descrivi(p, "stanza", s); stato.viewer.setEvidenza(s.interno); }
   }
   if (!dati) return messaggio("Nessun elemento qui.", "info");
-  apriScheda({ titolo: dati.titolo, portante: dati.portante, righe: dati.righe, azioni: dati.azioni }, (az) => {
+  apriScheda({ titolo: dati.titolo, portante: dati.portante, righe: dati.righe, azioni: dati.azioni, finiture: dati.finiture }, (az) => {
     const nuovo = eseguiAzione(p, tipo, id, az);
     if (!nuovo) return;
     applica(nuovo);
     stato.viewer.setEvidenza(null);
-    messaggio("Azione eseguita.", "ok");
+    messaggio(az.startsWith("finitura:") ? "Finitura applicata." : "Azione eseguita.", "ok");
   });
+}
+
+// Tasto destro: il muro si evidenzia e si apre la sua scheda (niente doppio clic)
+function gestisciTasto(hit) {
+  if (hit.kind && hit.kind.startsWith("muro")) {
+    stato.viewer.setEvidenzaMuro(hit.wall);
+    return gestisciDoppio(hit);
+  }
+  return gestisciDoppio(hit);
 }
 
 function gestisciClic(hit) {
@@ -747,6 +758,7 @@ async function init() {
   }, 1000);
   stato.viewer.setPickHandler(gestisciClic);
   stato.viewer.setDoppioClicHandler(gestisciDoppio);
+  stato.viewer.setContestoHandler(gestisciTasto);
   stato.viewer.setHoverHandler((mm) => hud?.coordinate(mm));
   hud = montaHud({
     onScheda: (id) => {

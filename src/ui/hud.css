@@ -165,6 +165,15 @@ aside label, aside input, aside textarea, aside select { max-width: 100%; box-si
   background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); color: var(--hud-testo); }
 .scheda-azione.pericolo { border-color: rgba(255,95,109,.5); color: #ff8f99; }
 .scheda-azione.pericolo:hover { background: rgba(255,95,109,.18); }
+.scheda-azione:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Finiture di pavimenti e muri: una pillola per materiale */
+.scheda-sezione { margin-top: 12px; font: 700 12px system-ui, sans-serif; letter-spacing: .06em; text-transform: uppercase; color: var(--hud-muto); }
+.scheda-finiture { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.scheda-finitura { padding: 8px 12px; border-radius: 999px; cursor: pointer; font: 600 12px system-ui, sans-serif;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); color: var(--hud-testo); }
+.scheda-finitura:hover { border-color: var(--hud-ciano); }
+.scheda-finitura.attiva { border-color: var(--hud-oro); box-shadow: 0 0 0 2px rgba(255,196,77,.35); }
 
 /* Affidabilita' dei risultati: badge di stato, righe dei risultati, schede dei motori */
 .badge-stato { display: inline-block; padding: 2px 8px; border-radius: 999px; font: 700 10px/1.4 system-ui, sans-serif; letter-spacing: .06em; vertical-align: middle; white-space: nowrap; }

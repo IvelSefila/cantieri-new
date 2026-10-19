@@ -1,7 +1,12 @@
 // Dati e azioni degli elementi del progetto (funzioni pure, testabili).
 import { wallLengthMm } from "./model.js";
 import { stanze } from "./rooms.js";
-import { ingombroArredo, LIBRERIA_ARREDI } from "./project.js";
+import { ingombroArredo, LIBRERIA_ARREDI, MATERIALI_MURO, MATERIALI_PAVIMENTO, impostaMaterialePavimento, impostaFinituraMuro } from "./project.js";
+
+// Opzioni di finitura nella scheda: l'azione e' "finitura:<id>"
+function opzioniFinitura(elenco, attiva) {
+  return { titolo: "Finitura", attiva, opzioni: Object.entries(elenco).map(([id, v]) => ({ id, nome: v.nome })) };
+}
 
 // Classificazione PRESUNTA: un muro è considerato portante se nel disegno è una spina o un perimetrale, oppure se
 // ha spessore da struttura (>= 200 mm). Non è una verifica strutturale: dal disegno non si vede cosa regge un muro.
@@ -57,6 +62,7 @@ export function descrivi(progetto, tipo, id) {
       righe: [
         ["Tipo", c.tipo],
         ["Portante", `${c.portante ? "Sì" : "No"} (${c.certezza})`],
+        ["Finitura", MATERIALI_MURO[w.finitura ?? "intonaco_bianco"]?.nome ?? "Intonaco bianco"],
         ["Nota", c.motivo],
         ["Per esserne certi", c.documenti.join("; ")],
         ["Lunghezza", `${wallLengthMm(w).toLocaleString("it-IT")} mm`],
@@ -64,7 +70,10 @@ export function descrivi(progetto, tipo, id) {
         ["Altezza", `${progetto.altezza_muri} mm`],
         ["Vani sul muro", vani.length ? vani.map((v) => `${v.id} (${v.width} mm)`).join(", ") : "nessuno"],
       ],
-      azioni: [{ id: "abbatti", etichetta: c.portante ? "Abbatti muro (portante)" : "Abbatti muro", pericolo: true, conferma: c.portante }],
+      finiture: opzioniFinitura(MATERIALI_MURO, w.finitura ?? "intonaco_bianco"),
+      azioni: c.portante
+        ? [{ id: "abbatti", etichetta: "Abbatti muro: non possibile, muro portante", pericolo: true, disabile: true }]
+        : [{ id: "abbatti", etichetta: "Abbatti muro", pericolo: true, conferma: false }],
     };
   }
   if (tipo === "vano") {
@@ -100,7 +109,8 @@ export function descrivi(progetto, tipo, id) {
     const m2 = ((f.x1 - f.x0) * (f.y1 - f.y0)) / 1e6;
     return {
       titolo: `Pavimento ${id}`,
-      righe: [["Materiale", f.materiale], ["Superficie", `${m2.toFixed(2).replace(".", ",")} m²`]],
+      righe: [["Materiale", MATERIALI_PAVIMENTO[f.materiale]?.nome ?? f.materiale], ["Superficie", `${m2.toFixed(2).replace(".", ",")} m²`]],
+      finiture: opzioniFinitura(MATERIALI_PAVIMENTO, f.materiale),
       azioni: [{ id: "elimina", etichetta: "Elimina pavimento", pericolo: true }],
     };
   }
@@ -120,7 +130,15 @@ export function descrivi(progetto, tipo, id) {
 
 // Applica un'azione a un elemento. Restituisce il nuovo progetto, o null se non applicabile.
 export function eseguiAzione(progetto, tipo, id, azione) {
+  if (azione.startsWith("finitura:")) {
+    const v = azione.slice("finitura:".length);
+    const r = tipo === "muro" ? impostaFinituraMuro(progetto, id, v) : tipo === "pavimento" ? impostaMaterialePavimento(progetto, id, v) : null;
+    return r?.p ?? null;
+  }
   if (azione === "abbatti" && tipo === "muro") {
+    const w = progetto.walls.find((x) => x.id === id);
+    if (!w || classificaMuro(w).portante) return null; // muro portante: non si abbatte
+
     return {
       ...progetto,
       walls: progetto.walls.filter((w) => w.id !== id),

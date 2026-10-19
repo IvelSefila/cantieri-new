@@ -51,10 +51,32 @@ export function apriScheda(dati, onAzione) {
   }
   box.appendChild(tabella);
 
+  // Finiture: un pulsante per materiale; la scelta applica "finitura:<id>" e chiude la scheda
+  if (dati.finiture) {
+    const titoloFin = document.createElement("div");
+    titoloFin.className = "scheda-sezione";
+    titoloFin.textContent = dati.finiture.titolo;
+    const griglia = document.createElement("div");
+    griglia.className = "scheda-finiture";
+    for (const op of dati.finiture.opzioni) {
+      const b = document.createElement("button");
+      b.className = `scheda-finitura${op.id === dati.finiture.attiva ? " attiva" : ""}`;
+      b.textContent = op.nome;
+      b.onclick = () => { chiudiScheda(); onAzione(`finitura:${op.id}`); };
+      griglia.appendChild(b);
+    }
+    box.append(titoloFin, griglia);
+  }
+
   for (const az of dati.azioni || []) {
     const b = document.createElement("button");
     b.className = `scheda-azione${az.pericolo ? " pericolo" : ""}`;
     b.textContent = az.etichetta;
+    if (az.disabile) {
+      b.disabled = true;
+      box.appendChild(b);
+      continue;
+    }
     let pronto = false;
     b.onclick = () => {
       if (az.conferma && !pronto) {

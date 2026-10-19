@@ -228,7 +228,22 @@ export function createViewer(container) {
     }
   }
 
-  function materialeGruppo(kind) {
+  // Finiture scelte dall'utente: pavimenti (parquet, marmo) e muri (intonaco tinteggiato, marmo)
+  const TINTA_MURO = { intonaco_bianco: 0xf6f4ef, intonaco_grigio: 0xb0b4ba, intonaco_ocra: 0xd9b77a, marmo: 0xffffff };
+  function materialeFinitura(kind, chiave) {
+    const base = { clippingPlanes: clip(), clipShadows: !!cfg.dollhouse };
+    if (kind === "pavimento") {
+      const marmo = chiave === "marmo";
+      return new THREE.MeshStandardMaterial({ ...base, map: marmo ? texMarmo : texParquet, roughness: marmo ? 0.22 : 0.55, metalness: 0, envMapIntensity: 0.6 });
+    }
+    const marmo = chiave === "marmo";
+    return new THREE.MeshStandardMaterial({ ...base, color: TINTA_MURO[chiave] ?? 0xf6f4ef, map: marmo ? texMarmo : texIntonaco, roughness: marmo ? 0.25 : 0.92 });
+  }
+  // Le finiture si vedono solo negli stili realistici e solidi; gli altri stili restano invariati
+  const finitureVisibili = () => !["argilla", "blueprint", "neon", "notte"].includes(cfg.modo);
+
+  function materialeGruppo(kind, finitura = null) {
+    if (finitura && finitureVisibili()) return materialeFinitura(kind, finitura);
     if (cfg.modo === "realistico") {
       return materialeRealistico(kind, { clip: clip(), texParquet, texIntonaco, rilievo, alta: livello === "alto" });
     }
@@ -403,6 +418,52 @@ export function createViewer(container) {
   });
   function setDoppioClicHandler(fn) { doppioHandler = fn; }
 
+  // Tasto destro: scheda dell'elemento colpito (muri, pavimenti, arredi, vani)
+  let contestoHandler = null;
+  renderer.domElement.addEventListener("contextmenu", (ev) => {
+    ev.preventDefault();
+    if (!contestoHandler) return;
+    puntatoreDa(ev);
+    const hit = colpito();
+    const piani = raycaster.intersectObject(piano, false);
+    const punto = hit ? hit.point : piani[0] ? piani[0].point : null;
+    contestoHandler({
+      mm: punto ? [Math.round(punto.x / MM_TO_M), Math.round(punto.z / MM_TO_M)] : null,
+      id: hit ? hit.id : null,
+      kind: hit ? hit.kind : null,
+      wall: hit ? hit.wall : null,
+      vano: hit ? hit.vano ?? null : null,
+    });
+  });
+  function setContestoHandler(fn) { contestoHandler = fn; }
+
+  // Evidenziazione di un muro (tutti i suoi tratti): contorno dorato e velo
+  let evMuro = null;
+  function setEvidenzaMuro(wallId) {
+    if (evMuro) {
+      scene.remove(evMuro);
+      evMuro.traverse((o) => { o.geometry?.dispose(); o.material?.dispose(); });
+      evMuro = null;
+    }
+    if (wallId) {
+      const gruppoEv = new THREE.Group();
+      for (const b of ultime) {
+        if (b.wall !== wallId || !b.kind.startsWith("muro")) continue;
+        const geo = new THREE.BoxGeometry(b.L * MM_TO_M, b.H * MM_TO_M, b.D * MM_TO_M);
+        const velo = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xffc44d, transparent: true, opacity: 0.35, depthWrite: false }));
+        const contorno = new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: 0xffc44d, depthTest: false }));
+        contorno.renderOrder = 10;
+        for (const o of [velo, contorno]) {
+          o.position.set(b.cx * MM_TO_M, b.cz * MM_TO_M, b.cy * MM_TO_M);
+          o.quaternion.setFromAxisAngle(asseY, -b.ang);
+          gruppoEv.add(o);
+        }
+      }
+      if (gruppoEv.children.length) { scene.add(gruppoEv); evMuro = gruppoEv; }
+    }
+    richiesta = true;
+  }
+
   // Evidenziazione di una stanza: poligono interno in mm
   let evidenza = null;
   function setEvidenza(poly) {
@@ -480,15 +541,23 @@ export function createViewer(container) {
     gruppo = new THREE.Group();
 
     // una InstancedMesh per tipo di elemento
+    // Pavimenti e muri si raggruppano anche per finitura: ogni gruppo ha il suo materiale
+    const chiaveGruppo = (b) => {
+      if (b.kind.startsWith("muro")) return `muro|${b.finitura ?? "intonaco_bianco"}`;
+      if (b.kind === "pavimento") return `pavimento|${b.materiale ?? "parquet"}`;
+      return b.kind;
+    };
     const gruppi = new Map();
     for (const b of boxes) {
-      const k = b.kind.startsWith("muro") ? "muro" : b.kind;
+      const k = chiaveGruppo(b);
       if (!gruppi.has(k)) gruppi.set(k, []);
       gruppi.get(k).push(b);
     }
     const perColore = new Map(); // colore contorno -> scatole
-    for (const [kind, lista] of gruppi) {
-      const mesh = new THREE.InstancedMesh(unitaria, materialeGruppo(kind), lista.length);
+    for (const [chiave, lista] of gruppi) {
+      const kind = chiave.split("|")[0];
+      const finitura = chiave.includes("|") ? chiave.split("|")[1] : null;
+      const mesh = new THREE.InstancedMesh(unitaria, materialeGruppo(kind, finitura), lista.length);
       mesh.castShadow = kind !== "vetro" && cfg.ombre !== false;
       mesh.receiveShadow = true;
       mesh.userData = { kind, scatole: lista.map((b) => ({ id: b.id, kind: b.kind, wall: b.wall })) };
@@ -709,7 +778,7 @@ export function createViewer(container) {
     avviaPasseggiata, esciPasseggiata, passeggiataAttiva: () => passeggiata.attiva(),
     setPasseggiataHandler: (fn) => { passeggHandler = fn; },
     setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
-    setDoppioClicHandler, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
+    setDoppioClicHandler, setContestoHandler, setEvidenzaMuro, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
     setDettagli, setFantasma, setSelezione, volaA, vistaAttuale, pianoDaEvento, oggettoDaEvento,
     inVolo: () => inVolo, ridisegna: () => { richiesta = true; },
     domElement: renderer.domElement,

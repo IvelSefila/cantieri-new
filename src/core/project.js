@@ -15,6 +15,28 @@ export const MATERIALI_PAVIMENTO = {
   marmo: { nome: "Marmo chiaro", colore: [240, 240, 236] },
 };
 
+// Finiture dei muri: intonaco tinteggiato o rivestimento in marmo
+export const MATERIALI_MURO = {
+  intonaco_bianco: { nome: "Intonaco bianco", colore: [244, 242, 236] },
+  intonaco_grigio: { nome: "Intonaco grigio perla", colore: [176, 180, 186] },
+  intonaco_ocra: { nome: "Intonaco ocra", colore: [217, 183, 122] },
+  marmo: { nome: "Marmo chiaro", colore: [240, 240, 236] },
+};
+
+// Cambia il materiale di un pavimento. Restituisce { p } o { errore }.
+export function impostaMaterialePavimento(p, id, materiale) {
+  if (!MATERIALI_PAVIMENTO[materiale]) return { errore: "materiale sconosciuto" };
+  if (!p.floors.some((f) => f.id === id)) return { errore: "pavimento inesistente" };
+  return { p: { ...p, floors: p.floors.map((f) => (f.id === id ? { ...f, materiale } : f)) } };
+}
+
+// Cambia la finitura di un muro (e di tutti i tratti del suo muro). Restituisce { p } o { errore }.
+export function impostaFinituraMuro(p, id, finitura) {
+  if (!MATERIALI_MURO[finitura]) return { errore: "finitura sconosciuta" };
+  if (!p.walls.some((w) => w.id === id)) return { errore: "muro inesistente" };
+  return { p: { ...p, walls: p.walls.map((w) => (w.id === id ? { ...w, finitura } : w)) } };
+}
+
 export function progettoVuoto(nome = "Nuovo progetto") {
   return {
     schema: SCHEMA,

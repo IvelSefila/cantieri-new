@@ -16,11 +16,12 @@ test("punto dentro poligono", () => {
   assert.equal(dentroPoligono([5000, 1500], q), false);
 });
 
-test("descrizione muro: dati e azione di abbattimento con conferma se portante", () => {
+test("descrizione muro: muro portante non abbattibile (azione disabilitata)", () => {
   let p = aggiungiMuro(progettoVuoto(), [0, 0], [4000, 0], 250, "spina").p;
   const d = descrivi(p, "muro", "muro_001");
   assert.equal(d.portante, true);
-  assert.equal(d.azioni[0].conferma, true);
+  assert.equal(d.azioni[0].disabile, true);
+  assert.equal(eseguiAzione(p, "muro", "muro_001", "abbatti"), null);
 });
 
 test("abbattimento muro: rimuove anche i suoi vani", () => {
