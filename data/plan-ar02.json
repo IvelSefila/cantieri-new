@@ -1,0 +1,379 @@
+{
+  "schema": 1,
+  "unit": "mm",
+  "name": "Palazzina Le Terrazze - Piano tipo (AR-02)",
+  "altezza_muri": 2800,
+  "fonte": "backend/plan_ar02.py (planimetria AR-02), convertita in mm interi",
+  "walls": [
+    {
+      "id": "per_nord",
+      "a": [
+        22000,
+        13860
+      ],
+      "b": [
+        0,
+        13860
+      ],
+      "t": 280,
+      "kind": "perimetrale"
+    },
+    {
+      "id": "per_sud",
+      "a": [
+        0,
+        140
+      ],
+      "b": [
+        22000,
+        140
+      ],
+      "t": 280,
+      "kind": "perimetrale"
+    },
+    {
+      "id": "per_ovest",
+      "a": [
+        140,
+        0
+      ],
+      "b": [
+        140,
+        14000
+      ],
+      "t": 280,
+      "kind": "perimetrale"
+    },
+    {
+      "id": "per_est",
+      "a": [
+        21860,
+        0
+      ],
+      "b": [
+        21860,
+        14000
+      ],
+      "t": 280,
+      "kind": "perimetrale"
+    },
+    {
+      "id": "spina_ovest",
+      "a": [
+        9625,
+        0
+      ],
+      "b": [
+        9625,
+        14000
+      ],
+      "t": 250,
+      "kind": "spina"
+    },
+    {
+      "id": "spina_est",
+      "a": [
+        12375,
+        0
+      ],
+      "b": [
+        12375,
+        14000
+      ],
+      "t": 250,
+      "kind": "spina"
+    },
+    {
+      "id": "asc_nord",
+      "a": [
+        10000,
+        9200
+      ],
+      "b": [
+        12000,
+        9200
+      ],
+      "t": 200,
+      "kind": "spina"
+    },
+    {
+      "id": "asc_sud",
+      "a": [
+        10000,
+        6800
+      ],
+      "b": [
+        12000,
+        6800
+      ],
+      "t": 200,
+      "kind": "spina"
+    },
+    {
+      "id": "asc_ovest",
+      "a": [
+        10000,
+        6800
+      ],
+      "b": [
+        10000,
+        9200
+      ],
+      "t": 200,
+      "kind": "spina"
+    },
+    {
+      "id": "asc_est",
+      "a": [
+        12000,
+        6800
+      ],
+      "b": [
+        12000,
+        9200
+      ],
+      "t": 200,
+      "kind": "spina"
+    },
+    {
+      "id": "a_giorno_notte",
+      "a": [
+        280,
+        7500
+      ],
+      "b": [
+        9500,
+        7500
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    },
+    {
+      "id": "a_bagno_ovest",
+      "a": [
+        7000,
+        280
+      ],
+      "b": [
+        7000,
+        4000
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    },
+    {
+      "id": "a_bagno_nord",
+      "a": [
+        7000,
+        4000
+      ],
+      "b": [
+        9500,
+        4000
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    },
+    {
+      "id": "a_camere",
+      "a": [
+        5000,
+        7500
+      ],
+      "b": [
+        5000,
+        13720
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    },
+    {
+      "id": "b_cucina_ovest",
+      "a": [
+        15500,
+        280
+      ],
+      "b": [
+        15500,
+        4500
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    },
+    {
+      "id": "b_cucina_sud",
+      "a": [
+        12500,
+        4500
+      ],
+      "b": [
+        15500,
+        4500
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    },
+    {
+      "id": "b_giorno_notte",
+      "a": [
+        12500,
+        7500
+      ],
+      "b": [
+        21720,
+        7500
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    },
+    {
+      "id": "b_suite",
+      "a": [
+        17500,
+        7500
+      ],
+      "b": [
+        17500,
+        13720
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    },
+    {
+      "id": "b_bagno_nord",
+      "a": [
+        14500,
+        9500
+      ],
+      "b": [
+        17500,
+        9500
+      ],
+      "t": 150,
+      "kind": "tramezzo"
+    }
+  ],
+  "openings": [
+    {
+      "id": "blindata_a",
+      "wall": "spina_ovest",
+      "offset": 5700,
+      "width": 900,
+      "height": 2100,
+      "sill": 0,
+      "type": "porta",
+      "cdi": "porta-athens",
+      "nota": "cardine 5.70, anta 90 cm"
+    },
+    {
+      "id": "blindata_b",
+      "wall": "spina_est",
+      "offset": 5700,
+      "width": 900,
+      "height": 2100,
+      "sill": 0,
+      "type": "porta",
+      "cdi": "porta-monza",
+      "nota": "cardine 5.70, anta 90 cm"
+    },
+    {
+      "id": "disimpegno_a",
+      "wall": "a_giorno_notte",
+      "offset": 6270,
+      "width": 900,
+      "height": 2100,
+      "sill": 0,
+      "type": "porta",
+      "cdi": "porta-filomuro-bianca",
+      "nota": ""
+    },
+    {
+      "id": "bagno_a",
+      "wall": "a_bagno_nord",
+      "offset": 800,
+      "width": 750,
+      "height": 2100,
+      "sill": 0,
+      "type": "porta",
+      "cdi": "porta-filomuro-bianca",
+      "nota": ""
+    },
+    {
+      "id": "camera_a",
+      "wall": "a_camere",
+      "offset": 1300,
+      "width": 800,
+      "height": 2100,
+      "sill": 0,
+      "type": "porta",
+      "cdi": "porta-filomuro-bianca",
+      "nota": ""
+    },
+    {
+      "id": "scrigno_cucina_b",
+      "wall": "b_cucina_ovest",
+      "offset": 1320,
+      "width": 1200,
+      "height": 2100,
+      "sill": 0,
+      "type": "scorrevole",
+      "cdi": "scorrevole-paysage-5stars",
+      "nota": ""
+    },
+    {
+      "id": "disimpegno_b",
+      "wall": "b_giorno_notte",
+      "offset": 2000,
+      "width": 900,
+      "height": 2100,
+      "sill": 0,
+      "type": "porta",
+      "cdi": "porta-filomuro-bianca",
+      "nota": ""
+    },
+    {
+      "id": "suite_b",
+      "wall": "b_suite",
+      "offset": 1100,
+      "width": 850,
+      "height": 2100,
+      "sill": 0,
+      "type": "porta",
+      "cdi": "porta-filomuro-bianca",
+      "nota": ""
+    },
+    {
+      "id": "bagno_suite_b",
+      "wall": "b_bagno_nord",
+      "offset": 1000,
+      "width": 750,
+      "height": 2100,
+      "sill": 0,
+      "type": "porta",
+      "cdi": "porta-filomuro-bianca",
+      "nota": ""
+    },
+    {
+      "id": "terrazzo_a",
+      "wall": "per_ovest",
+      "offset": 3050,
+      "width": 2400,
+      "height": 2400,
+      "sill": 0,
+      "type": "scorrevole",
+      "cdi": "scorrevole-paysage-5stars",
+      "nota": "quota 240/240 scritta; disegno 4.5 m. Centrata sul disegno."
+    },
+    {
+      "id": "terrazzo_b",
+      "wall": "per_est",
+      "offset": 3600,
+      "width": 2800,
+      "height": 2400,
+      "sill": 0,
+      "type": "scorrevole",
+      "cdi": "scorrevole-paysage-5stars",
+      "nota": "quota 280/240 scritta; disegno 5.0 m. Centrata sul disegno."
+    }
+  ]
+}

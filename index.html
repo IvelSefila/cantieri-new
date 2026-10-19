@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cantieri — motore planimetria 3D (prototipo)</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <style>
+    :root { --bg:#e9edf2; --panel:#ffffff; --testo:#1f2933; --ok:#166534; --avv:#92400e; --err:#b91c1c; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; font: 14px/1.4 system-ui, sans-serif; color: var(--testo); background: var(--bg); }
+    .layout { display:grid; grid-template-columns: 360px 1fr; height:100vh; }
+    aside { background: var(--panel); padding: 14px; overflow:auto; border-right: 1px solid #d5dbe3; }
+    h1 { font-size: 16px; margin: 0 0 8px; }
+    .sub { color:#52606d; font-size: 12px; margin-bottom: 12px; }
+    button, input[type=file], select { font: inherit; }
+    button { padding: 6px 10px; border:1px solid #9aa5b1; background:#f5f7fa; border-radius:6px; cursor:pointer; }
+    button:hover { background:#e4e7eb; }
+    #nome-plan { font-weight:600; margin: 10px 0; }
+    #messaggi { padding:8px; border-radius:6px; background:#f0f4f8; margin: 8px 0; }
+    #messaggi[data-tipo=ok] { color: var(--ok); }
+    #messaggi[data-tipo=errore] { color: var(--err); }
+    .riga { margin: 3px 0; }
+    .riga.errore { color: var(--err); }
+    .riga.avviso { color: var(--avv); }
+    .riga.ok { color: var(--ok); }
+    .vano { border-top:1px solid #e4e7eb; padding: 8px 0; }
+    .vano select { width:100%; margin-top:4px; padding:4px; }
+    #vista { position: relative; min-height: 0; }
+    #vista canvas { display:block; width:100%; height:100%; }
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; grid-template-rows: auto 60vh; height:auto; }
+      aside { border-right:none; border-bottom:1px solid #d5dbe3; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <h1>Motore planimetria → 3D</h1>
+      <div class="sub">Prototipo. Tutto gira nel tuo browser: nessun dato viene inviato. Misure in millimetri interi.</div>
+      <div><button id="scarica">Scarica planimetria (JSON)</button></div>
+      <div style="margin-top:8px"><label>Carica planimetria JSON: <input id="carica" type="file" accept=".json,application/json"></label></div>
+      <div id="nome-plan"></div>
+      <div id="messaggi" data-tipo="info">Caricamento…</div>
+      <div id="esito"></div>
+      <h2 style="font-size:14px; margin-top:14px;">Vani e infissi CDI (prototipo generato a codice)</h2>
+      <div id="vani"></div>
+    </aside>
+    <main id="vista"></main>
+  </div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

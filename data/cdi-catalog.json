@@ -1,0 +1,167 @@
+{
+  "fonte": "backend/knowledge/catalogo_cdi_infissi.json (senza prezzi e immagini)",
+  "items": [
+    {
+      "id": "alu-epiq-6stars-view",
+      "nome": "Epiq 6Stars View (Anta a Scomparsa)",
+      "categoria": "finestre_alluminio",
+      "linea": "Epiq Top di Gamma",
+      "uw": 0.86,
+      "rw_db": 44
+    },
+    {
+      "id": "alu-arrogance-c16",
+      "nome": "Arrogance C16 Minimal 65mm",
+      "categoria": "finestre_alluminio",
+      "linea": "Arrogance Design",
+      "uw": 1.0,
+      "rw_db": 43
+    },
+    {
+      "id": "alu-6stars-termico",
+      "nome": "Epiq 6Stars Alluminio a Taglio Termico",
+      "categoria": "finestre_alluminio",
+      "linea": "Epiq Efficienza",
+      "uw": 0.86,
+      "rw_db": 44
+    },
+    {
+      "id": "alu-bicolore-luxury",
+      "nome": "Alluminio Bicolore Architettonico",
+      "categoria": "finestre_alluminio",
+      "linea": "Linea Bicolore",
+      "uw": 0.9,
+      "rw_db": 44
+    },
+    {
+      "id": "scorrevole-paysage-5stars",
+      "nome": "Paysage 5Stars Minimal Soglia 0mm",
+      "categoria": "scorrevoli_panoramici",
+      "linea": "Paysage Panoramico",
+      "uw": 1.17,
+      "rw_db": 43
+    },
+    {
+      "id": "scorrevole-panorama-zero",
+      "nome": "Scorrevole Panorama Zero Barriere",
+      "categoria": "scorrevoli_panoramici",
+      "linea": "Panorama Luxury",
+      "uw": 0.85,
+      "rw_db": 44
+    },
+    {
+      "id": "scorrevole-veneziane",
+      "nome": "Scorrevole con Veneziane Integrate",
+      "categoria": "scorrevoli_panoramici",
+      "linea": "Paysage Screen",
+      "uw": 1.1,
+      "rw_db": 44
+    },
+    {
+      "id": "pvc-passivhaus",
+      "nome": "7Stars Passivhaus 7 Camere 88mm",
+      "categoria": "finestre_pvc",
+      "linea": "7Stars Passivhaus",
+      "uw": 0.68,
+      "rw_db": 46
+    },
+    {
+      "id": "pvc-termico",
+      "nome": "PVC Termico Evoluto 6 Camere",
+      "categoria": "finestre_pvc",
+      "linea": "6Stars Termico",
+      "uw": 0.78,
+      "rw_db": 44
+    },
+    {
+      "id": "porta-athens",
+      "nome": "Porta Alluminio Complanare Athens con Inserti Inox",
+      "categoria": "porte_ingresso",
+      "linea": "Alluminio Complanare Premium",
+      "ud": 0.82,
+      "rw_db": 44,
+      "spessore_mm": 85
+    },
+    {
+      "id": "porta-dijon",
+      "nome": "Porta Alluminio Dijon con Inserto Vetro Satinato",
+      "categoria": "porte_ingresso",
+      "linea": "Vetrata di Sicurezza",
+      "ud": 0.88,
+      "rw_db": 43,
+      "spessore_mm": 85
+    },
+    {
+      "id": "porta-monza",
+      "nome": "Porta Blindata di Sicurezza RC3 Monza",
+      "categoria": "porte_ingresso",
+      "linea": "Sicurezza Blindata",
+      "ud": 1.1,
+      "rw_db": 42,
+      "spessore_mm": 85
+    },
+    {
+      "id": "porta-york",
+      "nome": "Porta Termica Coibentata York 90mm",
+      "categoria": "porte_ingresso",
+      "linea": "Sicurezza Termica",
+      "ud": 0.82,
+      "rw_db": 44,
+      "spessore_mm": 90
+    },
+    {
+      "id": "porta-leona",
+      "nome": "Porta d'Ingresso Minimalista Leona",
+      "categoria": "porte_ingresso",
+      "linea": "Alluminio Architetturale",
+      "ud": 0.85,
+      "rw_db": 43,
+      "spessore_mm": 85
+    },
+    {
+      "id": "porta-sicurezza",
+      "nome": "Portoncino Blindato Rinforzato di Sicurezza",
+      "categoria": "porte_ingresso",
+      "linea": "PVC Termico Rinforzato",
+      "ud": 0.9,
+      "rw_db": 42,
+      "spessore_mm": 82
+    },
+    {
+      "id": "porta-filomuro-bianca",
+      "nome": "Porta Filo Muro Reversibile Bianco Caldo",
+      "categoria": "porte_interne",
+      "linea": "Design Filomuro",
+      "ud": 1.4,
+      "rw_db": 34,
+      "spessore_mm": 45
+    },
+    {
+      "id": "porta-battente-rovere",
+      "nome": "Porta Battente Rovere Naturale Boiserie",
+      "categoria": "porte_interne",
+      "linea": "Linea Legno Naturale",
+      "ud": 1.3,
+      "rw_db": 35,
+      "spessore_mm": 45
+    },
+    {
+      "id": "porta-laccata-grafite",
+      "nome": "Porta Complanare Laccata Grigio Grafite Sablé",
+      "categoria": "porte_interne",
+      "linea": "Design Moderno",
+      "ud": 1.35,
+      "rw_db": 35,
+      "spessore_mm": 45
+    },
+    {
+      "id": "porta-scrigno-vetro",
+      "nome": "Porta Scorrevole Scomparsa Vetro Satinato",
+      "categoria": "porte_interne",
+      "linea": "Design Scorrevole",
+      "ud": 1.6,
+      "rw_db": 36,
+      "spessore_mm": 40
+    }
+  ]
+}
