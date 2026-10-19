@@ -35,7 +35,7 @@ export function materialeRealistico(kind, { clip, texParquet, texIntonaco, rilie
         ? new THREE.MeshPhysicalMaterial({ ...base, color: 0xffffff, roughness: 0.02, metalness: 0, transmission: 0.95, thickness: 0.02, ior: 1.5, specularIntensity: 1, depthWrite: true })
         : new THREE.MeshPhysicalMaterial({ ...base, color: 0xdff3ff, transparent: true, opacity: 0.35, roughness: 0.03, metalness: 0, depthWrite: false });
     case "pavimento":
-      return new THREE.MeshStandardMaterial({ ...base, map: texParquet, normalMap: texParquet?.userData?.normalMap ?? null, normalScale: new THREE.Vector2(0.6, 0.6), roughness: 0.42, metalness: 0, envMapIntensity: 0.9 });
+      return new THREE.MeshStandardMaterial({ ...base, map: texParquet, normalMap: texParquet?.userData?.normalMap ?? null, roughnessMap: texParquet?.userData?.roughnessMap ?? null, normalScale: new THREE.Vector2(0.6, 0.6), roughness: 0.42, metalness: 0, envMapIntensity: 0.9 });
     case "telaio":
     case "telaio_legno":
     case "anta":

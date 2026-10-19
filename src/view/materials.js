@@ -1,5 +1,20 @@
-// Materiali procedurali: nessuna immagine esterna. Le texture sono generate su canvas al caricamento.
+// Materiali: texture procedurali subito visibili; quando arrivano le foto CC0 (assets/tex, Poly Haven) sostituiscono
+// l'immagine della stessa texture, senza ricreare i materiali. Licenze in assets/tex/CREDITI.md.
 import * as THREE from "three";
+
+let alCaricamento = () => {};
+export function onTexturaCaricata(fn) { alCaricamento = fn; }
+const caricatore = new THREE.TextureLoader();
+// Collega il file a una texture gia' creata: stessa istanza, nuova immagine
+function fotoSu(tex, file) {
+  if (!file) return tex;
+  caricatore.load(`assets/tex/${file}`, (t) => {
+    tex.image = t.image;
+    tex.needsUpdate = true;
+    alCaricamento();
+  }, undefined, () => { /* file assente: resta la texture procedurale */ });
+  return tex;
+}
 
 // Generatore pseudo-casuale deterministico (stessa scena = stessa grana, sempre).
 function rng(seme) {
@@ -91,6 +106,9 @@ export function parquet(base = [200, 164, 118]) {
   const t = texturaDa(c, [4, 4]);
   t.userData.normalMap = normaleDaRilievo(rilievo.c, 3);
   t.userData.normalMap.repeat.set(4, 4);
+  fotoSu(t, "parquet_colore.webp");
+  fotoSu(t.userData.normalMap, "parquet_normale.webp");
+  t.userData.roughnessMap = fotoSu(texturaDa(c, [4, 4]), "parquet_rugosita.webp");
   return t;
 }
 
@@ -110,6 +128,8 @@ export function intonaco(base = [246, 244, 239]) {
   const t = texturaDa(c, [2, 2]);
   t.userData.normalMap = normaleDaRilievo(c, 1.5);
   t.userData.normalMap.repeat.set(2, 2);
+  // solo la normale della foto: il colore resta bianco (la foto e' troppo calda per le pareti)
+  fotoSu(t.userData.normalMap, "intonaco_normale.webp");
   return t;
 }
 
@@ -133,5 +153,5 @@ export function marmo() {
     }
     ctx.stroke();
   }
-  return texturaDa(c, [1, 1]);
+  return fotoSu(texturaDa(c, [1, 1]), "marmo_colore.webp");
 }

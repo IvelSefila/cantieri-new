@@ -12,6 +12,7 @@ import { materialeRealistico, texturaRilievo } from "./realistico.js";
 import { creaSovrimpressione, proiettore } from "./misure.js";
 import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js";
 import { creaPost } from "./post.js";
+import { onTexturaCaricata } from "./materials.js";
 
 const MM_TO_M = 0.001;
 const TAGLIO_DOLLHOUSE_MM = 1300;
@@ -123,6 +124,7 @@ export function createViewer(container) {
   piano.receiveShadow = true;
   scene.add(piano);
 
+  onTexturaCaricata(() => { richiesta = true; });
   const texParquet = parquet();
   const texIntonaco = intonaco();
   const texMarmo = marmo();
