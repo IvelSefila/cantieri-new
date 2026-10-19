@@ -73,7 +73,7 @@ function montaPrimaPersona() {
   const vuoto = () => document.createElement("div");
   // Quattro tasti in croce: W sopra, A S D sotto
   tastiPP = document.createElement("div");
-  tastiPP.style.cssText = "display:none;position:fixed;bottom:130px;left:50%;transform:translateX(-50%);z-index:80;display:none;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,52px);gap:6px;pointer-events:none";
+  tastiPP.style.cssText = "display:none;position:fixed;left:16px;bottom:270px;z-index:80;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,52px);gap:6px;pointer-events:none";
   tastiPP.append(
     vuoto(), tasto(["w", "arrowup"], "W", "↑"), vuoto(),
     tasto(["a", "arrowleft"], "A", "←"), tasto(["s", "arrowdown"], "S", "↓"), tasto(["d", "arrowright"], "D", "→"),
