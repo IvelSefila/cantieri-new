@@ -121,6 +121,22 @@ test("infisso procedurale: ogni scatola sta dentro il vano", () => {
   }
 });
 
+test("telai e ante stanno dentro il proprio vano, non all'inizio del muro", () => {
+  const res = buildModel(plan, catalog);
+  for (const op of plan.openings) {
+    const w = plan.walls.find((x) => x.id === op.wall);
+    const parti = res.boxes.filter((b) => b.id && b.id.startsWith(op.id + ":"));
+    assert.ok(parti.length > 0, `nessuna parte per ${op.id}`);
+    const ux = Math.cos(parti[0].ang), uy = Math.sin(parti[0].ang);
+    const a = w.a;
+    for (const b of parti) {
+      const s0 = (b.cx - a[0]) * ux + (b.cy - a[1]) * uy - b.L / 2;
+      const s1 = s0 + b.L;
+      assert.ok(s0 >= op.offset - 1e-6 && s1 <= op.offset + op.width + 1e-6, `${b.id} fuori dal vano ${op.id}: ${s0}..${s1}`);
+    }
+  }
+});
+
 test("catalogo: 19 modelli, tutti con categoria riconosciuta", () => {
   assert.equal(catalog.items.length, 19);
   for (const it of catalog.items) assert.ok(TIPO_PER_CATEGORIA[it.categoria], `categoria sconosciuta: ${it.categoria}`);

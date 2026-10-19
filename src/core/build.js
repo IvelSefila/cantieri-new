@@ -103,7 +103,8 @@ export function buildModel(plan, catalog, assignment = {}, arredi = []) {
         usedItems.set(op.id, item.id);
         if (TIPO_PER_CATEGORIA[item.categoria] !== op.type) warnings.push(`vano ${op.id}: infisso ${item.id} non compatibile con tipo ${op.type}`);
       }
-      if (item) local.push(...openingLocalBoxes(op, wall.t, item).map((b) => ({ ...b, n0: b.n0, n1: b.n1 })));
+      // i telai e le ante sono calcolati da zero del vano: si traslano all'offset reale lungo il muro
+      if (item) local.push(...openingLocalBoxes(op, wall.t, item).map((b) => ({ ...b, s0: b.s0 + op.offset, s1: b.s1 + op.offset })));
     }
     for (const lb of local) boxes.push(toWorld(lb, wall, ux, uy, L));
   }
