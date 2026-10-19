@@ -214,6 +214,14 @@ export function montaGSA(box) {
           rFonti.style.marginTop = "4px";
           card.append(rFonti);
         }
+
+        const linkGe = el("a", "", "↗ Visualizza edificio in Google Earth 3D");
+        linkGe.href = `https://earth.google.com/web/@${risposta.coordinate.lat},${risposta.coordinate.lon},300a,500d,35y,0t,45r`;
+        linkGe.target = "_blank";
+        linkGe.rel = "noopener noreferrer";
+        linkGe.style.cssText = "display: inline-block; margin-top: 8px; color: var(--hud-ciano); font-size: 11px; text-decoration: none; border: 1px solid rgba(61,220,247,0.3); padding: 4px 10px; border-radius: 999px; background: rgba(61,220,247,0.06);";
+        card.append(linkGe);
+
         esitoCivico.append(card);
       }
 
