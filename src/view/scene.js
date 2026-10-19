@@ -719,6 +719,8 @@ export function createViewer(container) {
     controls.enableDamping = false;
     camera.position.set(dest.camera[0] * MM_TO_M, dest.camera[2] * MM_TO_M, dest.camera[1] * MM_TO_M);
     controls.target.set(dest.bersaglio[0] * MM_TO_M, dest.bersaglio[2] * MM_TO_M, dest.bersaglio[1] * MM_TO_M);
+    // Direzione 'alto' dello schermo esplicita: decide quale asse della planimetria sta in orizzontale
+    if (dest.su) camera.up.set(dest.su[0], dest.su[1], dest.su[2]);
     camera.lookAt(controls.target);
     controls.update();
     controls.enableDamping = true;

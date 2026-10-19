@@ -55,6 +55,8 @@ function flussoArredo(mostraRisultato) {
     stato.viewer.vistaDallAltoSubito({
       camera: [Math.round(cx), Math.round(cy) + 1, Math.round(d)],
       bersaglio: [Math.round(cx + spostamento), Math.round(cy), 0],
+      // lato lungo in orizzontale: se il lungo e' in Y, lo schermo 'alto' e' l'asse X della planimetria
+      su: (x1 - x0) >= (y1 - y0) ? [0, 0, -1] : [1, 0, 0],
     });
   }
   const alloggi = alloggiDelProgetto(stato.progetto);
