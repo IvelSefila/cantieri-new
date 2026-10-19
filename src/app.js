@@ -154,11 +154,11 @@ function aggiornaVista2d() {
     box.appendChild(ov);
   }
   ov.style.display = stato.vista2d ? "block" : "none";
-  // pulsanti 2D: stato ON/OFF visibile sia nella scheda Vista sia nella barra in alto
-  const bottone = document.getElementById("vista2d");
-  if (bottone) bottone.textContent = `Pianta 2D: ${stato.vista2d ? "ON" : "OFF"}`;
-  const chip = document.getElementById("hud-2d");
-  if (chip) { chip.textContent = `Pianta 2D: ${stato.vista2d ? "ON" : "OFF"}`; chip.classList.toggle("on", !!stato.vista2d); }
+  // interruttori 3D | 2D: stessa posizione in scheda Vista e in alto
+  for (const sw of document.querySelectorAll(".switch-2d")) {
+    sw.classList.toggle("on", !!stato.vista2d);
+    sw.setAttribute("aria-checked", stato.vista2d ? "true" : "false");
+  }
   if (stato.vista2d) ov.innerHTML = planSvg(stato.progetto);
 }
 
@@ -298,7 +298,7 @@ function costruisciPannello() {
       </div>
     </div>
     <div style="margin-top:8px; display:flex; gap:4px; flex-wrap:wrap;">
-      <button id="vista2d">Vista 2D / 3D</button>
+      <button id="vista2d" class="switch-2d" role="switch" aria-checked="false"><span>3D</span><i class="knob"></i><span>2D</span></button>
       <button id="nuovo">Nuovo progetto (vuoto)</button>
       <button id="esempio">Apri esempio AR-02</button>
     </div>`;

@@ -63,9 +63,11 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
   }
   top.appendChild(mod);
   const chip2d = document.createElement("button");
-  chip2d.className = "hud-chip";
+  chip2d.className = "switch-2d";
   chip2d.id = "hud-2d";
-  chip2d.textContent = "Pianta 2D";
+  chip2d.setAttribute("role", "switch");
+  chip2d.setAttribute("aria-checked", "false");
+  chip2d.innerHTML = '<span>3D</span><i class="knob"></i><span>2D</span>';
   chip2d.onclick = () => onVista2d?.();
   top.appendChild(chip2d);
   radice.appendChild(top);
