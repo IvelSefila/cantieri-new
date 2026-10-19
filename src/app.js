@@ -62,33 +62,30 @@ function montaPrimaPersona() {
   messaggioPP.textContent = "Esci dalla visuale in prima persona cliccando Esc";
   messaggioPP.style.cssText = "display:none;position:fixed;top:120px;left:50%;transform:translateX(-50%);z-index:80;padding:10px 18px;border-radius:12px;background:rgba(16,22,38,.92);color:#ffc44d;font:700 13px system-ui,sans-serif;border:1px solid rgba(255,196,77,.5)";
 
-  const tasto = (k, testo) => {
+  // Un tasto per direzione: lettera WASD e freccia nello stesso riquadro, si illumina con l'uno o l'altro
+  const tasto = (chiavi, lettera, freccia) => {
     const d = document.createElement("div");
-    d.dataset.k = k;
-    d.textContent = testo;
-    d.style.cssText = "display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:rgba(16,22,38,.85);color:#f2f4f8;font:700 15px system-ui,sans-serif;transition:background .06s,border-color .06s";
+    d.dataset.k = chiavi.join(" ");
+    d.innerHTML = `<span style="font:700 15px system-ui,sans-serif">${lettera}</span><span style="font:600 11px system-ui,sans-serif;opacity:.7;margin-left:4px">${freccia}</span>`;
+    d.style.cssText = "display:flex;align-items:center;justify-content:center;width:56px;height:52px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:rgba(16,22,38,.85);color:#f2f4f8;transition:background .06s,border-color .06s";
     return d;
   };
   const vuoto = () => document.createElement("div");
-  const griglia = (celle) => {
-    const g = document.createElement("div");
-    g.style.cssText = "display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:6px";
-    g.append(...celle);
-    return g;
-  };
-  // WASD a sinistra, frecce a destra
+  // Quattro tasti in croce: W sopra, A S D sotto
   tastiPP = document.createElement("div");
-  tastiPP.style.cssText = "display:none;position:fixed;bottom:130px;left:50%;transform:translateX(-50%);z-index:80;gap:18px;align-items:center;pointer-events:none";
+  tastiPP.style.cssText = "display:none;position:fixed;bottom:130px;left:50%;transform:translateX(-50%);z-index:80;display:none;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,52px);gap:6px;pointer-events:none";
   tastiPP.append(
-    griglia([vuoto(), tasto("w", "W"), vuoto(), tasto("a", "A"), tasto("s", "S"), tasto("d", "D")]),
-    griglia([vuoto(), tasto("arrowup", "↑"), vuoto(), tasto("arrowleft", "←"), tasto("arrowdown", "↓"), tasto("arrowright", "→")]),
+    vuoto(), tasto(["w", "arrowup"], "W", "↑"), vuoto(),
+    tasto(["a", "arrowleft"], "A", "←"), tasto(["s", "arrowdown"], "S", "↓"), tasto(["d", "arrowright"], "D", "→"),
   );
   const accendi = (on) => (e) => {
-    const d = tastiPP?.querySelector(`[data-k="${e.key.toLowerCase()}"]`);
-    if (!d) return;
-    d.style.background = on ? "rgba(255,196,77,.85)" : "rgba(16,22,38,.85)";
-    d.style.borderColor = on ? "#ffc44d" : "rgba(255,255,255,.3)";
-    d.style.color = on ? "#0a0e18" : "#f2f4f8";
+    const k = e.key.toLowerCase();
+    tastiPP?.querySelectorAll("[data-k]").forEach((d) => {
+      if (!d.dataset.k.split(" ").includes(k)) return;
+      d.style.background = on ? "rgba(255,196,77,.85)" : "rgba(16,22,38,.85)";
+      d.style.borderColor = on ? "#ffc44d" : "rgba(255,255,255,.3)";
+      d.style.color = on ? "#0a0e18" : "#f2f4f8";
+    });
   };
   window.addEventListener("keydown", accendi(true));
   window.addEventListener("keyup", accendi(false));
