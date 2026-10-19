@@ -156,7 +156,7 @@ export function porteDelProgetto(progetto) {
   for (const o of progetto.openings) {
     if (o.type !== "porta" || o.senzaAnta || o.fisso) continue;
     const w = progetto.walls.find((x) => x.id === o.wall);
-    if (w) out.push(geometriaPorta(o, w));
+    if (w) out.push({ ...geometriaPorta(o, w), op: o });
   }
   return out;
 }
@@ -205,7 +205,9 @@ export function posizioneIniziale(progetto) {
   const libero = (p) => obst.every((o) => distanzaPuntoSegmento(p, o.a, o.b) >= RAGGIO_CORPO_MM + o.r);
   if (!porte.length) return { pos: c, yaw: 0 };
   // Vani in ordine di vicinanza al centro; per ciascuno si prova il lato interno, poi l'esterno, a distanze crescenti
-  const ordinate = [...porte].sort((p, q) => len(sub(p.centro, c)) - len(sub(q.centro, c)));
+  // Si esce dalla porta d'ingresso (blindata), come da un ascensore sul pianerottolo: poi il vano piu' vicino al centro
+  const ingresso = (g) => /blindat|ingresso/i.test(g.op?.id ?? "");
+  const ordinate = [...porte].sort((p, q) => (ingresso(q) ? 1 : 0) - (ingresso(p) ? 1 : 0) || len(sub(p.centro, c)) - len(sub(q.centro, c)));
   for (const g of ordinate) {
     const lato0 = dot(sub(c, g.centro), g.n) >= 0 ? 1 : -1;
     for (const lato of [lato0, -lato0]) {

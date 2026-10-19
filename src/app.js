@@ -29,6 +29,65 @@ import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js";
 import { montaArredo } from "./ui/arredo-ui.js";
+import { arredaTutto, finiturTutto, infissiAutomatici } from "./core/automatismi.js";
+
+// Barra degli automatismi (sopra gli strumenti) e pannello con cio' che e' stato aggiunto
+function montaAutomatismi() {
+  const barra = document.createElement("div");
+  barra.id = "barra-auto";
+  barra.style.cssText = "position:fixed;left:50%;transform:translateX(-50%);bottom:112px;z-index:50;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:95vw";
+  const stile = "padding:8px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(16,22,38,.85);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer";
+  const pannello = document.createElement("div");
+  pannello.id = "pannello-auto";
+  pannello.style.cssText = "position:fixed;left:16px;top:120px;z-index:60;max-width:340px;padding:14px;border-radius:14px;background:rgba(16,22,38,.92);color:#f2f4f8;font:12px/1.5 system-ui,sans-serif;display:none;border:1px solid rgba(255,196,77,.4)";
+
+  const mostra = (titolo, r) => {
+    pannello.replaceChildren();
+    const t = document.createElement("b");
+    t.textContent = titolo;
+    pannello.appendChild(t);
+    const elenco = r.aggiunti.length ? r.aggiunti : ["nulla da aggiungere"];
+    for (const riga of elenco) { const d = document.createElement("div"); d.textContent = `• ${riga}`; pannello.appendChild(d); }
+    for (const avviso of r.fuoriPlanimetria ?? []) {
+      const d = document.createElement("div");
+      d.style.color = "#ffb4b4";
+      d.textContent = `⚠ ${avviso}`;
+      pannello.appendChild(d);
+    }
+    const chiudi = document.createElement("button");
+    chiudi.textContent = "Chiudi";
+    chiudi.style.cssText = stile + ";margin-top:8px";
+    chiudi.onclick = () => { pannello.style.display = "none"; };
+    pannello.appendChild(chiudi);
+    pannello.style.display = "block";
+  };
+  const esegui = (titolo, fn) => {
+    const r = fn(stato.progetto);
+    applica(r.p);
+    mostra(titolo, r);
+  };
+
+  const bArredo = document.createElement("button");
+  bArredo.textContent = "Arreda tutto";
+  bArredo.style.cssText = stile;
+  bArredo.onclick = () => esegui("Arredo automatico", (p) => arredaTutto(p));
+
+  const bFiniture = document.createElement("button");
+  bFiniture.textContent = "Intonaco muri e pavimenti";
+  bFiniture.style.cssText = stile;
+  bFiniture.onclick = () => esegui("Finiture", (p) => finiturTutto(p));
+
+  const livello = document.createElement("select");
+  livello.style.cssText = stile;
+  livello.innerHTML = `<option value="base">Infissi: base</option><option value="avanzato">Infissi: avanzato</option>`;
+  const bInfissi = document.createElement("button");
+  bInfissi.textContent = "Inserisci finestre";
+  bInfissi.style.cssText = stile;
+  bInfissi.onclick = () => esegui("Finestre automatiche", (p) => infissiAutomatici(p, { livello: livello.value }));
+
+  barra.append(bArredo, bFiniture, livello, bInfissi);
+  document.body.append(barra, pannello);
+}
 import { montaGSA } from "./ui/gsa-ui.js";
 
 let hud = null;
@@ -678,6 +737,7 @@ function costruisciPannello() {
     if (stato.viewer.passeggiataAttiva()) stato.viewer.esciPasseggiata();
     else {
       document.querySelector("aside")?.classList.add("chiuso"); // il pannello laterale non copre la vista
+      stato.arredo?.seleziona(null); // in prima persona nessuna selezione resta attiva
       stato.viewer.avviaPasseggiata(stato.progetto);
       messaggio("Frecce o W A S D per camminare, trascina per guardare, Shift corre, Esc esce.", "info");
     }
@@ -734,6 +794,7 @@ async function init() {
     applica: (nuovo) => applica(nuovo),
     messaggio,
   });
+  montaAutomatismi();
   stato.energia = montaScheda($("sez-energia"), {
     getRigheGSA: () => calcolaGSA(stato.progetto, {
       orientamenti: stato.orientamenti ?? {},

@@ -175,7 +175,8 @@ export function montaArredo(opz) {
         viewer.controls.enabled = false;
         ev.stopPropagation();
       }
-    } else if (!ev.shiftKey) {
+    } else if (!ev.shiftKey && ev.target === viewer.domElement && !h) {
+      // deseleziona solo con un clic sul vuoto della scena; pulsanti e pannelli non toccano la selezione
       seleziona(null);
     }
   }
