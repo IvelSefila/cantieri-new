@@ -8,7 +8,6 @@ import { valutaCivileAbitazione } from "./civile-abitazione.js";
 
 const WFS_BDT_RE_IMM = "https://geoservices.csi.it/ms/wfs/taims/rp-01/taimswfs/bdtre_imm";
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
-const PHOTON_URL = "https://photon.komoot.io/api/";
 const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
 
 // Registro canonico delle 20 Regioni d'Italia (con varianti bilingue / dialettali)
@@ -240,125 +239,302 @@ export function stimaAltezzaAntincendiDaPiani(numeroPiani, { altezzaPianoM = 3.0
   };
 }
 
-// Formatta un indirizzo italiano in modo canonico stile e-commerce / Amazon
-export function formattaIndirizzoItaliano({ via = "", civico = "", comune = "", cap = "", provincia = "" } = {}) {
-  const parti = [];
-  if (via) {
-    parti.push(civico ? `${via}, ${civico}` : via);
+// Estrae il nome del condominio, palazzo o scala dal testo inserito dall'utente
+export function estraiDenominazioneCondominioDaTesto(testo) {
+  if (!testo || typeof testo !== "string") return null;
+
+  const res = {
+    condominio: null,
+    palazzo: null,
+    scala: null,
+  };
+
+  const mCond = testo.match(/\b(condominio|cond\.|residence|residenza|complesso|villa)\s+([^,]+?)(?=\s+\b(palazzina|palazzo|pal\.|edificio|torre|corpo|scala|sc\.|interno|int\.|piano|p\.)\b|$|,)/i);
+  if (mCond) {
+    const nome = `${mCond[1]} ${mCond[2].trim()}`;
+    res.condominio = nome
+      .split(/\s+/)
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(" ");
   }
-  let loc = [cap, comune].filter(Boolean).join(" ");
-  if (provincia && provincia.toLowerCase() !== comune.toLowerCase()) {
-    loc = loc ? `${loc} (${provincia})` : `(${provincia})`;
+
+  const mPal = testo.match(/\b(palazzina|palazzo|pal\.|edificio|torre|corpo)\s+([a-zA-Z0-9]+)/i);
+  if (mPal) {
+    res.palazzo = mPal[0]
+      .split(/\s+/)
+      .map((w, idx) => (idx === 1 ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()))
+      .join(" ");
   }
-  if (loc) {
-    parti.push(loc);
+
+  const mSc = testo.match(/\b(scala|sc\.)\s+([a-zA-Z0-9]+)/i);
+  if (mSc) {
+    res.scala = mSc[0].toUpperCase();
   }
-  return parti.join(", ") || via || comune || "";
+
+  if (!res.condominio && !res.palazzo && !res.scala) {
+    return null;
+  }
+  return res;
 }
 
-// Autocompletamento real-time stile Amazon per tutte le vie d'Italia
-// Interroga primariamente Photon (OpenStreetMap con tolleranza tipografica su odonimi es. 'via suniglia 4' -> 'Strada Suniglia, 4')
-// con fallback su Nominatim.
-export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 } = {}) {
+// Registro dinamico in memoria dei condomini (aggiornato a runtime e sincronizzato con localStorage)
+export const REGISTRO_CONDOMINI_LOCALE = {};
+
+export function normalizzaChiaveIndirizzo(indirizzo, comune = "") {
+  if (!indirizzo) return "";
+  const base = `${indirizzo} ${comune}`.toLowerCase();
+  return base
+    .replace(/\b(via|viale|corso|strada|str\.|piazza|p\.za|largo|vicolo)\b/g, "")
+    .replace(/[^\w\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Cerca una denominazione condominio precedentemente appresa in memoria di sessione o in localStorage
+export function getCondominioDaMemoria(indirizzo, comune = "") {
+  const chiave = normalizzaChiaveIndirizzo(indirizzo, comune);
+  if (!chiave) return null;
+
+  // 1. Controllo cache in memoria runtime
+  for (const [k, v] of Object.entries(REGISTRO_CONDOMINI_LOCALE)) {
+    const kNorm = normalizzaChiaveIndirizzo(k);
+    if (chiave.includes(kNorm) || kNorm.includes(chiave)) {
+      return { nome: v.nome, fonte: "Memoria di Sessione" };
+    }
+  }
+
+  // 2. Controllo localStorage del browser
+  try {
+    if (typeof localStorage !== "undefined") {
+      const grezzo = localStorage.getItem("cantieri_condomini_db");
+      if (grezzo) {
+        const db = JSON.parse(grezzo);
+        for (const [k, v] of Object.entries(db)) {
+          if (chiave.includes(k) || k.includes(chiave)) {
+            return { nome: v.nome, fonte: "Memoria Locale Appresa" };
+          }
+        }
+      }
+    }
+  } catch (e) {}
+
+  return null;
+}
+
+// Estrae nomi di condominio, residence o palazzi da snippet testuali
+export function estraiNomeDaSnippet(testo) {
+  if (!testo) return null;
+  const regex = /\b([cC]ondominio|[rR]esidence|[rR]esidenza|[pP]alazzo|[cC]omplesso|[vV]illa)\s+([A-ZÀ-Ú][a-zà-ù0-9'-]+(?:\s+[A-ZÀ-Ú][a-zà-ù0-9'-]+){0,2})/g;
+  let match;
+  while ((match = regex.exec(testo)) !== null) {
+    const tipo = match[1].charAt(0).toUpperCase() + match[1].slice(1).toLowerCase();
+    const nome = match[2].trim();
+    if (!/^(di|del|della|dei|degli|in|con|su|per|tra|fra|e|ed|il|la|le|lo|i|gli|un|una|uno)\b/i.test(nome)) {
+      return `${tipo} ${nome}`;
+    }
+  }
+  return null;
+}
+
+// Salva un'associazione indirizzo-condominio nella memoria persistente (runtime + localStorage)
+export function salvaDenominazioneCondominio(indirizzo, comune, nomeCondominio) {
+  if (!indirizzo || !nomeCondominio) return false;
+  const k = normalizzaChiaveIndirizzo(indirizzo, comune);
+  if (!k) return false;
+
+  const nomePulito = nomeCondominio.trim();
+  REGISTRO_CONDOMINI_LOCALE[k] = {
+    nome: nomePulito,
+    indirizzo,
+    comune,
+    ts: Date.now(),
+  };
+
+  try {
+    if (typeof localStorage !== "undefined") {
+      const grezzo = localStorage.getItem("cantieri_condomini_db") || "{}";
+      const db = JSON.parse(grezzo);
+      db[k] = {
+        nome: nomePulito,
+        indirizzo,
+        comune,
+        ts: Date.now(),
+      };
+      localStorage.setItem("cantieri_condomini_db", JSON.stringify(db));
+      return true;
+    }
+  } catch (e) {
+    // ignora in ambienti senza localStorage
+  }
+  return true;
+}
+
+// Risolve dinamicamente il nome del condominio da:
+// 1. Testo inserito dall'utente (es. "Condominio Orione Strada Suniglia 4")
+// 2. Memoria locale persistente (localStorage / sessione)
+// 3. Cartografia OpenStreetMap (tag name, addr:housename, building:name)
+// 4. Ricerca Web OSINT Snippet aperta
+export async function cercaDenominazioneCondominio(indirizzo, { comune = "", lat = null, lon = null, fetchFn = fetch } = {}) {
+  if (!indirizzo) return { trovato: false, nome: null };
+
+  // 1. Estrazione diretta dal testo dell'utente
+  const daTesto = estraiDenominazioneCondominioDaTesto(indirizzo);
+  if (daTesto?.condominio) {
+    return {
+      trovato: true,
+      nome: daTesto.condominio,
+      fonte: "Inserito dall'utente",
+      confidenza: "certa",
+    };
+  }
+
+  // 2. Controllo memoria appresa (in memoria + localStorage)
+  const daMemoria = getCondominioDaMemoria(indirizzo, comune);
+  if (daMemoria?.nome) {
+    return {
+      trovato: true,
+      nome: daMemoria.nome,
+      fonte: daMemoria.fonte,
+      confidenza: "alta",
+    };
+  }
+
+  const pulito = pulisciIndirizzoPerGeocodifica(indirizzo);
+
+  // 3. Controllo cartografia OpenStreetMap 3D se abbiamo lat/lon
+  if (typeof lat === "number" && typeof lon === "number") {
+    try {
+      const osmQuery = `[out:json][timeout:3];(way["building"](around:50,${lat},${lon})[name];node["building"](around:50,${lat},${lon})[name];way["building"](around:50,${lat},${lon})["addr:housename"];);out tags;`;
+      const rOsm = await fetchFn(`${OVERPASS_URL}?data=${encodeURIComponent(osmQuery)}`, {
+        headers: { "User-Agent": "CantieriAI/1.0" },
+      });
+      if (rOsm.ok) {
+        const dOsm = await rOsm.json();
+        for (const el of dOsm.elements || []) {
+          const n = el.tags?.name || el.tags?.["addr:housename"] || el.tags?.["building:name"];
+          if (n && n.length > 2) {
+            salvaDenominazioneCondominio(indirizzo, comune, n);
+            return {
+              trovato: true,
+              nome: n,
+              fonte: "OpenStreetMap Cartografia 3D",
+              confidenza: "alta",
+            };
+          }
+        }
+      }
+    } catch (e) {}
+  }
+
+  // 4. Ricerca Web OSINT Snippet aperta (DuckDuckGo HTML / Web Search)
+  try {
+    const query = `"${pulito}" ${comune} condominio`;
+    const url = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+    const r = await fetchFn(url, {
+      headers: { "User-Agent": "CantieriAI/1.0" },
+    });
+    if (r.ok) {
+      const html = await r.text();
+      const snippets = [...html.matchAll(/<a class="result__snippet"[^>]*>([\s\S]*?)<\/a>/g)].map((m) => m[1].replace(/<[^>]+>/g, "").trim());
+      for (const s of snippets) {
+        const nomeSnippet = estraiNomeDaSnippet(s);
+        if (nomeSnippet) {
+          salvaDenominazioneCondominio(indirizzo, comune, nomeSnippet);
+          return {
+            trovato: true,
+            nome: nomeSnippet,
+            fonte: "Web OSINT (Annunci / Pratiche)",
+            confidenza: "media",
+            snippet: s,
+          };
+        }
+      }
+    }
+  } catch (e) {}
+
+  return {
+    trovato: false,
+    nome: null,
+    query_google: `https://www.google.com/search?q=${encodeURIComponent(`"${pulito}" ${comune} condominio`)}`,
+  };
+}
+
+// Autocompletamento real-time mentre l'utente digita
+// Interroga Nominatim per le corrispondenze dell'indirizzo in Italia e, se abilitato,
+// risolve contemporaneamente la denominazione del condominio (da memoria, OSM o OSINT web)
+export async function autocompletaIndirizzo(testo, { fetchFn = fetch, autoCercaWeb = true } = {}) {
   if (!testo || typeof testo !== "string" || testo.trim().length < 3) {
     return [];
   }
 
   const query = testo.trim();
-  const risultati = [];
+  const url = `${NOMINATIM_URL}?q=${encodeURIComponent(query)}&format=json&addressdetails=1&extratags=1&namedetails=1&countrycodes=it&limit=5`;
 
-  // 1. Tenta prima con il servizio aperto Photon (OpenStreetMap)
   try {
-    const urlPhoton = `${PHOTON_URL}?q=${encodeURIComponent(query)}&limit=${limit}`;
-    const resP = await fetchFn(urlPhoton, { headers: { "User-Agent": "CantieriAI/1.0 (autocomplete-osm)" } });
-    if (resP && resP.ok) {
-      const dataP = await resP.json();
-      if (Array.isArray(dataP.features) && dataP.features.length > 0) {
-        for (const f of dataP.features) {
-          const p = f.properties || {};
-          if (p.countrycode && p.countrycode.toLowerCase() !== "it") continue;
-          const via = p.street || (p.osm_key === "highway" ? p.name : "");
-          const civico = p.housenumber || "";
-          const comune = p.city || p.town || p.village || p.municipality || p.district || "";
-          const provincia = p.county || "";
-          const cap = p.postcode || "";
-          const regione = normalizzaRegione(p.state || "");
-          const coords = f.geometry?.coordinates || [];
-          const lon = typeof coords[0] === "number" ? coords[0] : null;
-          const lat = typeof coords[1] === "number" ? coords[1] : null;
+    const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (autocomplete)" } });
+    if (!res.ok) return [];
+    const items = await res.json();
+    if (!Array.isArray(items)) return [];
 
-          const display = formattaIndirizzoItaliano({ via, civico, comune, cap, provincia }) || p.name || query;
-
-          risultati.push({
-            display_name: display,
-            via,
-            civico,
-            comune,
-            provincia,
-            regione,
-            cap,
-            lat,
-            lon,
-          });
-        }
-        if (risultati.length > 0) return risultati;
-      }
-    }
-  } catch (e) {
-    // Continua con il fallback su Nominatim
-  }
-
-  // 2. Fallback su Nominatim OpenStreetMap (con supporto per tolleranza odonimi)
-  try {
-    const tentaNom = async (q) => {
-      const url = `${NOMINATIM_URL}?q=${encodeURIComponent(q)}&format=json&addressdetails=1&countrycodes=it&limit=${limit}`;
-      const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (autocomplete-osm)" } });
-      if (!res || !res.ok) return [];
-      const items = await res.json();
-      return Array.isArray(items) ? items : [];
-    };
-
-    let items = await tentaNom(query);
-    if (items.length === 0 || (!items.some((it) => it.address?.road || it.address?.house_number) && /^(via|strada|corso|viale|piazza|largo)\b/i.test(query))) {
-      const senzaOdonimo = query.replace(/^(via|strada|corso|viale|piazza|largo)\s+/i, "").trim();
-      if (senzaOdonimo.length >= 3) {
-        const altItems = await tentaNom(senzaOdonimo);
-        if (altItems.length > 0) {
-          items = altItems;
-        }
-      }
-    }
-
+    const risultati = [];
     for (const item of items) {
       const addr = item.address || {};
       const civico = addr.house_number || "";
       const via = addr.road || addr.pedestrian || addr.footway || "";
-      const comune = addr.city || addr.town || addr.village || addr.municipality || addr.hamlet || "";
-      const provincia = addr.county || addr["ISO3166-2-lvl6"] || "";
+      const comune = addr.city || addr.town || addr.village || addr.municipality || "";
+      const provincia = addr["ISO3166-2-lvl6"] || addr.county || "";
       const cap = addr.postcode || "";
-      const regione = normalizzaRegione(addr.state || addr.region || "");
 
-      const display = formattaIndirizzoItaliano({ via, civico, comune, cap, provincia }) || item.display_name;
+      let nomeCondominio = item.namedetails?.name || item.extratags?.["addr:housename"] || null;
+      let fonte = nomeCondominio ? "OpenStreetMap" : null;
+
+      // Cerca in memoria
+      if (!nomeCondominio) {
+        const daMem = getCondominioDaMemoria(`${via} ${civico}`, comune);
+        if (daMem) {
+          nomeCondominio = daMem.nome;
+          fonte = daMem.fonte;
+        }
+      }
+
+      // Se autoCercaWeb è attivo e c'è il civico ma nessun nome ancora
+      if (!nomeCondominio && autoCercaWeb && civico && via) {
+        const resWeb = await cercaDenominazioneCondominio(`${via} ${civico} ${comune}`, {
+          comune,
+          lat: parseFloat(item.lat),
+          lon: parseFloat(item.lon),
+          fetchFn,
+        });
+        if (resWeb.trovato && resWeb.nome) {
+          nomeCondominio = resWeb.nome;
+          fonte = resWeb.fonte;
+        }
+      }
+
+      const testoCompleto = nomeCondominio
+        ? `${nomeCondominio} — ${item.display_name}`
+        : item.display_name;
 
       risultati.push({
-        display_name: display,
+        display_name: item.display_name,
+        testo_completo: testoCompleto,
+        nome_condominio: nomeCondominio,
+        fonte_condominio: fonte,
+        lat: parseFloat(item.lat),
+        lon: parseFloat(item.lon),
         via,
         civico,
         comune,
         provincia,
-        regione,
         cap,
-        lat: parseFloat(item.lat),
-        lon: parseFloat(item.lon),
       });
     }
+
+    return risultati;
   } catch (err) {
-    // Ignora errori di rete
+    return [];
   }
-
-  return risultati;
 }
-
 
 // Algoritmo di coesione del complesso edilizio: raggruppa le palazzine appartenenti allo stesso
 // lotto/cortile (distanza mutua inter-palazzina <= maxClusterDist) escludendo edifici di lotti confinanti
@@ -423,70 +599,22 @@ export function pulisciIndirizzoPerGeocodifica(testo) {
     .trim();
 }
 
-// Geocodifica un indirizzo in tutta Italia tramite Photon (OpenStreetMap) con fallback su Nominatim
+// Geocodifica un indirizzo in tutta Italia tramite Nominatim con dettagli amministrativi
 export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) {
   if (!indirizzo || typeof indirizzo !== "string" || !indirizzo.trim()) {
     return { ok: false, errore: "Indirizzo non valido o vuoto" };
   }
 
-  const queryPulita = pulisciIndirizzoPerGeocodifica(indirizzo);
-
-  // 1. Tenta prima con Photon (OpenStreetMap con tolleranza odonimi es. 'via suniglia 4' -> 'Strada Suniglia, 4')
-  try {
-    const urlPhoton = `${PHOTON_URL}?q=${encodeURIComponent(queryPulita)}&limit=5`;
-    const resP = await fetchFn(urlPhoton, { headers: { "User-Agent": "CantieriAI/1.0 (geocodifica-osm)" } });
-    if (resP && resP.ok) {
-      const dataP = await resP.json();
-      if (Array.isArray(dataP.features) && dataP.features.length > 0) {
-        const qLower = queryPulita.toLowerCase();
-        let fScelta = dataP.features.find((f) => {
-          const c = (f.properties?.city || f.properties?.town || f.properties?.village || "").toLowerCase();
-          return c && qLower.includes(c);
-        }) || dataP.features[0];
-
-        const p = fScelta.properties || {};
-        const via = p.street || (p.osm_key === "highway" ? p.name : "");
-        const civico = p.housenumber || "";
-        const comune = p.city || p.town || p.village || p.municipality || p.district || "";
-        const provincia = p.county || "";
-        const cap = p.postcode || "";
-        let regione = normalizzaRegione(p.state || "");
-        if (regione === "Italia" && /(piemonte|torino|cuneo|alessandria|novara|asti|biella|vercelli|verbania)/i.test(comune || queryPulita)) {
-          regione = "Piemonte";
-        }
-
-        const coords = fScelta.geometry?.coordinates || [];
-        const lon = typeof coords[0] === "number" ? coords[0] : null;
-        const lat = typeof coords[1] === "number" ? coords[1] : null;
-
-        if (lat !== null && lon !== null) {
-          const display = formattaIndirizzoItaliano({ via, civico, comune, cap, provincia }) || p.name || indirizzo;
-          return {
-            ok: true,
-            lat,
-            lon,
-            display_name: display,
-            regione,
-            comune,
-            provincia,
-            raw_address: p,
-          };
-        }
-      }
-    }
-  } catch (e) {
-    // Continua con il fallback su Nominatim
-  }
-
-  // 2. Fallback su Nominatim OpenStreetMap (con supporto per odonimi e frazioni)
-  const tentaGeocodificaNominatim = async (q) => {
+  const tentaGeocodifica = async (q) => {
     const query = q.trim();
     const url = `${NOMINATIM_URL}?q=${encodeURIComponent(query)}&format=json&addressdetails=1&countrycodes=it&limit=5`;
     const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; antincendio-gsa)" } });
-    if (!res || !res.ok) return null;
+    if (!res.ok) return null;
     const dati = await res.json();
     if (!Array.isArray(dati) || dati.length === 0) return null;
 
+    // Se l'utente ha specificato una città (es. palermo, milano, torino),
+    // privilegia il risultato il cui comune coincide con il testo digitato
     const qLower = query.toLowerCase();
     const matchCitta = dati.find((d) => {
       const c = (d.address?.city || d.address?.municipality || d.address?.town || "").toLowerCase();
@@ -497,19 +625,12 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
   };
 
   try {
-    let primo = await tentaGeocodificaNominatim(indirizzo);
+    let primo = await tentaGeocodifica(indirizzo);
 
-    if (!primo && queryPulita && queryPulita.toLowerCase() !== indirizzo.trim().toLowerCase()) {
-      primo = await tentaGeocodificaNominatim(queryPulita);
-    }
-
-    if (!primo || (!primo.address?.house_number && /^(via|strada|corso|viale|piazza|largo)\b/i.test(queryPulita))) {
-      const senzaOdonimo = queryPulita.replace(/^(via|strada|corso|viale|piazza|largo)\s+/i, "").trim();
-      if (senzaOdonimo.length >= 3) {
-        const alt = await tentaGeocodificaNominatim(senzaOdonimo);
-        if (alt && (alt.address?.house_number || alt.address?.road)) {
-          primo = alt;
-        }
+    if (!primo) {
+      const pulito = pulisciIndirizzoPerGeocodifica(indirizzo);
+      if (pulito && pulito.toLowerCase() !== indirizzo.trim().toLowerCase()) {
+        primo = await tentaGeocodifica(pulito);
       }
     }
 
@@ -519,6 +640,7 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
 
     const addr = primo.address || {};
     const regioneGrezza = addr.state || addr.region || "";
+    // Se Nominatim non ha restituito state ma l'indirizzo contiene una regione o città piemontese
     let regione = normalizzaRegione(regioneGrezza);
     if (regione === "Italia" && /(piemonte|torino|cuneo|alessandria|novara|asti|biella|vercelli|verbania)/i.test(primo.display_name || indirizzo)) {
       regione = "Piemonte";
@@ -650,6 +772,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     attivita = [],
     piano_accessibile_vvf = true,
     vani_tecnici_esclusi = true,
+    auto_cerca_web = true,
     fetchFn = fetch,
   } = opzioni;
 
@@ -751,11 +874,35 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
   });
 
   const idxSelezionato = typeof indice_volume === "number" ? indice_volume : 0;
+  const infoCondominio = estraiDenominazioneCondominioDaTesto(indirizzo);
+
+  let nomeCondominio = infoCondominio?.condominio || null;
+  let fonteCondominio = infoCondominio?.condominio ? "Inserito dall'utente" : null;
+
+  if (!nomeCondominio && auto_cerca_web) {
+    const resNome = await cercaDenominazioneCondominio(indirizzo, {
+      comune: geo.comune,
+      lat: geo.lat,
+      lon: geo.lon,
+      fetchFn,
+    });
+    if (resNome.trovato && resNome.nome) {
+      nomeCondominio = resNome.nome;
+      fonteCondominio = resNome.fonte;
+    }
+  }
+
+  const queryGoogleCondominio = `https://www.google.com/search?q=${encodeURIComponent(`"${pulisciIndirizzoPerGeocodifica(indirizzo)}" ${geo.comune || ""} condominio`)}`;
 
   return {
     esito: "OK",
     indirizzo_inserito: indirizzo,
     indirizzo_trovato: geo.display_name,
+    nome_condominio: nomeCondominio,
+    fonte_condominio: fonteCondominio,
+    nome_palazzo: infoCondominio?.palazzo || null,
+    scala: infoCondominio?.scala || null,
+    ricerca_google_condominio: queryGoogleCondominio,
     regione: geo.regione,
     comune: geo.comune,
     provincia: geo.provincia,
@@ -782,7 +929,10 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
       indice_selezionato: idxSelezionato,
     },
     volumi_rilevati: volumi.map((v, i) => {
-      const desc = v.tipo_presunto || (v.piani ? `${v.piani} piani` : (v.altezza_volumetrica_m >= 12 ? "Corpo principale alto" : v.altezza_volumetrica_m >= 7 ? "Corpo secondario / basso" : "Box / accessorio"));
+      let desc = v.tipo_presunto || (v.piani ? `${v.piani} piani` : (v.altezza_volumetrica_m >= 12 ? "Corpo principale alto" : v.altezza_volumetrica_m >= 7 ? "Corpo secondario / basso" : "Box / accessorio"));
+      if (nomeCondominio && !desc.startsWith(nomeCondominio)) {
+        desc = `${nomeCondominio} — ${desc}`;
+      }
       return {
         indice: i,
         altezza_m: v.altezza_volumetrica_m,
