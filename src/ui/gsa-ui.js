@@ -1,6 +1,7 @@
 // Scheda GSA (Gestione della Sicurezza Antincendio, DM 2/9/2021): dati inseriti dall'utente, risultato solo
 // dopo il pulsante "Calcola GSA". Ogni obbligo mostra l'articolo o l'allegato del decreto.
 import { calcolaGSA, LIVELLO3, PLANIMETRIA_ELEMENTI, PIANO_CONTENUTI, GSA_FONTE } from "../core/gsa-incendio.js";
+import { classificaRischio, verificaEsodo, CRITERI_ELEVATO, CRITERI_MEDIO, CRITERI_BASSO, RIDUZIONI, FONTE_1998, RIF_ESODO } from "../core/rischio-incendio.js";
 
 function el(tag, cls, testo) {
   const e = document.createElement(tag);
@@ -28,6 +29,11 @@ export function datiGSAIniziali() {
     doc_attestati: "",
     doc_registro: "",
     doc_informazione: "",
+    // DM 10/3/1998, punto 1.4.4: criteri del livello di rischio
+    criteri: [],
+    riduzioni: [],
+    // DM 10/3/1998, punti 3.3-3.5: vie di uscita del piano
+    esodo: { distanzaDueVie_m: "", distanzaUnaVia_m: "", affollamento: "", numeroUscite: "", larghezzaUscite_m: "", pubblico: false, assistenza: false, materialiInfiammabili: false, areaRiposo: false },
   };
 }
 
@@ -53,6 +59,29 @@ function verso(d) {
     doc_registro: tri(d.doc_registro),
     doc_informazione: tri(d.doc_informazione),
   };
+}
+
+function numOpt(v) { return v === "" || v === null || v === undefined ? undefined : Number(v); }
+
+// Calcolo completo: obblighi GSA (DM 2/9/2021) + rischio e vie di uscita (DM 10/3/1998)
+function calcolaTutto(d) {
+  const base = calcolaGSA(verso(d));
+  const rischio = classificaRischio(Object.fromEntries(d.criteri.map((c) => [c, true]).concat(d.riduzioni.map((r) => [`riduzione_${r}`, true]))));
+  const e = d.esodo;
+  const livello = rischio.livelloFinale;
+  const esodo = verificaEsodo({
+    livello,
+    distanzaDueVie_m: numOpt(e.distanzaDueVie_m),
+    distanzaUnaVia_m: numOpt(e.distanzaUnaVia_m),
+    affollamento: numOpt(e.affollamento),
+    numeroUscite: numOpt(e.numeroUscite),
+    larghezzaUscite_m: numOpt(e.larghezzaUscite_m),
+    pubblico: e.pubblico, assistenza: e.assistenza, materialiInfiammabili: e.materialiInfiammabili, areaRiposo: e.areaRiposo,
+  });
+  const mancanti = [...base.mancanti];
+  if (!d.criteri.length) mancanti.push("criteri del livello di rischio (punto 1.4.4): selezionare almeno uno, oppure dichiarare che non ne ricorre alcuno");
+  mancanti.push(...esodo.mancanti.map((m) => `vie di uscita: ${m}`));
+  return { base, rischio, esodo, mancanti, completo: mancanti.length === 0 };
 }
 
 export function montaGSA(box) {
@@ -116,7 +145,32 @@ export function montaGSA(box) {
   form.append(el("div", "gsa-titolo", "5. Contenuti scritti del piano (all. II 2.1-2.2)"));
   gruppo("Presenti nel piano:", PIANO_CONTENUTI.map((e) => [e.id, e.testo]), "piano_contenuti");
 
-  form.append(el("div", "gsa-titolo", "6. Documenti"));
+  form.append(el("div", "gsa-titolo", "6. Rischio di incendio (DM 10/3/1998, punto 1.4.4)"));
+  form.append(el("div", "gsa-nota", "Spunta i criteri che si applicano al luogo di lavoro. Il livello più alto vince."));
+  gruppo("Rischio ELEVATO se:", CRITERI_ELEVATO.map((c) => [c.id, c.testo]), "criteri");
+  gruppo("Rischio MEDIO se:", CRITERI_MEDIO.map((c) => [c.id, c.testo]), "criteri");
+  gruppo("Rischio BASSO se:", CRITERI_BASSO.map((c) => [c.id, c.testo]), "criteri");
+  gruppo("Riduzione del livello elevato (dichiarata dal professionista):", RIDUZIONI.map((c) => [c.id, c.testo]), "riduzioni");
+
+  form.append(el("div", "gsa-titolo", "7. Vie di uscita del piano (DM 10/3/1998, punti 3.3-3.5)"));
+  const es = d.esodo;
+  const numE = (chiave, etichetta) => {
+    const i = el("input"); i.type = "number"; i.min = "0"; i.step = "0.1"; i.value = es[chiave];
+    i.onchange = () => { es[chiave] = i.value; segna(); };
+    return campo(etichetta, i);
+  };
+  numE("distanzaDueVie_m", "Distanza massima all'uscita con due vie di uscita (m)");
+  numE("distanzaUnaVia_m", "Percorso in una sola direzione fino al punto con due vie (m)");
+  numE("affollamento", "Affollamento del piano (persone presenti)");
+  numE("numeroUscite", "Numero di uscite di piano");
+  numE("larghezzaUscite_m", "Larghezza complessiva delle uscite di piano (m)");
+  for (const [k, t] of [["pubblico", "Frequentato dal pubblico"], ["assistenza", "Persone che necessitano di assistenza"], ["materialiInfiammabili", "Materiali infiammabili depositati o manipolati"], ["areaRiposo", "Area di riposo"]]) {
+    const i = el("input"); i.type = "checkbox"; i.checked = !!es[k];
+    i.onchange = () => { es[k] = i.checked; segna(); };
+    const l = el("label", "gsa-check"); l.append(i, " " + t); form.append(l);
+  }
+
+  form.append(el("div", "gsa-titolo", "8. Documenti"));
   tri("doc_vr", "Documento di valutazione dei rischi con parte antincendio");
   tri("doc_piano", "Piano di emergenza con planimetria");
   tri("doc_attestati", "Attestati di formazione e aggiornamento degli addetti");
@@ -125,7 +179,7 @@ export function montaGSA(box) {
   box.append(form);
 
   const bottone = el("button", "gsa-calcola", "Calcola GSA");
-  bottone.onclick = () => { risultato = calcolaGSA(verso(d)); calcolatoCon = JSON.stringify(d); disegna(); };
+  bottone.onclick = () => { risultato = calcolaTutto(d); calcolatoCon = JSON.stringify(d); disegna(); };
   const stale = el("div", "gsa-stale");
   const esito = el("div", "gsa-esito");
   box.append(bottone, stale, esito);
@@ -139,9 +193,20 @@ export function montaGSA(box) {
     esito.innerHTML = "";
     stale.textContent = "";
     if (!risultato) return;
-    const r = risultato;
+    const rs = risultato.rischio;
+    esito.append(el("div", "gsa-titolo", "Rischio di incendio (DM 10/3/1998, punto 1.4.4)"));
+    if (!rs.motivi.length) esito.append(el("div", "riga-risultato avviso", "Nessun criterio selezionato."));
+    else {
+      esito.append(el("div", "riga-risultato ok", `Livello di rischio: ${rs.livello.toUpperCase()}${rs.livelloFinale !== rs.livello ? ` → ridotto a ${rs.livelloFinale.toUpperCase()} (riduzione dichiarata)` : ""}`));
+      for (const m of rs.motivi) esito.append(el("div", "riga-risultato", m));
+    }
+    for (const n of rs.note) esito.append(el("div", "riga-risultato avviso", n));
+    esito.append(el("div", "gsa-titolo", "Vie di uscita (DM 10/3/1998, punti 3.3-3.5)"));
+    for (const x of risultato.esodo.esiti) esito.append(el("div", `riga-risultato ${x.ok === true ? "ok" : x.ok === false ? "avviso" : ""}`, `${x.ok === true ? "✓ CONFORME" : x.ok === false ? "✗ NON CONFORME" : "— da verificare"}: ${x.testo} [${x.riferimento}]`));
+    if (risultato.esodo.cauto) esito.append(el("div", "gsa-nota", "Limiti ridotti per pubblico, assistenza, riposo o materiali infiammabili (punto 3.4)."));
+    const r = risultato.base;
     const rigo = (t, cls = "") => esito.append(el("div", `riga-risultato ${cls}`, t));
-    rigo(`Livello di rischio ${r.livello.livello}: ${r.livello.motivo}.`, "ok");
+    rigo(`Livello dei corsi addetti (all. III, DM 2/9/2021): ${r.livello.livello}. ${r.livello.motivo}.`, "ok");
     const p = r.piano;
     rigo(p.obbligatorio ? `Piano di emergenza obbligatorio: ${p.motivi.join("; ")}.` : "Piano di emergenza non obbligatorio.", p.obbligatorio ? "ok" : "");
     if (p.misureSemplificate) rigo("Per questo esercizio è ammessa la forma semplificata (all. II par. 4).");
@@ -160,12 +225,12 @@ export function montaGSA(box) {
       const stato = doc.presente === true ? "presente" : doc.presente === false ? "manca" : "da verificare";
       rigo(`${doc.obbligatorio ? "" : "(se previsto) "}${doc.nome}: ${stato} [${doc.riferimento}]`, doc.presente === true ? "ok" : doc.obbligatorio ? "avviso" : "");
     }
-    if (r.mancanti.length) {
-      esito.append(el("div", "gsa-titolo", `Per completare il calcolo (${r.mancanti.length})`));
-      for (const m of r.mancanti) rigo(`• ${m}`, "avviso");
-    }
+    if (risultato.mancanti.length) {
+      esito.append(el("div", "gsa-titolo", `Per completare il calcolo (${risultato.mancanti.length})`));
+      for (const m of risultato.mancanti) rigo(`• ${m}`, "avviso");
+    } else rigo("Tutti i dati necessari sono inseriti.", "ok");
     const f = el("div", "gsa-fonte");
-    f.append(el("span", "", "Fonte: "), Object.assign(el("a", "", GSA_FONTE.documento + ", " + GSA_FONTE.gazzetta), { href: GSA_FONTE.url, target: "_blank", rel: "noopener" }));
+    f.append(el("span", "", "Fonti: "), Object.assign(el("a", "", GSA_FONTE.documento + ", " + GSA_FONTE.gazzetta), { href: GSA_FONTE.url, target: "_blank", rel: "noopener" }), document.createElement("br"), Object.assign(el("a", "", FONTE_1998.documento), { href: FONTE_1998.url, target: "_blank", rel: "noopener" }));
     esito.append(f);
   }
   return { calcola: () => bottone.click(), stato: () => ({ risultato: !!risultato }) };
