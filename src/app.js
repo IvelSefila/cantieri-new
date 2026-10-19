@@ -38,12 +38,11 @@ function flussoArredo(mostraRisultato) {
   const alloggi = alloggiDelProgetto(stato.progetto);
   if (!alloggi.length) return messaggio("Nessuna stanza da arredare: disegna prima i muri.", "info");
   const velo = document.createElement("div");
-  velo.style.cssText = "position:fixed;inset:0;z-index:200;background:rgba(5,8,16,.6);display:flex;align-items:center;justify-content:center;padding:16px";
+  velo.style.cssText = "position:fixed;inset:0;z-index:200;pointer-events:none"; // niente velo: la planimetria 3D resta visibile
   const box = document.createElement("div");
-  box.style.cssText = "max-width:520px;width:100%;max-height:86vh;overflow:auto;padding:18px;border-radius:16px;background:#101626;color:#f2f4f8;font:13px/1.5 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4)";
+  box.style.cssText = "pointer-events:auto;position:fixed;right:16px;top:110px;width:380px;max-height:78vh;overflow:auto;padding:14px;border-radius:16px;background:rgba(16,22,38,.94);color:#f2f4f8;font:13px/1.5 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4)";
   const btn = "padding:9px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(255,255,255,.06);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer;margin:4px";
   const chiudi = () => { velo.remove(); stato.viewer.setEvidenza(null); };
-  velo.addEventListener("click", (e) => { if (e.target === velo) chiudi(); });
 
   const titolo = (t) => { const d = document.createElement("div"); d.style.cssText = "display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"; const b = document.createElement("b"); b.textContent = t; b.style.fontSize = "15px"; const x = document.createElement("button"); x.textContent = "✕"; x.style.cssText = btn; x.onclick = chiudi; d.append(b, x); return d; };
 
@@ -56,7 +55,10 @@ function flussoArredo(mostraRisultato) {
     const selezioni = [];
     for (const s of alloggio.stanze) {
       const riga = document.createElement("div");
-      riga.style.cssText = "display:flex;align-items:center;gap:10px;margin:6px 0";
+      // Barra cliccabile: si illumina al passaggio del mouse e la stanza si evidenzia in 3D
+      riga.style.cssText = "display:flex;align-items:center;gap:10px;margin:6px 0;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);transition:background .15s,border-color .15s;cursor:pointer";
+      riga.addEventListener("pointerover", () => { riga.style.background = "rgba(255,196,77,.18)"; riga.style.borderColor = "#ffc44d"; });
+      riga.addEventListener("pointerout", () => { riga.style.background = "rgba(255,255,255,.04)"; riga.style.borderColor = "rgba(255,255,255,.12)"; });
       const etichetta = document.createElement("span");
       etichetta.style.flex = "1";
       etichetta.textContent = `${s.id} · ${(s.superficieMm2 / 1e6).toFixed(1).replace(".", ",")} m²`;
