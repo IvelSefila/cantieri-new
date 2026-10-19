@@ -967,7 +967,7 @@ async function init() {
     messaggio,
   });
   montaAutomatismi();
-  montaLegenda();
+  // Legenda dei comandi nascosta per ora: montaLegenda() resta nel codice, da riattivare quando implementata
   stato.energia = montaScheda($("sez-energia"), {
     getRigheGSA: () => calcolaGSA(stato.progetto, {
       orientamenti: stato.orientamenti ?? {},

@@ -313,7 +313,12 @@ export function createViewer(container) {
   });
   window.addEventListener("keyup", (e) => tastiPremuti.delete(e.key.toLowerCase()));
   window.addEventListener("blur", () => tastiPremuti.clear());
+  let ultimoMovimento = 0;
   function muoviConTasti() {
+    // velocita' in mm al secondo, indipendente dai fotogrammi
+    const ora = performance.now();
+    const dt = Math.min(0.1, (ora - (ultimoMovimento || ora)) / 1000);
+    ultimoMovimento = ora;
     if (passeggiata.attiva() || inVolo || tastiPremuti.size === 0) return false;
     // Avanti orizzontale: dalla direzione dello sguardo; se si guarda dall'alto, dalla direzione "alto" dello schermo
     const dir = new THREE.Vector3();
@@ -332,7 +337,7 @@ export function createViewer(container) {
       if (a === "sinistra") v.sub(destra);
     }
     if (v.lengthSq() === 0) return false;
-    v.normalize().multiplyScalar(Math.max(20, camera.position.distanceTo(controls.target) * 0.02));
+    v.normalize().multiplyScalar(Math.max(200, camera.position.distanceTo(controls.target) * 0.12) * dt);
     camera.position.add(v);
     controls.target.add(v);
     return true;
