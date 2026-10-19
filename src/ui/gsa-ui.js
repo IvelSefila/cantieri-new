@@ -2,6 +2,7 @@
 // dopo il pulsante "Calcola GSA". Ogni obbligo mostra l'articolo o l'allegato del decreto.
 import { calcolaGSA, LIVELLO3, PLANIMETRIA_ELEMENTI, PIANO_CONTENUTI, GSA_FONTE } from "../core/gsa-incendio.js";
 import { classificaRischio, verificaEsodo, CRITERI_ELEVATO, CRITERI_MEDIO, CRITERI_BASSO, RIDUZIONI, FONTE_1998, RIF_ESODO } from "../core/rischio-incendio.js";
+import { calcolaGsaDaCivico } from "../core/altimetria-civico.js";
 
 function el(tag, cls, testo) {
   const e = document.createElement(tag);
@@ -89,6 +90,116 @@ export function montaGSA(box) {
   let risultato = null;
   let calcolatoCon = null;
   box.innerHTML = "";
+
+  // ---- 0. Calcolo Automatico da Civico (LiDAR BDTRE Piemonte + Google Earth) ----
+  const sezCivico = el("div", "blocco");
+  sezCivico.style.cssText = "background: rgba(61, 220, 247, 0.05); border: 1px solid rgba(61, 220, 247, 0.25); border-radius: 12px; padding: 12px; margin-bottom: 16px;";
+
+  const titCivico = el("h2", "", "Palazzi e Condomini — Calcolo da Civico");
+  titCivico.style.cssText = "color: var(--hud-ciano); font-size: 13px; margin: 0 0 4px;";
+  const subCivico = el("div", "sub", "Inserisci l'indirizzo con civico (Piemonte): interroga il LiDAR regionale BDTRE (ARPA Piemonte) e calcola altezza antincendi e livello GSA (DM 246/1987 + DM 2019).");
+  subCivico.style.cssText = "font-size: 11px; margin-bottom: 8px; color: var(--hud-muto);";
+
+  const rowIndirizzo = el("div", "riga-azioni");
+  rowIndirizzo.style.cssText = "display: flex; gap: 6px; flex-direction: column; margin-bottom: 8px;";
+
+  const inpIndirizzo = el("input");
+  inpIndirizzo.type = "text";
+  inpIndirizzo.placeholder = "Indirizzo e civico (es. Corso Nizza 10, Cuneo)";
+  inpIndirizzo.style.cssText = "width: 100%; box-sizing: border-box;";
+
+  const rowGe = el("div", "riga-azioni");
+  rowGe.style.cssText = "display: flex; gap: 8px; align-items: center; margin-bottom: 8px;";
+  const lblGe = el("span", "", "Google Earth (opz., m):");
+  lblGe.style.cssText = "font-size: 11px; color: var(--hud-muto); white-space: nowrap;";
+  const inpGe = el("input");
+  inpGe.type = "number";
+  inpGe.step = "0.1";
+  inpGe.placeholder = "Quota davanzale (m)";
+  inpGe.style.cssText = "width: 130px;";
+  rowGe.append(lblGe, inpGe);
+
+  const btnCalcolaCivico = el("button", "gsa-calcola", "Estrai Palazzo e Calcola GSA");
+  btnCalcolaCivico.style.cssText = "width: 100%; background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; cursor: pointer;";
+
+  const statoCivico = el("div", "hud-stat");
+  statoCivico.style.cssText = "margin-top: 6px; font-size: 11px;";
+  const esitoCivico = el("div", "gsa-esito");
+  esitoCivico.style.cssText = "margin-top: 8px;";
+
+  btnCalcolaCivico.onclick = async () => {
+    const txt = inpIndirizzo.value.trim();
+    if (!txt) {
+      statoCivico.textContent = "Inserisci un indirizzo valido (es. Via Po 14, Torino).";
+      statoCivico.style.color = "#ff7b86";
+      return;
+    }
+    btnCalcolaCivico.disabled = true;
+    statoCivico.style.color = "var(--hud-ciano)";
+    statoCivico.textContent = "1/2 Geocodifica indirizzo in corso…";
+    esitoCivico.innerHTML = "";
+
+    try {
+      const valGe = inpGe.value.trim() ? parseFloat(inpGe.value.replace(",", ".")) : null;
+      statoCivico.textContent = "2/2 Interrogazione LiDAR BDTRE Regione Piemonte (ARPA)…";
+      const res = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe });
+
+      if (res.esito !== "OK") {
+        statoCivico.textContent = `Errore: ${res.errore}`;
+        statoCivico.style.color = "#ff7b86";
+        return;
+      }
+
+      statoCivico.textContent = "✓ Edificio individuato e analizzato con successo!";
+      statoCivico.style.color = "#7ef2b5";
+
+      const gsa = res.valutazione_gsa;
+      const card = el("div");
+      card.style.cssText = "background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-size: 12px; line-height: 1.5;";
+
+      const r1 = el("div", "", `Indirizzo: ${res.indirizzo_trovato}`);
+      r1.style.fontWeight = "600";
+      const r2 = el("div", "hud-stat", `Coordinate: ${res.coordinate.lat.toFixed(5)}, ${res.coordinate.lon.toFixed(5)}`);
+      const r3 = el("div", "", `Altezza volumetrica LiDAR: ${res.edificio_lidar.altezza_volumetrica_m.toFixed(1)} m (${res.edificio_lidar.ente}, ${res.edificio_lidar.metodo})`);
+      r3.style.color = "var(--hud-ciano)";
+
+      const alt = gsa.altezza;
+      const hStr = alt.h_mm ? `${(alt.h_mm / 1000).toFixed(2)} m` : `[${(alt.h_min_mm / 1000).toFixed(2)}; ${(alt.h_max_mm / 1000).toFixed(2)}] m`;
+      const r4 = el("div", "", `Altezza antincendi stimata (h): ${hStr} (${alt.stato})`);
+
+      const badgeTipo = el("div");
+      badgeTipo.style.cssText = "margin-top: 6px; padding: 6px; border-radius: 6px; background: rgba(61,220,247,0.12); border-left: 3px solid var(--hud-ciano);";
+
+      if (gsa.esito === "FUORI_CAMPO") {
+        badgeTipo.innerHTML = `<b>Esito: FUORI CAMPO (h < 12 m)</b><br>DM 246/1987 non applicabile direttamente.`;
+      } else if (gsa.esito === "DETERMINATO") {
+        badgeTipo.innerHTML = `<b>Esito: DETERMINATO (${gsa.altezza.stato})</b><br>` +
+          `• <b>Tipo edificio (DM 246/1987 Tab. A):</b> Tipo ${gsa.tipo?.toUpperCase()} (${gsa.tipo === "a" ? "12–24 m" : gsa.tipo === "b" ? "24–32 m" : gsa.tipo === "c" ? "32–54 m" : gsa.tipo === "d" ? "54–80 m" : ">80 m"})<br>` +
+          `• <b>Livello di Prestazione (DM 25/01/2019):</b> <b>L.P. ${gsa.lp_finale}</b><br>` +
+          `• <b>Attività 77 DPR 151/2011:</b> ${gsa.categoria_attivita_77.stato === "soggetta" ? `SOGGETTA (Classe ${gsa.categoria_attivita_77.classe})` : "NON SOGGETTA (h ≤ 24 m)"}`;
+      } else {
+        badgeTipo.innerHTML = `<b>Esito: INDETERMINATO (${gsa.motivo})</b><br>` +
+          `Azione richiesta: ${gsa.azione || "Verificare con rilievo puntuale di dettaglio."}`;
+      }
+
+      card.append(r1, r2, r3, r4, badgeTipo);
+      if (res.fonti_utilizzate.length > 1) {
+        const rFonti = el("div", "hud-stat", `Fonti fuse: ${res.fonti_utilizzate.map((f) => f.fonte).join(" + ")}`);
+        rFonti.style.marginTop = "4px";
+        card.append(rFonti);
+      }
+      esitoCivico.append(card);
+    } catch (err) {
+      statoCivico.textContent = `Errore imprevisto: ${err.message}`;
+      statoCivico.style.color = "#ff7b86";
+    } finally {
+      btnCalcolaCivico.disabled = false;
+    }
+  };
+
+  rowIndirizzo.append(inpIndirizzo);
+  sezCivico.append(titCivico, subCivico, rowIndirizzo, rowGe, btnCalcolaCivico, statoCivico, esitoCivico);
+  box.append(sezCivico);
 
   const avviso = el("div", "riga info", "Inserisci i dati, poi premi Calcola GSA. Il calcolo segue il DM 2 settembre 2021 (GU n. 237 del 4/10/2021), in vigore dal 4/10/2022.");
   box.append(avviso);
