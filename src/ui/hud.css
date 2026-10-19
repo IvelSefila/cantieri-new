@@ -25,6 +25,7 @@ aside {
   border-radius: 16px !important;
   box-shadow: var(--hud-ombra);
   padding: 16px !important;
+  overflow-y: auto !important;
   color: var(--hud-testo) !important;
   transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .25s;
 }

@@ -15,6 +15,7 @@ import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
 import { stanze } from "./core/rooms.js";
 import { planSvg } from "./view2d/plan.js";
 import { montaHud } from "./ui/hud.js";
+import { rapportoAntincendio } from "./core/antincendio.js";
 import { apriScheda } from "./ui/scheda.js";
 import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
 
@@ -552,6 +553,35 @@ async function init() {
     } catch (e) {
       messaggio(`DXF non leggibile: ${e.message}`, "errore");
     }
+  });
+
+  // Strumenti antincendio (modalita' Architetto): scheda ambiti e rapporto per il professionista
+  const sezAnt = document.createElement("div");
+  sezAnt.className = "blocco avanzato";
+  sezAnt.innerHTML = `<h2>Antincendio (DM 3/8/2015)</h2>
+    <div class="riga-azioni"><label>Scheda ambiti (JSON): <input id="ant-file" type="file" accept=".json,application/json"></label></div>
+    <div class="riga-azioni"><button id="ant-rapporto">Genera rapporto (JSON)</button></div>
+    <div id="ant-esito" class="hud-stat"></div>`;
+  document.querySelector('[data-scheda="progetto"]').appendChild(sezAnt);
+  let schedaAnt = { assegnazioni: {}, quote: [] };
+  $("ant-file").addEventListener("change", async (ev) => {
+    const f = ev.target.files[0];
+    if (!f) return;
+    try {
+      schedaAnt = { assegnazioni: {}, quote: [], ...JSON.parse(await f.text()) };
+      $("ant-esito").textContent = `Scheda caricata: ${Object.keys(schedaAnt.assegnazioni).length} stanze assegnate, ${schedaAnt.quote.length} quote.`;
+    } catch (e) {
+      $("ant-esito").textContent = `Scheda non leggibile: ${e.message}`;
+    }
+  });
+  $("ant-rapporto").addEventListener("click", () => {
+    const r = rapportoAntincendio([{ piano: "P0", plan: stato.progetto }], schedaAnt.assegnazioni, schedaAnt.quote);
+    const blob = new Blob([JSON.stringify(r, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "rapporto-antincendio.json";
+    a.click();
+    $("ant-esito").textContent = `Superficie lorda totale: ${r.superficieLordaTotaleM2.toFixed(2)} m² • ambiti incompleti: ${r.incompleti.length}`;
   });
 
   $("scarica").addEventListener("click", () => {
