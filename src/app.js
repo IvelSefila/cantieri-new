@@ -46,16 +46,16 @@ function flussoArredo(mostraRisultato) {
     const W = el.clientWidth || 1200, H = el.clientHeight || 700;
     const liberoW = Math.max(300, W - 420);
     const FOV = 42, metaTan = Math.tan((FOV * Math.PI) / 360);
-    const occupazione = 0.78;
-    const dX = (x1 - x0) / (occupazione * (liberoW / H) * 2 * metaTan);
-    const dY = (y1 - y0) / (occupazione * 2 * metaTan);
+    const occupazione = 0.6; // zoom indietro: planimetria piu' piccola, tutta visibile con margine
+    // Altezza visibile = 2 d tan(FOV/2) corrisponde a H px: px per mm = H / (2 d tan)
+    const dX = ((x1 - x0) * H) / (2 * metaTan * occupazione * liberoW);
+    const dY = (y1 - y0) / (2 * metaTan * occupazione);
     const d = Math.max(dX, dY, 3000);
-    const mezzoMondo = 2 * d * metaTan; // altezza visibile in mm
-    const spostamento = (W / 2 - liberoW / 2) * (mezzoMondo / H); // mm: la planimetria va a sinistra
+    const spostamentoPx = Math.round(W / 2 - liberoW / 2); // la planimetria va al centro dell'area libera
     stato.viewer.vistaDallAltoSubito({
-      camera: [Math.round(cx), Math.round(cy) + 1, Math.round(d)],
-      bersaglio: [Math.round(cx + spostamento), Math.round(cy), 0],
-      // lato lungo in orizzontale: se il lungo e' in Y, lo schermo 'alto' e' l'asse X della planimetria
+      camera: [Math.round(cx), Math.round(cy), Math.round(d)],
+      bersaglio: [Math.round(cx), Math.round(cy), 0],
+      spostamentoPx,
       su: (x1 - x0) >= (y1 - y0) ? [0, 0, -1] : [1, 0, 0],
     });
   }
@@ -66,7 +66,7 @@ function flussoArredo(mostraRisultato) {
   const box = document.createElement("div");
   box.style.cssText = "pointer-events:auto;position:fixed;right:16px;top:110px;width:380px;max-height:78vh;overflow:auto;padding:14px;border-radius:16px;background:rgba(16,22,38,.94);color:#f2f4f8;font:13px/1.5 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4)";
   const btn = "padding:9px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(255,255,255,.06);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer;margin:4px";
-  const chiudi = () => { velo.remove(); stato.viewer.setEvidenza(null); };
+  const chiudi = () => { velo.remove(); stato.viewer.setEvidenza(null); stato.viewer.ripristinaVistaCamera(); };
 
   const titolo = (t) => { const d = document.createElement("div"); d.style.cssText = "display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"; const b = document.createElement("b"); b.textContent = t; b.style.fontSize = "15px"; const x = document.createElement("button"); x.textContent = "✕"; x.style.cssText = btn; x.onclick = chiudi; d.append(b, x); return d; };
 

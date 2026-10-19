@@ -712,13 +712,22 @@ export function createViewer(container) {
   let inVolo = false;
   let volo = null;
   // Vista dall'alto immediata e verticale: posiziona la camera di colpo, senza volo ne' inerzia della rotazione
+  // Esce dalla vista dall'alto: rimuove la traslazione dell'immagine
+  function ripristinaVistaCamera() {
+    camera.clearViewOffset();
+    richiesta = true;
+  }
   function vistaDallAltoSubito(dest) {
     volo = null;
     inVolo = false;
     controls.enabled = true;
     controls.enableDamping = false;
+    // Camera esattamente sopra il bersaglio: nessuna inclinazione. Lo spostamento della planimetria e' una traslazione
+    // dell'immagine (view offset), non un'inclinazione della camera.
     camera.position.set(dest.camera[0] * MM_TO_M, dest.camera[2] * MM_TO_M, dest.camera[1] * MM_TO_M);
     controls.target.set(dest.bersaglio[0] * MM_TO_M, dest.bersaglio[2] * MM_TO_M, dest.bersaglio[1] * MM_TO_M);
+    const L = renderer.domElement.clientWidth || 1, A = renderer.domElement.clientHeight || 1;
+    camera.setViewOffset(L, A, dest.spostamentoPx ?? 0, 0, L, A);
     // Direzione 'alto' dello schermo esplicita: decide quale asse della planimetria sta in orizzontale
     if (dest.su) camera.up.set(dest.su[0], dest.su[1], dest.su[2]);
     camera.lookAt(controls.target);
@@ -836,7 +845,7 @@ export function createViewer(container) {
     setPasseggiataHandler: (fn) => { passeggHandler = fn; },
     setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
     setDoppioClicHandler, setContestoHandler, setEvidenzaMuro, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
-    setDettagli, setFantasma, setSelezione, volaA, vistaDallAltoSubito, vistaAttuale, pianoDaEvento, oggettoDaEvento,
+    setDettagli, setFantasma, setSelezione, volaA, vistaDallAltoSubito, ripristinaVistaCamera, vistaAttuale, pianoDaEvento, oggettoDaEvento,
     inVolo: () => inVolo, ridisegna: () => { richiesta = true; },
     domElement: renderer.domElement,
     statistiche, camera, controls, dispose: () => cancelAnimationFrame(frame),
