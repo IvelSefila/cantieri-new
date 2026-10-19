@@ -5,8 +5,9 @@
 // delle pareti che delimitano l'ambito; per ambiti multipiano si sommano le superfici di tutti i piani.
 import { stanze } from "./rooms.js";
 import { validatePlan } from "./model.js";
+import { voceDensita } from "./normativa.js";
 
-export const RIFERIMENTO = "DM 3 agosto 2015 (Codice di prevenzione incendi), Allegato I e Tabella S.4-6 (testo coordinato vigente)";
+export const RIFERIMENTO = "DM 3 agosto 2015 (Codice di prevenzione incendi), Allegato I, Tabella S.4-12 (densita' di affollamento) (testo coordinato vigente)";
 
 // Piani: [{ piano: "P0", nome, plan }]. Ambiti: { [stanzaId]: { ambito, piano } }
 // Per ogni stanza del piano si indica l'ambito di appartenenza (per default la stanza e' un ambito a se').
@@ -20,7 +21,12 @@ export function superficiePerAmbito(piani, assegnazioni = {}) {
       const chiave = `${piano}:${s.id}`;
       const ass = assegnazioni[chiave] || {};
       const ambito = ass.ambito || `${piano}:${s.id}`;
-      if (!ambiti.has(ambito)) ambiti.set(ambito, { ambito, superficieMm2: 0, stanze: [], piani: new Set(), destinazione: ass.destinazione || null, densita: ass.densita ?? null, riferimentoDensita: ass.riferimentoDensita || null });
+      // attivita' (codice della Tabella S.4-12) fornisce densita' e riferimento ufficiale; densita' esplicita prevale
+      const voce = ass.attivita ? voceDensita(ass.attivita) : null;
+      if (ass.attivita && !voce) problemi.push({ tipo: "attivita_sconosciuta", ambito, attivita: ass.attivita });
+      const densita = ass.densita ?? voce?.densitaPersoneM2 ?? null;
+      const riferimentoDensita = ass.riferimentoDensita || (voce ? `Tabella S.4-12: ${voce.attivita}` : null);
+      if (!ambiti.has(ambito)) ambiti.set(ambito, { ambito, superficieMm2: 0, stanze: [], piani: new Set(), destinazione: ass.destinazione || null, densita: null, riferimentoDensita: null });
       const a = ambiti.get(ambito);
       a.superficieMm2 += s.superficieMm2;
       a.stanze.push(chiave);
@@ -28,10 +34,10 @@ export function superficiePerAmbito(piani, assegnazioni = {}) {
       // destinazione e densita' devono essere coerenti per tutto l'ambito
       if (ass.destinazione && a.destinazione && a.destinazione !== ass.destinazione) problemi.push({ tipo: "destinazione_incoerente", ambito });
       if (ass.destinazione) a.destinazione = ass.destinazione;
-      if (ass.densita !== undefined && ass.densita !== null) {
-        if (a.densita !== null && a.densita !== ass.densita) problemi.push({ tipo: "densita_incoerente", ambito });
-        a.densita = ass.densita;
-        a.riferimentoDensita = ass.riferimentoDensita || a.riferimentoDensita;
+      if (densita !== null) {
+        if (a.densita !== null && a.densita !== densita) problemi.push({ tipo: "densita_incoerente", ambito });
+        a.densita = densita;
+        a.riferimentoDensita = riferimentoDensita || a.riferimentoDensita;
       }
     }
   }
@@ -39,7 +45,7 @@ export function superficiePerAmbito(piani, assegnazioni = {}) {
     const m2 = a.superficieMm2 / 1e6;
     const mancanti = [];
     if (!a.destinazione) mancanti.push("destinazione d'uso");
-    if (a.densita === null) mancanti.push("densita' di affollamento (Tabella S.4-6)");
+    if (a.densita === null) mancanti.push("densita' di affollamento (Tabella S.4-12)");
     if (a.densita !== null && !a.riferimentoDensita) mancanti.push("riferimento della densita'");
     return {
       ambito: a.ambito,

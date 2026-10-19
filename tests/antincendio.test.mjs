@@ -19,8 +19,8 @@ test("superficie lorda per piano: uguale alla somma delle stanze, in mm2 esatti"
 });
 
 test("multipiano: due piani uguali con stesso ambito sommano le superfici", () => {
-  const ass = { "P0:stanza_001": { ambito: "A1", destinazione: "residenziale", densita: 0.1, riferimentoDensita: "Tab S.4-6" },
-                "P1:stanza_001": { ambito: "A1", destinazione: "residenziale", densita: 0.1, riferimentoDensita: "Tab S.4-6" } };
+  const ass = { "P0:stanza_001": { ambito: "A1", destinazione: "residenziale", densita: 0.1, riferimentoDensita: "Tab S.4-12" },
+                "P1:stanza_001": { ambito: "A1", destinazione: "residenziale", densita: 0.1, riferimentoDensita: "Tab S.4-12" } };
   const r = superficiePerAmbito([{ piano: "P0", plan: rettangolo }, { piano: "P1", plan: rettangolo }], ass);
   const a = r.ambiti.find((x) => x.ambito === "A1");
   assert.equal(a.superficieLordaMm2, 2 * 10640000);
@@ -31,8 +31,24 @@ test("affollamento = densita' x superficie lorda, arrotondato per eccesso; nullo
   const senza = superficiePerAmbito([{ piano: "P0", plan: rettangolo }]).ambiti[0];
   assert.equal(senza.affollamento, null);
   assert.ok(senza.mancanti.some((m) => m.includes("densita")));
-  const con = superficiePerAmbito([{ piano: "P0", plan: rettangolo }], { "P0:stanza_001": { ambito: "X", destinazione: "uffici", densita: 0.1, riferimentoDensita: "Tab S.4-6" } }).ambiti[0];
+  const con = superficiePerAmbito([{ piano: "P0", plan: rettangolo }], { "P0:stanza_001": { ambito: "X", destinazione: "uffici", densita: 0.1, riferimentoDensita: "Tab S.4-12" } }).ambiti[0];
   assert.equal(con.affollamento, Math.ceil(10.64 * 0.1));
+});
+
+test("attivita' dalla Tabella S.4-12: densita' e riferimento ufficiale ricavati dal codice", () => {
+  const ass = { "P0:stanza_001": { ambito: "R1", destinazione: "ristorazione", attivita: "ristorazione" } };
+  const a = superficiePerAmbito([{ piano: "P0", plan: rettangolo }], ass).ambiti[0];
+  assert.equal(a.densitaPersoneM2, 0.7);
+  assert.equal(a.riferimentoDensita, "Tabella S.4-12: Ambiti adibiti a ristorazione");
+  assert.equal(a.affollamento, Math.ceil(10.64 * 0.7));
+});
+
+test("attivita' sconosciuta: segnalata; densita' esplicita prevale sulla tabella", () => {
+  const sconosciuta = superficiePerAmbito([{ piano: "P0", plan: rettangolo }], { "P0:stanza_001": { ambito: "R1", attivita: "boh" } });
+  assert.ok(sconosciuta.problemi.some((p) => p.tipo === "attivita_sconosciuta"));
+  const esplicita = superficiePerAmbito([{ piano: "P0", plan: rettangolo }], { "P0:stanza_001": { ambito: "R1", attivita: "ristorazione", densita: 0.5, riferimentoDensita: "perizia" } }).ambiti[0];
+  assert.equal(esplicita.densitaPersoneM2, 0.5);
+  assert.equal(esplicita.riferimentoDensita, "perizia");
 });
 
 test("densita' o destinazione incoerenti nello stesso ambito: segnalate", () => {
