@@ -153,15 +153,18 @@ export function porteDelProgetto(progetto) {
   return out;
 }
 
-// Punto di partenza: il centro del vano piu' vicino al centro dell'edificio (o l'origine se non ci sono muri)
+// Punto di partenza: davanti al vano piu' vicino al centro dell'edificio, dal lato dell'edificio (o l'origine se non ci sono muri).
+// Mai sul vano: l'anta chiusa occupa la luce e il corpo partirebbe dentro la porta.
 export function posizioneIniziale(progetto) {
   if (!progetto.walls.length) return { pos: [0, 0], yaw: 0 };
   const xs = progetto.walls.flatMap((w) => [w.a[0], w.b[0]]);
   const ys = progetto.walls.flatMap((w) => [w.a[1], w.b[1]]);
   const c = [(Math.min(...xs) + Math.max(...xs)) / 2, (Math.min(...ys) + Math.max(...ys)) / 2];
   const porte = porteDelProgetto(progetto);
-  const base = porte.length ? porte.reduce((m, g) => (len(sub(g.centro, c)) < len(sub(m.centro, c)) ? g : m)).centro : c;
-  return { pos: add(base, [0, 0]), yaw: 0 };
+  if (!porte.length) return { pos: c, yaw: 0 };
+  const g = porte.reduce((m, x) => (len(sub(x.centro, c)) < len(sub(m.centro, c)) ? x : m));
+  const lato = dot(sub(c, g.centro), g.n) >= 0 ? 1 : -1;
+  return { pos: add(g.centro, mul(g.n, lato * 800)), yaw: 0 };
 }
 
 // Vettore di sguardo unitario [x, y, z] del piano (x, y in mm e z in altezza): yaw sul piano, pitch verso l'alto

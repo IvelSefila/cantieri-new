@@ -103,7 +103,7 @@ test("aggiornaPorte: si apre avvicinandosi e si richiude allontanandosi", () => 
 
 test("posizione iniziale: vicino a un vano porta", () => {
   const p = posizioneIniziale(progetto);
-  assert.deepEqual(p.pos, [1450, 0]);
+  assert.deepEqual(p.pos, [1450, 800]);
 });
 
 test("vettore di sguardo: yaw 0 guarda in +y, yaw pi/2 in +x, pitch pi/2 verso l'alto", () => {

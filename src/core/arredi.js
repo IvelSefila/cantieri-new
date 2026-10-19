@@ -308,9 +308,16 @@ export const LIBRERIA_3D = {
   pianta: { nome: "Pianta in vaso", categoria: "decoro", L: 500, D: 500, H: 1500, finiture: [{ id: "verde", nome: "Ficus", colore: "#3f6b45" }], parti: pianta },
   lampada: { nome: "Lampada da terra", categoria: "decoro", L: 400, D: 400, H: 1700, finiture: [{ id: "nero", nome: "Nero opaco", colore: "#222" }], parti: lampada },
   tappeto: { nome: "Tappeto", categoria: "decoro", L: 2000, D: 1400, H: 10, finiture: TESSUTI, parti: tappeto },
-  // Modelli fotorealistici Poly Haven (CC0): il glTF sostituisce il segnaposto, ingombro = L x D x H
-  divano_sofa02: { nome: "Divano Sofa 02 (Poly Haven)", categoria: "soggiorno", L: 2400, D: 950, H: 800, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/sofa_02/sofa_02_1k.gltf" },
-  divano_sofa03: { nome: "Divano Sofa 03 (Poly Haven)", categoria: "soggiorno", L: 2400, D: 950, H: 800, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/sofa_03/sofa_03_1k.gltf" },
+  // Modelli fotorealistici Poly Haven (CC0): il glTF sostituisce il segnaposto, ingombro = L x D x H.
+  // Dimensioni di default misurate dal glTF (asse X = L, Z = D, Y = H)
+  divano_sofa02: { nome: "Divano Sofa 02 (Poly Haven)", categoria: "soggiorno", L: 1810, D: 820, H: 710, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/sofa_02/sofa_02_1k.gltf" },
+  divano_sofa03: { nome: "Divano Sofa 03 (Poly Haven)", categoria: "soggiorno", L: 2730, D: 930, H: 1120, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/sofa_03/sofa_03_1k.gltf" },
+  tavolo_poly: { nome: "Tavolo da pranzo (Poly Haven)", categoria: "cucina", L: 2260, D: 1390, H: 880, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/dining_table/dining_table_1k.gltf" },
+  sedia_poly: { nome: "Sedia (Poly Haven)", categoria: "cucina", L: 430, D: 580, H: 970, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/dining_chair_02/dining_chair_02_1k.gltf" },
+  letto_poly: { nome: "Letto con struttura (Poly Haven)", categoria: "camera", L: 910, D: 2000, H: 1200, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/old_bed_frame/old_bed_frame_1k.gltf" },
+  comodino_poly: { nome: "Comodino (Poly Haven)", categoria: "camera", L: 510, D: 630, H: 660, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/painted_wooden_nightstand/painted_wooden_nightstand_1k.gltf" },
+  tavolino_poly: { nome: "Tavolino (Poly Haven)", categoria: "soggiorno", L: 600, D: 1200, H: 390, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/modern_coffee_table_01/modern_coffee_table_01_1k.gltf" },
+  libreria_poly: { nome: "Libreria in legno (Poly Haven)", categoria: "soggiorno", L: 1380, D: 580, H: 2060, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/wooden_bookshelf_worn/wooden_bookshelf_worn_1k.gltf" },
 };
 
 export const CATEGORIE_ARREDO = {
