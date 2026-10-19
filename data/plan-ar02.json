@@ -316,9 +316,10 @@
       "width": 1200,
       "height": 2100,
       "sill": 0,
-      "type": "scorrevole",
-      "cdi": "scorrevole-paysage-5stars",
-      "nota": ""
+      "type": "porta",
+      "cdi": "porta-battente-rovere",
+      "nota": "Scrigno cucina B: porta in legno (regola: vetro solo se dichiarato)",
+      "materiale": "legno"
     },
     {
       "id": "disimpegno_b",

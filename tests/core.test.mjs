@@ -25,8 +25,8 @@ test("planimetria AR-02: valida, tutti i valori interi in mm", () => {
 test("AR-02: conteggi di riferimento (15 muri interni + 4 perimetrali, 9 porte, 2 vetrate)", () => {
   assert.equal(plan.walls.length, 19);
   assert.equal(plan.walls.filter((w) => w.id.startsWith("per_")).length, 4);
-  assert.equal(plan.openings.filter((o) => o.type === "porta").length, 8);
-  assert.equal(plan.openings.filter((o) => o.type === "scorrevole").length, 3);
+  assert.equal(plan.openings.filter((o) => o.type === "porta").length, 9);
+  assert.equal(plan.openings.filter((o) => o.type === "scorrevole").length, 2);
 });
 
 test("precisione al millimetro: pieni + vani = lunghezza del muro, senza scarti", () => {

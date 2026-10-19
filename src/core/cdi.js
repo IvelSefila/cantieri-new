@@ -23,6 +23,19 @@ function meta(kind, id, b) {
 }
 
 // Scatole locali di un vano. nLo/nHi = mezzo spessore del muro (interi).
+// REGOLA DI PROGETTO (permanente): il materiale di un vano e' quello dichiarato nel modello.
+// Se non e' dichiarato: le porte sono in legno, le finestre e le vetrate in vetro.
+// Il vetro non si assegna mai a una porta da solo.
+export const MATERIALI_VANO = ["legno", "vetro"];
+export function materialeVano(op) {
+  if (op.materiale) return op.materiale;
+  return op.type === "porta" ? "legno" : "vetro";
+}
+
+export const PROFILO_PORTA_LEGNO_MM = 40; // telaio sottile
+export const ANTA_LEGNO_MM = 40;
+export const MANIGLIA_VERTICALE_MM = 25;
+
 export function openingLocalBoxes(op, wallT, item) {
   const W = op.width;
   const H = op.height;
@@ -30,8 +43,24 @@ export function openingLocalBoxes(op, wallT, item) {
   const z1 = op.sill + op.height;
   const nLo = -Math.floor(wallT / 2);
   const nHi = Math.ceil(wallT / 2);
-  const tipo = item ? TIPO_PER_CATEGORIA[item.categoria] || op.type : op.type;
+  // il tipo del vano (dal modello) prevale sul catalogo: una porta resta una porta
+  const tipo = op.type === "porta" ? "porta" : item ? TIPO_PER_CATEGORIA[item.categoria] || op.type : op.type;
   const out = [];
+
+  if (tipo === "porta" && materialeVano(op) === "legno") {
+    // porta in legno: telaio sottile, anta piena, maniglia verticale
+    const p = PROFILO_PORTA_LEGNO_MM;
+    const a = ANTA_LEGNO_MM;
+    const aLo = -Math.floor(a / 2);
+    const aHi = Math.ceil(a / 2);
+    out.push(meta("telaio_legno", `${op.id}:telaio_sx`, { s0: 0, s1: p, z0, z1, n0: nLo, n1: nHi }));
+    out.push(meta("telaio_legno", `${op.id}:telaio_dx`, { s0: W - p, s1: W, z0, z1, n0: nLo, n1: nHi }));
+    out.push(meta("telaio_legno", `${op.id}:telaio_sup`, { s0: 0, s1: W, z0: z1 - p, z1, n0: nLo, n1: nHi }));
+    out.push(meta("anta_legno", `${op.id}:anta`, { s0: p, s1: W - p, z0, z1: z1 - p, n0: aLo, n1: aHi }));
+    // maniglia verticale sul lato del battente, a meta' altezza di presa
+    out.push(meta("maniglia", `${op.id}:maniglia`, { s0: W - p - 90, s1: W - p - 70, z0: z0 + 900, z1: z0 + 1800, n0: aHi, n1: aHi + MANIGLIA_VERTICALE_MM }));
+    return out;
+  }
 
   if (tipo === "porta") {
     const p = PROFILO_PORTA_MM;
