@@ -154,6 +154,11 @@ function aggiornaVista2d() {
     box.appendChild(ov);
   }
   ov.style.display = stato.vista2d ? "block" : "none";
+  // pulsanti 2D: stato ON/OFF visibile sia nella scheda Vista sia nella barra in alto
+  const bottone = document.getElementById("vista2d");
+  if (bottone) bottone.textContent = `Pianta 2D: ${stato.vista2d ? "ON" : "OFF"}`;
+  const chip = document.getElementById("hud-2d");
+  if (chip) { chip.textContent = `Pianta 2D: ${stato.vista2d ? "ON" : "OFF"}`; chip.classList.toggle("on", !!stato.vista2d); }
   if (stato.vista2d) ov.innerHTML = planSvg(stato.progetto);
 }
 
@@ -304,14 +309,14 @@ function costruisciPannello() {
   stileBox.innerHTML = `<div>Stile di resa:</div><select id="stile">
         <option value="solido">1. Solido (realistico)</option>
         <option value="argilla">2. Argilla (modello bianco)</option>
-        <option value="dollhouse">3. Dollhouse 1,30 m</option>
-        <option value="iso-dollhouse">4. Isometrico dollhouse</option>
-        <option value="vetro">5. Vetro (contorni)</option>
-        <option value="vetro-dollhouse">6. Vetro + dollhouse</option>
-        <option value="ultra-glass">7. Ultra glass (senza contorni)</option>
-        <option value="blueprint">8. Blueprint (cianografia)</option>
-        <option value="notte">9. Notte (luci calde)</option>
-        <option value="neon">10. Neon (contorni luminosi)</option>
+        <option value="vetro">3. Vetro (contorni)</option>
+        <option value="ultra-glass">4. Ultra glass (senza contorni)</option>
+        <option value="blueprint">5. Blueprint (cianografia)</option>
+        <option value="notte">6. Notte (luci calde)</option>
+        <option value="neon">7. Neon (contorni luminosi)</option>
+        <option value="dollhouse">8. Dollhouse 1,30 m</option>
+        <option value="iso-dollhouse">9. Isometrico dollhouse</option>
+        <option value="vetro-dollhouse">10. Vetro + dollhouse</option>
       </select>`;
   $("sez-vista").appendChild(stileBox);
 
@@ -393,6 +398,7 @@ async function init() {
     },
     onVista2d: () => $("vista2d").click(),
   });
+  aggiornaVista2d(); // etichette ON/OFF anche nella barra in alto
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") { stato.pendente = null; stato.arredoSelezionato = null; ricostruisci(); }
