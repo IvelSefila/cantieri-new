@@ -29,7 +29,78 @@ import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js";
 import { montaArredo } from "./ui/arredo-ui.js";
-import { arredaTutto, finiturTutto, infissiAutomatici } from "./core/automatismi.js";
+import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js";
+import { alloggiDelProgetto } from "./core/alloggi.js";
+import { impostaFunzioneStanza } from "./core/project.js";
+
+// Arreda tutto: prima si sceglie l'alloggio (se ce ne sono piu' di uno), poi si confermano le funzioni delle sue stanze
+function flussoArredo(mostraRisultato) {
+  const alloggi = alloggiDelProgetto(stato.progetto);
+  if (!alloggi.length) return messaggio("Nessuna stanza da arredare: disegna prima i muri.", "info");
+  const velo = document.createElement("div");
+  velo.style.cssText = "position:fixed;inset:0;z-index:200;background:rgba(5,8,16,.6);display:flex;align-items:center;justify-content:center;padding:16px";
+  const box = document.createElement("div");
+  box.style.cssText = "max-width:520px;width:100%;max-height:86vh;overflow:auto;padding:18px;border-radius:16px;background:#101626;color:#f2f4f8;font:13px/1.5 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4)";
+  const btn = "padding:9px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(255,255,255,.06);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer;margin:4px";
+  const chiudi = () => velo.remove();
+  velo.addEventListener("click", (e) => { if (e.target === velo) chiudi(); });
+
+  const titolo = (t) => { const d = document.createElement("div"); d.style.cssText = "display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"; const b = document.createElement("b"); b.textContent = t; b.style.fontSize = "15px"; const x = document.createElement("button"); x.textContent = "✕"; x.style.cssText = btn; x.onclick = chiudi; d.append(b, x); return d; };
+
+  const mostraEtichette = (alloggio) => {
+    box.replaceChildren(titolo(`Alloggio ${alloggio.id.split("_")[1]}: conferma la funzione di ogni stanza`));
+    const nota = document.createElement("div");
+    nota.style.cssText = "margin-bottom:10px;opacity:.85";
+    nota.textContent = "La planimetria non porta le etichette: le funzioni sono suggerite dalla forma e dalla superficie. Correggile se non corrispondono.";
+    box.appendChild(nota);
+    const selezioni = [];
+    for (const s of alloggio.stanze) {
+      const riga = document.createElement("div");
+      riga.style.cssText = "display:flex;align-items:center;gap:10px;margin:6px 0";
+      const etichetta = document.createElement("span");
+      etichetta.style.flex = "1";
+      etichetta.textContent = `${s.id} · ${(s.superficieMm2 / 1e6).toFixed(1).replace(".", ",")} m²`;
+      const sel = document.createElement("select");
+      sel.style.cssText = "padding:6px;border-radius:8px;background:#161d33;color:#f2f4f8;border:1px solid rgba(255,255,255,.2)";
+      const { funzione } = funzioneStanza(stato.progetto, s);
+      for (const [id, nome] of Object.entries(FUNZIONI)) {
+        const o = document.createElement("option");
+        o.value = id; o.textContent = nome; o.selected = id === funzione;
+        sel.appendChild(o);
+      }
+      riga.append(etichetta, sel);
+      box.appendChild(riga);
+      selezioni.push({ s, sel });
+    }
+    const conferma = document.createElement("button");
+    conferma.textContent = "Conferma e arreda";
+    conferma.style.cssText = btn + ";margin-top:12px;border-color:#ffc44d";
+    conferma.onclick = () => {
+      let p = stato.progetto;
+      for (const { s, sel } of selezioni) p = impostaFunzioneStanza(p, s.interno, sel.value).p;
+      const r = arredaTutto(p, { stanzeScelte: alloggio.stanze.map((s) => s.interno) });
+      chiudi();
+      applica(r.p);
+      mostraRisultato("Arredo automatico", r);
+    };
+    box.appendChild(conferma);
+  };
+
+  if (alloggi.length === 1) {
+    mostraEtichette(alloggi[0]);
+  } else {
+    box.replaceChildren(titolo("Quale alloggio vuoi arredare?"));
+    for (const a of alloggi) {
+      const b = document.createElement("button");
+      b.textContent = `Alloggio ${a.id.split("_")[1]} · ${a.stanze.length} stanze · ${a.m2} m²`;
+      b.style.cssText = btn;
+      b.onclick = () => mostraEtichette(a);
+      box.appendChild(b);
+    }
+  }
+  velo.appendChild(box);
+  document.body.appendChild(velo);
+}
 
 // Barra degli automatismi (sopra gli strumenti) e pannello con cio' che e' stato aggiunto
 function montaAutomatismi() {
@@ -103,7 +174,7 @@ function montaAutomatismi() {
   const bArredo = document.createElement("button");
   bArredo.textContent = "Arreda tutto";
   bArredo.style.cssText = stile;
-  bArredo.onclick = () => esegui("Arredo automatico", (p) => arredaTutto(p));
+  bArredo.onclick = () => flussoArredo(mostra);
 
   const bFiniture = document.createElement("button");
   bFiniture.textContent = "Intonaco muri e pavimenti";

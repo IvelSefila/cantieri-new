@@ -2,18 +2,11 @@
 // Funzioni pure sul progetto. Ogni risultato dice cosa ha aggiunto, quale norma lo richiede e cosa resta da verificare.
 import { stanze } from "./rooms.js";
 import { orientamentoDaGeometria, latoEsterno } from "./gsa.js";
-import { aggiungiVano, impostaPavimentoStanza, impostaFinituraMuro, aggiungiArredo, MATERIALI_PAVIMENTO } from "./project.js";
-import { collisioniArredo, LIBRERIA_3D } from "./arredi.js";
+import { aggiungiVano, impostaPavimentoStanza, impostaFinituraMuro, MATERIALI_PAVIMENTO } from "./project.js";
+import { FUNZIONI, funzioneStanza } from "./funzioni-stanze.js";
 import { dentroPoligono } from "./elementi.js";
-
-export const FUNZIONI = {
-  soggiorno: "Soggiorno",
-  cucina: "Cucina",
-  camera: "Camera",
-  bagno: "Bagno",
-  disimpegno: "Disimpegno",
-  ripostiglio: "Ripostiglio",
-};
+export { arredaTutto } from "./arredo-intelligente.js";
+export { funzioneStanza, FUNZIONI } from "./funzioni-stanze.js";
 
 // Norme richiamate nei risultati (DM 5/7/1975, file in sources/dm_1975_05_07.txt)
 const NORMA = {
@@ -22,32 +15,6 @@ const NORMA = {
   altezza: "DM 5/7/1975 art. 1: altezza minima interna 2,70 m (2,40 m per bagni, disimpegni, ripostigli)",
   ventilazione: "DM 5/7/1975 art. 6: senza ventilazione naturale, ventilazione meccanica",
 };
-
-// ---- Funzione delle stanze: scelta dell'utente (salvata nel progetto) oppure suggerita dalla geometria ----
-// Il suggerimento e' una stima: la planimetria importata non porta le etichette delle stanze.
-export function funzioneStanza(p, s) {
-  const scelta = (p.funzioniStanze ?? []).find((f) => JSON.stringify(f.poligono) === JSON.stringify(s.interno.map(([x, y]) => [Math.round(x), Math.round(y)])));
-  if (scelta) return { funzione: scelta.funzione, sorgente: "scelta" };
-  return { funzione: suggerisciFunzione(s, p), sorgente: "suggerita" };
-}
-
-function bboxStanza(s) {
-  const xs = s.interno.map((q) => q[0]), ys = s.interno.map((q) => q[1]);
-  return { x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) };
-}
-
-function suggerisciFunzione(s, p) {
-  const m2 = s.superficieMm2 / 1e6;
-  const b = bboxStanza(s);
-  const lati = [b.x1 - b.x0, b.y1 - b.y0];
-  const snello = Math.max(...lati) / Math.max(1, Math.min(...lati)) >= 2.2;
-  if (m2 <= 2.5) return "ripostiglio";
-  if (m2 <= 4 && snello) return "disimpegno";
-  if (m2 <= 6.5) return "bagno";
-  const tutte = stanze(p.walls).map((x) => x.superficieMm2 / 1e6).sort((a, c) => c - a);
-  if (m2 >= 16 && m2 === tutte[0]) return "soggiorno";
-  return m2 >= 9 ? "camera" : "cucina";
-}
 
 // ---- Finiture: intonaco su tutti i muri, pavimento in ogni stanza ----
 export function finiturTutto(p, { muro = "intonaco_bianco", pavimento = "parquet" } = {}) {
@@ -142,76 +109,3 @@ function muroToccaStanza(w, interno) {
   return dentroPoligono([mid[0] + nx * 150, mid[1] + ny * 150], interno) || dentroPoligono([mid[0] - nx * 150, mid[1] - ny * 150], interno);
 }
 
-// ---- Arredo per funzione: la stanza decide i pezzi, le dimensioni della stanza decidono quanti ----
-const ARREDO_PER_FUNZIONE = {
-  soggiorno: (m2) => (m2 >= 20 ? ["divano", "tavolino", "mobile_tv", "poltrona"] : ["divano", "tavolino"]),
-  cucina: () => ["cucina", "frigorifero", "tavolo", "sedia", "sedia"],
-  camera: (m2) => {
-    const letto = m2 >= 12 ? "letto_matrimoniale" : "letto_singolo";
-    return m2 >= 12 ? [letto, "armadio", "comodino", "comodino", "scrivania"] : [letto, "armadio", "comodino"];
-  },
-  bagno: (m2) => (m2 >= 5 ? ["wc", "lavabo", "doccia", "bidet"] : ["wc", "lavabo", "doccia"]),
-  disimpegno: () => ["armadio"],
-  ripostiglio: () => [],
-};
-
-// Ingombro in pianta di un pezzo ruotato (rot 0/90/180/270)
-function ingombro(tipo, x, y, rot) {
-  const d = LIBRERIA_3D[tipo];
-  const scambia = rot === 90 || rot === 270;
-  const L = scambia ? d.D : d.L, D = scambia ? d.L : d.D;
-  return { x0: x - L / 2, x1: x + L / 2, y0: y - D / 2, y1: y + D / 2, cx: x, cy: y, L, D };
-}
-
-// Posto valido: tutto il pezzo dentro la stanza, lontano dalle porte, senza collisioni; preferito vicino a un muro
-function trovaPosto(q, s, tipo, portePunti) {
-  const b = bboxStanza(s);
-  let migliore = null;
-  for (const rot of [0, 90, 180, 270]) {
-    for (let y = b.y0; y <= b.y1; y += 150) {
-      for (let x = b.x0; x <= b.x1; x += 150) {
-        const g = ingombro(tipo, x, y, rot);
-        const angoli = [[g.x0, g.y0], [g.x1, g.y0], [g.x1, g.y1], [g.x0, g.y1]];
-        if (!angoli.every(([ax, ay]) => dentroPoligono([ax, ay], s.interno))) continue;
-        if (portePunti.some(([px, py]) => px > g.x0 - 900 && px < g.x1 + 900 && py > g.y0 - 900 && py < g.y1 + 900)) continue;
-        const cand = { id: "_prova", tipo, x: Math.round(x), y: Math.round(y), rot, finitura: null };
-        if (collisioniArredo(cand, q).length) continue;
-        // distanza dal muro piu' vicino: piu' e' vicino, meglio e' (il pezzo si appoggia)
-        const distMuro = Math.min(g.x0 - b.x0, b.x1 - g.x1, g.y0 - b.y0, b.y1 - g.y1);
-        if (!migliore || distMuro < migliore.distMuro) migliore = { ...cand, distMuro };
-      }
-    }
-  }
-  return migliore;
-}
-
-export function arredaTutto(p) {
-  let q = p;
-  const aggiunti = [];
-  const fuori = [];
-  for (const s of stanze(q.walls)) {
-    const { funzione } = funzioneStanza(q, s);
-    const m2 = s.superficieMm2 / 1e6;
-    const lista = (ARREDO_PER_FUNZIONE[funzione] ?? (() => []))(m2);
-    const portePunti = q.openings.filter((o) => o.type === "porta").map((o) => {
-      const w = q.walls.find((x) => x.id === o.wall);
-      if (!w) return null;
-      const L = Math.hypot(w.b[0] - w.a[0], w.b[1] - w.a[1]);
-      const t = (o.offset + o.width / 2) / L;
-      return [w.a[0] + (w.b[0] - w.a[0]) * t, w.a[1] + (w.b[1] - w.a[1]) * t];
-    }).filter(Boolean);
-    let messi = 0;
-    for (const tipo of lista) {
-      const posto = trovaPosto(q, s, tipo, portePunti);
-      if (!posto) continue;
-      const r = aggiungiArredo(q, tipo, posto.x, posto.y, posto.rot);
-      if (r.errore) continue;
-      q = r.p;
-      messi++;
-      aggiunti.push(`${LIBRERIA_3D[tipo]?.nome ?? tipo} in ${s.id} (${FUNZIONI[funzione] ?? funzione})`);
-    }
-    if (messi < lista.length) fuori.push(`${s.id} (${FUNZIONI[funzione] ?? funzione}): ${lista.length - messi} pezzi non entrano senza collisioni`);
-  }
-  fuori.unshift(`${aggiunti.length} arredi non presenti in planimetria: scelti per funzione della stanza (stima, verifica la funzione dalla scheda della stanza)`);
-  return { p: q, aggiunti, fuoriPlanimetria: fuori };
-}

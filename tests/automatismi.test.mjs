@@ -65,3 +65,18 @@ test("finiture: tutti i muri e una stanza con pavimento", () => {
   assert.ok(r.p.walls.every((w) => w.finitura === "bianco_latte"));
   assert.equal(r.p.floors.length, 2);
 });
+
+test("arredo: il letto della camera ha la testata contro il muro a Nord", async () => {
+  const { arredaTutto } = await import("../src/core/automatismi.js");
+  const { impostaFunzioneStanza } = await import("../src/core/project.js");
+  let p = appartamento();
+  const camera = stanze(p.walls).find((s) => s.superficieMm2 < 20e6);
+  p = impostaFunzioneStanza(p, camera.interno, "camera").p;
+  const r = arredaTutto(p, { stanzeScelte: [camera.interno] });
+  const letto = r.p.furniture.find((a) => a.tipo === "letto_singolo" || a.tipo === "letto_matrimoniale");
+  assert.ok(letto, "letto posato");
+  // muro a Nord: asse y = 0, spessore 250 -> faccia interna a y = 125; il bordo y0 del letto deve toccarla
+  const D = letto.rot === 0 || letto.rot === 180 ? 2000 : 1800;
+  const y0 = letto.y - D / 2;
+  assert.ok(y0 - 125 <= 60, `testata lontana dal muro Nord: ${y0}`);
+});
