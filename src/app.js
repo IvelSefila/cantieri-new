@@ -61,31 +61,34 @@ function aggiornaPrimaPersona(on) {
 // Manopola virtuale: cerchio con pallino; il valore va da -1 a 1 (y positivo = su)
 function manopola(lato, onChange) {
   const base = document.createElement("div");
-  base.style.cssText = `position:absolute;bottom:12px;${lato}:12px;width:128px;height:128px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none`;
+  base.style.cssText = `position:absolute;bottom:20px;${lato}:16px;width:150px;height:150px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none`;
   const pallino = document.createElement("div");
-  pallino.style.cssText = "position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none";
+  pallino.style.cssText = "position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none";
   base.append(pallino);
   let id = null;
   const muovi = (e) => {
     const r = base.getBoundingClientRect();
     const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
     let dx = e.clientX - cx, dy = e.clientY - cy;
-    const raggio = r.width / 2 - 27;
+    const raggio = r.width / 2 - 30;
     const d = Math.hypot(dx, dy);
     if (d > raggio) { dx = (dx / d) * raggio; dy = (dy / d) * raggio; }
     pallino.style.transform = `translate(${dx}px,${dy}px)`;
-    onChange({ x: dx / raggio, y: -dy / raggio });
+    // zona morta al centro: il pollice fermo non fa muovere la camera
+    const zona = (v) => { const a = Math.abs(v); return a < 0.12 ? 0 : Math.sign(v) * (a - 0.12) / 0.88; };
+    onChange({ x: zona(dx / raggio), y: zona(-dy / raggio) });
   };
   base.addEventListener("pointerdown", (e) => { id = e.pointerId; base.setPointerCapture(id); muovi(e); e.stopPropagation(); });
   base.addEventListener("pointermove", (e) => { if (e.pointerId === id) muovi(e); });
   const fine = () => { id = null; pallino.style.transform = "translate(0,0)"; onChange({ x: 0, y: 0 }); };
   base.addEventListener("pointerup", fine);
   base.addEventListener("pointercancel", fine);
+  base.addEventListener("lostpointercapture", fine);
   return base;
 }
 function montaManopole() {
   manopole = document.createElement("div");
-  manopole.style.cssText = "display:none;position:fixed;inset:0;pointer-events:none;z-index:75";
+  manopole.style.cssText = "display:none;position:fixed;inset:0;pointer-events:none;z-index:75;touch-action:none";
   const sinistra = manopola("left", (v) => stato.viewer.setStickPasseggiata(v, null));
   const destra = manopola("right", (v) => stato.viewer.setStickPasseggiata(null, v));
   sinistra.style.pointerEvents = "auto";

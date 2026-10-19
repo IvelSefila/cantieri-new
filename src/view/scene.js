@@ -99,7 +99,7 @@ export function createViewer(container) {
 
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
   const TARGET = new THREE.Vector3(11, 1.2, 7);
-  const POSIZIONE_LIBERA = new THREE.Vector3(20, 26, 30);
+  const POSIZIONE_LIBERA = new THREE.Vector3(22, 31, 34); // un po' piu' lontana: si vede meglio tutto l'edificio
   camera.position.copy(POSIZIONE_LIBERA);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.copy(TARGET);
