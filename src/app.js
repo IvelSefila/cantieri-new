@@ -42,7 +42,7 @@ function flussoArredo(mostraRisultato) {
   const box = document.createElement("div");
   box.style.cssText = "max-width:520px;width:100%;max-height:86vh;overflow:auto;padding:18px;border-radius:16px;background:#101626;color:#f2f4f8;font:13px/1.5 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4)";
   const btn = "padding:9px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(255,255,255,.06);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer;margin:4px";
-  const chiudi = () => velo.remove();
+  const chiudi = () => { velo.remove(); stato.viewer.setEvidenza(null); };
   velo.addEventListener("click", (e) => { if (e.target === velo) chiudi(); });
 
   const titolo = (t) => { const d = document.createElement("div"); d.style.cssText = "display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"; const b = document.createElement("b"); b.textContent = t; b.style.fontSize = "15px"; const x = document.createElement("button"); x.textContent = "✕"; x.style.cssText = btn; x.onclick = chiudi; d.append(b, x); return d; };
@@ -68,6 +68,11 @@ function flussoArredo(mostraRisultato) {
         o.value = id; o.textContent = nome; o.selected = id === funzione;
         sel.appendChild(o);
       }
+      // Il pezzo di UI evidenzia la stanza nella scena 3D: si capisce a quale stanza si riferisce
+      const evidenzia = () => stato.viewer.setEvidenza(s.interno);
+      riga.addEventListener("pointerenter", evidenzia);
+      sel.addEventListener("focus", evidenzia);
+      sel.addEventListener("change", evidenzia);
       riga.append(etichetta, sel);
       box.appendChild(riga);
       selezioni.push({ s, sel });
