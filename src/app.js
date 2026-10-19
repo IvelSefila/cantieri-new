@@ -60,35 +60,35 @@ function aggiornaPrimaPersona(on) {
 
 // Manopola virtuale: cerchio con pallino; il valore va da -1 a 1 (y positivo = su)
 function manopola(lato, onChange) {
+  // Manopola relativa: il pallino parte sempre dal centro e segue lo spostamento del dito, come nei giochi
   const base = document.createElement("div");
   base.style.cssText = `position:absolute;bottom:20px;${lato}:16px;width:150px;height:150px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;pointer-events:auto`;
   const pallino = document.createElement("div");
-  pallino.style.cssText = "position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none";
+  pallino.style.cssText = "position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none;transform:translate(0px,0px)";
   base.append(pallino);
+  const RAGGIO = 55; // spostamento massimo del pallino, in px
+  const ZONA_MORTA = 0.12;
   let id = null;
+  let inizio = null;
   const muovi = (e) => {
-    const r = base.getBoundingClientRect();
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    let dx = e.clientX - cx, dy = e.clientY - cy;
-    const raggio = r.width / 2 - 30;
+    let dx = e.clientX - inizio.x, dy = e.clientY - inizio.y;
     const d = Math.hypot(dx, dy);
-    if (d > raggio) { dx = (dx / d) * raggio; dy = (dy / d) * raggio; }
+    if (d > RAGGIO) { dx = (dx / d) * RAGGIO; dy = (dy / d) * RAGGIO; }
     pallino.style.transform = `translate(${dx}px,${dy}px)`;
-    // zona morta al centro: il pollice fermo non fa muovere la camera
-    const zona = (v) => { const a = Math.abs(v); return a < 0.12 ? 0 : Math.sign(v) * (a - 0.12) / 0.88; };
-    onChange({ x: zona(dx / raggio), y: zona(-dy / raggio) });
+    const zona = (v) => { const a = Math.abs(v); return a < ZONA_MORTA ? 0 : Math.sign(v) * (a - ZONA_MORTA) / (1 - ZONA_MORTA); };
+    onChange({ x: zona(dx / RAGGIO), y: zona(-dy / RAGGIO) });
   };
-  // Il rilascio si ascolta sulla finestra intera: cosi' il dito che esce dalla manopola non la lascia bloccata
   const fine = () => {
     if (id === null) return;
     id = null;
-    pallino.style.transform = "translate(0,0)";
+    inizio = null;
+    pallino.style.transform = "translate(0px,0px)";
     onChange({ x: 0, y: 0 });
   };
   base.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     id = e.pointerId;
-    muovi(e);
+    inizio = { x: e.clientX, y: e.clientY };
     e.stopPropagation();
   });
   window.addEventListener("pointermove", (e) => { if (e.pointerId === id) muovi(e); });
