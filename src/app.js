@@ -11,6 +11,9 @@ import { createViewer } from "./view/scene.js";
 import { parseDxf } from "./io/dxf.js";
 import { dxfToPlan } from "./io/toPlan.js";
 import { montaTracciamento } from "./trace/ui.js";
+import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
+import { stanze } from "./core/rooms.js";
+import { planSvg } from "./view2d/plan.js";
 
 const $ = (id) => document.getElementById(id);
 const stato = {
@@ -73,6 +76,7 @@ function annullaUltimo() {
 // ---- Costruzione del modello ----
 function ricostruisci() {
   const p = stato.progetto;
+  if (stato.vista2d) aggiornaVista2d();
   const check = verificaProgetto(p);
   const righe = [];
   for (const e of check.errors) righe.push({ tipo: "errore", testo: `ERRORE: ${e}` });
@@ -94,6 +98,11 @@ function ricostruisci() {
     righe.unshift({ tipo: "info", testo: "Progetto vuoto: usa la modalità costruzione per aggiungere muri, vani, pavimenti e arredi." });
   } else {
     const m = measurePlan(p);
+    const sta = stanze(p.walls);
+    if (sta.length) {
+      righe.push({ tipo: "info", testo: `Stanze rilevate: ${sta.length}.` });
+      for (const s of sta.slice(0, 12)) righe.push({ tipo: "info", testo: `  ${s.id}: ${fmtM2(s.superficieMm2 / 1e6)}` });
+    }
     righe.unshift(
       { tipo: "ok", testo: `Modello: ${p.walls.length} muri, ${p.openings.length} vani, ${p.floors.length} pavimenti, ${p.furniture.length} arredi.` },
       { tipo: "ok", testo: `Lunghezza muri: ${m.lunghezza_muri_mm.toLocaleString("it-IT")} mm (intera).` },
@@ -129,6 +138,21 @@ function renderVani() {
   }
 }
 
+// Vista 2D: sovrapposizione SVG sopra la 3D, generata dal progetto corrente (stessa sorgente).
+function aggiornaVista2d() {
+  const box = document.getElementById("vista");
+  let ov = document.getElementById("vista-2d");
+  if (!ov) {
+    ov = document.createElement("div");
+    ov.id = "vista-2d";
+    ov.style.cssText = "position:absolute; inset:0; display:none; background:#f7f8fa; z-index:5;";
+    box.style.position = "relative";
+    box.appendChild(ov);
+  }
+  ov.style.display = stato.vista2d ? "block" : "none";
+  if (stato.vista2d) ov.innerHTML = planSvg(stato.progetto);
+}
+
 function caricaProgetto(p, nome, { esempio = false } = {}) {
   stato.progetto = { floors: [], furniture: [], ...p };
   stato.mostraArrediEsempio = esempio;
@@ -157,7 +181,14 @@ function offsetSuMuro(p, muro) {
 
 function gestisciClic(hit) {
   if (stato.modo !== "costruzione") return;
-  const p = hit.mm.map(aggancia);
+  // aggancio: vertici esistenti (entro 150 mm), angoli 0/45/90 dal punto in sospeso, poi griglia
+  const agg = agganciaPunto(hit.mm, {
+    griglia: stato.griglia,
+    partenza: stato.pendente,
+    tolleranza: 150,
+    punti: puntiNotevoli(stato.progetto),
+  });
+  const p = agg.punto;
   const pr = stato.progetto;
   const errore = (e) => messaggio(e, "errore");
   try {
@@ -269,6 +300,7 @@ function costruisciPannello() {
       <div style="margin-top:6px;"><label><input id="mostra-esempio" type="checkbox"> Mostra arredi di esempio AR-02</label></div>
     </div>
     <div style="margin-top:8px; display:flex; gap:4px; flex-wrap:wrap;">
+      <button id="vista2d">Vista 2D / 3D</button>
       <button id="nuovo">Nuovo progetto (vuoto)</button>
       <button id="esempio">Apri esempio AR-02</button>
     </div>`;
@@ -297,6 +329,10 @@ function costruisciPannello() {
   $("annulla").onclick = annullaUltimo;
   $("esc").onclick = () => { stato.pendente = null; stato.arredoSelezionato = null; ricostruisci(); };
   $("nuovo").onclick = () => caricaProgetto(progettoVuoto(), "nuovo");
+  $("vista2d").onclick = () => {
+    stato.vista2d = !stato.vista2d;
+    aggiornaVista2d();
+  };
   $("esempio").onclick = () => apriEsempio();
   $("mostra-esempio").onchange = (e) => { stato.mostraArrediEsempio = e.target.checked; ricostruisci(); };
 }

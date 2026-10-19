@@ -47,6 +47,12 @@ tests/core.test.mjs      test del motore (Node)
 - **Stili**: solido, vetro (muri semi-trasparenti con contorni), dollhouse (taglio a 1,30 m), vetro + dollhouse.
 - L'esempio AR-02 si apre a richiesta; i suoi arredi si mostrano solo con la casella dedicata.
 
+## Vista 2D, stanze, aggancio
+
+- **Vista 2D / 3D**: pianta in SVG generata dallo stesso progetto, con quote di ogni muro in mm e larghezza dei vani.
+- **Stanze**: rilevate dal grafo dei muri (giunzioni automatiche e tratti spezzati); superficie interna in mm². Il valore è indicativo sui muri con spessori diversi.
+- **Aggancio in costruzione**: vertici esistenti entro 150 mm, angoli 0/45/90 dal punto di partenza, poi griglia.
+
 ## Importazione DXF
 
 - Pulsante **Importa DXF**: legge LINE, LWPOLYLINE e POLYLINE (ASCII). Le unità vengono da `$INSUNITS`.
