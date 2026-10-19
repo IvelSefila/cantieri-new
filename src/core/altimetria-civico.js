@@ -146,6 +146,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
   const {
     quota_google_earth_m = null,
     quota_pratica_m = null,
+    indice_volume = 0,
     attivita = [],
     piano_accessibile_vvf = true,
     vani_tecnici_esclusi = true,
@@ -167,11 +168,15 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     };
   }
 
-  // 3. Preparazione fonti per la fusione conservativa
+  // 3. Selezione del volume (default: il più alto, ma selezionabile dall'utente)
+  const idx = typeof indice_volume === "number" && indice_volume >= 0 && indice_volume < bdt.volumi.length ? indice_volume : 0;
+  const volumeScelto = bdt.volumi[idx];
+
+  // 4. Preparazione fonti per la fusione conservativa
   const fonti = [];
 
-  // Fonte primaria: LiDAR BDTRE Piemonte
-  const stimaLidar = stimaAltezzaAntincendiDaEdificio(bdt.volumePrincipale.altezza_volumetrica_m);
+  // Fonte primaria: LiDAR BDTRE Piemonte sul volume scelto
+  const stimaLidar = stimaAltezzaAntincendiDaEdificio(volumeScelto.altezza_volumetrica_m);
   if (stimaLidar) fonti.push(stimaLidar);
 
   // Fonte secondaria opzionale: Google Earth 3D (tolleranza tipica ± 0.50 m)
@@ -193,7 +198,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     });
   }
 
-  // 4. Valutazione normativa con motore Cantieri civile-abitazione.js
+  // 5. Valutazione normativa con motore Cantieri civile-abitazione.js
   const valutazione = valutaCivileAbitazione({
     altezza: {
       fonti,
@@ -209,11 +214,17 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     indirizzo_trovato: geo.display_name,
     coordinate: { lat: geo.lat, lon: geo.lon },
     edificio_lidar: {
-      altezza_volumetrica_m: bdt.volumePrincipale.altezza_volumetrica_m,
-      ente: bdt.volumePrincipale.ente_prod,
-      metodo: bdt.volumePrincipale.modo_prod,
-      altri_volumi_contigui: bdt.volumi.length - 1,
+      altezza_volumetrica_m: volumeScelto.altezza_volumetrica_m,
+      ente: volumeScelto.ente_prod,
+      metodo: volumeScelto.modo_prod,
+      indice_selezionato: idx,
     },
+    volumi_rilevati: bdt.volumi.map((v, i) => ({
+      indice: i,
+      altezza_m: v.altezza_volumetrica_m,
+      tipo_presunto: v.altezza_volumetrica_m >= 12 ? "Corpo principale alto" : v.altezza_volumetrica_m >= 7 ? "Corpo secondario / basso" : "Box / accessorio",
+      selezionato: i === idx,
+    })),
     fonti_utilizzate: fonti,
     valutazione_gsa: valutazione,
   };

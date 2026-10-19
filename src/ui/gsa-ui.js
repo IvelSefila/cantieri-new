@@ -153,42 +153,71 @@ export function montaGSA(box) {
       statoCivico.textContent = "✓ Edificio individuato e analizzato con successo!";
       statoCivico.style.color = "#7ef2b5";
 
-      const gsa = res.valutazione_gsa;
-      const card = el("div");
-      card.style.cssText = "background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-size: 12px; line-height: 1.5;";
+      function renderizzaCard(risposta) {
+        esitoCivico.innerHTML = "";
+        const gsa = risposta.valutazione_gsa;
+        const card = el("div");
+        card.style.cssText = "background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-size: 12px; line-height: 1.5;";
 
-      const r1 = el("div", "", `Indirizzo: ${res.indirizzo_trovato}`);
-      r1.style.fontWeight = "600";
-      const r2 = el("div", "hud-stat", `Coordinate: ${res.coordinate.lat.toFixed(5)}, ${res.coordinate.lon.toFixed(5)}`);
-      const r3 = el("div", "", `Altezza volumetrica LiDAR: ${res.edificio_lidar.altezza_volumetrica_m.toFixed(1)} m (${res.edificio_lidar.ente}, ${res.edificio_lidar.metodo})`);
-      r3.style.color = "var(--hud-ciano)";
+        const r1 = el("div", "", `Indirizzo: ${risposta.indirizzo_trovato}`);
+        r1.style.fontWeight = "600";
+        const r2 = el("div", "hud-stat", `Coordinate: ${risposta.coordinate.lat.toFixed(5)}, ${risposta.coordinate.lon.toFixed(5)}`);
+        card.append(r1, r2);
 
-      const alt = gsa.altezza;
-      const hStr = alt.h_mm ? `${(alt.h_mm / 1000).toFixed(2)} m` : `[${(alt.h_min_mm / 1000).toFixed(2)}; ${(alt.h_max_mm / 1000).toFixed(2)}] m`;
-      const r4 = el("div", "", `Altezza antincendi stimata (h): ${hStr} (${alt.stato})`);
+        // Se ci sono più corpi di fabbrica nel complesso
+        if (risposta.volumi_rilevati && risposta.volumi_rilevati.length > 1) {
+          const rMulti = el("div");
+          rMulti.style.cssText = "margin: 8px 0; padding: 6px; background: rgba(255,196,77,0.08); border: 1px dashed rgba(255,196,77,0.3); border-radius: 6px;";
+          rMulti.append(el("div", "hud-stat", `Complesso multi-palazzo (${risposta.volumi_rilevati.length} corpi). Seleziona il palazzo:`));
+          const btnGroup = el("div");
+          btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;";
+          risposta.volumi_rilevati.forEach((v) => {
+            const b = el("button", "", `${v.tipo_presunto}: ${v.altezza_m.toFixed(1)} m`);
+            b.style.cssText = v.selezionato
+              ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 3px 8px;"
+              : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 3px 8px; cursor: pointer;";
+            b.onclick = async () => {
+              const rRicalcolo = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe, indice_volume: v.indice });
+              renderizzaCard(rRicalcolo);
+            };
+            btnGroup.append(b);
+          });
+          rMulti.append(btnGroup);
+          card.append(rMulti);
+        }
 
-      const badgeTipo = el("div");
-      badgeTipo.style.cssText = "margin-top: 6px; padding: 6px; border-radius: 6px; background: rgba(61,220,247,0.12); border-left: 3px solid var(--hud-ciano);";
+        const r3 = el("div", "", `Altezza volumetrica corpo selezionato: ${risposta.edificio_lidar.altezza_volumetrica_m.toFixed(1)} m (${risposta.edificio_lidar.ente})`);
+        r3.style.color = "var(--hud-ciano)";
 
-      if (gsa.esito === "FUORI_CAMPO") {
-        badgeTipo.innerHTML = `<b>Esito: FUORI CAMPO (h < 12 m)</b><br>DM 246/1987 non applicabile direttamente.`;
-      } else if (gsa.esito === "DETERMINATO") {
-        badgeTipo.innerHTML = `<b>Esito: DETERMINATO (${gsa.altezza.stato})</b><br>` +
-          `• <b>Tipo edificio (DM 246/1987 Tab. A):</b> Tipo ${gsa.tipo?.toUpperCase()} (${gsa.tipo === "a" ? "12–24 m" : gsa.tipo === "b" ? "24–32 m" : gsa.tipo === "c" ? "32–54 m" : gsa.tipo === "d" ? "54–80 m" : ">80 m"})<br>` +
-          `• <b>Livello di Prestazione (DM 25/01/2019):</b> <b>L.P. ${gsa.lp_finale}</b><br>` +
-          `• <b>Attività 77 DPR 151/2011:</b> ${gsa.categoria_attivita_77.stato === "soggetta" ? `SOGGETTA (Classe ${gsa.categoria_attivita_77.classe})` : "NON SOGGETTA (h ≤ 24 m)"}`;
-      } else {
-        badgeTipo.innerHTML = `<b>Esito: INDETERMINATO (${gsa.motivo})</b><br>` +
-          `Azione richiesta: ${gsa.azione || "Verificare con rilievo puntuale di dettaglio."}`;
+        const alt = gsa.altezza;
+        const hStr = alt.h_mm ? `${(alt.h_mm / 1000).toFixed(2)} m` : `[${(alt.h_min_mm / 1000).toFixed(2)}; ${(alt.h_max_mm / 1000).toFixed(2)}] m`;
+        const r4 = el("div", "", `Altezza antincendi stimata (h): ${hStr} (${alt.stato})`);
+
+        const badgeTipo = el("div");
+        badgeTipo.style.cssText = "margin-top: 6px; padding: 6px; border-radius: 6px; background: rgba(61,220,247,0.12); border-left: 3px solid var(--hud-ciano);";
+
+        if (gsa.esito === "FUORI_CAMPO") {
+          badgeTipo.innerHTML = `<b>Esito: FUORI CAMPO (h < 12 m)</b><br>Questo corpo ha altezza antincendi sotto 12 m: DM 246/1987 non applicabile direttamente.`;
+        } else if (gsa.esito === "DETERMINATO") {
+          badgeTipo.innerHTML = `<b>Esito: DETERMINATO (${gsa.altezza.stato})</b><br>` +
+            `• <b>Tipo edificio (DM 246/1987 Tab. A):</b> Tipo ${gsa.tipo?.toUpperCase()} (${gsa.tipo === "a" ? "12–24 m" : gsa.tipo === "b" ? "24–32 m" : gsa.tipo === "c" ? "32–54 m" : gsa.tipo === "d" ? "54–80 m" : ">80 m"})<br>` +
+            `• <b>Livello di Prestazione (DM 25/01/2019):</b> <b>L.P. ${gsa.lp_finale}</b><br>` +
+            `• <b>Attività 77 DPR 151/2011:</b> ${gsa.categoria_attivita_77.stato === "soggetta" ? `SOGGETTA (Classe ${gsa.categoria_attivita_77.classe})` : "NON SOGGETTA (h ≤ 24 m)"}`;
+        } else {
+          badgeTipo.innerHTML = `<b>Esito: INDETERMINATO (${gsa.motivo})</b><br>` +
+            `Azione richiesta: ${gsa.azione || "Verificare con rilievo puntuale di dettaglio."}`;
+        }
+
+        card.append(r3, r4, badgeTipo);
+        if (risposta.fonti_utilizzate.length > 1) {
+          const rFonti = el("div", "hud-stat", `Fonti fuse: ${risposta.fonti_utilizzate.map((f) => f.fonte).join(" + ")}`);
+          rFonti.style.marginTop = "4px";
+          card.append(rFonti);
+        }
+        esitoCivico.append(card);
       }
 
-      card.append(r1, r2, r3, r4, badgeTipo);
-      if (res.fonti_utilizzate.length > 1) {
-        const rFonti = el("div", "hud-stat", `Fonti fuse: ${res.fonti_utilizzate.map((f) => f.fonte).join(" + ")}`);
-        rFonti.style.marginTop = "4px";
-        card.append(rFonti);
-      }
-      esitoCivico.append(card);
+      renderizzaCard(res);
     } catch (err) {
       statoCivico.textContent = `Errore imprevisto: ${err.message}`;
       statoCivico.style.color = "#ff7b86";
