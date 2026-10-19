@@ -33,6 +33,68 @@ import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI 
 import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
 import { impostaFunzioneStanza } from "./core/project.js";
 
+// Prima persona: pulsante sopra il ?, messaggio in alto, tasti WASD e frecce sovrimpressi che si illuminano
+let pulsantePP = null;
+let messaggioPP = null;
+let tastiPP = null;
+function entraPrimaPersona() {
+  if (stato.viewer.passeggiataAttiva()) stato.viewer.esciPasseggiata();
+  else {
+    document.querySelector("aside")?.classList.add("chiuso");
+    stato.arredo?.seleziona(null);
+    stato.viewer.avviaPasseggiata(stato.progetto);
+    messaggio("Frecce o W A S D per camminare, trascina per guardare, Shift corre, Esc esce.", "info");
+  }
+}
+function aggiornaPrimaPersona(on) {
+  if (pulsantePP) pulsantePP.textContent = on ? "Esci dalla prima persona" : "Entra in prima persona";
+  if (messaggioPP) messaggioPP.style.display = on ? "block" : "none";
+  if (tastiPP) tastiPP.style.display = on ? "grid" : "none";
+}
+function montaPrimaPersona() {
+  const stile = "padding:8px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(16,22,38,.9);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer";
+  pulsantePP = document.createElement("button");
+  pulsantePP.textContent = "Entra in prima persona";
+  pulsantePP.style.cssText = stile + ";position:fixed;left:16px;bottom:200px;z-index:70";
+  pulsantePP.onclick = entraPrimaPersona;
+
+  messaggioPP = document.createElement("div");
+  messaggioPP.textContent = "Esci dalla visuale in prima persona cliccando Esc";
+  messaggioPP.style.cssText = "display:none;position:fixed;top:120px;left:50%;transform:translateX(-50%);z-index:80;padding:10px 18px;border-radius:12px;background:rgba(16,22,38,.92);color:#ffc44d;font:700 13px system-ui,sans-serif;border:1px solid rgba(255,196,77,.5)";
+
+  const tasto = (k, testo) => {
+    const d = document.createElement("div");
+    d.dataset.k = k;
+    d.textContent = testo;
+    d.style.cssText = "display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:rgba(16,22,38,.85);color:#f2f4f8;font:700 15px system-ui,sans-serif;transition:background .06s,border-color .06s";
+    return d;
+  };
+  const vuoto = () => document.createElement("div");
+  const griglia = (celle) => {
+    const g = document.createElement("div");
+    g.style.cssText = "display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:6px";
+    g.append(...celle);
+    return g;
+  };
+  // WASD a sinistra, frecce a destra
+  tastiPP = document.createElement("div");
+  tastiPP.style.cssText = "display:none;position:fixed;bottom:130px;left:50%;transform:translateX(-50%);z-index:80;gap:18px;align-items:center;pointer-events:none";
+  tastiPP.append(
+    griglia([vuoto(), tasto("w", "W"), vuoto(), tasto("a", "A"), tasto("s", "S"), tasto("d", "D")]),
+    griglia([vuoto(), tasto("arrowup", "↑"), vuoto(), tasto("arrowleft", "←"), tasto("arrowdown", "↓"), tasto("arrowright", "→")]),
+  );
+  const accendi = (on) => (e) => {
+    const d = tastiPP?.querySelector(`[data-k="${e.key.toLowerCase()}"]`);
+    if (!d) return;
+    d.style.background = on ? "rgba(255,196,77,.85)" : "rgba(16,22,38,.85)";
+    d.style.borderColor = on ? "#ffc44d" : "rgba(255,255,255,.3)";
+    d.style.color = on ? "#0a0e18" : "#f2f4f8";
+  };
+  window.addEventListener("keydown", accendi(true));
+  window.addEventListener("keyup", accendi(false));
+  document.body.append(pulsantePP, messaggioPP, tastiPP);
+}
+
 // Legenda dei comandi: pulsante "?" in basso a sinistra, pannello che si apre e si chiude
 function montaLegenda() {
   const pulsante = document.createElement("button");
@@ -41,7 +103,7 @@ function montaLegenda() {
   pulsante.setAttribute("aria-label", "Legenda dei comandi");
   pulsante.style.cssText = "position:fixed;left:16px;bottom:150px;z-index:70;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,196,77,.6);background:rgba(16,22,38,.9);color:#f2f4f8;font:700 16px system-ui,sans-serif;cursor:pointer";
   const pannello = document.createElement("div");
-  pannello.style.cssText = "position:fixed;left:16px;bottom:200px;z-index:70;width:330px;max-height:70vh;overflow:auto;padding:14px 16px;border-radius:14px;background:rgba(16,22,38,.95);color:#f2f4f8;font:13px/1.55 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4);display:none";
+  pannello.style.cssText = "position:fixed;left:64px;bottom:150px;z-index:70;width:330px;max-height:70vh;overflow:auto;padding:14px 16px;border-radius:14px;background:rgba(16,22,38,.95);color:#f2f4f8;font:13px/1.55 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4);display:none";
   const voce = (tasto, testo) => {
     const r = document.createElement("div");
     r.style.cssText = "display:flex;gap:10px;margin:4px 0;align-items:flex-start";
@@ -914,7 +976,10 @@ function costruisciPannello() {
       messaggio("Frecce o W A S D per camminare, trascina per guardare, Shift corre, Esc esce.", "info");
     }
   };
-  stato.viewer.setPasseggiataHandler((on) => { btnPasseggiata.textContent = on ? "Esci dalla passeggiata (Esc)" : "Passeggiata in prima persona"; });
+  stato.viewer.setPasseggiataHandler((on) => {
+    btnPasseggiata.textContent = on ? "Esci dalla passeggiata (Esc)" : "Passeggiata in prima persona";
+    aggiornaPrimaPersona(on);
+  });
   $("sez-vista").appendChild(btnPasseggiata);
 
   for (const b of box.querySelectorAll("[data-modo]")) {
@@ -968,6 +1033,7 @@ async function init() {
   });
   montaAutomatismi();
   montaLegenda();
+  montaPrimaPersona();
   stato.energia = montaScheda($("sez-energia"), {
     getRigheGSA: () => calcolaGSA(stato.progetto, {
       orientamenti: stato.orientamenti ?? {},

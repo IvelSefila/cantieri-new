@@ -337,7 +337,7 @@ export function createViewer(container) {
       if (a === "sinistra") v.sub(destra);
     }
     if (v.lengthSq() === 0) return false;
-    v.normalize().multiplyScalar(Math.max(1000, camera.position.distanceTo(controls.target) * 0.25) * dt);
+    v.normalize().multiplyScalar(Math.max(1000, camera.position.distanceTo(controls.target) * 0.4) * dt);
     camera.position.add(v);
     controls.target.add(v);
     return true;
