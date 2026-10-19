@@ -660,6 +660,18 @@ function costruisciPannello() {
         <option value="vetro-dollhouse">11. Vetro + dollhouse</option>
       </select>`;
   $("sez-vista").appendChild(stileBox);
+  const btnPasseggiata = document.createElement("button");
+  btnPasseggiata.id = "btn-passeggiata";
+  btnPasseggiata.textContent = "Passeggiata in prima persona";
+  btnPasseggiata.onclick = () => {
+    if (stato.viewer.passeggiataAttiva()) stato.viewer.esciPasseggiata();
+    else {
+      stato.viewer.avviaPasseggiata(stato.progetto);
+      messaggio("Frecce o W A S D per camminare, trascina per guardare, Shift corre, Esc esce.", "info");
+    }
+  };
+  stato.viewer.setPasseggiataHandler((on) => { btnPasseggiata.textContent = on ? "Esci dalla passeggiata (Esc)" : "Passeggiata in prima persona"; });
+  $("sez-vista").appendChild(btnPasseggiata);
 
   for (const b of box.querySelectorAll("[data-modo]")) {
     b.onclick = () => {

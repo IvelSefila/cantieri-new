@@ -273,6 +273,12 @@ function tappeto(L, D, H, f) {
   return [B("tappeto", -L / 2, L / 2, -D / 2, D / 2, 0, H, f.colore)];
 }
 
+// Segnaposto dell'ingombro per i modelli glTF: resta in pianta per collisioni e selezione finche' il modello non e' caricato
+function segnaposto(L, D, H, f) {
+  return [B("tessuto", -L / 2, L / 2, -D / 2, D / 2, 0, H, f.colore)];
+}
+const MODELLO_ORIGINALE = [{ id: "originale", nome: "Originale Poly Haven", colore: "#ffffff" }];
+
 // Libreria degli arredi. Dimensioni di default in mm (pari: il centro cade su un intero).
 export const LIBRERIA_3D = {
   divano: { nome: "Divano 3 posti", categoria: "soggiorno", L: 2400, D: 950, H: 800, finiture: TESSUTI, parti: divano },
@@ -302,6 +308,9 @@ export const LIBRERIA_3D = {
   pianta: { nome: "Pianta in vaso", categoria: "decoro", L: 500, D: 500, H: 1500, finiture: [{ id: "verde", nome: "Ficus", colore: "#3f6b45" }], parti: pianta },
   lampada: { nome: "Lampada da terra", categoria: "decoro", L: 400, D: 400, H: 1700, finiture: [{ id: "nero", nome: "Nero opaco", colore: "#222" }], parti: lampada },
   tappeto: { nome: "Tappeto", categoria: "decoro", L: 2000, D: 1400, H: 10, finiture: TESSUTI, parti: tappeto },
+  // Modelli fotorealistici Poly Haven (CC0): il glTF sostituisce il segnaposto, ingombro = L x D x H
+  divano_sofa02: { nome: "Divano Sofa 02 (Poly Haven)", categoria: "soggiorno", L: 2400, D: 950, H: 800, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/sofa_02/sofa_02_1k.gltf" },
+  divano_sofa03: { nome: "Divano Sofa 03 (Poly Haven)", categoria: "soggiorno", L: 2400, D: 950, H: 800, finiture: MODELLO_ORIGINALE, parti: segnaposto, modello: "assets/modelli/sofa_03/sofa_03_1k.gltf" },
 };
 
 export const CATEGORIE_ARREDO = {

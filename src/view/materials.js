@@ -16,6 +16,15 @@ function fotoSu(tex, file) {
   return tex;
 }
 
+// Texture fotografica da assets/tex per materiali di arredo (stessa logica di fotoSu, texture nuova)
+export function fotoFile(file, { lineare = false } = {}) {
+  const t = caricatore.load(`assets/tex/${file}`, () => alCaricamento(), undefined, () => { /* file assente: nessuna mappa */ });
+  if (!lineare) t.colorSpace = THREE.SRGBColorSpace;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.anisotropy = 8;
+  return t;
+}
+
 // Generatore pseudo-casuale deterministico (stessa scena = stessa grana, sempre).
 function rng(seme) {
   let s = seme >>> 0;

@@ -12,6 +12,7 @@ import { materialeRealistico, texturaRilievo } from "./realistico.js";
 import { creaSovrimpressione, proiettore } from "./misure.js";
 import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js";
 import { creaPost } from "./post.js";
+import { creaPasseggiata } from "./passeggiata-view.js";
 import { onTexturaCaricata } from "./materials.js";
 
 const MM_TO_M = 0.001;
@@ -141,6 +142,12 @@ export function createViewer(container) {
   let frame = 0;
   let fpsMisura = { t: performance.now(), n: 0, fps: 0 };
   let vistaIso = false;
+  let statoPassegg = null;
+  let passeggHandler = null;
+  const passeggiata = creaPasseggiata({
+    scene, camera, dom: renderer.domElement, controls,
+    onStato: (on) => { passeggHandler?.(on); richiesta = true; },
+  });
 
   const clip = () => (cfg.dollhouse ? taglio : null);
 
@@ -263,7 +270,8 @@ export function createViewer(container) {
   function ciclo() {
     frame = requestAnimationFrame(ciclo);
     const inMoto = passoVolo();
-    const cambiata = inMoto || controls.update();
+    const camminata = passeggiata.aggiorna();
+    const cambiata = inMoto || camminata || (!passeggiata.attiva() && controls.update());
     if (!richiesta && !cambiata) return;
     richiesta = false;
     if (post) post.disegna();
@@ -643,7 +651,31 @@ export function createViewer(container) {
   resize();
   ciclo();
 
+  // Passeggiata in prima persona: salva la vista orbitale e lo stile, poi li ripristina all'uscita
+  function avviaPasseggiata(progetto) {
+    if (passeggiata.attiva()) return;
+    statoPassegg = { stile: stileId, pos: camera.position.clone(), target: controls.target.clone() };
+    if (cfg.dollhouse) applicaStile("solido"); // il taglio dollhouse nasconderebbe le pareti sopra gli occhi
+    passeggiata.avvia(progetto);
+    richiesta = true;
+  }
+  function esciPasseggiata() {
+    if (!passeggiata.attiva()) return;
+    passeggiata.esci();
+    if (statoPassegg) {
+      applicaStile(statoPassegg.stile);
+      camera.position.copy(statoPassegg.pos);
+      controls.target.copy(statoPassegg.target);
+      camera.lookAt(controls.target);
+      statoPassegg = null;
+    }
+    controls.update();
+    richiesta = true;
+  }
+
   return {
+    avviaPasseggiata, esciPasseggiata, passeggiataAttiva: () => passeggiata.attiva(),
+    setPasseggiataHandler: (fn) => { passeggHandler = fn; },
     setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
     setDoppioClicHandler, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
     setDettagli, setFantasma, setSelezione, volaA, vistaAttuale, pianoDaEvento, oggettoDaEvento,

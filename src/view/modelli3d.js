@@ -3,7 +3,18 @@
 // Geometrie unitarie condivise: ogni parte e' una mesh scalata. Materiali in cache per chiave.
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { marmo } from "./materials.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { marmo, fotoFile } from "./materials.js";
+import { LIBRERIA_3D, dimensioniArredo } from "../core/arredi.js";
+
+// Un glTF per url, caricato una sola volta e clonato per ogni arredo
+const GLB = new Map();
+function modelloGlb(url) {
+  if (!GLB.has(url)) {
+    GLB.set(url, new Promise((ok, ko) => new GLTFLoader().load(url, (g) => ok(g.scene), undefined, ko)));
+  }
+  return GLB.get(url);
+}
 
 const MM = 0.001;
 const BOX = new THREE.BoxGeometry(1, 1, 1);
@@ -143,13 +154,23 @@ export function materiale(chiave, { colore, clip = null, alta = false } = {}) {
     case "rovere": case "legno": {
       const col = colore ?? "#b98a5c";
       const liscio = chiaro(col) > 0.82 || chiaro(col) < 0.06;
+      // Rovere fotografico (Poly Haven CC0) senza tinta scelta; con tinta il colore moltiplica la foto
       m = liscio
         ? new THREE.MeshStandardMaterial({ ...base, color: col, roughness: 0.4 })
-        : new THREE.MeshStandardMaterial({ ...base, color: col, map: legnoTex(), roughness: 0.55, metalness: 0 });
+        : new THREE.MeshStandardMaterial({
+          ...base, color: colore ? col : 0xffffff,
+          map: fotoFile("rovere_colore.webp"), normalMap: fotoFile("rovere_normale.webp", { lineare: true }),
+          roughnessMap: fotoFile("rovere_rugosita.webp", { lineare: true }), roughness: 0.55, metalness: 0,
+        });
       break;
     }
     case "tessuto": case "cuscino": case "tappeto":
-      m = new THREE.MeshStandardMaterial({ ...base, color: colore ?? "#7d838c", map: tessutoTex(), roughness: 0.95, metalness: 0, envMap: null });
+      // Lino fotografico (Poly Haven CC0); la tinta scelta moltiplica la foto
+      m = new THREE.MeshStandardMaterial({
+        ...base, color: colore ?? 0xffffff,
+        map: fotoFile("lino_colore.webp"), normalMap: fotoFile("lino_normale.webp", { lineare: true }),
+        roughness: 0.95, metalness: 0, envMap: null,
+      });
       break;
     case "materasso": case "lenzuolo": case "cuscino_bianco":
       m = new THREE.MeshStandardMaterial({ ...base, color: chiave === "lenzuolo" ? 0xe9e4da : 0xf7f5f0, map: tessutoTex(), roughness: 0.9, envMap: null });
@@ -236,13 +257,34 @@ export function gruppoArredo(parti, a, opz = {}, sostituto = null) {
   g.position.set(a.x * MM, 0, a.y * MM);
   g.rotation.y = -((a.rot ?? 0) * Math.PI) / 180;
   const dati = { kind: "arredo", id: a.id, tipo: a.tipo, wall: null };
+  const segnaposti = [];
   for (const p of parti) {
     const m = meshParte(p, opz, sostituto, "arredo");
     m.userData = dati;
     g.add(m);
+    segnaposti.push(m);
   }
   g.userData = dati;
+  const def = LIBRERIA_3D[a.tipo];
+  if (def?.modello) collocaModello(g, def.modello, dimensioniArredo(a), segnaposti);
   return g;
+}
+
+// Modello glTF di un arredo: scalato sull'ingombro L x D x H del progetto e centrato in pianta; il segnaposto si nasconde al caricamento
+function collocaModello(g, url, { L, D, H }, segnaposti) {
+  modelloGlb(url).then((scena) => {
+    const obj = scena.clone(true);
+    obj.updateMatrixWorld(true);
+    const misura = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3());
+    obj.scale.set((L * MM) / misura.x, (H * MM) / misura.y, (D * MM) / misura.z);
+    obj.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(obj);
+    const c = box.getCenter(new THREE.Vector3());
+    obj.position.set(-c.x, -box.min.y, -c.z);
+    segnaposti.forEach((m) => { m.visible = false; });
+    g.add(obj);
+    g.userData.modelloCaricato = true;
+  }).catch(() => { /* file assente: resta il segnaposto */ });
 }
 
 // Miniature 3D (per le schede del catalogo): un piccolo renderer fuori schermo, una volta sola per modello.
