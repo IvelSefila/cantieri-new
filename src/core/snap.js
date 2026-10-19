@@ -10,7 +10,8 @@ export function puntiNotevoli(progetto) {
     pts.push(w.a, w.b);
   }
   for (const f of progetto.floors || []) {
-    pts.push([f.x0, f.y0], [f.x1, f.y1], [f.x0, f.y1], [f.x1, f.y0]);
+    if (f.poligono) pts.push(...f.poligono);
+    else pts.push([f.x0, f.y0], [f.x1, f.y1], [f.x0, f.y1], [f.x1, f.y0]);
   }
   return pts;
 }

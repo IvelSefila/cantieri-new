@@ -9,10 +9,14 @@ function extrasProgetto(plan) {
   const out = [];
   for (const f of plan.floors || []) {
     const mat = MATERIALI_PAVIMENTO[f.materiale] || MATERIALI_PAVIMENTO.parquet;
+    // pavimento rettangolare (x0..x1) oppure poligonale (stanza): il riquadro serve a centro e dimensioni
+    const bb = f.poligono
+      ? { x0: Math.min(...f.poligono.map((p) => p[0])), x1: Math.max(...f.poligono.map((p) => p[0])), y0: Math.min(...f.poligono.map((p) => p[1])), y1: Math.max(...f.poligono.map((p) => p[1])) }
+      : { x0: f.x0, x1: f.x1, y0: f.y0, y1: f.y1 };
     out.push({
-      kind: "pavimento", id: f.id, wall: null, materiale: f.materiale, colore: mat.colore,
-      cx: (f.x0 + f.x1) / 2, cy: (f.y0 + f.y1) / 2, cz: 5,
-      L: f.x1 - f.x0, D: f.y1 - f.y0, H: 10, ang: 0, s0: 0, s1: f.x1 - f.x0,
+      kind: "pavimento", id: f.id, wall: null, materiale: f.materiale, colore: mat.colore, poligono: f.poligono ?? null,
+      cx: (bb.x0 + bb.x1) / 2, cy: (bb.y0 + bb.y1) / 2, cz: 5,
+      L: bb.x1 - bb.x0, D: bb.y1 - bb.y0, H: 10, ang: 0, s0: 0, s1: bb.x1 - bb.x0,
     });
   }
   for (const a of plan.furniture || []) {

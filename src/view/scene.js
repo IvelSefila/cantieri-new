@@ -229,6 +229,14 @@ export function createViewer(container) {
     }
   }
 
+  // Pavimento di stanza: forma del poligono in metri, centrata sulla sua scatola. UV in metri.
+  function geometriaPoligono(b) {
+    const forma = new THREE.Shape(b.poligono.map(([x, y]) => new THREE.Vector2((x - b.cx) * MM_TO_M, -(y - b.cy) * MM_TO_M)));
+    const g = new THREE.ShapeGeometry(forma);
+    g.rotateX(-Math.PI / 2);
+    return g;
+  }
+
   // Finiture fotografiche (assets/tex): la foto si ripete sulle dimensioni reali della scatola
   const TILE_PAVIMENTO_MM = 1200;
   const TILE_MURO_MM = 1500;
@@ -236,7 +244,9 @@ export function createViewer(container) {
     const pavimento = b.kind === "pavimento";
     const cat = pavimento ? MATERIALI_PAVIMENTO[b.materiale] : MATERIALI_MURO[b.finitura ?? "intonaco_bianco"];
     const set = fotoSet(cat.foto);
-    const ripeti = pavimento ? [b.L / TILE_PAVIMENTO_MM, b.D / TILE_PAVIMENTO_MM] : [b.L / TILE_MURO_MM, b.H / TILE_MURO_MM];
+    // pavimento di stanza: UV in metri (vedi geometriaPoligono); gli altri: UV 0..1 della scatola
+    const ripeti = pavimento && b.poligono ? [1000 / TILE_PAVIMENTO_MM, 1000 / TILE_PAVIMENTO_MM]
+      : pavimento ? [b.L / TILE_PAVIMENTO_MM, b.D / TILE_PAVIMENTO_MM] : [b.L / TILE_MURO_MM, b.H / TILE_MURO_MM];
     const copia = (t) => { const c = t.clone(); c.repeat.set(ripeti[0], ripeti[1]); c.needsUpdate = true; return c; };
     // Il colore della foto resta com'e' sui pavimenti; sui muri la tinta si moltiplica sulla foto
     const tinta = pavimento ? "#ffffff" : (TINTE_MURO[b.tinta ?? "naturale"]?.hex ?? "#ffffff");
@@ -541,6 +551,7 @@ export function createViewer(container) {
       // la geometria unitaria e' condivisa: si libera solo materiale e contorni
       if (o.isInstancedMesh || o.isLineSegments || o.userData?.finito) {
         if (o.isLineSegments) o.geometry.dispose();
+        if (o.userData?.poligono) o.geometry.dispose(); // forma di stanza: geometria propria
         if (o.material) o.material.dispose();
       }
     });
@@ -589,6 +600,16 @@ export function createViewer(container) {
 
     // Pavimenti e muri con finitura fotografica: mesh singola, materiale proprio
     for (const b of finiti) {
+      if (b.poligono) {
+        // pavimento di stanza: poligono piatto, nel piano del pavimento
+        const mesh = new THREE.Mesh(geometriaPoligono(b), materialeFinitura(b));
+        mesh.position.set(b.cx * MM_TO_M, b.cz * MM_TO_M, b.cy * MM_TO_M);
+        mesh.castShadow = false;
+        mesh.receiveShadow = true;
+        mesh.userData = { kind: b.kind, id: b.id, wall: null, finito: true, poligono: true };
+        gruppo.add(mesh);
+        continue;
+      }
       const mesh = new THREE.Mesh(unitaria, materialeFinitura(b));
       mesh.scale.set(b.L * MM_TO_M, b.H * MM_TO_M, b.D * MM_TO_M);
       mesh.position.set(b.cx * MM_TO_M, b.cz * MM_TO_M, b.cy * MM_TO_M);

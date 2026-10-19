@@ -39,7 +39,10 @@ export function planSvg(progetto, opzioni = {}) {
   const quote = opzioni.quote !== false;
   const pts = [];
   for (const w of progetto.walls) pts.push(...rettangoloMuro(w));
-  for (const f of progetto.floors || []) pts.push([f.x0, f.y0], [f.x1, f.y1]);
+  for (const f of progetto.floors || []) {
+    if (f.poligono) pts.push(...f.poligono);
+    else pts.push([f.x0, f.y0], [f.x1, f.y1]);
+  }
   if (!pts.length) {
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><text x="20" y="40" font-size="20" fill="#52606d">Progetto vuoto: aggiungi muri in modalità costruzione.</text></svg>`;
   }
@@ -53,7 +56,8 @@ export function planSvg(progetto, opzioni = {}) {
   // pavimenti
   for (const f of progetto.floors || []) {
     const col = MATERIALI_PAVIMENTO[f.materiale]?.colore ?? [220, 210, 190];
-    out.push(`<rect x="${f.x0}" y="${f.y0}" width="${f.x1 - f.x0}" height="${f.y1 - f.y0}" fill="rgb(${col.join(",")})" stroke="#b8a88a" stroke-width="20"/>`);
+    if (f.poligono) out.push(`<polygon points="${f.poligono.map((p) => p.join(",")).join(" ")}" fill="rgb(${col.join(",")})" stroke="#b8a88a" stroke-width="20"/>`);
+    else out.push(`<rect x="${f.x0}" y="${f.y0}" width="${f.x1 - f.x0}" height="${f.y1 - f.y0}" fill="rgb(${col.join(",")})" stroke="#b8a88a" stroke-width="20"/>`);
   }
 
   // stanze: superficie al centro (mm2 -> m2 con due decimali)

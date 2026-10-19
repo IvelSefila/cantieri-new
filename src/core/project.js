@@ -191,12 +191,26 @@ export function eliminaElemento(p, id) {
   };
 }
 
+// Pavimento di una stanza: poligono interno della stanza, in mm interi. Stessa stanza = stesso pavimento (aggiornato).
+export function impostaPavimentoStanza(p, poligono, materiale) {
+  if (!MATERIALI_PAVIMENTO[materiale]) return { errore: "materiale sconosciuto" };
+  const pts = poligono.map(([x, y]) => [Math.round(x), Math.round(y)]);
+  if (pts.length < 3) return { errore: "stanza senza area" };
+  const chiave = JSON.stringify(pts);
+  const esistente = p.floors.find((f) => f.poligono && JSON.stringify(f.poligono) === chiave);
+  if (esistente) return { p: { ...p, floors: p.floors.map((f) => (f === esistente ? { ...f, materiale } : f)) }, id: esistente.id };
+  const id = nuovoId("pav", p.floors);
+  return { p: { ...p, floors: [...p.floors, { id, poligono: pts, materiale }] }, id };
+}
+
 // Verifica completa del progetto: muri/vani con il validatore, pavimenti e arredi con i loro vincoli.
 export function verificaProgetto(p) {
   const base = validatePlan(p);
   const errori = [...base.errors];
   for (const f of p.floors) {
-    if (![f.x0, f.y0, f.x1, f.y1].every(intero)) errori.push(`pavimento ${f.id}: interi mm`);
+    if (f.poligono) {
+      if (!f.poligono.every(([x, y]) => intero(x) && intero(y))) errori.push(`pavimento ${f.id}: interi mm`);
+    } else if (![f.x0, f.y0, f.x1, f.y1].every(intero)) errori.push(`pavimento ${f.id}: interi mm`);
   }
   for (const a of p.furniture) {
     if (!LIBRERIA_ARREDI[a.tipo]) errori.push(`arredo ${a.id}: tipo sconosciuto`);
