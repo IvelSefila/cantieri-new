@@ -23,6 +23,7 @@ const SCHEDE = [
   { id: "progetto", nome: "Progetto" },
   { id: "costruzione", nome: "Costruzione" },
   { id: "gsa", nome: "GSA" },
+  { id: "arredi", nome: "Arredi" },
   { id: "energia", nome: "Energia" },
   { id: "affidabilita", nome: "Affidabilità" },
   { id: "vista", nome: "Vista" },

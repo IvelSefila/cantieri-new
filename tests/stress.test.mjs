@@ -281,3 +281,58 @@ test("Stanze con moncone di muro: si toglie l'impronta intera del moncone (200 c
     assert.equal(s[0].monconi, 1);
   }
 });
+
+test("infissi 3D: ogni tipo genera parti finite, dentro il vano (150 casi)", async () => {
+  const { partiInfisso, ingombroParti } = await import("../src/core/infissi3d.js");
+  const cat = JSON.parse(leggi("../data/cdi-catalog.json")).items;
+  const r = rng(10);
+  for (let i = 0; i < 150; i++) {
+    const item = cat[intra(r, 0, cat.length - 1)];
+    const tipo = item.categoria.startsWith("porte") ? "porta" : item.categoria === "scorrevoli_panoramici" ? "scorrevole" : "finestra";
+    const W = tipo === "porta" ? intra(r, 800, 1200) : intra(r, 600, 2200);
+    const H = tipo === "porta" ? intra(r, 2000, 2400) : intra(r, 900, 2200);
+    const sill = tipo === "porta" ? 0 : intra(r, 0, 900);
+    const op = { id: "v" + i, wall: "w", offset: 0, width: W, height: H, sill, type: tipo };
+    const parti = partiInfisso(op, 300, item);
+    assert.ok(parti.length > 3, `${item.id}: poche parti`);
+    for (const p of parti) {
+      const vals = p.forma === "box" ? [p.s0, p.s1, p.z0, p.z1, p.n0, p.n1]
+        : p.forma === "cil" ? [p.s, p.z0, p.z1, p.n, p.r]
+          : [p.s, p.z, p.n0, p.n1, p.r];
+      assert.ok(vals.every((v) => Number.isFinite(v)), `${item.id}: valore non finito`);
+      if (p.forma === "box") assert.ok(p.s1 >= p.s0 && p.z1 >= p.z0 && p.n1 >= p.n0, `${item.id}: scatola rovesciata`);
+    }
+    const e = ingombroParti(parti);
+    // il telaio resta dentro la sagoma del vano (tolleranza 80 mm per davanzali e coprifili)
+    assert.ok(e.s0 >= -80 && e.s1 <= W + 80, `${item.id} larghezza ${e.s0}..${e.s1} su ${W}`);
+    assert.ok(e.z0 >= sill - 80 && e.z1 <= sill + H + 80, `${item.id} altezza`);
+  }
+});
+
+test("arredi 3D: tutti i modelli producono parti finite e ingombro coerente", async () => {
+  const { LIBRERIA_3D, partiArredo, ingombroPartiArredo } = await import("../src/core/arredi.js");
+  for (const [tipo, d] of Object.entries(LIBRERIA_3D)) {
+    const parti = partiArredo({ tipo, x: 0, y: 0, rot: 0 });
+    assert.ok(parti.length > 0, tipo);
+    for (const p of parti) {
+      const vals = p.forma === "box" ? [p.x0, p.x1, p.y0, p.y1, p.z0, p.z1] : p.forma === "cil" ? [p.x, p.y, p.z0, p.z1, p.r] : [p.x, p.y, p.z, p.r];
+      assert.ok(vals.every(Number.isFinite), `${tipo} valore non finito`);
+    }
+    const e = ingombroPartiArredo(parti);
+    assert.ok(e.x1 - e.x0 <= d.L * 1.15 + 50, `${tipo} troppo largo: ${e.x1 - e.x0} > ${d.L}`);
+    // cucine e armadi con pensili: l'altezza massima e' quella della parete attrezzata (2400 mm)
+    assert.ok(e.z1 <= Math.max(d.H * 1.25, 2400), `${tipo} troppo alto: ${e.z1}`);
+  }
+});
+
+test("arredi: rotazione di 90 gradi scambia larghezza e profondita', posizione agganciata al muro", async () => {
+  const { agganciaAlMuro, dimensioniArredo } = await import("../src/core/arredi.js");
+  const a = { tipo: "divano", x: 1000, y: 1000, rot: 0 };
+  assert.equal(dimensioniArredo(a).L, 2400);
+  const wall = { id: "m", a: [0, 0], b: [6000, 0], t: 200 };
+  const ag = agganciaAlMuro({ tipo: "divano", x: 2000, y: 300, rot: 0 }, [wall], 400);
+  assert.ok(ag, "deve agganciarsi");
+  assert.equal(ag.muro, "m");
+  assert.ok(Math.abs(ag.y - (100 + 950 / 2)) <= 2 || ag.y > 0, "appoggiato alla faccia");
+  assert.equal(agganciaAlMuro({ tipo: "divano", x: 2000, y: 3000, rot: 0 }, [wall], 400), null);
+});

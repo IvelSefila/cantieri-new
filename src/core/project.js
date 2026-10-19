@@ -1,21 +1,13 @@
 // Progetto modificabile: muri, vani, pavimenti, arredi. Tutto in mm interi. Funzioni pure.
 // Un progetto nuovo e' VUOTO: nessun muro, nessun pavimento, nessun arredo.
 import { validatePlan, wallLengthMm, SCHEMA } from "./model.js";
+import { LIBRERIA_3D, dimensioniArredo, angoliArredo } from "./arredi.js";
 
-export const LIBRERIA_ARREDI = {
-  divano: { nome: "Divano 2,40 m", L: 2400, D: 950, H: 800, colore: [70, 95, 130] },
-  letto_matrimoniale: { nome: "Letto matrimoniale 1,80 × 2,00", L: 1800, D: 2000, H: 500, colore: [235, 230, 222] },
-  letto_singolo: { nome: "Letto singolo 0,90 × 2,00", L: 900, D: 2000, H: 500, colore: [225, 220, 210] },
-  tavolo: { nome: "Tavolo 1,60 × 0,90", L: 1600, D: 900, H: 750, colore: [180, 135, 90] },
-  sedia: { nome: "Sedia", L: 450, D: 450, H: 900, colore: [60, 65, 72] },
-  cucina: { nome: "Blocco cucina 2,40 m", L: 2400, D: 600, H: 900, colore: [42, 45, 50] },
-  isola: { nome: "Isola cucina 2,00 × 0,90", L: 2000, D: 900, H: 900, colore: [245, 245, 242] },
-  wc: { nome: "WC", L: 380, D: 700, H: 800, colore: [250, 250, 252] },
-  lavabo: { nome: "Lavabo doppio 1,20", L: 1200, D: 520, H: 850, colore: [240, 240, 240] },
-  vasca: { nome: "Vasca 1,70 × 0,75", L: 1700, D: 750, H: 550, colore: [250, 250, 252] },
-  armadio: { nome: "Armadio 2,00 × 0,60", L: 2000, D: 600, H: 2200, colore: [240, 238, 235] },
-  scrivania: { nome: "Scrivania 1,40 × 0,70", L: 1400, D: 700, H: 750, colore: [130, 150, 175] },
-};
+// Libreria degli arredi: derivata dalla libreria 3D (src/core/arredi.js). Colore in RGB per la pianta 2D.
+const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+export const LIBRERIA_ARREDI = Object.fromEntries(Object.entries(LIBRERIA_3D).map(([k, v]) => [k, {
+  nome: v.nome, categoria: v.categoria, L: v.L, D: v.D, H: v.H, colore: rgb(v.finiture[0].colore),
+}]));
 
 export const MATERIALI_PAVIMENTO = {
   parquet: { nome: "Parquet rovere", colore: [200, 164, 118] },
@@ -38,6 +30,13 @@ export function progettoVuoto(nome = "Nuovo progetto") {
 
 const intero = (v) => Number.isInteger(v);
 const nuovoId = (prefisso, lista) => `${prefisso}_${String(lista.length + 1).padStart(3, "0")}`;
+// id che non collide anche dopo eliminazioni (n = primo numero libero)
+const nuovoIdUnico = (prefisso, lista) => {
+  const usati = new Set(lista.map((x) => x.id));
+  let n = lista.length + 1;
+  while (usati.has(`${prefisso}_${String(n).padStart(3, "0")}`)) n++;
+  return `${prefisso}_${String(n).padStart(3, "0")}`;
+};
 
 export function aggiungiMuro(p, a, b, t, kind = "tramezzo") {
   if (![...a, ...b, t].every(intero)) return { errore: "coordinate e spessore devono essere interi mm" };
@@ -69,22 +68,53 @@ export function aggiungiPavimento(p, x0, y0, x1, y1, materiale = "parquet") {
   return { p: { ...p, floors: [...p.floors, { id, x0, y0, x1, y1, materiale }] }, id };
 }
 
-export function aggiungiArredo(p, tipo, x, y, rot = 0) {
+// Arredo: posizione del centro (mm interi), rotazione in gradi interi (0..359), dimensioni e finitura opzionali
+export function aggiungiArredo(p, tipo, x, y, rot = 0, opzioni = {}) {
   const def = LIBRERIA_ARREDI[tipo];
   if (!def) return { errore: "tipo di arredo sconosciuto" };
   if (![x, y].every(intero)) return { errore: "posizione arredo: interi mm" };
-  if (![0, 90, 180, 270].includes(rot)) return { errore: "rotazione: 0, 90, 180 o 270" };
-  const id = nuovoId("arredo", p.furniture);
-  return { p: { ...p, furniture: [...p.furniture, { id, tipo, x, y, rot }] }, id };
+  if (!intero(rot)) return { errore: "rotazione: gradi interi" };
+  const dims = ["L", "D", "H"].filter((k) => opzioni[k] !== undefined);
+  if (dims.some((k) => !(intero(opzioni[k]) && opzioni[k] > 0))) return { errore: "dimensioni arredo: interi mm > 0" };
+  const id = nuovoIdUnico("arredo", p.furniture);
+  const a = { id, tipo, x, y, rot: ((rot % 360) + 360) % 360 };
+  for (const k of [...dims, "finitura"]) if (opzioni[k] !== undefined) a[k] = opzioni[k];
+  return { p: { ...p, furniture: [...p.furniture, a] }, id };
 }
 
-// Dimensioni di un arredo dopo la rotazione (solo multipli di 90 gradi: nessun arrotondamento).
+// Modifica di un arredo (posizione, rotazione, dimensioni, finitura). Valori non validi: nessuna modifica.
+export function modificaArredo(p, id, campi) {
+  const a = p.furniture.find((x) => x.id === id);
+  if (!a) return { errore: "arredo inesistente" };
+  const nuovo = { ...a, ...campi };
+  if (![nuovo.x, nuovo.y, nuovo.rot].every(intero)) return { errore: "posizione e rotazione: interi" };
+  for (const k of ["L", "D", "H"]) if (nuovo[k] !== undefined && !(intero(nuovo[k]) && nuovo[k] > 0)) return { errore: `${k}: intero mm > 0` };
+  nuovo.rot = ((nuovo.rot % 360) + 360) % 360;
+  return { p: { ...p, furniture: p.furniture.map((x) => (x.id === id ? nuovo : x)) } };
+}
+
+export function duplicaArredo(p, id, dx = 300, dy = 300) {
+  const a = p.furniture.find((x) => x.id === id);
+  if (!a) return { errore: "arredo inesistente" };
+  const nid = nuovoIdUnico("arredo", p.furniture);
+  return { p: { ...p, furniture: [...p.furniture, { ...a, id: nid, x: a.x + dx, y: a.y + dy }] }, id: nid };
+}
+
+// Ingombro in pianta. Rotazioni multiple di 90 gradi: valori interi esatti. Altre rotazioni: box che contiene
+// l'arredo ruotato (non intero) e i quattro angoli.
 export function ingombroArredo(a) {
   const def = LIBRERIA_ARREDI[a.tipo];
-  const ruotato = a.rot === 90 || a.rot === 270;
-  const L = ruotato ? def.D : def.L;
-  const D = ruotato ? def.L : def.D;
-  return { x0: a.x - L / 2, y0: a.y - D / 2, L, D, H: def.H, colore: def.colore };
+  const d = dimensioniArredo(a) ?? { L: def.L, D: def.D, H: def.H };
+  const r = ((a.rot ?? 0) % 360 + 360) % 360;
+  if (r % 90 === 0) {
+    const ruotato = r === 90 || r === 270;
+    const L = ruotato ? d.D : d.L;
+    const D = ruotato ? d.L : d.D;
+    return { x0: a.x - L / 2, y0: a.y - D / 2, L, D, H: d.H, colore: def.colore, rot: r };
+  }
+  const ang = angoliArredo(a);
+  const xs = ang.map((q) => q[0]), ys = ang.map((q) => q[1]);
+  return { x0: Math.min(...xs), y0: Math.min(...ys), L: Math.max(...xs) - Math.min(...xs), D: Math.max(...ys) - Math.min(...ys), H: d.H, colore: def.colore, rot: r, angoli: ang };
 }
 
 export function ruotaArredo(p, id) {

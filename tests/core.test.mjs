@@ -137,8 +137,8 @@ test("telai e ante stanno dentro il proprio vano, non all'inizio del muro", () =
   }
 });
 
-test("catalogo: 19 modelli, tutti con categoria riconosciuta", () => {
-  assert.equal(catalog.items.length, 19);
+test("catalogo: 27 modelli CDI, tutti con categoria riconosciuta", () => {
+  assert.equal(catalog.items.length, 27);
   for (const it of catalog.items) assert.ok(TIPO_PER_CATEGORIA[it.categoria], `categoria sconosciuta: ${it.categoria}`);
 });
 

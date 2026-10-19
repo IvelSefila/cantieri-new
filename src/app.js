@@ -24,6 +24,11 @@ const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_
 import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js";
 import { montaScheda } from "./ui/energia-ui.js";
 import { renderAffidabilita } from "./ui/affidabilita-ui.js";
+import { partiInfisso } from "./core/infissi3d.js";
+import { partiArredo } from "./core/arredi.js";
+import { inquadraturaFrontale } from "./core/inquadratura.js";
+import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js";
+import { montaArredo } from "./ui/arredo-ui.js";
 
 let hud = null;
 
@@ -262,6 +267,51 @@ function renderGSA() {
   for (const m of [...r.mancanti, ...r.datiMancanti]) riga(`• ${m}`);
 }
 
+// Modelli dettagliati di infissi (solo vani con un modello CDI montato) e arredi
+function costruisciDettagli(p) {
+  const lista = [];
+  for (const o of p.openings) {
+    const w = p.walls.find((x) => x.id === o.wall);
+    if (!w) continue;
+    const itemId = Object.prototype.hasOwnProperty.call(stato.assegnazioni, o.id) ? stato.assegnazioni[o.id] : (o.cdi ?? null);
+    const item = itemId ? stato.catalogo.items.find((i) => i.id === itemId) : null;
+    if (!item) continue; // vano aperto: solo il foro nel muro
+    lista.push({ tipo: "infisso", parti: partiInfisso(o, w.t, item), op: o, wall: w });
+  }
+  for (const a of p.furniture) lista.push({ tipo: "arredo", parti: partiArredo(a), a });
+  return lista;
+}
+
+// Vista frontale di un vano: la camera si mette davanti, il vano a sinistra, il pannello CDI a destra
+function apriVistaFrontale(opId) {
+  const p = stato.progetto;
+  const o = p.openings.find((x) => x.id === opId);
+  const w = o && p.walls.find((x) => x.id === o.wall);
+  if (!o || !w) return;
+  if (!stato.frontale) stato.frontale = { prevista: stato.viewer.vistaAttuale() };
+  const q = inquadraturaFrontale(o, w, stato.viewer.vistaAttuale().camera);
+  stato.viewer.volaA(q);
+  apriDockInfissi({
+    op: o,
+    catalogo: stato.catalogo,
+    assegnato: Object.prototype.hasOwnProperty.call(stato.assegnazioni, o.id) ? stato.assegnazioni[o.id] : (o.cdi ?? null),
+    esterno: null,
+    onScegli: (id) => {
+      stato.assegnazioni[o.id] = id;
+      ricostruisci();
+      messaggio(id ? "Infisso montato." : "Vano lasciato aperto.", "ok");
+    },
+    onChiudi: () => chiudiVistaFrontale(),
+  });
+  messaggio(`Vano ${o.id}: scegli l'infisso CDI a destra. Esc chiude.`, "info");
+}
+
+function chiudiVistaFrontale() {
+  chiudiDockInfissi(true);
+  if (stato.frontale) stato.viewer.volaA(stato.frontale.prevista);
+  stato.frontale = null;
+}
+
 function ricostruisci() {
   const p = stato.progetto;
   renderGSA();
@@ -284,7 +334,12 @@ function ricostruisci() {
     return;
   }
   for (const w of res.report.warnings) if (!check.warnings.includes(w)) righe.push({ tipo: "avviso", testo: `avviso: ${w}` });
-  stato.viewer.setBoxes(res.boxes);
+  // i modelli dettagliati sostituiscono i vecchi box di telai/ante/vetri e degli arredi
+  const idVani = new Set(p.openings.map((o) => o.id));
+  const scatole = res.boxes.filter((b) => b.kind !== "arredo" && !(b.id && idVani.has(String(b.id).split(":")[0]) && b.kind !== "muro"));
+  stato.viewer.setBoxes(scatole);
+  stato.viewer.setDettagli(costruisciDettagli(p));
+  stato.arredo?.aggiorna();
 
   if (p.walls.length === 0 && p.floors.length === 0 && p.furniture.length === 0) {
     righe.unshift({ tipo: "info", testo: "Progetto vuoto: usa la modalità costruzione per aggiungere muri, vani, pavimenti e arredi." });
@@ -389,6 +444,8 @@ function gestisciVista(hit) {
 // Doppio clic: scheda dell'elemento (o della stanza), con le azioni possibili
 function gestisciDoppio(hit) {
   const p = stato.progetto;
+  const idVano = hit.vano ?? (hit.kind && PEZZI_VANO.includes(hit.kind) ? String(hit.id).split(":")[0] : null);
+  if (idVano && p.openings.some((o) => o.id === idVano)) return apriVistaFrontale(idVano);
   let tipo = null;
   let id = null;
   if (hit.kind && hit.kind.startsWith("muro")) { tipo = "muro"; id = hit.wall; }
@@ -617,6 +674,14 @@ async function init() {
   stato.viewer = createViewer($("vista"));
   stato.catalogo = await fetch("data/cdi-catalog.json").then((r) => r.json());
   costruisciPannello();
+  stato.arredo = montaArredo({
+    box: $("sez-arredi"),
+    viewer: stato.viewer,
+    contenitore: $("vista"),
+    getProgetto: () => stato.progetto,
+    applica: (nuovo) => applica(nuovo),
+    messaggio,
+  });
   stato.energia = montaScheda($("sez-energia"), {
     getRigheGSA: () => calcolaGSA(stato.progetto, {
       orientamenti: stato.orientamenti ?? {},
@@ -645,6 +710,7 @@ async function init() {
   hud = montaHud({
     onScheda: (id) => {
       const aside = document.querySelector("aside");
+      stato.arredo?.attiva(id === "arredi");
       if (id === "vista") { stato.modo = "vista"; $("pannello-costruzione").style.display = "none"; }
       if (id === "stile") aside.classList.remove("chiuso");
     },

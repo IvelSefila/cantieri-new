@@ -10,6 +10,7 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { parquet, intonaco, marmo } from "./materials.js";
 import { materialeRealistico, texturaRilievo } from "./realistico.js";
 import { creaSovrimpressione, proiettore } from "./misure.js";
+import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js";
 
 const MM_TO_M = 0.001;
 const TAGLIO_DOLLHOUSE_MM = 1300;
@@ -87,6 +88,7 @@ export function createViewer(container) {
 
   const pmrem = new THREE.PMREMGenerator(renderer);
   const ambiente = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  preparaAmbiente(renderer);
 
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
   const TARGET = new THREE.Vector3(11, 1.2, 7);
@@ -255,7 +257,8 @@ export function createViewer(container) {
   // Rendering su richiesta: si disegna solo se qualcosa e' cambiato.
   function ciclo() {
     frame = requestAnimationFrame(ciclo);
-    const cambiata = controls.update();
+    const inMoto = passoVolo();
+    const cambiata = inMoto || controls.update();
     if (!richiesta && !cambiata) return;
     richiesta = false;
     renderer.render(scene, camera);
@@ -281,6 +284,7 @@ export function createViewer(container) {
     scene.environmentIntensity = 0.55;
     scene.fog.near = q.nebbia ? 70 : 500;
     resize();
+    if (dettagli) setDettagli(ultimiDettagli);
     richiesta = true;
   }
 
@@ -316,6 +320,7 @@ export function createViewer(container) {
     piano.material.opacity = cfg.piano ?? 0.28;
     applicaVista();
     setBoxes(ultime);
+    if (typeof setDettagli === "function" && dettagli) setDettagli(ultimiDettagli);
   }
 
   // Clic senza trascinamento: punto del piano in mm + elemento colpito.
@@ -328,11 +333,16 @@ export function createViewer(container) {
     raycaster.setFromCamera(puntatore, camera);
   }
   function colpito() {
-    const hits = raycaster.intersectObjects(gruppo.children.filter((o) => o.isInstancedMesh), false);
+    const hits = raycaster.intersectObjects([...gruppo.children.filter((o) => o.isInstancedMesh), dettagli, fantasma].filter(Boolean), true)
+      .filter((h) => !h.object.userData.fantasma);
     if (!hits.length) return null;
     const h = hits[0];
-    const b = h.object.userData.scatole[h.instanceId];
-    return b ? { ...b, point: h.point } : null;
+    if (h.object.isInstancedMesh) {
+      const b = h.object.userData.scatole[h.instanceId];
+      return b ? { ...b, point: h.point } : null;
+    }
+    const u = h.object.userData;
+    return u?.kind ? { id: u.id, kind: u.kind, wall: u.wall ?? null, vano: u.vano ?? null, point: h.point } : null;
   }
   let inizio = null;
   renderer.domElement.addEventListener("pointerdown", (ev) => { inizio = [ev.clientX, ev.clientY]; });
@@ -351,6 +361,7 @@ export function createViewer(container) {
       id: hit ? hit.id : null,
       kind: hit ? hit.kind : null,
       wall: hit ? hit.wall : null,
+      vano: hit ? hit.vano ?? null : null,
     });
   });
   // Doppio clic: scheda dell'elemento colpito (o del punto sul piano)
@@ -366,6 +377,7 @@ export function createViewer(container) {
       id: hit ? hit.id : null,
       kind: hit ? hit.kind : null,
       wall: hit ? hit.wall : null,
+      vano: hit ? hit.vano ?? null : null,
     });
   });
   function setDoppioClicHandler(fn) { doppioHandler = fn; }
@@ -388,7 +400,44 @@ export function createViewer(container) {
     richiesta = true;
   }
 
+  // Evidenziazione al passaggio del mouse (infissi e arredi): riquadro dorato attorno al modello
+  let evidenziato = null;
+  let contornoHover = null;
+  let contornoSel = null;
+  let selezioneId = null;
+  const radiceDettaglio = (o) => { while (o && o.parent && o.parent !== dettagli) o = o.parent; return o?.parent === dettagli ? o : null; };
+  function aggiornaHover(ev) {
+    if (inVolo) return;
+    puntatoreDa(ev);
+    const hits = raycaster.intersectObject(dettagli, true);
+    const g = hits.length ? radiceDettaglio(hits[0].object) : null;
+    if (g === evidenziato) return;
+    evidenziato = g;
+    if (contornoHover) { scene.remove(contornoHover); contornoHover.geometry.dispose(); contornoHover = null; }
+    if (g && g.userData.id !== selezioneId) {
+      contornoHover = new THREE.BoxHelper(g, 0xffc44d);
+      contornoHover.material.depthTest = false;
+      contornoHover.renderOrder = 10;
+      scene.add(contornoHover);
+    }
+    renderer.domElement.style.cursor = g ? "pointer" : "";
+    richiesta = true;
+  }
+  function setSelezione(id) {
+    selezioneId = id;
+    if (contornoSel) { scene.remove(contornoSel); contornoSel.geometry.dispose(); contornoSel = null; }
+    const g = id ? dettagli.children.find((c) => c.userData.id === id) : null;
+    if (g) {
+      contornoSel = new THREE.BoxHelper(g, 0x3ddcf7);
+      contornoSel.material.depthTest = false;
+      contornoSel.renderOrder = 11;
+      scene.add(contornoSel);
+    }
+    richiesta = true;
+  }
+
   renderer.domElement.addEventListener("pointermove", (ev) => {
+    if (!ev.buttons) aggiornaHover(ev);
     if (!hoverHandler) return;
     puntatoreDa(ev);
     const piani = raycaster.intersectObject(piano, false);
@@ -479,6 +528,90 @@ export function createViewer(container) {
 
   function setStile(id) { applicaStile(id); }
 
+  // Modelli dettagliati: [{ tipo: "infisso", parti, op, wall } | { tipo: "arredo", parti, a }]
+  let dettagli = new THREE.Group();
+  scene.add(dettagli);
+  let ultimiDettagli = [];
+  function sostitutoStile() {
+    switch (cfg.modo) {
+      case "argilla": return () => materialeArgilla();
+      case "blueprint": return () => materialeBlueprint();
+      case "neon": return (p) => materialeNeon(p.mat === "vetro" ? "vetro" : "altro");
+      case "ultra": return (p) => materialeUltra(p.mat === "tessuto" ? "arredo" : "muro");
+      default: return null;
+    }
+  }
+  function setDettagli(lista) {
+    ultimiDettagli = lista;
+    scene.remove(dettagli);
+    dettagli = new THREE.Group();
+    const opz = { clip: clip(), alta: livello === "alto" };
+    const sost = sostitutoStile();
+    for (const d of lista) {
+      const g = d.tipo === "infisso" ? gruppoInfisso(d.parti, d.op, d.wall, opz, sost) : gruppoArredo(d.parti, d.a, opz, sost);
+      if (cfg.ombre === false) g.traverse((m) => { m.castShadow = false; });
+      dettagli.add(g);
+    }
+    scene.add(dettagli);
+    evidenziato = null;
+    if (contornoHover) { scene.remove(contornoHover); contornoHover = null; }
+    setSelezione(selezioneId);
+    richiesta = true;
+  }
+
+  // Fantasma: arredo in posizionamento (verde se libero, rosso se tocca muri o altri arredi)
+  let fantasma = null;
+  function setFantasma(parti, a, collide = false) {
+    if (fantasma) { scene.remove(fantasma); fantasma = null; }
+    if (parti && a) {
+      const mat = new THREE.MeshBasicMaterial({ color: collide ? 0xff5f6d : 0x58e6a0, transparent: true, opacity: 0.45, depthWrite: false });
+      fantasma = gruppoArredo(parti, a, {}, () => mat);
+      fantasma.traverse((m) => { m.userData = { ...m.userData, fantasma: true }; m.castShadow = false; });
+      scene.add(fantasma);
+    }
+    richiesta = true;
+  }
+
+  // Volo della camera: posizione e bersaglio in mm del piano ([x, y, quota])
+  let inVolo = false;
+  let volo = null;
+  function volaA(dest, ms = 900) {
+    const da = { p: camera.position.clone(), t: controls.target.clone() };
+    const a = {
+      p: new THREE.Vector3(dest.camera[0] * MM_TO_M, dest.camera[2] * MM_TO_M, dest.camera[1] * MM_TO_M),
+      t: new THREE.Vector3(dest.bersaglio[0] * MM_TO_M, dest.bersaglio[2] * MM_TO_M, dest.bersaglio[1] * MM_TO_M),
+    };
+    volo = { da, a, t0: performance.now(), ms };
+    inVolo = true;
+    controls.enabled = false;
+  }
+  function passoVolo() {
+    if (!volo) return false;
+    const k = Math.min(1, (performance.now() - volo.t0) / volo.ms);
+    const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    camera.position.lerpVectors(volo.da.p, volo.a.p, e);
+    controls.target.lerpVectors(volo.da.t, volo.a.t, e);
+    camera.lookAt(controls.target);
+    if (k >= 1) { volo = null; inVolo = false; controls.enabled = true; }
+    return true;
+  }
+  function vistaAttuale() {
+    return {
+      camera: [camera.position.x / MM_TO_M, camera.position.z / MM_TO_M, camera.position.y / MM_TO_M],
+      bersaglio: [controls.target.x / MM_TO_M, controls.target.z / MM_TO_M, controls.target.y / MM_TO_M],
+    };
+  }
+  // Punto del pavimento sotto il puntatore (mm) e oggetto colpito, per trascinare gli arredi
+  function pianoDaEvento(ev) {
+    puntatoreDa(ev);
+    const h = raycaster.intersectObject(piano, false)[0];
+    return h ? [Math.round(h.point.x / MM_TO_M), Math.round(h.point.z / MM_TO_M)] : null;
+  }
+  function oggettoDaEvento(ev) {
+    puntatoreDa(ev);
+    return colpito();
+  }
+
   // Misure in sovrimpressione: etichette in mm sul modello
   function aggiornaMisure() {
     sovra.aggiorna(proiettore(camera, MM_TO_M, container.clientWidth, container.clientHeight), container.clientWidth, container.clientHeight);
@@ -505,6 +638,9 @@ export function createViewer(container) {
   return {
     setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
     setDoppioClicHandler, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
+    setDettagli, setFantasma, setSelezione, volaA, vistaAttuale, pianoDaEvento, oggettoDaEvento,
+    inVolo: () => inVolo, ridisegna: () => { richiesta = true; },
+    domElement: renderer.domElement,
     statistiche, camera, controls, dispose: () => cancelAnimationFrame(frame),
   };
 }
