@@ -284,3 +284,28 @@ body.pp-on .hud-hotbar, body.pp-on .hud-coord, body.pp-on .hud-top { display: no
   .scheda-modale, #pannello-alloggi, #pannello-auto { padding-top: 44px !important; }
   #pannello-alloggi .x-chiudi, #pannello-auto .x-chiudi { position: absolute; }
 }
+
+/* Telefono: schede in un menu hamburger */
+.hud-burger { display: none; }
+@media (max-width: 700px) {
+  .hud-burger {
+    display: flex; align-items: center; justify-content: center; flex: 0 0 40px; height: 36px;
+    border-radius: 10px; border: 1px solid rgba(255,196,77,.5); background: rgba(16,22,38,.9);
+    color: #f2f4f8; font: 700 18px system-ui, sans-serif; cursor: pointer;
+  }
+  .hud-top .hud-tabs { display: none !important; }
+  .hud-top.menu-aperto .hud-tabs {
+    display: flex !important; flex-direction: column; position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    order: 9; flex-wrap: nowrap; overflow-x: hidden; overflow-y: auto; max-height: 60vh; gap: 6px; padding: 10px;
+    background: rgba(16,22,38,.97); border: 1px solid rgba(255,196,77,.4); border-radius: 14px;
+  }
+  .hud-top.menu-aperto .hud-tab { width: 100%; text-align: left; }
+}
+
+/* Menu hamburger: sta dentro lo schermo; la riga in alto resta su una riga */
+@media (max-width: 700px) {
+  .hud-top.menu-aperto .hud-tabs { box-sizing: border-box; max-width: 100%; left: 0; right: 0; }
+  .hud-top.menu-aperto .hud-tab { max-width: 100%; box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; }
+  .hud-top .hud-mode button { padding: 8px 9px !important; }
+  .hud-top .switch-2d { width: 96px !important; flex: 0 0 96px !important; }
+}

@@ -1161,6 +1161,26 @@ async function init() {
     },
     onVista2d: () => $("vista2d").click(),
   });
+  // Telefono: le schede stanno in un menu hamburger in alto
+  const barraAlta = document.querySelector(".hud-top");
+  const schede = barraAlta?.querySelector(".hud-tabs");
+  if (barraAlta && schede && !barraAlta.querySelector(".hud-burger")) {
+    const burger = document.createElement("button");
+    burger.className = "hud-burger";
+    burger.textContent = "☰";
+    burger.title = "Menu";
+    burger.setAttribute("aria-label", "Apri il menu delle schede");
+    burger.setAttribute("aria-expanded", "false");
+    burger.onclick = () => {
+      const aperto = barraAlta.classList.toggle("menu-aperto");
+      burger.setAttribute("aria-expanded", String(aperto));
+    };
+    schede.addEventListener("click", () => {
+      barraAlta.classList.remove("menu-aperto");
+      burger.setAttribute("aria-expanded", "false");
+    });
+    barraAlta.prepend(burger);
+  }
   aggiornaVista2d(); // etichette ON/OFF anche nella barra in alto
 
   window.addEventListener("keydown", (e) => {
