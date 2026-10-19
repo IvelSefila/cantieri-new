@@ -129,8 +129,11 @@ function renderVani() {
   }
 }
 
-function caricaProgetto(p, nome) {
+function caricaProgetto(p, nome, { esempio = false } = {}) {
   stato.progetto = { floors: [], furniture: [], ...p };
+  stato.mostraArrediEsempio = esempio;
+  const chk = document.getElementById("mostra-esempio");
+  if (chk) chk.checked = esempio;
   stato.storia = [];
   stato.assegnazioni = {};
   stato.pendente = null;
@@ -294,11 +297,15 @@ function costruisciPannello() {
   $("annulla").onclick = annullaUltimo;
   $("esc").onclick = () => { stato.pendente = null; stato.arredoSelezionato = null; ricostruisci(); };
   $("nuovo").onclick = () => caricaProgetto(progettoVuoto(), "nuovo");
-  $("esempio").onclick = async () => {
-    const p = await fetch("data/plan-ar02.json").then((r) => r.json());
-    caricaProgetto(p, "esempio");
-  };
+  $("esempio").onclick = () => apriEsempio();
   $("mostra-esempio").onchange = (e) => { stato.mostraArrediEsempio = e.target.checked; ricostruisci(); };
+}
+
+// Esempio AR-02: pavimento parquet sotto l'impronta dei muri e arredi di esempio visibili.
+async function apriEsempio() {
+  const p = await fetch("data/plan-ar02.json").then((r) => r.json());
+  const floor = { id: "pav_esempio", x0: 280, y0: 280, x1: 21720, y1: 13720, materiale: "parquet" };
+  caricaProgetto({ ...p, floors: [floor] }, "esempio", { esempio: true });
 }
 
 async function init() {
@@ -318,8 +325,8 @@ async function init() {
     if (e.key.toLowerCase() === "r" && stato.modo === "costruzione") { stato.rotazione = (stato.rotazione + 90) % 360; }
   });
 
-  // Progetto iniziale: vuoto (nessun muro, nessun pavimento, nessun arredo)
-  caricaProgetto(progettoVuoto(), "nuovo");
+  // Avvio: esempio AR-02 completo (pavimento e arredi di esempio). "Nuovo progetto" parte vuoto.
+  await apriEsempio();
 
   montaTracciamento(document.getElementById("trc-root"), {
     onPianta: (p) => caricaProgetto(p, "tracciata su immagine"),
