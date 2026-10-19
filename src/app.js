@@ -302,11 +302,11 @@ function costruisciPannello() {
   $("sez-vista").append($("vista2d"));
   const stileBox = document.createElement("div");
   stileBox.innerHTML = `<div>Stile di resa:</div><select id="stile">
-        <option value="solido">Solido</option>
-        <option value="vetro">Vetro (semi-trasparente)</option>
-        <option value="dollhouse">Dollhouse 1,30 m</option>
-        <option value="vetro-dollhouse">Vetro + dollhouse</option>
-        <option value="ultra-glass">Ultra glass (senza contorni)</option>
+        <option value="solido">1. Solido (realistico)</option>
+        <option value="dollhouse">2. Dollhouse 1,30 m</option>
+        <option value="vetro">3. Vetro (contorni)</option>
+        <option value="vetro-dollhouse">4. Vetro + dollhouse</option>
+        <option value="ultra-glass">5. Ultra glass (senza contorni)</option>
       </select>`;
   $("sez-stile").appendChild(stileBox);
 
