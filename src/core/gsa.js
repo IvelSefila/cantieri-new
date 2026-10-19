@@ -6,32 +6,52 @@
 import { materialeVano } from "./cdi.js";
 import { wallLengthMm } from "./model.js";
 import { fsolEst } from "./fsol.js";
+import { stanze } from "./rooms.js";
+import { dentroPoligono } from "./elementi.js";
 
 export const DEFAULT_GSA = { g: { vetro: 0.6, vetro_fume: 0.35 }, Fsh: 1, Ff: 0.8 };
 export const ORIENTAMENTI = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"];
 
-// Orientamento dalla geometria: il piano ha Y crescente verso SUD e X crescente verso EST.
-// Solo i muri che stanno sul bordo del perimetro hanno un orientamento; i muri interni restano null.
-// Un orientamento dichiarato in parametri.orientamenti prevale sempre.
-export function orientamentoDaGeometria(progetto, wall) {
-  if (!wall || wall.kind !== "perimetrale") return null;
-  // limiti dell'involucro: coordinate fisse (asse) dei soli muri perimetrali
-  const per = progetto.walls.filter((w) => w.kind === "perimetrale");
-  const yFisse = per.filter((w) => w.a[1] === w.b[1]).map((w) => w.a[1]);
-  const xFisse = per.filter((w) => w.a[0] === w.b[0]).map((w) => w.a[0]);
-  const minY = Math.min(...yFisse), maxY = Math.max(...yFisse);
-  const minX = Math.min(...xFisse), maxX = Math.max(...xFisse);
-  const [ax, ay] = wall.a;
-  const [bx, by] = wall.b;
-  if (ay === by) { // muro orizzontale
-    if (ay === minY) return "N";
-    if (ay === maxY) return "S";
-  }
-  if (ax === bx) { // muro verticale
-    if (ax === minX) return "O";
-    if (ax === maxX) return "E";
-  }
-  return null;
+// Lato esterno di un muro, dalla geometria: nel punto s (mm dal punto a, di default metà muro) si guarda un punto
+// a (t/2 + 100 mm) da ciascun lato della mezzeria. Per un vano si usa il centro del vano: un muro lungo può essere
+// esterno in un tratto e interno in un altro, e la metà muro può cadere su un incrocio con un tramezzo.
+// Se da un lato c'è una stanza e dall'altro no, il muro è sull'involucro e la normale esterna punta verso il lato
+// senza stanza. Funziona per muri dritti e obliqui e per progetti disegnati o importati (non serve il tipo "perimetrale").
+// Restituisce { nx, ny } (normale esterna, unitaria) oppure null se il muro è interno o non chiude stanze.
+export function latoEsterno(wall, interni, s = null) {
+  const L = Math.hypot(wall.b[0] - wall.a[0], wall.b[1] - wall.a[1]);
+  if (!L) return null;
+  const ux = (wall.b[0] - wall.a[0]) / L;
+  const uy = (wall.b[1] - wall.a[1]) / L;
+  const nx = -uy;
+  const ny = ux;
+  const d = wall.t / 2 + 100;
+  const pos = s ?? L / 2;
+  const mx = wall.a[0] + ux * pos;
+  const my = wall.a[1] + uy * pos;
+  const dentro = (px, py) => interni.some((poly) => dentroPoligono([px, py], poly));
+  const sinistra = dentro(mx + nx * d, my + ny * d);
+  const destra = dentro(mx - nx * d, my - ny * d);
+  if (sinistra === destra) return null;
+  return sinistra ? { nx: -nx, ny: -ny } : { nx, ny };
+}
+
+// Orientamento (8 settori) da una normale esterna nel piano del disegno. Convenzione del progetto: Y cresce verso
+// SUD e X verso EST quando il Nord del disegno è in alto. nordGradi = rotazione del Nord reale rispetto all'alto
+// del disegno, in gradi orari (0 = Nord in alto).
+export function orientamentoDaNormale({ nx, ny }, nordGradi = 0) {
+  const azimut = (Math.atan2(nx, -ny) * 180) / Math.PI - nordGradi; // 0 = N, 90 = E
+  const settore = ((Math.round(azimut / 45) % 8) + 8) % 8;
+  return ORIENTAMENTI[settore];
+}
+
+// Orientamento dalla geometria. Un orientamento dichiarato in parametri.orientamenti prevale sempre.
+// interni: contorni interni delle stanze (da stanze()). Se mancano si calcolano qui.
+export function orientamentoDaGeometria(progetto, wall, { interni, nordGradi = 0 } = {}) {
+  if (!wall) return null;
+  const poli = interni ?? stanze(progetto.walls).map((x) => x.interno);
+  const n = latoEsterno(wall, poli);
+  return n ? orientamentoDaNormale(n, nordGradi) : null;
 }
 
 export function calcolaGSA(progetto, parametri = {}) {
@@ -39,18 +59,24 @@ export function calcolaGSA(progetto, parametri = {}) {
   const Fsh = parametri.Fsh ?? DEFAULT_GSA.Fsh;
   const Ff = parametri.Ff ?? DEFAULT_GSA.Ff;
   const orient = parametri.orientamenti ?? {};
+  const nordGradi = parametri.nordGradi ?? 0;
   const righe = [];
   const mancanti = [];
+  const interni = stanze(progetto.walls).map((x) => x.interno);
 
   for (const o of progetto.openings) {
     const mat = materialeVano(o);
     if (mat !== "vetro" && mat !== "vetro_fume") continue;
     const w = progetto.walls.find((x) => x.id === o.wall);
-    // solo le superfici trasparenti dell'involucro esterno contribuiscono al GSA
-    if (!w || w.kind !== "perimetrale") continue;
+    if (!w) continue;
+    // solo le superfici trasparenti dell'involucro esterno contribuiscono: muro con una stanza da un solo lato.
+    // Se il disegno non chiude stanze, vale il tipo "perimetrale" indicato nel progetto.
+    const n = latoEsterno(w, interni, o.offset + o.width / 2);
+    const esterno = interni.length ? n !== null : w.kind === "perimetrale";
+    if (!esterno) continue;
     const A = (o.width * o.height) / 1e6;
     const gv = g[mat];
-    const orientamento = orient[o.wall] ?? orientamentoDaGeometria(progetto, w);
+    const orientamento = orient[o.wall] ?? (n ? orientamentoDaNormale(n, nordGradi) : null);
     if (!orientamento) mancanti.push(`orientamento del muro ${o.wall} (vano ${o.id})`);
     righe.push({
       vano: o.id,
@@ -76,7 +102,7 @@ export function calcolaGSA(progetto, parametri = {}) {
 
   // dati che completerebbero il calcolo energetico, oltre a quelli sopra
   const datiMancanti = [
-    "orientamento di ogni parete vetrata (N, NE, E, SE, S, SO, O, NO)",
+    "direzione del Nord nel disegno (oggi presunta in alto): l'orientamento delle pareti dipende da questo",
     "trasmittanza solare g dichiarata per ogni vetro (oggi default: vetro 0,60, vetro fume 0,35)",
     "fattore di ombreggiatura Fsh (aggetti, balconi, alberi, edifici vicini)",
     "frazione vetrata Ff dal telaio del serramento (oggi default 0,80)",

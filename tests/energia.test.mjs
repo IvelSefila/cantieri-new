@@ -4,9 +4,9 @@ import assert from "node:assert/strict";
 import {
   trasmittanza, dispersioneTrasmissione, dispersioneVentilazione, caricoInvernale,
   guadagniSolariInverno, fabbisognoRiscaldamento, potenzaRadiatore, radiatoriNecessari, copPompaCalore,
-  caricoEstivo, eerCondizionatore, fotovoltaico, solareTermico, potenzaMinimaFER,
+  caricoEstivo, eerCondizionatore, fotovoltaico, solareTermico, potenzaMinimaFER, PROSPETTO4_2008,
 } from "../src/core/energia.js";
-import { CLIMA_ROMA } from "../src/core/clima.js";
+import { CLIMA_ROMA, irradiazioneStagione_kWh_m2 } from "../src/core/clima.js";
 
 const vicino = (a, b, tol = 1e-3) => assert.ok(Math.abs(a - b) <= tol, `${a} != ${b}`);
 
@@ -19,13 +19,32 @@ test("trasmittanza rifiuta strati non validi", () => {
   assert.throws(() => trasmittanza([{ s_mm: 0, lambda: 0.8 }]));
 });
 
-test("dispersione per trasmissione con ponti termici al 10%", () => {
-  const r = dispersioneTrasmissione([
-    { id: "muro", U: 0.3, A_m2: 100 },
-    { id: "solaio_cantina", U: 1.8, A_m2: 10, tipo: "non_riscaldato", b: 0.5 },
-  ]);
+const ELEMENTI = [
+  { id: "muro", U: 0.3, A_m2: 100 },
+  { id: "solaio_cantina", U: 1.8, A_m2: 10, tipo: "non_riscaldato", b: 0.5 },
+];
+
+test("dispersione per trasmissione senza ponti termici: H = somma U A b, segnalata come mancante", () => {
+  const r = dispersioneTrasmissione(ELEMENTI);
   vicino(r.H_trasm_W_K, 30 + 9, 1e-9);            // 30 + 1,8*10*0,5
-  vicino(r.H_con_ponti_W_K, 39 * 1.1, 1e-9);
+  vicino(r.H_con_ponti_W_K, 39, 1e-9);
+  assert.equal(r.ponti.precisione, "mancante");
+});
+
+test("ponti termici con psi x lunghezza: somma esatta dei nodi", () => {
+  const r = dispersioneTrasmissione(ELEMENTI, { ponti: { modo: "psi", nodi: [{ psi_W_mK: 0.9, l_m: 11.2 }, { psi_W_mK: -0.15, l_m: 5.6 }] } });
+  vicino(r.H_ponti_W_K, 0.9 * 11.2 - 0.15 * 5.6, 1e-9);
+  vicino(r.H_con_ponti_W_K, 39 + 0.9 * 11.2 - 0.15 * 5.6, 1e-9);
+  assert.equal(r.ponti.precisione, "dati inseriti");
+  assert.throws(() => dispersioneTrasmissione(ELEMENTI, { ponti: { modo: "psi", nodi: [{ psi_W_mK: 0.5, l_m: 0 }] } }));
+});
+
+test("ponti termici a percentuale: prospetto 4 UNI/TS 11300-1:2008, solo stima", () => {
+  const r = dispersioneTrasmissione(ELEMENTI, { ponti: { modo: "forfait", tipo: "cassa_vuota_isolata_non_corretta" } });
+  vicino(r.H_con_ponti_W_K, 39 * 1.2, 1e-9);
+  assert.match(r.ponti.precisione, /stima/);
+  assert.equal(PROSPETTO4_2008.prefabbricato_isolante_interno.percentuale, 30);
+  assert.throws(() => dispersioneTrasmissione(ELEMENTI, { ponti: { modo: "forfait", tipo: "inesistente" } }));
 });
 
 test("dispersione rifiuta U o area non positivi", () => {
@@ -43,9 +62,11 @@ test("carico invernale di progetto = (H_tr + H_v) * (20 - 0) con temperatura di 
   vicino(c.carico_W, 93.9 * 20, 1e-6);            // 1878 W
 });
 
-test("guadagni solari invernali: Aw (1-FF) g Fsh I(orientamento) da CLIMA_ROMA", () => {
-  // 2 m2 a sud, FF 0,2, g 0,6 -> 2 * 0,8 * 0,6 * 802,1 = 769,99 kWh
-  vicino(guadagniSolariInverno([{ orientamento: "S", Aw_m2: 2, FF: 0.2, g: 0.6 }]), 2 * 0.8 * 0.6 * 802.1, 1e-6);
+test("guadagni solari invernali: Aw (1-FF) g Fsh I(orientamento) con dati UNI 10349 di Roma, zona D", () => {
+  // stagione 1 nov - 15 apr: sud = (10,83x31 + 11,78x28 + 12,04x31 + 11,47x15 + 10,81x30 + 11,40x31) / 3,6 = 524,6 kWh/m2
+  const Is = (10.83 * 31 + 11.78 * 28 + 12.04 * 31 + 11.47 * 15 + 10.81 * 30 + 11.40 * 31) / 3.6;
+  vicino(irradiazioneStagione_kWh_m2("S"), Is, 1e-9);
+  vicino(guadagniSolariInverno([{ orientamento: "S", Aw_m2: 2, FF: 0.2, g: 0.6 }]), 2 * 0.8 * 0.6 * Is, 1e-6);
   assert.throws(() => guadagniSolariInverno([{ orientamento: "X", Aw_m2: 2, FF: 0.2, g: 0.6 }]));
 });
 
@@ -53,8 +74,9 @@ test("fabbisogno stagionale gradi giorno con guadagni solari invernali", () => {
   const vetrati = [{ orientamento: "S", Aw_m2: 2, FF: 0, g: 0.6 }];
   const f = fabbisognoRiscaldamento(100, vetrati, { gg: 1415 });
   vicino(f.Q_lorda_kWh, 0.024 * 1415 * 100, 1e-6);           // 3396
-  vicino(f.Q_solare_kWh, 2 * 0.6 * 802.1, 1e-6);             // 962,5
-  vicino(f.Q_nd_kWh, 0.024 * 1415 * 100 - 0.8 * 2 * 0.6 * 802.1, 1e-6); // 2626,0
+  const Is = CLIMA_ROMA.invernoVerticale_kWh_m2.S;
+  vicino(f.Q_solare_kWh, 2 * 0.6 * Is, 1e-6);
+  vicino(f.Q_nd_kWh, 0.024 * 1415 * 100 - 0.8 * 2 * 0.6 * Is, 1e-6);
 });
 
 test("fabbisogno non negativo: i guadagni oltre le perdite non producono energia negativa", () => {

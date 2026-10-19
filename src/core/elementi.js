@@ -3,16 +3,28 @@ import { wallLengthMm } from "./model.js";
 import { stanze } from "./rooms.js";
 import { ingombroArredo, LIBRERIA_ARREDI } from "./project.js";
 
-// Un muro e' portante se e' una spina o un perimetrale, oppure se ha spessore da struttura (>= 200 mm).
+// Classificazione PRESUNTA: un muro è considerato portante se nel disegno è una spina o un perimetrale, oppure se
+// ha spessore da struttura (>= 200 mm). Non è una verifica strutturale: dal disegno non si vede cosa regge un muro.
+export const DOCUMENTI_STRUTTURA = [
+  "Progetto strutturale o relazione di calcolo depositata (Genio Civile / sportello sismico)",
+  "Certificato di collaudo statico",
+  "In assenza: rilievo e saggi in sito, verifica di un ingegnere strutturista secondo NTC 2018",
+];
 export function classificaMuro(w) {
   const tipo = w.kind ?? (w.t >= 200 ? "spina" : "tramezzo");
-  const portante = tipo === "spina" || tipo === "perimetrale" || w.t >= 200;
+  const daTipo = tipo === "spina" || tipo === "perimetrale";
+  const daSpessore = !daTipo && w.t >= 200;
+  const portante = daTipo || daSpessore;
+  let motivo;
+  if (daTipo) motivo = `Indicato come ${tipo} nel disegno: presunto portante. Abbatterlo richiede verifica strutturale (NTC 2018).`;
+  else if (daSpessore) motivo = `Spessore ${w.t} mm (>= 200 mm): presunto portante anche se indicato come ${tipo}. Serve verifica strutturale.`;
+  else motivo = `Spessore ${w.t} mm e tipo ${tipo}: presunto tramezzo non portante (CILA, DPR 380/01 art. 6-bis), da confermare.`;
   return {
     tipo,
     portante,
-    motivo: portante
-      ? "Muro strutturale (spina portante o perimetrale): abbatterlo richiede verifica strutturale (NTC 2018)."
-      : "Tramezzo non portante: abbattibile con pratica edilizia leggera (CILA, DPR 380/01 art. 6-bis).",
+    certezza: "presunta dal disegno",
+    motivo,
+    documenti: DOCUMENTI_STRUTTURA,
   };
 }
 
@@ -44,8 +56,9 @@ export function descrivi(progetto, tipo, id) {
       portante: c.portante,
       righe: [
         ["Tipo", c.tipo],
-        ["Portante", c.portante ? "Sì" : "No"],
+        ["Portante", `${c.portante ? "Sì" : "No"} (${c.certezza})`],
         ["Nota", c.motivo],
+        ["Per esserne certi", c.documenti.join("; ")],
         ["Lunghezza", `${wallLengthMm(w).toLocaleString("it-IT")} mm`],
         ["Spessore", `${w.t} mm`],
         ["Altezza", `${progetto.altezza_muri} mm`],

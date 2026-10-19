@@ -1,5 +1,5 @@
 // Modulo antincendio: superficie lorda per ambito e piano, affollamento, controlli e rapporto.
-// Funzioni pure. Nessun parametro di legge e' scritto nel codice: le densita' di affollamento
+// Funzioni pure. Nessun parametro di legge è scritto nel codice: le densità di affollamento
 // e le destinazioni vanno inserite dal professionista, con il riferimento della tabella ufficiale.
 // Definizione usata (DM 3 agosto 2015, Allegato I): superficie in pianta entro il perimetro interno
 // delle pareti che delimitano l'ambito; per ambiti multipiano si sommano le superfici di tutti i piani.
@@ -7,10 +7,10 @@ import { stanze } from "./rooms.js";
 import { validatePlan } from "./model.js";
 import { voceDensita } from "./normativa.js";
 
-export const RIFERIMENTO = "DM 3 agosto 2015 (Codice di prevenzione incendi), Allegato I, Tabella S.4-12 (densita' di affollamento) (testo coordinato vigente)";
+export const RIFERIMENTO = "DM 3 agosto 2015 (Codice di prevenzione incendi), Allegato I, Tabella S.4-12 (densità di affollamento) (testo coordinato vigente)";
 
 // Piani: [{ piano: "P0", nome, plan }]. Ambiti: { [stanzaId]: { ambito, piano } }
-// Per ogni stanza del piano si indica l'ambito di appartenenza (per default la stanza e' un ambito a se').
+// Per ogni stanza del piano si indica l'ambito di appartenenza (per default la stanza è un ambito a se').
 export function superficiePerAmbito(piani, assegnazioni = {}) {
   const ambiti = new Map();
   const problemi = [];
@@ -21,7 +21,7 @@ export function superficiePerAmbito(piani, assegnazioni = {}) {
       const chiave = `${piano}:${s.id}`;
       const ass = assegnazioni[chiave] || {};
       const ambito = ass.ambito || `${piano}:${s.id}`;
-      // attivita' (codice della Tabella S.4-12) fornisce densita' e riferimento ufficiale; densita' esplicita prevale
+      // attività (codice della Tabella S.4-12) fornisce densità e riferimento ufficiale; densità esplicita prevale
       const voce = ass.attivita ? voceDensita(ass.attivita) : null;
       if (ass.attivita && !voce) problemi.push({ tipo: "attivita_sconosciuta", ambito, attivita: ass.attivita });
       const densita = ass.densita ?? voce?.densitaPersoneM2 ?? null;
@@ -31,7 +31,7 @@ export function superficiePerAmbito(piani, assegnazioni = {}) {
       a.superficieMm2 += s.superficieMm2;
       a.stanze.push(chiave);
       a.piani.add(piano);
-      // destinazione e densita' devono essere coerenti per tutto l'ambito
+      // destinazione e densità devono essere coerenti per tutto l'ambito
       if (ass.destinazione && a.destinazione && a.destinazione !== ass.destinazione) problemi.push({ tipo: "destinazione_incoerente", ambito });
       if (ass.destinazione) a.destinazione = ass.destinazione;
       if (densita !== null) {
@@ -45,8 +45,8 @@ export function superficiePerAmbito(piani, assegnazioni = {}) {
     const m2 = a.superficieMm2 / 1e6;
     const mancanti = [];
     if (!a.destinazione) mancanti.push("destinazione d'uso");
-    if (a.densita === null) mancanti.push("densita' di affollamento (Tabella S.4-12)");
-    if (a.densita !== null && !a.riferimentoDensita) mancanti.push("riferimento della densita'");
+    if (a.densita === null) mancanti.push("densità di affollamento (Tabella S.4-12)");
+    if (a.densita !== null && !a.riferimentoDensita) mancanti.push("riferimento della densità");
     return {
       ambito: a.ambito,
       destinazione: a.destinazione,
@@ -104,7 +104,7 @@ export function rapportoAntincendio(piani, assegnazioni = {}, quote = [], autore
     controlliQuote: quote.length ? controlloQuote(piani[0].plan, quote) : [],
     problemi: ambiti.problemi,
     incompleti,
-    avvertenza: "Calcolo di supporto. Il parere di conformita' e' del professionista abilitato, che verifica densita', destinazioni e documenti.",
+    avvertenza: "Calcolo di supporto. Il parere di conformità è del professionista abilitato, che verifica densità, destinazioni e documenti.",
     documentiDaAllegare: DOCUMENTI_NECESSARI,
   };
 }
@@ -112,7 +112,7 @@ export function rapportoAntincendio(piani, assegnazioni = {}, quote = [], autore
 export const DOCUMENTI_NECESSARI = [
   "Planimetrie quotate di ogni piano (stato di fatto), con scala e quote in mm: fonte preferita il progetto esecutivo o l'ultimo titolo edilizio con planimetria allegata",
   "Sezioni verticali quotate (altezze di piano e altezza antincendio)",
-  "Attestazione di agibilita' o abitabilita' e titoli edilizi (CILA, SCIA, permesso di costruire) con i grafici allegati",
+  "Attestazione di agibilità o abitabilità e titoli edilizi (CILA, SCIA, permesso di costruire) con i grafici allegati",
   "Destinazione d'uso di ogni ambito e numero di occupanti previsto",
   "Planimetrie delle vie di esodo, uscite e percorsi, con larghezze delle porte",
   "Eventuale Certificato di prevenzione incendi (CPI) e pratiche precedenti, se presenti",

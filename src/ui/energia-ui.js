@@ -1,32 +1,49 @@
-// Scheda "Energia": dati inseriti a mano o estratti da un PDF di relazione tecnica, calcoli di base
-// (riscaldamento, raffrescamento, fotovoltaico, solare termico) e lista dei dati mancanti.
+// Scheda "Energia": dati inseriti a mano o estratti da un PDF di relazione tecnica, calcoli (riscaldamento,
+// raffrescamento, H'T, fotovoltaico, solare termico) con l'affidabilità di ogni risultato e i dati mancanti.
 // Nessuna rete: il PDF viene letto nel browser con pdf.js (vendor/pdfjs), i dati restano in memoria della pagina.
-import { DEFAULT_ENERGIA, dispersioneTrasmissione, caricoInvernale, fabbisognoRiscaldamento, caricoEstivo,
-  eerCondizionatore, copPompaCalore, fotovoltaico, solareTermico } from "../core/energia.js";
-import { CLIMA_ROMA } from "../core/clima.js";
+import { DEFAULT_ENERGIA, dispersioneTrasmissione, dispersioneVentilazione, caricoInvernale, fabbisognoRiscaldamento,
+  caricoEstivo, eerCondizionatore, copPompaCalore, fotovoltaico, solareTermico, PROSPETTO4_2008 } from "../core/energia.js";
+import { UNI10349_ROMA } from "../core/clima.js";
 import { parseDatiEnergetici } from "../core/pdfdati.js";
 import { DEFAULT_GSA } from "../core/gsa.js";
 import { verificaHT } from "../core/limiti.js";
-import { NORME, DATA_VERIFICA } from "../core/registro-norme.js";
+import { bilancioMensile, flussoSolareMensile_W } from "../core/mensile.js";
+import { NOTA_PONTI_10, STATI } from "../core/precisione.js";
 
-// Valori inseriti dall'utente. null = dato mancante (non c'e' un default). Il default di Roma e' dichiarato in clima.js.
+// Stagione di riscaldamento per zona (giorni per mese), UNI/TS 11300-1:2008 prospetto 3 / DPR 412/93
+export const STAGIONE_ZONA = {
+  A: [31, 28, 15, 0, 0, 0, 0, 0, 0, 0, 0, 31],
+  B: [31, 28, 31, 0, 0, 0, 0, 0, 0, 0, 0, 31],
+  C: [31, 28, 31, 0, 0, 0, 0, 0, 0, 0, 16, 31],
+  D: [31, 28, 31, 15, 0, 0, 0, 0, 0, 0, 30, 31],
+  E: [31, 28, 31, 15, 0, 0, 0, 0, 0, 17, 30, 31],
+  F: [31, 28, 31, 22, 0, 0, 0, 0, 0, 27, 30, 31],
+};
+
+// Valori inseriti dall'utente. null = dato mancante (nessun default nascosto).
 export function valoriIniziali() {
   return {
     superficie_utile_m2: null,
     volume_m3: null,
     superficie_disperdente_m2: null,
-    U_medio_W_m2K: null,          // trasmittanza media dell'involucro: dato di progetto, non stimato
-    zona: "D",                    // zona climatica: Roma e' zona D
-    gg: CLIMA_ROMA.gradiGiorno,
+    U_medio_W_m2K: null,
+    zona: UNI10349_ROMA.zona,
+    gg: UNI10349_ROMA.gradiGiorno,
     theta_ext_inv_C: DEFAULT_ENERGIA.theta_ext_inv,
     theta_ext_est_C: DEFAULT_ENERGIA.theta_ext_est,
     ricambi_h: DEFAULT_ENERGIA.ricambi_h,
-    FF: 0.2,                      // frazione telaio: da scheda del serramento
-    gglsh: null,                  // trasmittanza estiva con schermo in uso: dato del vetro/schermo
-    E_elettrico_kWh: null,        // consumi elettrici annui per il fotovoltaico
+    FF: 0.2,
+    gglsh: null,
+    interni_W: null,
+    tau_h: null,
+    E_elettrico_kWh: null,
     orientamento_FV: "S",
     collettori_m2: null,
     persone: null,
+    ponti_modo: "assenti",
+    ponti_tipo: "cassa_vuota",
+    ponti_nodi_testo: "",
+    pdfCaricato: false,
   };
 }
 
@@ -34,6 +51,21 @@ function numeroDaInput(v) {
   if (v === "" || v === null || v === undefined) return null;
   const n = Number(String(v).replace(",", "."));
   return Number.isFinite(n) ? n : null;
+}
+
+// Righe "descrizione; psi W/mK; lunghezza m" -> nodi dei ponti termici
+export function leggiNodiPonti(testo) {
+  const nodi = [];
+  const errori = [];
+  String(testo ?? "").split(/\r?\n/).forEach((r, i) => {
+    if (!r.trim()) return;
+    const parti = r.split(";").map((x) => x.trim());
+    const psi = numeroDaInput(parti[1]);
+    const l = numeroDaInput(parti[2]);
+    if (parti.length < 3 || psi === null || !(l > 0)) errori.push(`riga ${i + 1}: scrivere "descrizione; psi; lunghezza"`);
+    else nodi.push({ descrizione: parti[0], psi_W_mK: psi, l_m: l });
+  });
+  return { nodi, errori };
 }
 
 // Vetrature dal calcolo GSA: solo quelle con orientamento, altrimenti restano fuori e vengono segnalate
@@ -48,61 +80,78 @@ function vetrature(righeGSA, v) {
   return { ok, fuori };
 }
 
-// Calcolo completo a partire dai valori. Restituisce risultati e mancanti, senza eccezioni per i dati assenti.
+// Calcolo completo. Ogni risultato porta il suo stato di affidabilità (chiavi di STATI) e una nota.
 export function calcolaEnergiaScheda(v, righeGSA = []) {
   const mancanti = [];
   const req = (campo, etichetta) => { if (v[campo] === null || v[campo] === undefined) mancanti.push(etichetta); };
   req("superficie_utile_m2", "superficie utile (m²)");
   req("volume_m3", "volume lordo (m³)");
-  req("superficie_disperdente_m2", "superficie disperdente (m²)");
-  req("U_medio_W_m2K", "trasmittanza media dell'involucro U (W/m²K)");
+  req("superficie_disperdente_m2", "superficie disperdente lorda (m²)");
+  req("U_medio_W_m2K", "trasmittanza U dell'involucro (W/m²K) senza ponti termici");
   const risultati = {};
   const p = { gg: v.gg, theta_ext_inv: v.theta_ext_inv_C, theta_ext_est: v.theta_ext_est_C, ricambi_h: v.ricambi_h };
 
-  if (mancanti.length === 0) {
-    const tr = dispersioneTrasmissione([{ id: "involucro", U: v.U_medio_W_m2K, A_m2: v.superficie_disperdente_m2 }], p);
+  let ponti;
+  if (v.ponti_modo === "psi") {
+    const { nodi, errori } = leggiNodiPonti(v.ponti_nodi_testo);
+    if (errori.length) mancanti.push(...errori.map((e) => `ponti termici, ${e}`));
+    if (!nodi.length) mancanti.push("ponti termici: almeno un nodo con psi e lunghezza");
+    ponti = { modo: "psi", nodi };
+  } else if (v.ponti_modo === "forfait") ponti = { modo: "forfait", tipo: v.ponti_tipo };
+  else mancanti.push("ponti termici (psi x lunghezza): senza, le dispersioni sono sottostimate");
+
+  if (v.superficie_disperdente_m2 !== null && v.volume_m3 !== null && v.U_medio_W_m2K !== null) {
+    const tr = dispersioneTrasmissione([{ id: "involucro", U: v.U_medio_W_m2K, A_m2: v.superficie_disperdente_m2 }], { ponti });
     const inv = caricoInvernale(tr.H_con_ponti_W_K, v.volume_m3, p);
     const { ok, fuori } = vetrature(righeGSA, v);
-    const risc = fabbisognoRiscaldamento(inv.H_tot_W_K, ok, p);
-    // H'T del DM 2025: Htr,adj (con ponti termici) / superficie disperdente lorda, confronto con Tabella 10
-    risultati.verificaHT = verificaHT({
-      Htr_adj_W_K: tr.H_con_ponti_W_K,
-      A_tot_m2: v.superficie_disperdente_m2,
-      zona: v.zona ?? "D",
-      SV: v.superficie_disperdente_m2 / v.volume_m3,
-    });
-    const pdc = copPompaCalore(45, v.theta_ext_inv_C, p);
-    risultati.riscaldamento = {
-      carico_W: inv.carico_W,
-      H_tot_W_K: inv.H_tot_W_K,
-      Q_lorda_kWh: risc.Q_lorda_kWh,
-      Q_solare_kWh: risc.Q_solare_kWh,
-      Q_nd_kWh: risc.Q_nd_kWh,
-      COP_45C: pdc.cop_reale,
-      vetrature_escluse: fuori,
+    if (fuori.length) mancanti.push(`orientamento delle pareti con i vani ${fuori.join(", ")} (scheda GSA)`);
+    const statoPonti = tr.ponti.modo === "psi" && ponti.nodi.length ? "dati" : tr.ponti.modo === "forfait" ? "stima" : "incompleto";
+    risultati.verificaHT = {
+      ...verificaHT({ Htr_adj_W_K: tr.H_con_ponti_W_K, A_tot_m2: v.superficie_disperdente_m2, zona: v.zona ?? "D", SV: v.superficie_disperdente_m2 / v.volume_m3 }),
+      stato: statoPonti, nota: `Ponti termici: ${tr.ponti.nota}. U unica per tutto l'involucro.`,
     };
-    // raffrescamento: solo se sono noti gli schermi (ggl+sh)
+    const risc = fabbisognoRiscaldamento(inv.H_tot_W_K, ok, p);
+    risultati.riscaldamento = {
+      carico_W: inv.carico_W, Q_nd_kWh: risc.Q_nd_kWh, Q_solare_kWh: risc.Q_solare_kWh,
+      COP_45C: copPompaCalore(45, v.theta_ext_inv_C, p).cop_reale,
+      stato: "stima", nota: "Metodo dei gradi giorno (semplificato). Il carico di progetto segue UNI EN 12831 in forma semplificata.",
+    };
+    // Bilancio mensile UNI/TS 11300-1: servono apporti interni e costante di tempo
+    if (v.interni_W !== null && v.tau_h !== null) {
+      const solari = Array(12).fill(0);
+      for (const w of ok) {
+        const Asol = 0.9 * w.g * (1 - w.FF) * w.Aw_m2; // ggl = Fw x ggl,n con Fw = 0,9 (UNI/TS 11300-1:2008, 14.3.1)
+        flussoSolareMensile_W({ orientamento: w.orientamento, Asol_m2: Asol }).forEach((x, m) => { solari[m] += x; });
+      }
+      const ore = (STAGIONE_ZONA[v.zona] ?? STAGIONE_ZONA.D).map((g) => g * 24);
+      const bil = bilancioMensile({
+        modo: "riscaldamento", H_tr_W_K: tr.H_con_ponti_W_K, H_ve_W_K: dispersioneVentilazione(v.volume_m3, p),
+        interni_W: v.interni_W, solari_W: solari, tau_h: v.tau_h, ore,
+      });
+      risultati.mensile = {
+        Q_nd_kWh: bil.Q_nd_totale_kWh, mesi: bil.mesi, stato: "stima",
+        nota: `Formule UNI/TS 11300-1 (verificate). Stagione di legge della zona ${v.zona}, dati climatici UNI 10349 di Roma. Mancano: ${bil.mancanti.join("; ")}.`,
+      };
+    } else mancanti.push("apporti interni (W) e costante di tempo (h) per il bilancio mensile UNI/TS 11300-1");
     if (v.gglsh === null) mancanti.push("ggl+sh del vetro con schermo in uso (estate)");
     else {
       const est = caricoEstivo(tr.H_con_ponti_W_K, v.volume_m3, ok, {}, p);
       risultati.raffrescamento = {
-        carico_W: est.totale_W,
-        solare_W: est.solare_W,
-        trasmissione_W: est.trasmissione_W,
+        carico_W: est.totale_W, solare_W: est.solare_W,
         EER: eerCondizionatore(v.theta_ext_est_C, DEFAULT_ENERGIA.theta_int, p).EER_progetto,
+        stato: "stima", nota: "Picco solare PVGIS (non UNI 10349-3). EER stimato con Carnot x 0,45.",
       };
     }
   }
 
   if (v.E_elettrico_kWh !== null) {
     const fv = fotovoltaico(v.E_elettrico_kWh, { orientamento: v.orientamento_FV });
-    risultati.fotovoltaico = { kWp: fv.kWp_necessari, resa_kWh_kWp: fv.resa_kWh_kWp };
+    risultati.fotovoltaico = { kWp: fv.kWp_necessari, resa_kWh_kWp: fv.resa_kWh_kWp, stato: "stima", nota: "Resa PVGIS per Roma a 36 gradi, senza ombre locali." };
   } else mancanti.push("consumo elettrico annuo (kWh) per il fotovoltaico");
 
   if (v.collettori_m2 !== null && v.persone !== null) {
-    const st = solareTermico({ A_m2: v.collettori_m2, persone: v.persone, orientamento: "S" }, p);
-    risultati.solareTermico = st;
-  } else if (v.collettori_m2 === null && v.persone === null) mancanti.push("superficie collettori solari (m²) e numero di persone per l'ACS");
+    risultati.solareTermico = { ...solareTermico({ A_m2: v.collettori_m2, persone: v.persone, orientamento: v.orientamento_FV }, p), stato: "stima", nota: "Rendimento medio del collettore 0,35 di stima." };
+  } else mancanti.push("superficie collettori solari (m²) e numero di persone per l'acqua calda");
 
   return { risultati, mancanti };
 }
@@ -125,23 +174,33 @@ export async function testoDelPdf(file) {
   return testo;
 }
 
+function badge(stato) {
+  const s = document.createElement("span");
+  s.className = `badge-stato ${stato}`;
+  s.textContent = STATI[stato]?.etichetta ?? stato;
+  s.title = STATI[stato]?.spiegazione ?? "";
+  return s;
+}
+
 // Montaggio della scheda nel contenitore
 export function montaScheda(box, { getRigheGSA, onCambio }) {
   const v = valoriIniziali();
   const campi = [
     ["superficie_utile_m2", "Superficie utile (m²)"],
     ["volume_m3", "Volume lordo (m³)"],
-    ["superficie_disperdente_m2", "Superficie disperdente (m²)"],
-    ["U_medio_W_m2K", "U medio involucro senza ponti termici (W/m²K)"],
+    ["superficie_disperdente_m2", "Superficie disperdente lorda (m²)"],
+    ["U_medio_W_m2K", "U medio involucro, senza ponti termici (W/m²K)"],
     ["gg", "Gradi giorno"],
-    ["theta_ext_inv_C", "Temp. esterna inverno (°C)"],
-    ["theta_ext_est_C", "Temp. esterna estate (°C)"],
+    ["theta_ext_inv_C", "Temp. esterna di progetto inverno (°C)"],
+    ["theta_ext_est_C", "Temp. esterna di progetto estate (°C)"],
     ["ricambi_h", "Ricambi d'aria (1/h)"],
     ["FF", "Frazione telaio FF"],
     ["gglsh", "ggl+sh con schermo (estate)"],
+    ["interni_W", "Apporti interni medi (W)"],
+    ["tau_h", "Costante di tempo dell'edificio (h)"],
     ["E_elettrico_kWh", "Consumo elettrico annuo (kWh)"],
     ["collettori_m2", "Collettori solari (m²)"],
-    ["persone", "Persone (ACS)"],
+    ["persone", "Persone (acqua calda)"],
   ];
   box.innerHTML = "";
 
@@ -167,10 +226,7 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
     i.dataset.campo = chiave;
     i.value = v[chiave] ?? "";
     i.style.width = "90px";
-    i.onchange = () => {
-      v[chiave] = numeroDaInput(i.value);
-      aggiorna();
-    };
+    i.onchange = () => { v[chiave] = numeroDaInput(i.value); aggiorna(); };
     l.append(i);
     griglia.append(l);
   }
@@ -181,25 +237,44 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
   const lZ = document.createElement("label");
   lZ.style.display = "block";
   lZ.append("Zona climatica ", selZona);
-  griglia.append(lZ);
   const selOr = document.createElement("select");
   selOr.dataset.campo = "orientamento_FV";
   for (const o of ["N", "NE", "E", "SE", "S", "SO", "O", "NO"]) selOr.append(new Option(o, o, false, o === v.orientamento_FV));
   selOr.onchange = () => { v.orientamento_FV = selOr.value; aggiorna(); };
   const l2 = document.createElement("label");
   l2.style.display = "block";
-  l2.append("Orientamento fotovoltaico/solare termico ", selOr);
-  griglia.append(l2);
+  l2.append("Orientamento fotovoltaico / solare termico ", selOr);
+  griglia.append(lZ, l2);
   box.append(griglia);
+
+  // Ponti termici
+  const ponti = document.createElement("div");
+  ponti.className = "blocco-ponti";
+  ponti.innerHTML = `<div style="margin-top:8px;"><b>Ponti termici</b></div>
+    <label style="display:block;">Metodo <select id="ponti-modo">
+      <option value="assenti">Non inseriti (dispersioni sottostimate)</option>
+      <option value="psi">Valori psi x lunghezza (metodo corretto)</option>
+      <option value="forfait">Stima a percentuale (prospetto 4 UNI/TS 11300-1:2008, abrogato)</option>
+    </select></label>
+    <label style="display:block;" id="ponti-tipo-l">Tipo di parete <select id="ponti-tipo">${Object.entries(PROSPETTO4_2008).map(([k, x]) => `<option value="${k}">${x.percentuale} % · ${x.nome}</option>`).join("")}</select></label>
+    <label style="display:block;" id="ponti-nodi-l">Un nodo per riga: descrizione; psi (W/mK); lunghezza (m)<br>
+      <textarea id="ponti-nodi" rows="4" style="width:100%;" placeholder="Pilastro; 0,90; 11,2&#10;Solaio di interpiano; 0,70; 46,0&#10;Finestra; 0,15; 38,4"></textarea></label>
+    <details style="margin-top:4px;"><summary>Perché non c'è più la maggiorazione del 10 %?</summary><div class="riga info"></div></details>`;
+  ponti.querySelector("details .riga").textContent = NOTA_PONTI_10;
+  box.append(ponti);
+  const selPonti = ponti.querySelector("#ponti-modo");
+  const mostraPonti = () => {
+    ponti.querySelector("#ponti-tipo-l").style.display = v.ponti_modo === "forfait" ? "block" : "none";
+    ponti.querySelector("#ponti-nodi-l").style.display = v.ponti_modo === "psi" ? "block" : "none";
+  };
+  selPonti.onchange = () => { v.ponti_modo = selPonti.value; mostraPonti(); aggiorna(); };
+  ponti.querySelector("#ponti-tipo").value = v.ponti_tipo;
+  ponti.querySelector("#ponti-tipo").onchange = (e) => { v.ponti_tipo = e.target.value; aggiorna(); };
+  ponti.querySelector("#ponti-nodi").onchange = (e) => { v.ponti_nodi_testo = e.target.value; aggiorna(); };
+  mostraPonti();
 
   const esito = document.createElement("div");
   box.append(esito);
-  const norme = document.createElement("div");
-  norme.className = "riga info";
-  norme.style.marginTop = "10px";
-  norme.textContent = `Norme usate (verifica del ${DATA_VERIFICA}): ` + Object.values(NORME)
-    .filter((n) => n.usatoDa.length).map((n) => `${n.titolo.split(" ").slice(0, 3).join(" ")} [${n.stato}]`).join(" · ");
-  box.append(norme);
 
   function aggiorna() {
     esito.innerHTML = "";
@@ -211,32 +286,29 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
       d.className = "avviso";
       d.textContent = `Valore non valido: ${e.message}`;
       esito.append(d);
+      onCambio?.();
       return;
     }
     const { risultati, mancanti } = calcolo;
-    const riga = (t, cls = "") => { const d = document.createElement("div"); d.className = cls; d.textContent = t; esito.append(d); };
+    const riga = (t, stato, nota) => {
+      const d = document.createElement("div");
+      d.className = `riga-risultato ${stato ?? ""}`;
+      if (stato) d.append(badge(stato), " ");
+      d.append(t);
+      if (nota) { const n = document.createElement("div"); n.className = "nota-risultato"; n.textContent = nota; d.append(n); }
+      esito.append(d);
+    };
     const f0 = (x) => Math.round(x).toLocaleString("it-IT");
     const f2 = (x) => x.toLocaleString("it-IT", { maximumFractionDigits: 2 });
-    if (risultati.riscaldamento) {
-      const r = risultati.riscaldamento;
-      riga(`Riscaldamento: carico di progetto ${f0(r.carico_W)} W · fabbisogno ${f0(r.Q_nd_kWh)} kWh/anno (solare gratuito ${f0(r.Q_solare_kWh)} kWh)`, "ok");
-      riga(`Pompa di calore a 45 °C: COP ${f2(r.COP_45C)} (stima Carnot)`);
-    }
-    if (risultati.raffrescamento) {
-      const r = risultati.raffrescamento;
-      riga(`Raffrescamento: carico di progetto ${f0(r.carico_W)} W (di cui solare ${f0(r.solare_W)} W) · EER ${f2(r.EER)}`, "ok");
-    }
-    if (risultati.fotovoltaico) riga(`Fotovoltaico: ${f2(risultati.fotovoltaico.kWp)} kWp (resa ${f0(risultati.fotovoltaico.resa_kWh_kWp)} kWh/kWp)`, "ok");
-    if (risultati.solareTermico) {
-      const s = risultati.solareTermico;
-      riga(`Solare termico ACS: ${f0(s.Q_utile_kWh)} kWh utili su ${f0(s.Q_acs_kWh)} kWh richiesti · frazione ${s.frazione_solare === null ? "—" : (100 * s.frazione_solare).toFixed(0) + " %"}`, "ok");
-    }
-    if (risultati.verificaHT) {
-      const h = risultati.verificaHT;
-      riga(`H'T ${h.HT.toFixed(3).replace(".", ",")} W/m²K, limite Tab. 10 (zona ${v.zona}) ${h.limite.toFixed(2).replace(".", ",")}: ${h.verifica ? "VERIFICATO" : "NON VERIFICATO"}`, h.verifica ? "ok" : "avviso");
-    }
+    const r = risultati;
+    if (r.verificaHT) riga(`H'T ${r.verificaHT.HT.toFixed(3).replace(".", ",")} W/m²K, limite Tab. 10 zona ${v.zona} ${r.verificaHT.limite.toFixed(2).replace(".", ",")}: ${r.verificaHT.verifica ? "rispettato" : "NON rispettato"}`, r.verificaHT.stato, r.verificaHT.nota);
+    if (r.riscaldamento) riga(`Riscaldamento: carico di progetto ${f0(r.riscaldamento.carico_W)} W · fabbisogno ${f0(r.riscaldamento.Q_nd_kWh)} kWh/anno · COP a 45 °C ${f2(r.riscaldamento.COP_45C)}`, r.riscaldamento.stato, r.riscaldamento.nota);
+    if (r.mensile) riga(`Bilancio mensile UNI/TS 11300-1: fabbisogno ${f0(r.mensile.Q_nd_kWh)} kWh/anno`, r.mensile.stato, r.mensile.nota);
+    if (r.raffrescamento) riga(`Raffrescamento: carico di picco ${f0(r.raffrescamento.carico_W)} W (solare ${f0(r.raffrescamento.solare_W)} W) · EER ${f2(r.raffrescamento.EER)}`, r.raffrescamento.stato, r.raffrescamento.nota);
+    if (r.fotovoltaico) riga(`Fotovoltaico: ${f2(r.fotovoltaico.kWp)} kWp (resa ${f0(r.fotovoltaico.resa_kWh_kWp)} kWh/kWp)`, r.fotovoltaico.stato, r.fotovoltaico.nota);
+    if (r.solareTermico) riga(`Solare termico: ${f0(r.solareTermico.Q_utile_kWh)} kWh utili su ${f0(r.solareTermico.Q_acs_kWh)} kWh richiesti · copertura ${r.solareTermico.frazione_solare === null ? "—" : (100 * r.solareTermico.frazione_solare).toFixed(0) + " %"}`, r.solareTermico.stato, r.solareTermico.nota);
     if (mancanti.length) {
-      riga("Dati mancanti per completare il calcolo:", "avviso");
+      riga("Dati mancanti per completare il calcolo:", "incompleto");
       for (const m of mancanti) riga(`• ${m}`);
     }
     onCambio?.(risultati, mancanti);
@@ -248,7 +320,7 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
     esitoPdf.textContent = "Lettura del PDF in corso…";
     try {
       const testo = await testoDelPdf(file);
-      const { campi: estratti, trovati, mancanti } = parseDatiEnergetici(testo);
+      const { campi: estratti, trovati, mancanti, ambigui } = parseDatiEnergetici(testo);
       for (const [chiave] of campi) {
         if (estratti[chiave] !== undefined) {
           v[chiave] = estratti[chiave];
@@ -256,15 +328,28 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
           if (i) i.value = String(Math.round(estratti[chiave] * 100) / 100).replace(".", ",");
         }
       }
-      esitoPdf.innerHTML = "";
+      v.pdfCaricato = trovati.length > 0;
       esitoPdf.textContent = `Dal PDF: ${trovati.length} campi trovati. Controllali nei campi qui sotto.`;
       if (mancanti.length) esitoPdf.textContent += ` Non trovati nel PDF: ${mancanti.join(", ")}.`;
+      for (const x of ambigui) esitoPdf.textContent += ` ATTENZIONE: ${x.campo} compare con valori diversi (${x.valori.join(" / ")}), forse per zone diverse: usato ${x.scelto}, controlla.`;
+      if (!trovati.length) esitoPdf.textContent += " Se il PDF è una scansione, il testo non si può leggere: inserisci i dati a mano.";
       aggiorna();
     } catch (e) {
       esitoPdf.textContent = `PDF non letto: ${e.message}. Inserisci i dati a mano.`;
     }
   };
 
+  // Stato per la scheda Affidabilità
+  function contesto() {
+    return {
+      U: v.U_medio_W_m2K !== null,
+      ponti: v.ponti_modo,
+      superfici: v.superficie_disperdente_m2 !== null && v.volume_m3 !== null,
+      pdf: v.pdfCaricato,
+      mensileCompleto: false,
+    };
+  }
+
   aggiorna();
-  return { valori: v, aggiorna };
+  return { valori: v, aggiorna, contesto };
 }

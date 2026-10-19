@@ -1,4 +1,4 @@
-// Interfaccia: progetto modificabile (vuoto all'avvio), modalita' vista e costruzione, import/export.
+// Interfaccia: progetto modificabile (vuoto all'avvio), modalità vista e costruzione, import/export.
 import { validatePlan, wallLengthMm } from "./core/model.js";
 import { buildModel } from "./core/build.js";
 import { measurePlan } from "./core/measure.js";
@@ -18,8 +18,12 @@ import { montaHud } from "./ui/hud.js";
 import { rapportoAntincendio } from "./core/antincendio.js";
 import { apriScheda } from "./ui/scheda.js";
 import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
+
+// Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
+const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
 import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js";
 import { montaScheda } from "./ui/energia-ui.js";
+import { renderAffidabilita } from "./ui/affidabilita-ui.js";
 
 let hud = null;
 
@@ -27,7 +31,6 @@ const $ = (id) => document.getElementById(id);
 const stato = {
   progetto: progettoVuoto(),
   catalogo: null,
-  arrediEsempio: null,
   assegnazioni: {},
   viewer: null,
   modo: "vista",
@@ -44,6 +47,9 @@ const stato = {
   arredo: "divano",
   pavimento: "parquet",
   storia: [],
+  origine: "vuoto",
+  dxfReport: null,
+  schedaAnt: { assegnazioni: {}, quote: [] },
 };
 
 function messaggio(testo, tipo = "info") {
@@ -69,6 +75,7 @@ function fmtM2(v) {
 
 // ---- Modifica con storia (annulla) ----
 function applica(nuovo) {
+  if (stato.origine === "vuoto") stato.origine = "disegnato";
   stato.storia.push(stato.progetto);
   if (stato.storia.length > 60) stato.storia.shift();
   stato.progetto = nuovo;
@@ -119,6 +126,46 @@ function aggiornaMisureVista() {
   stato.viewer.setMisure(costruisciMisure(stato.progetto).filter((m) => f[chiave[m.tipo]]));
 }
 
+// Contesto per la scheda Affidabilità: cosa è noto e cosa manca, in ogni motore
+function contestoAffidabilita() {
+  const p = stato.progetto;
+  const righe = calcolaGSA(p, { orientamenti: stato.orientamenti ?? {}, nordGradi: stato.nordGradi ?? 0 }).righe;
+  const ambiti = {};
+  for (const [chiave, ass] of Object.entries(stato.schedaAnt.assegnazioni ?? {})) {
+    const id = ass.ambito || chiave;
+    ambiti[id] = (ambiti[id] ?? 0) + 1;
+  }
+  return {
+    localita: "Roma",
+    geometria: {
+      origine: stato.origine,
+      muri: p.walls.length,
+      stanze: stanze(p.walls).length,
+      stanzeConMonconi: stanze(p.walls).filter((x) => x.monconi > 0).map((x) => x.id),
+      muriObliqui: p.walls.filter((w) => !Number.isInteger(wallLengthMm(w))).length,
+      arrotondamenti: stato.dxfReport?.arrotondamenti ?? 0,
+      scartoMax_mm: stato.dxfReport?.scostamento_max_mm?.toFixed(3),
+    },
+    solare: {
+      gglsh: stato.gsaGglsh != null,
+      FFdaScheda: !!stato.gsaDaScheda,
+      FshObDaRilievo: !!stato.gsaDaScheda && stato.gsaFshOb != null,
+      vetriSenzaOrientamento: new Set(righe.filter((r) => !r.orientamento).map((r) => r.muro)).size,
+      nordConfermato: stato.nordGradi != null,
+    },
+    energia: stato.energia?.contesto() ?? {},
+    antincendio: {
+      schedaCaricata: Object.keys(stato.schedaAnt.assegnazioni ?? {}).length > 0,
+      ambitiMultiStanza: Object.values(ambiti).filter((n) => n > 1).length,
+    },
+  };
+}
+
+function aggiornaAffidabilita() {
+  const box = $("sez-affidabilita");
+  if (box) renderAffidabilita(box, contestoAffidabilita());
+}
+
 // Scheda GSA: vani vetrati, orientamenti da indicare, parametri e dati mancanti
 function renderGSA() {
   const box = document.getElementById("sez-gsa");
@@ -128,8 +175,20 @@ function renderGSA() {
     orientamenti: stato.orientamenti ?? {},
     Fsh: stato.gsaFsh ?? 1,
     Ff: stato.gsaFf ?? 0.8,
+    nordGradi: stato.nordGradi ?? 0,
   });
   box.innerHTML = "";
+  const nord = document.createElement("div");
+  nord.className = "riga-azioni";
+  nord.innerHTML = `<label>Nord del disegno, gradi in senso orario dall'alto <input id="gsa-nord" type="number" step="1" min="-180" max="360" value="${stato.nordGradi ?? ""}" placeholder="0" style="width:70px"></label>`;
+  box.appendChild(nord);
+  nord.querySelector("#gsa-nord").onchange = (e) => { stato.nordGradi = e.target.value === "" ? null : Number(e.target.value); renderGSA(); stato.energia?.aggiorna(); aggiornaAffidabilita(); };
+  if (stato.nordGradi == null) {
+    const d = document.createElement("div");
+    d.className = "avviso";
+    d.textContent = "Nord presunto in alto nel disegno: controlla la freccia del Nord sulla planimetria e inseriscila qui.";
+    box.appendChild(d);
+  }
   const riga = (t, classe = "") => {
     const d = document.createElement("div");
     d.className = classe;
@@ -155,6 +214,8 @@ function renderGSA() {
     sel.onchange = () => {
       stato.orientamenti = { ...(stato.orientamenti ?? {}), [m]: sel.value || null };
       renderGSA();
+      stato.energia?.aggiorna();
+      aggiornaAffidabilita();
     };
     linea.append(etichetta, sel);
     box.appendChild(linea);
@@ -178,19 +239,23 @@ function renderGSA() {
   const par2 = document.createElement("div");
   par2.className = "riga-azioni";
   par2.innerHTML = `<label>ggl+sh <input id="gsa-gglsh" type="number" step="0.01" min="0" max="1" value="${stato.gsaGglsh ?? ""}" style="width:70px"></label>
-    <label>FF telaio <input id="gsa-ff-telaio" type="number" step="0.05" min="0" max="0.99" value="${stato.gsaFfTelaio ?? 0.2}" style="width:70px"></label>`;
+    <label>FF telaio <input id="gsa-ff-telaio" type="number" step="0.05" min="0" max="0.99" value="${stato.gsaFfTelaio ?? 0.2}" style="width:70px"></label>
+    <label>Fsh,ob luglio <input id="gsa-fshob" type="number" step="0.05" min="0" max="1" value="${stato.gsaFshOb ?? ""}" placeholder="1" style="width:70px"></label>
+    <label><input id="gsa-scheda" type="checkbox" ${stato.gsaDaScheda ? "checked" : ""}> FF e Fsh,ob presi da scheda tecnica e rilievo</label>`;
   box.appendChild(par2);
-  par2.querySelector("#gsa-gglsh").onchange = (e) => { stato.gsaGglsh = e.target.value === "" ? null : Number(e.target.value); renderGSA(); };
-  par2.querySelector("#gsa-ff-telaio").onchange = (e) => { stato.gsaFfTelaio = Number(e.target.value); renderGSA(); };
+  par2.querySelector("#gsa-gglsh").onchange = (e) => { stato.gsaGglsh = e.target.value === "" ? null : Number(e.target.value); renderGSA(); aggiornaAffidabilita(); };
+  par2.querySelector("#gsa-ff-telaio").onchange = (e) => { stato.gsaFfTelaio = Number(e.target.value); renderGSA(); aggiornaAffidabilita(); };
+  par2.querySelector("#gsa-fshob").onchange = (e) => { stato.gsaFshOb = e.target.value === "" ? null : Number(e.target.value); renderGSA(); aggiornaAffidabilita(); };
+  par2.querySelector("#gsa-scheda").onchange = (e) => { stato.gsaDaScheda = e.target.checked; aggiornaAffidabilita(); };
   const asupUtile_m2 = stanze(stato.progetto.walls).reduce((s, x) => s + x.superficieMm2, 0) / 1e6;
   const a = calcolaAsolEst(
-    r.righe.map((x) => ({ id: x.vano, orientamento: x.orientamento, Aw_m2: x.area_m2, FF: stato.gsaFfTelaio ?? 0.2, gglsh: stato.gsaGglsh ?? null })),
+    r.righe.map((x) => ({ id: x.vano, orientamento: x.orientamento, Aw_m2: x.area_m2, FF: stato.gsaFfTelaio ?? 0.2, gglsh: stato.gsaGglsh ?? null, Fsh_ob: stato.gsaFshOb ?? 1 })),
     { asupUtile_m2 },
   );
   const esito = a.verifica === null ? "" : a.verifica ? " • VERIFICATO" : " • NON VERIFICATO";
   riga(`Asol,est (DM 26/06/2015): ${fmt(a.asolEst_m2)} m² • Asup utile ${fmt(asupUtile_m2)} m² • rapporto ${a.rapporto === null ? "—" : a.rapporto.toFixed(4).replace(".", ",")} (limite < ${a.limite.toFixed(3).replace(".", ",")})${esito}`, a.verifica ? "ok" : "avviso");
   if (!a.completo) riga(`Asol,est incompleto, mancano: ${a.mancanti.join("; ")}`, "avviso");
-  riga("Asup utile = somma delle stanze chiuse (stima). Fsh,ob = 1 se non indicato. Fsol,est derivato da PVGIS per Roma, non dalla tabella UNI/TS 11300-1.");
+  riga("Affidabilità: formula del DM 26/06/2015 aggiornato dal DM 28/10/2025. Fsol,est dai dati UNI 10349:2016 di Roma. Asup utile = somma delle stanze chiuse. Fsh,ob = 1 se non indicato (nessuna ombra). Dettagli nella scheda Affidabilità.");
 
   // dati mancanti per completare il calcolo
   riga("Dati mancanti per il calcolo completo:", "avviso");
@@ -201,6 +266,7 @@ function ricostruisci() {
   const p = stato.progetto;
   renderGSA();
   stato.energia?.aggiorna();
+  aggiornaAffidabilita();
   aggiornaMisureVista();
   if (stato.vista2d) aggiornaVista2d();
   const check = verificaProgetto(p);
@@ -231,7 +297,9 @@ function ricostruisci() {
     }
     righe.unshift(
       { tipo: "ok", testo: `Modello: ${p.walls.length} muri, ${p.openings.length} vani, ${p.floors.length} pavimenti, ${p.furniture.length} arredi.` },
-      { tipo: "ok", testo: `Lunghezza muri: ${m.lunghezza_muri_mm.toLocaleString("it-IT")} mm (intera).` },
+      { tipo: "ok", testo: m.lunghezza_muri_obliqui_mm > 0
+        ? `Lunghezza muri: ${m.lunghezza_muri_mm.toLocaleString("it-IT")} mm (muri dritti, intera) + ${m.lunghezza_muri_obliqui_mm.toLocaleString("it-IT")} mm (muri obliqui, non intera).`
+        : `Lunghezza muri: ${m.lunghezza_muri_mm.toLocaleString("it-IT")} mm (intera).` },
       { tipo: "ok", testo: `Superficie muri netta (due facce): ${fmtM2(m.superficie_muri_netta_m2)}.` },
     );
   }
@@ -284,9 +352,10 @@ function aggiornaVista2d() {
   if (stato.vista2d) ov.innerHTML = planSvg(stato.progetto);
 }
 
-function caricaProgetto(p, nome, { esempio = false } = {}) {
+function caricaProgetto(p, nome, { origine = "json", dxfReport = null } = {}) {
   stato.progetto = { floors: [], furniture: [], ...p };
-  stato.mostraArrediEsempio = esempio;
+  stato.origine = origine;
+  stato.dxfReport = dxfReport;
   stato.storia = [];
   stato.assegnazioni = {};
   stato.pendente = null;
@@ -323,7 +392,7 @@ function gestisciDoppio(hit) {
   let tipo = null;
   let id = null;
   if (hit.kind && hit.kind.startsWith("muro")) { tipo = "muro"; id = hit.wall; }
-  else if (["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"].includes(hit.kind)) { tipo = "vano"; id = hit.id.split(":")[0]; }
+  else if (PEZZI_VANO.includes(hit.kind)) { tipo = "vano"; id = hit.id.split(":")[0]; }
   else if (hit.kind === "arredo") { tipo = "arredo"; id = hit.id; }
   else if (hit.kind === "pavimento") { tipo = "pavimento"; id = hit.id; }
   let dati = tipo ? descrivi(p, tipo, id) : null;
@@ -405,7 +474,7 @@ function gestisciClic(hit) {
         if (!hit.id) return;
         let id = hit.id;
         if (hit.kind && hit.kind.startsWith("muro")) id = hit.wall;
-        else if (["telaio", "vetro", "anta", "maniglia"].includes(hit.kind)) id = hit.id.split(":")[0];
+        else if (PEZZI_VANO.includes(hit.kind)) id = hit.id.split(":")[0];
         else if (hit.kind === "pavimento" || hit.kind === "arredo") id = hit.id;
         applica(eliminaElemento(pr, id));
         break;
@@ -530,7 +599,7 @@ function costruisciPannello() {
   $("ruota").onclick = () => { stato.rotazione = (stato.rotazione + 90) % 360; messaggio(`Rotazione arredo: ${stato.rotazione}°`, "info"); };
   $("annulla").onclick = annullaUltimo;
   $("esc").onclick = () => { stato.pendente = null; stato.arredoSelezionato = null; ricostruisci(); };
-  $("nuovo").onclick = () => caricaProgetto(progettoVuoto(), "nuovo");
+  $("nuovo").onclick = () => caricaProgetto(progettoVuoto(), "nuovo", { origine: "vuoto" });
   $("vista2d").onclick = () => {
     stato.vista2d = !stato.vista2d;
     aggiornaVista2d();
@@ -538,29 +607,27 @@ function costruisciPannello() {
   $("esempio").onclick = () => apriEsempio();
 }
 
-// Esempio AR-02: pavimento parquet sotto l'impronta dei muri e arredi di esempio visibili.
+// Esempio AR-02: solo muri e vani (senza pavimenti e arredi).
 async function apriEsempio() {
   const p = await fetch("data/plan-ar02.json").then((r) => r.json());
-  caricaProgetto({ ...p, floors: [], furniture: [] }, "esempio", { esempio: true });
+  caricaProgetto({ ...p, floors: [], furniture: [] }, "esempio", { origine: "esempio" });
 }
 
 async function init() {
   stato.viewer = createViewer($("vista"));
-  const [catalogo, arredi] = await Promise.all([
-    fetch("data/cdi-catalog.json").then((r) => r.json()),
-    fetch("data/arredi-ar02.json").then((r) => r.json()),
-  ]);
-  stato.catalogo = catalogo;
-  stato.arrediEsempio = arredi.arredi;
+  stato.catalogo = await fetch("data/cdi-catalog.json").then((r) => r.json());
   costruisciPannello();
   stato.energia = montaScheda($("sez-energia"), {
     getRigheGSA: () => calcolaGSA(stato.progetto, {
       orientamenti: stato.orientamenti ?? {},
       Fsh: stato.gsaFsh ?? 1,
       Ff: stato.gsaFf ?? 0.8,
+      nordGradi: stato.nordGradi ?? 0,
     }).righe,
+    onCambio: () => aggiornaAffidabilita(),
   });
-  $("stile").onchange = (e) => stato.viewer.setStile(e.target.value);
+  // il menu degli stili parte dallo stile attivo nella vista
+  $("stile").value = stato.viewer.statistiche().stile;
   const q = document.createElement("div");
   q.innerHTML = `<div style="margin-top:8px;">Qualità di resa:
       <select id="qualita"><option value="auto">Automatica (consigliata)</option><option value="basso">Basso (PC lenti)</option><option value="medio">Medio</option><option value="alto">Alto</option></select>
@@ -570,7 +637,7 @@ async function init() {
   $("qualita").onchange = (e) => stato.viewer.setQualita(e.target.value);
   setInterval(() => {
     const st = stato.viewer?.statistiche();
-    if (st) $("statistiche").textContent = `Qualità ${st.livello} · ${st.fps} fps · ${st.chiamate} gruppi · ${st.triangoli.toLocaleString("it-IT")} triangoli`;
+    if (st) $("statistiche").textContent = `Qualità ${st.livello} · ${st.fps ? `${st.fps} fps` : "ferma (disegna solo quando muovi la vista)"} · ${st.chiamate} gruppi · ${st.triangoli.toLocaleString("it-IT")} triangoli`;
   }, 1000);
   stato.viewer.setPickHandler(gestisciClic);
   stato.viewer.setDoppioClicHandler(gestisciDoppio);
@@ -606,14 +673,14 @@ async function init() {
   await apriEsempio();
 
   montaTracciamento(document.getElementById("trc-root"), {
-    onPianta: (p) => caricaProgetto(p, "tracciata su immagine"),
+    onPianta: (p) => caricaProgetto(p, "tracciata su immagine", { origine: "immagine" }),
   });
 
   $("carica").addEventListener("change", async (ev) => {
     const file = ev.target.files[0];
     if (!file) return;
     try {
-      caricaProgetto(JSON.parse(await file.text()), file.name);
+      caricaProgetto(JSON.parse(await file.text()), file.name, { origine: "json" });
     } catch (e) {
       messaggio(`File non leggibile come JSON: ${e.message}`, "errore");
     }
@@ -637,14 +704,14 @@ async function init() {
       for (const a of report.avvisi) righe.push({ tipo: "avviso", testo: a });
       for (const e of check.errors) righe.push({ tipo: "errore", testo: `ERRORE: ${e}` });
       scrivi(righe);
-      if (check.ok) caricaProgetto(plan, file.name);
+      if (check.ok) caricaProgetto(plan, file.name, { origine: "dxf", dxfReport: report });
       else messaggio("DXF non importato: correggi gli errori.", "errore");
     } catch (e) {
       messaggio(`DXF non leggibile: ${e.message}`, "errore");
     }
   });
 
-  // Strumenti antincendio (modalita' Architetto): scheda ambiti e rapporto per il professionista
+  // Strumenti antincendio (modalità Architetto): scheda ambiti e rapporto per il professionista
   const sezAnt = document.createElement("div");
   sezAnt.className = "blocco avanzato";
   sezAnt.innerHTML = `<h2>Antincendio (DM 3/8/2015)</h2>
@@ -652,19 +719,19 @@ async function init() {
     <div class="riga-azioni"><button id="ant-rapporto">Genera rapporto (JSON)</button></div>
     <div id="ant-esito" class="hud-stat"></div>`;
   document.querySelector('[data-scheda="progetto"]').appendChild(sezAnt);
-  let schedaAnt = { assegnazioni: {}, quote: [] };
   $("ant-file").addEventListener("change", async (ev) => {
     const f = ev.target.files[0];
     if (!f) return;
     try {
-      schedaAnt = { assegnazioni: {}, quote: [], ...JSON.parse(await f.text()) };
-      $("ant-esito").textContent = `Scheda caricata: ${Object.keys(schedaAnt.assegnazioni).length} stanze assegnate, ${schedaAnt.quote.length} quote.`;
+      stato.schedaAnt = { assegnazioni: {}, quote: [], ...JSON.parse(await f.text()) };
+      $("ant-esito").textContent = `Scheda caricata: ${Object.keys(stato.schedaAnt.assegnazioni).length} stanze assegnate, ${stato.schedaAnt.quote.length} quote.`;
+      aggiornaAffidabilita();
     } catch (e) {
       $("ant-esito").textContent = `Scheda non leggibile: ${e.message}`;
     }
   });
   $("ant-rapporto").addEventListener("click", () => {
-    const r = rapportoAntincendio([{ piano: "P0", plan: stato.progetto }], schedaAnt.assegnazioni, schedaAnt.quote);
+    const r = rapportoAntincendio([{ piano: "P0", plan: stato.progetto }], stato.schedaAnt.assegnazioni, stato.schedaAnt.quote);
     const blob = new Blob([JSON.stringify(r, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);

@@ -33,7 +33,7 @@ export function apriScheda(dati, onAzione) {
   if (dati.portante !== undefined) {
     const badge = document.createElement("div");
     badge.className = `scheda-badge ${dati.portante ? "portante" : "tramezzo"}`;
-    badge.textContent = dati.portante ? "PORTANTE" : "NON PORTANTE";
+    badge.textContent = dati.portante ? "PRESUNTO PORTANTE" : "PRESUNTO NON PORTANTE";
     box.appendChild(badge);
   }
 

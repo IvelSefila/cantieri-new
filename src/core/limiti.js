@@ -14,7 +14,7 @@ export const TAB10_HT = {
   F: [0.70, 0.53, 0.48],
 };
 
-// Tabella 11: rapporto vetrato (%) e valori per zona. Le due meta' della tabella stampata sono unite.
+// Tabella 11: rapporto vetrato (%) e valori per zona. Le due metà della tabella stampata sono unite.
 export const TAB11_VETRI_PERCENTUALI = [9, 14, 19, 24, 28, 33, 38, 43, 47, 52, 57, 62, 67, 71, 76, 81, 86, 90, 95, 100];
 export const TAB11_HT = {
   "A": [0.72, 0.82, 0.92, 1.01, 1.10, 1.18, 1.26, 1.34, 1.41, 1.47, 1.53, 1.59, 1.64, 1.68, 1.72, 1.76, 1.79, 1.82, 1.84, 1.86],
@@ -37,7 +37,7 @@ export function limiteHTNuova(zona, SV) {
 
 // Limite di H'T per ristrutturazione importante di primo livello (Tabella 11).
 // Il rapporto vetrato non cade su una colonna esatta: si usa la colonna con il valore immediatamente
-// inferiore (il limite cresce con il vetrato, quindi questa scelta e' la piu' severa). Il decreto non scrive
+// inferiore (il limite cresce con il vetrato, quindi questa scelta è la più severa). Il decreto non scrive
 // la regola di interpolazione: da confermare.
 export function limiteHTRistrutturazione(zona, rapportoVetratoPercento) {
   const riga = TAB11_HT[zona];

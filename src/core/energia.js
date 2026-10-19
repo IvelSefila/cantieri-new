@@ -1,22 +1,21 @@
 // Calcolo energetico di base: dispersioni (UNI EN 12831 semplificata), fabbisogno stagionale con gradi giorno,
 // emettitori (radiatori), pompe di calore, condizionatori, fotovoltaico, solare termico per ACS.
-// Ogni default e' ESPLICITO in DEFAULT_ENERGIA con la sua fonte o la nota "da confermare".
+// Ogni default è ESPLICITO in DEFAULT_ENERGIA con la sua fonte o la nota "da confermare".
 // Il calcolo non nasconde i parametri: vengono restituiti nel risultato.
 // Nessuna dipendenza esterna: stesse funzioni nel browser e nei test Node.
-import { CLIMA_ROMA, INCLINATO_S36_KWH_M2 } from "./clima.js";
+import { CLIMA_ROMA, INCLINATO_S36_KWH_M2, UNI10349_ROMA } from "./clima.js";
 
 export const DEFAULT_ENERGIA = {
   theta_int: 20,          // C, temperatura interna di progetto (UNI EN 12831)
-  theta_ext_inv: 0,       // C, esterna di progetto invernale Roma: 0,00 C nella relazione ACCA di esempio (verificare UNI 5364)
-  theta_ext_est: 34,      // C, esterna di progetto estiva Roma: 34,00 C nella relazione ACCA di esempio
+  theta_ext_inv: UNI10349_ROMA.thetaProgettoInverno_C, // C, Roma 0,0 (UNI 10349:2016, vedi clima.js)
+  theta_ext_est: UNI10349_ROMA.thetaProgettoEstate_C,  // C, Roma 33,8 (UNI 10349:2016, vedi clima.js)
   gg: CLIMA_ROMA.gradiGiorno, // gradi giorno, DPR 412/93 (Roma 1415)
   ricambi_h: 0.5,         // 1/h, ricambio d'aria (da confermare: 0,30 nella relazione ACCA, 0,50 nella Blumatica)
-  ponti_termici: 0.10,    // maggiorazione delle dispersioni per ponti termici (stima, da confermare)
   Rsi: 0.13,              // m2K/W, resistenza superficiale interna (UNI EN ISO 6946)
   Rse: 0.04,              // m2K/W, resistenza superficiale esterna (UNI EN ISO 6946)
   eta_guadagni: 0.8,      // fattore di utilizzo dei guadagni solari invernali (metodo semplificato, da confermare)
   carnot_eff: 0.45,       // efficienza rispetto a Carnot delle pompe di calore reali (stima, da confermare con EN 14825)
-  pr_fv: 1,               // resa FV gia' inclusa nei kWh/kWp PVGIS (perdite di sistema 14 %): nessun PR aggiuntivo
+  pr_fv: 1,               // resa FV già inclusa nei kWh/kWp PVGIS (perdite di sistema 14 %): nessun PR aggiuntivo
   n_radiatori: 1.3,       // esponente dell'emissione dei radiatori (EN 442)
   dt_norma: 50,           // K, salto termico di riferimento della potenza nominale (EN 442)
   l_acs_persona_giorno: 25, // litri/giorno a 40 C per persona (UNI TS 11300-2)
@@ -37,10 +36,30 @@ export function trasmittanza(layers, Rsi = DEFAULT_ENERGIA.Rsi, Rse = DEFAULT_EN
   return 1 / (Rsi + R + Rse);
 }
 
-// Dispersione per trasmissione: H_T (W/K) = sum(U_i * A_i * b_i) * (1 + ponti termici).
-// elementi: [{ id, U, A_m2, tipo }]  tipo: "esterno" (b=1), "non_riscaldato" (b = e.b, default 0,5)
-export function dispersioneTrasmissione(elementi, parametri = {}) {
-  const p = { ...DEFAULT_ENERGIA, ...parametri };
+// Ponti termici: tre modi, dal più preciso al meno preciso.
+//  1) "psi": nodi [{ descrizione, psi_W_mK, l_m }] -> H_ponti = somma(psi x l). È il metodo richiesto dalla
+//     UNI/TS 11300-1:2014 e dal DM 28/10/2025 (psi da calcolo UNI EN ISO 10211 o da atlante conforme UNI EN ISO 14683).
+//     Il risultato è esatto rispetto ai dati inseriti.
+//  2) "forfait": maggiorazione percentuale del prospetto 4 della UNI/TS 11300-1:2008 (dal 5 al 30 % secondo il tipo
+//     di parete). Quel prospetto è stato ABROGATO dalla revisione 2014: qui serve solo come stima di confronto,
+//     mai per la verifica di legge. Si applica alle pareti opache; se si inserisce una U media di tutto
+//     l'involucro (finestre comprese) l'approssimazione è ancora maggiore.
+//  3) nessun dato: H senza ponti termici, quindi dispersioni sottostimate. Il risultato è segnato incompleto.
+// La vecchia maggiorazione fissa del 10 % non c'è più: era un valore di comodo senza base nella norma vigente.
+export const PROSPETTO4_2008 = {
+  cappotto_senza_aggetti: { nome: "Cappotto esterno senza aggetti/balconi, ponti termici corretti", percentuale: 5 },
+  cappotto_con_aggetti: { nome: "Cappotto esterno con aggetti/balconi", percentuale: 15 },
+  muratura_piena: { nome: "Parete omogenea in mattoni pieni o pietra (senza isolante)", percentuale: 5 },
+  cassa_vuota: { nome: "Parete a cassa vuota con mattoni forati (senza isolante)", percentuale: 10 },
+  cassa_vuota_isolata_corretta: { nome: "Cassa vuota con isolamento nell'intercapedine (ponte termico corretto)", percentuale: 10 },
+  cassa_vuota_isolata_non_corretta: { nome: "Cassa vuota con isolamento nell'intercapedine (ponte termico non corretto)", percentuale: 20 },
+  prefabbricato_isolante_interno: { nome: "Pannello prefabbricato in calcestruzzo con isolante interno", percentuale: 30 },
+};
+
+// Dispersione per trasmissione: H_T (W/K) = somma(U x A x b) + H_ponti.
+// elementi: [{ id, U, A_m2, tipo }]  tipo: "esterno" (b = 1), "non_riscaldato" (b = e.b, default 0,5)
+// opzioni.ponti: { modo: "psi", nodi } | { modo: "forfait", tipo } | assente
+export function dispersioneTrasmissione(elementi, opzioni = {}) {
   let H = 0;
   const righe = [];
   for (const e of elementi) {
@@ -50,10 +69,27 @@ export function dispersioneTrasmissione(elementi, parametri = {}) {
     H += h;
     righe.push({ id: e.id, tipo: e.tipo ?? "esterno", U: e.U, A_m2: e.A_m2, b, H_W_K: h });
   }
-  return { righe, H_trasm_W_K: H, H_con_ponti_W_K: H * (1 + p.ponti_termici) };
+  const ponti = opzioni.ponti;
+  let H_ponti = 0;
+  let info;
+  if (ponti?.modo === "psi") {
+    for (const n of ponti.nodi ?? []) {
+      if (!Number.isFinite(n.psi_W_mK) || !(n.l_m > 0)) throw new Error(`ponte termico ${n.descrizione ?? ""}: psi e lunghezza non validi`);
+      H_ponti += n.psi_W_mK * n.l_m;
+    }
+    info = { modo: "psi", precisione: "dati inseriti", nota: `${(ponti.nodi ?? []).length} nodi, somma psi x l` };
+  } else if (ponti?.modo === "forfait") {
+    const voce = PROSPETTO4_2008[ponti.tipo];
+    if (!voce) throw new Error(`tipo di parete non valido per il prospetto 4: ${ponti.tipo}`);
+    H_ponti = (H * voce.percentuale) / 100;
+    info = { modo: "forfait", precisione: "stima (metodo abrogato nel 2014)", nota: `${voce.percentuale} % - ${voce.nome} (UNI/TS 11300-1:2008, prospetto 4)` };
+  } else {
+    info = { modo: "assenti", precisione: "mancante", nota: "ponti termici non inseriti: dispersioni sottostimate" };
+  }
+  return { righe, H_trasm_W_K: H, H_ponti_W_K: H_ponti, H_con_ponti_W_K: H + H_ponti, ponti: info };
 }
 
-// Ventilazione (W/K): 0,34 Wh/(m3K) * n * V  (UNI EN 12831, aria a densita' standard)
+// Ventilazione (W/K): 0,34 Wh/(m3K) * n * V  (UNI EN 12831, aria a densità standard)
 export function dispersioneVentilazione(volume_m3, parametri = {}) {
   const p = { ...DEFAULT_ENERGIA, ...parametri };
   return 0.34 * p.ricambi_h * volume_m3;
@@ -165,7 +201,7 @@ export function fotovoltaico(E_fabbisogno_kWh, parametri = {}) {
   return {
     kWp_necessari: E_fabbisogno_kWh / (resa * p.pr_fv),
     resa_kWh_kWp: resa * p.pr_fv,
-    nota: "Resa PVGIS-SARAH3 per Roma a 36 gradi di inclinazione. Per altre localita' inserire la resa PVGIS del sito.",
+    nota: "Resa PVGIS-SARAH3 per Roma a 36 gradi di inclinazione. Per altre località inserire la resa PVGIS del sito.",
   };
 }
 
@@ -188,7 +224,7 @@ export function solareTermico({ A_m2, persone, orientamento = "S" }, parametri =
 }
 
 // Verifica della potenza minima FER: P = S / K (S superficie in pianta, K parametro normativo).
-// K NON e' fissato qui: va inserito dopo verifica del testo vigente (D.Lgs 199/2021 e successive modifiche).
+// K NON è fissato qui: va inserito dopo verifica del testo vigente (D.Lgs 199/2021 e successive modifiche).
 export function potenzaMinimaFER(S_pianta_m2, K_m2_per_kW) {
   if (!(K_m2_per_kW > 0)) return { calcolata: false, motivo: "parametro K non fornito: da verificare nel testo normativo vigente" };
   return { calcolata: true, P_minima_kW: S_pianta_m2 / K_m2_per_kW };

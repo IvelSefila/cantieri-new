@@ -1,0 +1,3189 @@
+ 
+ 
+ 
+RELAZIONE TECNICA PRESTAZIONE ENERGETICA 
+   
+ 
+ 
+   
+ 
+ 
+ 
+     Area geografica 
+Regione Lazio 
+Provincia di Roma 
+Comune di ROMA 
+ 
+   
+ 
+Ubicazione intervento 
+Via Trento,  
+ 
+ 
+  
+  
+  
+  
+  
+    
+     
+ Proprietà    
+ Mario Rossi 
+   
+ 
+ 
+ 
+ 
+ 
+    
+ Progettista   
+ Ing. Luigi Bianchi   
+    
+ Costruttore   
+ EDILCOM   
+    
+ Tecnico   
+ Ing. Luca Nervi 
+   
+ Revisione n° 0  
+ 
+    
+ Data elaborazione: 29/06/2016 
+ 
+ 
+ 
+<<PAGE>>
+DATI GENERALI 
+Comune di ROMA, Provincia di Roma. 
+Edificio pubblico o a uso pubblico: [   ] SI  [ X ] NO 
+L'involucro oggetto della presente relazione tecnica è ubicato in via Via Trento, n.° , del Comune di ROMA, 
+Provincia di Roma. 
+ 
+Dati catastali 
+Sezione: 2  
+Foglio: 3  
+Particella/Mappale: 125  
+Subalterno: 22  
+ 
+Titolo abitativo 
+Titolo abilitativo non previsto 
+ 
+ 
+Classificazione involucro e zone 
+Classificazione dell'involucro in base alla categoria di cui all'articolo 3 del DPR 26 agosto 1993, n. 412:  
+Numero delle unità immobiliari: 1 Destinazione d'uso prevalente: E.1.1 
+ 
+Dettaglio delle destinazioni d'uso previste per nell'involucro: 
+DENOMINAZIONE ZONA DESTINAZIONE D'USO 
+DPR 419/93 
+VOLUME 
+m³ 
+Piano 1 E.1.1 402,34 
+Piano 2 E.1.1 402,34 
+ 
+Figure e soggetti 
+[  x  ] Committente/i : Mario Rossi 
+[  x  ] Costruttore/i :   EDILCOM 
+[  x  ] Progettista/i :  Ing. Luigi Bianchi 
+[  x  ] Direttore/i :  Ing. Luca Nervi 
+ 
+<<PAGE>>
+PARAMETRI CLIMATICI 
+Vengono di seguito indicati i dati di riferimento, desunti e/o calcolati in accordo alla UNI 10349:2016  parti 1,2 e 3, della stazione di rilevazione e del 
+capoluogo di provinci a utilizzati per la determinazione dei dati climatici corretti della località in cui è ubicato l'involucro oggetto della pres ente relazione 
+tecnica. 
+ 
+Stazione di rilevazione più vicina di riferimento 
+ 
+Stazione di rilevazione Roma  -  Latitudine Gradi [ ° ] 41 Primi [ ' ] 55 Secondi [ " ] 16 
+Sigla RM  -  Longitudine Gradi [ ° ] 12 Primi [ ' ] 31 Secondi [ " ] 23 
+Altezza sul livello del mare 32 m         
+Fattore di correzione altimetrico 147 1°/fc         
+Zona vento Zona2 -         
+Direzione prevalente del vento SW -         
+Velocità media 1,7 m/s         
+ 
+Simbolo U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+θe °C 8,0 9,0 11,4 15,8 19,1 22,5 26,3 26,5 21,6 17,7 12,6 8,6 
+Hdh MJ/m² 2,8 3,6 5,2 7,3 8,8 9,4 8,6 7,8 6,7 4,9 3,2 2,7 
+Hbh MJ/m² 3,5 5,4 8,1 11,4 12,7 16,1 19,1 15,1 10,4 6,9 3,9 3,4 
+Hdh + Hbh MJ/m² 6,3 9,0 13,3 18,7 21,5 25,5 27,7 22,9 17,1 11,8 7,1 6,1 
+Pva Pa 948 796 998 1156 1235 1594 1622 1969 1558 1347 1033 929 
+Pvs Pa 1072 1147 1347 1794 2210 2724 3419 3460 2579 2024 1458 1117 
+URe % 88,42 69,37 74,07 64,43 55,89 58,52 47,43 56,91 60,42 66,54 70,84 83,18 
+Vv m/s 1,5 2,4 1,7 2,4 1,8 1,7 1,7 1,4 1,7 1,3 1,6 1,3 
+ 
+dove: 
+ 
+θe temperatura media dell'aria esterna Pva pressione di vapore dell'aria esterna 
+Hdh irradiazione solare giornaliera media mensile diffusa Pvs pressione di saturazione del vapore dell'aria esterna 
+Hbh irradiazione solare giornaliera media mensile diretta sul piano orizzontale URe umidità relativa esterna 
+Hdh + Hbh irradiazione solare giornaliera totale sul piano orizzontale Vv velocità media del vento 
+ 
+ 
+Capoluogo di provincia più vicino di riferimento 
+ 
+Capoluogo di provincia Roma  -  Latitudine Gradi [ ° ] 41 Primi [ ' ] 53 Secondi [ " ] 0 
+Sigla RM  -  Longitudine Gradi [ ° ] 12 Primi [ ' ] 28 Secondi [ " ] 0 
+<<PAGE>>
+Altezza sul livello del mare 20 m         
+Temperatura progetto invernale 0,0 °C         
+Temperatura massima estiva 33,8 °C         
+Escursione termica estiva 11,0 °C         
+Umidità relativa esterna 50,00 %         
+Umidità specifica esterna (X) 14,20 g/kg         
+Mese/i piu caldo/i Luglio-agosto -         
+ 
+Dati climatici effettivi di calcolo 
+Vengono di seguito riportati i principali parametri climatici utilizzati nel calcolo della prestazione energetica dell'involucro oggetto della presente relazione.  
+ 
+Ubicazione involucro ROMA -  Latitudine Gradi sessagesimali [ ° dec] 41,907500 
+Regione Lazio -  Longitudine Gradi sessagesimali [ ° dec] 12,490000 
+Zona climatica D -     
+Altezza sul livello del mare 20 m     
+Gradi giorno 1415 -     
+Giorni di riscaldamento previsti 166 gg     
+Temperatura progetto invernale 0,0 °C     
+Temperatura progetto estiva 33,8 °C     
+Temperatura media annuale 16,7 °C     
+Velocità del vento 2,6 m/s     
+ 
+Simbolo U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+θe °C 8,1 9,1 11,5 15,9 19,2 22,6 26,4 26,6 21,7 17,8 12,7 8,7 
+Pva Pa 954 801 1005 1163 1243 1604 1632 1981 1568 1356 1040 935 
+Pvs Pa 1080 1155 1356 1806 2224 2741 3440 3480 2594 2037 1468 1124 
+URe % 88,42 69,37 74,07 64,43 55,89 58,52 47,43 56,91 60,42 66,54 70,84 83,18 
+S MJ/m² 10,83 11,78 12,04 11,47 10,15 10,45 11,45 12,12 12,81 13,04 10,81 11,40 
+SE MJ/m² 8,53 9,96 11,60 13,04 12,68 13,81 15,40 14,79 13,39 11,61 8,74 8,84 
+E MJ/m² 5,00 6,81 9,47 12,58 13,85 16,18 17,81 15,21 11,85 8,64 5,49 4,93 
+NE MJ/m² 2,31 3,53 5,87 9,17 11,39 13,85 14,68 11,47 7,95 4,95 2,72 2,17 
+N MJ/m² 2,03 2,70 3,93 5,99 8,31 10,50 10,43 7,44 5,12 3,63 2,31 1,96 
+NO MJ/m² 2,31 3,53 5,87 9,17 11,39 13,85 14,68 11,47 7,95 4,95 2,72 2,17 
+O MJ/m² 5,00 6,81 9,47 12,58 13,85 16,18 17,81 15,21 11,85 8,64 5,49 4,93 
+<<PAGE>>
+Simbolo U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+SO MJ/m² 8,53 9,96 11,60 13,04 12,68 13,81 15,40 14,79 13,39 11,61 8,74 8,84 
+Oriz. MJ/m² 6,30 9,00 13,30 18,70 21,50 25,50 27,70 22,90 17,10 11,80 7,10 6,10 
+θsky °C -1,9 -5,2 -0,9 1,9 3,1 7,6 7,9 10,9 7,2 4,7 -0,2 -2,3 
+ 
+dove: 
+ 
+θe temperatura media dell'aria esterna SE irradiazione giornaliera su piano verticale orientato a sud-est 
+Pva pressione di vapore dell'aria esterna E irradiazione giornaliera su piano verticale orientato a est 
+Pvs pressione di saturazione del vapore dell'aria esterna NE irradiazione giornaliera su piano verticale orientato a nord-est 
+URe umidità relativa esterna N irradiazione giornaliera su piano verticale orientato a nord 
+Oriz. irradiazione giornaliera su piano orizzontale NO irradiazione giornaliera su piano verticale orientato a nord-ovest 
+θsky temperatura apparente del cielo O irradiazione giornaliera su piano verticale orientato a ovest 
+S irradiazione giornaliera su piano verticale orientato a sud SO irradiazione giornaliera su piano verticale orientato a sud-ovest 
+ 
+ 
+ 
+<<PAGE>>
+ 
+ 
+SPAZI E ZONE 
+ 
+Suddivisione dell'involucro in spazi elementari 
+Al fine di determinare le prestazioni energetiche dell'involucro, lo stesso è stato suddiviso nei seguenti spazi elementari:  
+ 
+LIVELLO SPAZIO Descrizione unità minima di suddivisione A 
+[m²] 
+h 
+[m] 
+Vn 
+[m³] 
+Piano 1 1 Ambiente unico 107,70 3,00 323,10 
+Piano 2 2 Ambiente unico 107,70 3,00 323,10 
+dove: 
+A superficie netta h altezza media Vn volume netto 
+ 
+La superficie utile totale netta climatizzata totale dell'involucro è pari a 215,40 m². 
+Il volume netto totale è pari a 646,20 m³. 
+ 
+Zonizzazione sulla base dei servizi presenti 
+Ai fini dei calcoli, sulla base dei parametri gestionali e delle caratteristiche degli impianti presenti, gli spazi elementar i sono state aggregati in zone termiche 
+così come indicato nella seguente tabella: 
+ 
+LIVELLO SPAZIO Descrizione unità minima di suddivisione H W C L V T 
+Piano 1 1 Ambiente unico ZH1 ZW1 ZC1 ZL1 ZV1 ZT1 
+Piano 2 2 Ambiente unico ZH2 ZW2 ZC2 ZL2 ZV2 ZT1 
+ 
+POTENZA TERMICA PER RISCALDAMENTO 
+ 
+Potenza dispersa per trasmissione e ventilazione 
+ 
+Nelle seguenti tabelle sono riportate le potenze di picco disperse per trasmissione (P t) e per ventilazione (PV). 
+ 
+Pt = A∙U∙Δt + Ψ∙ l∙Δt∙c 
+PV = 0,34∙V∙Δt∙n 
+ 
+con  Δt = Tp - Ti 
+ 
+<<PAGE>>
+1 
+ 
+dove: 
+Tp Temperatura di progetto [° C] V Volume netto [m3] l Lunghezza del ponte termico [m] 
+Ti Temperatura interna [°C] A Superficie dell’elemento [m2] Ψ Trasmittanza termica lineica del ponte termico [W/mK] 
+n Ricambi orari [h-1] U Trasmittanza termica dell’elemento [W/m2K] c Coefficiente di attribuzione del ponte termico 
+ 
+Zona climatizzata “Villetta Mario Rossi - Piano 1” 
+ 
+Classe E.1.1 - Abitazioni adibite a residenza con carattere continuativo 
+ 
+Superficie esterna disperdente (S) 285,0500 m2 Superficie netta riscaldata 107,7000 m2 
+Volume lordo riscaldato (V) 402,3400 m3 Volume netto riscaldato 323,1000 m3 
+Rapporto di forma (S/V) 0,71 m2/ m3    
+ 
+ 
+Locale Ti [°C] Pt [W] Pv [W] P [W] 
+Ambiente unico 20,000 3450,861 1077,000 4527,861 
+ 
+TOTALE ZONA: 3450,861 1077,000 4527,861 
+ 
+Simboli 
+ 
+Ti Temperatura interna Pt Potenza dispersa per trasmissione PV Potenza dispersa per ventilazione 
+P Potenza dispersa totale    
+ 
+ 
+Locale: Ambiente unico 
+ 
+Volume netto: 323,100 m3 Temperatura interna: 20,0 °C 
+Superficie disperdente locale: 285,050 m2 Tasso ricambio aria: 0,500 h-1 
+ 
+Cod. Descrizione U 
+[W/m2K] 
+A 
+[m2] 
+Tp 
+[°C] Esp Pt 
+[W] 
+Componenti verso esterno 
+PE5B 5B - Parete esterna da 40 cm 0,298 21,160 20,0 OVEST 125,933 
+PE5B 5B - Parete esterna da 40 cm 0,298 36,500 20,0 NORD 217,229 
+PE5B 5B - Parete esterna da 40 cm 0,298 21,160 20,0 EST 125,933 
+PE5B 5B - Parete esterna da 40 cm 0,298 3,960 20,0 SUD 23,568 
+PE5B 5B - Parete esterna da 40 cm 0,298 8,250 20,0 EST 49,100 
+<<PAGE>>
+2 
+ 
+PE5B 5B - Parete esterna da 40 cm 0,298 17,220 20,0 SUD 102,484 
+PE5B 5B - Parete esterna da 40 cm 0,298 8,250 20,0 OVEST 49,100 
+PE5B 5B - Parete esterna da 40 cm 0,298 6,310 20,0 SUD 37,554 
+PE5B 5B - Parete esterna da 40 cm 0,298 6,310 20,0 SUD 37,554 
+PE5B 5B - Parete esterna da 40 cm 0,298 3,960 20,0 SUD 23,568 
+CA02 Cassonetto isolato 1,000 0,420 20,0 NORD 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 NORD 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 OVEST 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 SUD 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 SUD 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 EST 8,400 
+CA02 Cassonetto isolato 1,000 0,210 20,0 NORD 4,200 
+CA02 Cassonetto isolato 1,000 0,210 20,0 NORD 4,200 
+CA02 Cassonetto isolato 1,000 0,210 20,0 SUD 4,200 
+DE04 Porta esterna blindata a risparmio energetico 0,600 2,750 20,0 SUD 33,000 
+Componenti contro terra 
+CS5B-415 Pavimento su terreno tra zone C / Terreno 0,195 121,920 6,3 SUD 78,698 
+Infisso singolo 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 NORD 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 NORD 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 OVEST 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 SUD 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 SUD 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 EST 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 1,050 20,0 NORD 52,150 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 1,050 20,0 NORD 52,150 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 1,050 20,0 SUD 52,150 
+ 
+PONTI TERMICI 
+ 
+<<PAGE>>
+3 
+ 
+Cod. Tipologia Lunghezza 
+[m] 
+Ψ 
+[W/mK] c Pt 
+[W] 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C8 Angolo rientrante senza pilastro 3,300 0,100 1,000 6,600 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C8 Angolo rientrante senza pilastro 3,300 0,100 1,000 6,600 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 4,400 0,150 1,000 13,200 
+W4 Finestra / Porta 4,400 0,150 1,000 13,200 
+W4 Finestra / Porta 4,400 0,150 1,000 13,200 
+IF4 Solaio di interpiano 1,200 0,700 0,500 8,400 
+IF4 Solaio di interpiano 2,500 0,700 0,500 17,500 
+GF4 Pavimento / Solaio controterra 2,500 0,500 1,000 25,000 
+IF4 Solaio di interpiano 2,500 0,700 0,500 17,500 
+GF4 Pavimento / Solaio controterra 2,500 0,500 1,000 25,000 
+IF4 Solaio di interpiano 1,200 0,700 1,000 16,800 
+IF4 Solaio di interpiano 7,600 0,700 0,500 53,200 
+GF4 Pavimento / Solaio controterra 7,600 0,500 1,000 76,000 
+B4 Balcone 3,100 0,700 0,500 21,700 
+GF4 Pavimento / Solaio controterra 3,100 0,500 1,000 31,000 
+B4 Balcone 3,100 0,700 1,000 43,400 
+GF4 Pavimento / Solaio controterra 3,100 0,500 1,000 31,000 
+IF4 Solaio di interpiano 14,200 0,700 0,500 99,400 
+GF4 Pavimento / Solaio controterra 14,200 0,500 1,000 142,000 
+<<PAGE>>
+4 
+ 
+IF4 Solaio di interpiano 7,600 0,700 0,500 53,200 
+GF4 Pavimento / Solaio controterra 7,600 0,500 1,000 76,000 
+IF4 Solaio di interpiano 5,600 0,700 0,500 39,200 
+GF4 Pavimento / Solaio controterra 5,600 0,500 1,000 56,000 
+W4 Finestra / Porta 7,200 0,150 1,000 21,600 
+ 
+Zona climatizzata “Villetta Mario Rossi - Piano 2” 
+ 
+Classe E.1.1 - Abitazioni adibite a residenza con carattere continuativo 
+ 
+Superficie esterna disperdente (S) 160,3850 m2 Superficie netta riscaldata 107,7000 m2 
+Volume lordo riscaldato (V) 402,3400 m3 Volume netto riscaldato 323,1000 m3 
+Rapporto di forma (S/V) 0,40 m2/ m3    
+ 
+ 
+Locale Ti [°C] Pt [W] Pv [W] P [W] 
+Ambiente unico 20,000 3675,340 1077,000 4752,340 
+ 
+TOTALE ZONA: 3675,340 1077,000 4752,340 
+ 
+Simboli 
+ 
+Ti Temperatura interna Pt Potenza dispersa per trasmissione PV Potenza dispersa per ventilazione 
+P Potenza dispersa totale    
+ 
+ 
+Locale: Ambiente unico 
+ 
+Volume netto: 323,100 m3 Temperatura interna: 20,0 °C 
+Superficie disperdente locale: 160,385 m2 Tasso ricambio aria: 0,500 h-1 
+ 
+Cod. Descrizione U 
+[W/m2K] 
+A 
+[m2] 
+Tp 
+[°C] Esp Pt 
+[W] 
+Componenti verso esterno 
+PE5B 5B - Parete esterna da 40 cm 0,298 21,160 20,0 OVEST 125,933 
+PE5B 5B - Parete esterna da 40 cm 0,298 36,500 20,0 NORD 217,229 
+PE5B 5B - Parete esterna da 40 cm 0,298 21,160 20,0 EST 125,933 
+PE5B 5B - Parete esterna da 40 cm 0,298 3,960 20,0 SUD 23,568 
+<<PAGE>>
+5 
+ 
+PE5B 5B - Parete esterna da 40 cm 0,298 8,250 20,0 EST 49,100 
+PE5B 5B - Parete esterna da 40 cm 0,298 17,220 20,0 SUD 102,484 
+PE5B 5B - Parete esterna da 40 cm 0,298 8,250 20,0 OVEST 49,100 
+PE5B 5B - Parete esterna da 40 cm 0,298 6,310 20,0 SUD 37,554 
+PE5B 5B - Parete esterna da 40 cm 0,298 3,960 20,0 SUD 23,568 
+PE5B 5B - Parete esterna da 40 cm 0,298 6,340 20,0 SUD 37,732 
+SOLE4A 4A - Copertura su esterno 30 cm 0,244 0,000 Non un numero SUD 0,000 
+CA02 Cassonetto isolato 1,000 0,210 20,0 NORD 4,200 
+CA02 Cassonetto isolato 1,000 0,210 20,0 NORD 4,200 
+CA02 Cassonetto isolato 1,000 0,210 20,0 SUD 4,200 
+CA02 Cassonetto isolato 1,000 0,420 20,0 NORD 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 NORD 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 EST 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 SUD 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 SUD 8,400 
+CA02 Cassonetto isolato 1,000 0,420 20,0 OVEST 8,400 
+Infisso singolo 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 1,050 20,0 NORD 52,150 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 1,050 20,0 NORD 52,150 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 1,050 20,0 SUD 52,150 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 NORD 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 NORD 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 EST 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,475 20,0 SUD 172,590 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 SUD 173,832 
+FE08 Infisso con telaio in metallo con taglio termico e 
+doppi vetri normali (4-8-4 Aria) 2,483 3,500 20,0 OVEST 173,832 
+ 
+PONTI TERMICI 
+ 
+<<PAGE>>
+6 
+ 
+Cod. Tipologia Lunghezza 
+[m] 
+Ψ 
+[W/mK] c Pt 
+[W] 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C8 Angolo rientrante senza pilastro 3,300 0,100 1,000 6,600 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+C8 Angolo rientrante senza pilastro 3,300 0,100 1,000 6,600 
+C4 Angolo sporgente senza pilastro 3,300 -0,150 1,000 -9,900 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+P4 Pilastro 3,300 0,900 1,000 59,400 
+W4 Finestra / Porta 4,400 0,150 1,000 13,200 
+W4 Finestra / Porta 4,400 0,150 1,000 13,200 
+W4 Finestra / Porta 4,400 0,150 1,000 13,200 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,780 0,150 1,000 23,340 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+W4 Finestra / Porta 7,800 0,150 1,000 23,400 
+IF4 Solaio di interpiano 1,200 0,700 1,000 16,800 
+GF4 Pavimento / Solaio controterra 1,200 0,500 1,000 12,000 
+IF4 Solaio di interpiano 2,500 0,700 1,000 35,000 
+GF4 Pavimento / Solaio controterra 2,500 0,500 1,000 25,000 
+IF4 Solaio di interpiano 2,500 0,700 1,000 35,000 
+GF4 Pavimento / Solaio controterra 2,500 0,500 1,000 25,000 
+IF4 Solaio di interpiano 1,200 0,700 1,000 16,800 
+GF4 Pavimento / Solaio controterra 1,200 0,500 1,000 12,000 
+IF4 Solaio di interpiano 3,100 0,700 1,000 43,400 
+B4 Balcone 3,100 0,700 1,000 43,400 
+IF4 Solaio di interpiano 3,100 0,700 1,000 43,400 
+B4 Balcone 3,100 0,700 1,000 43,400 
+IF4 Solaio di interpiano 7,600 0,700 1,000 106,400 
+GF4 Pavimento / Solaio controterra 7,600 0,500 1,000 76,000 
+<<PAGE>>
+7 
+ 
+IF4 Solaio di interpiano 14,200 0,700 1,000 198,800 
+GF4 Pavimento / Solaio controterra 14,200 0,500 1,000 142,000 
+IF4 Solaio di interpiano 7,600 0,700 1,000 106,400 
+GF4 Pavimento / Solaio controterra 7,600 0,500 1,000 76,000 
+IF4 Solaio di interpiano 5,600 0,700 1,000 78,400 
+GF4 Pavimento / Solaio controterra 5,600 0,500 1,000 56,000 
+ 
+RIEPILOGO ZONE  
+ 
+Zona S Pt Pv P 
+Villetta Mario Rossi - Piano 1 285,050 3450,861 1077,000 4527,861 
+Villetta Mario Rossi - Piano 2 160,385 3675,340 1077,000 4752,340 
+ 
+TOTALE ZONE: 445,435 7126,202 2154,000 9280,202 
+ 
+ 
+dove: 
+S Superficie disperdente [m2] Pt Potenza per trasmissione [W] 
+PV Potenza per ventilazione [W] P Potenza totale [W] 
+ 
+<<PAGE>>
+ 
+FABBRICATO 
+ 
+COMPONENTI STRUTTURALI DEL FABBRICATO 
+ 
+Componenti opachi 
+L'involucro oggetto della presente relazione è delimitato da lle seguenti tipologie di componenti opachi di cui si riportano, nella successiva tabella, i valori di 
+trasmittanza termica e le capacità termiche areiche interne utilizzate nei calcoli.  
+ 
+# Codice e e Descrizione del componente opaco U 
+[W/m²K] 
+Ci 
+[KJ/m²K] 
+1 PE5B - 5B - Parete esterna da 40 cm 0,298 427,90 
+2 DE04 - Porta esterna blindata a risparmio energetico 0,600 75,00 
+3 CS5B-415 - Pavimento su terreno tra zone C / Terreno 0,300 392,22 
+4 SOLE4A - 4A - Copertura su esterno 30 cm 0,244 306,84 
+ 
+Dettaglio trasmittanza termica equivalente componenti su terreno 
+Per i componenti su terreno viene di seguito indicata la trasmittanza termica equivalente calcolata in accordo con le norme t ecniche di riferimento. 
+ 
+# Codice e e Descrizione del componente contro terra U 
+[W/m²K] 
+Superficie 
+[m²] 
+Perimetro 
+[m] 
+Conducibilità 
+termica del 
+terreno 
+[W/mK] 
+B' 
+[m] 
+dt 
+[m] 
+U,corr 
+[W/m²K] 
+1 CS5B-415 - Pavimento su terreno tra zone C / 
+Terreno 0,300 121,92 48,60 1,50 5,02 5,40 0,000 
+ 
+Componenti trasparenti 
+Di seguito sono riportati i risultati del calcolo della trasmittanza termica corretta per le tipologie di componenti trasparenti presenti nell'inv olucro. 
+ 
+# Descrizione tipologia 
+componente finestrato 
+L vano 
+[m] 
+H vano 
+[m] 
+Sup. 
+vano 
+[m²] 
+Ag 
+[m²] 
+Af 
+[m²] 
+Ag/Atot 
+[-] 
+Af/Atot 
+[-] 
+Ug 
+[W/m²K] 
+Uf 
+[W/m²K] 
+Uw 
+[W/m²K] 
+ΔR 
+[m²K/W] 
+Uw+shut 
+[W/m²K] Fshut U,corr 
+[W/m²K] 
+1 
+FE08 - Infisso con telaio in 
+metallo con taglio termico e 
+doppi vetri normali (4-8-4 
+Aria) 
+0,00 0,00 3,50 2,800 0,00 0,80 0,20 3,10 2,20 3,10 0,16 3,20 0,60 2,48 
+<<PAGE>>
+ 
+# Descrizione tipologia 
+componente finestrato 
+L vano 
+[m] 
+H vano 
+[m] 
+Sup. 
+vano 
+[m²] 
+Ag 
+[m²] 
+Af 
+[m²] 
+Ag/Atot 
+[-] 
+Af/Atot 
+[-] 
+Ug 
+[W/m²K] 
+Uf 
+[W/m²K] 
+Uw 
+[W/m²K] 
+ΔR 
+[m²K/W] 
+Uw+shut 
+[W/m²K] Fshut U,corr 
+[W/m²K] 
+2 
+FE08 - Infisso con telaio in 
+metallo con taglio termico e 
+doppi vetri normali (4-8-4 
+Aria) 
+0,00 0,00 1,05 0,840 0,00 0,80 0,20 3,10 2,20 3,10 0,16 3,20 0,60 2,48 
+3 
+FE08 - Infisso con telaio in 
+metallo con taglio termico e 
+doppi vetri normali (4-8-4 
+Aria) 
+0,00 0,00 3,48 2,780 0,00 0,80 0,20 3,10 2,20 3,10 0,16 3,20 0,60 2,48 
+ 
+Ponti termici 
+Di seguito sono riportati i ponti termici considerati per il calcolo delle dispersioni dell'involucro.  
+ 
+# Descrizione del ponte termico U 
+[W/mK] 
+1 Angolo sporgente senza pilastro -0,150 
+2 Angolo rientrante senza pilastro 0,100 
+3 Pilastro 0,900 
+4 Finestra / Porta 0,150 
+5 Solaio di interpiano 0,700 
+6 Pavimento / Solaio controterra 0,500 
+7 Balcone 0,700 
+<<PAGE>>
+ 
+VENTILAZIONE 
+ 
+Portate minime di aria esterna e portate di riferimento 
+Di seguito il dettaglio delle portate minime di aria esterna e delle portate di riferimento utilizzate per il calcolo del fabbisogno di energia termica utile ideale 
+di riferimento di ciascun ambiente. 
+ 
+# Descrizione  A 
+[m²] 
+Vn 
+[m³] 
+ns 
+[pers./m²] 
+Qop 
+[m³/s 
+pers.] 
+Qos 
+[m³/s m²] 
+q,ve0 
+[m³/s] 
+q,ve0 
+[m³/h] 
+q,ve0 
+[Vol/h] f ve,t q,ve,mn 
+[m³/s] 
+q,ve,mn 
+[m³/h] 
+q,ve,mn 
+[Vol/h] 
+1 Ambiente unico 107,70 323,10    0,045 161,55 0,50 0,60 0,027 96,93 0,30 
+2 Ambiente unico 107,70 323,10    0,045 161,55 0,50 0,60 0,027 96,93 0,30 
+<<PAGE>>
+ 
+DETTAGLIO ZONE TERMICHE 
+Di seguito sono riportati tutti i dati dettaglio relativamente ai componenti presenti nelle zone termiche così come individua te nella sezione SPAZI e ZONE. 
+ 
+ZONA TERMICA ZH1 
+ 
+Destinazione d'uso della zona - Abitazioni adibite a residenza con carattere continuativo 
+Superficie utile m² 107,70 
+Volume netto m³ 323,10 
+Temperatura di set-point Invernale °C 20,0 
+Temperatura di set-point Estiva °C 26,0 
+Umidità relativa interna % 50,0 
+Portata media mensile di riferimento m³/h 96,93 
+Fattore di correzione b ve,k - 1,00 
+Apporti interni sensibili W 450,7 
+Apporti interni latenti W 250,0 
+ 
+Elenco superfici dei componenti trasparenti 
+ 
+# Descrizione componente finestrato Q.tà 
+[#] Confinante con b tr,x 
+[-] 
+Aw 
+[m²] 
+Ag 
+[m²] 
+Esposizione 
+[-] 
+Tilt 
+[°] 
+F sh,ob,d 
+[-] 
+1 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 2 Esterno 1,00 7,00 5,60 NORD 90 1,00 
+2 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 1 Esterno 1,00 3,50 2,80 OVEST 90 1,00 
+3 
+FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 
+(ombreggiata) 
+2 Esterno 1,00 7,00 5,60 SUD 90 0,80 
+4 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 1 Esterno 1,00 3,50 2,80 EST 90 1,00 
+5 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 2 Esterno 1,00 2,10 1,68 NORD 90 1,00 
+6 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 1 Esterno 1,00 1,05 0,84 SUD 90 1,00 
+ 
+Elenco superfici dei componenti opachi 
+ 
+# Descrizione componente opaco Confinante con b tr,x 
+[-] 
+Superficie 
+[m²] alfa sol U 
+[W/m²K] Esposizione Tilt 
+[°] 
+F sh,ob,d 
+[-] 
+<<PAGE>>
+ 
+# Descrizione componente opaco Confinante con b tr,x 
+[-] 
+Superficie 
+[m²] alfa sol U 
+[W/m²K] Esposizione Tilt 
+[°] 
+F sh,ob,d 
+[-] 
+1 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 21,16 0,6 0,30 OVEST 90 1,00 
+2 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 36,50 0,6 0,30 NORD 90 1,00 
+3 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 21,16 0,6 0,30 EST 90 1,00 
+4 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 3,96 0,6 0,30 SUD 90 0,88 
+5 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 8,25 0,6 0,30 EST 90 0,80 
+6 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 21,18 0,6 0,30 SUD 90 1,00 
+7 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 8,25 0,6 0,30 OVEST 90 0,80 
+8 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 12,62 0,6 0,30 SUD 90 0,79 
+9 CA02 - Cassonetto isolato Esterno 1,00 3,15 0,6 1,00 Oriz 0 1,00 
+10 DE04 - Porta esterna blindata a risparmio 
+energetico Esterno 1,00 2,75 0,6 0,60 SUD 90 1,00 
+11 CS5B-415 - Pavimento su terreno tra zone C / 
+Terreno Terreno 1,00 121,92 0,0 0,00  0 1,00 
+12 CS5B-416A - Solaio da 35 cm tra zone C / C (flusso 
+ascendente) (partizione interna) 
+Altra zona 
+climatizzata 1,00 0,00 0,0 0,27  0 1,00 
+ 
+Elenco ponti termici 
+ 
+# Descrizione ponte termico Confinante con b tr,x 
+[-] 
+Lunghezza 
+[m] 
+Psi 
+[W/mK] 
+Coefficiente 
+di 
+attribuzione 
+Psi Eff. 
+[W/mK] 
+1 Angolo sporgente senza pilastro Esterno 1,00 19,8 -0,150 1,0 -0,150 
+2 Angolo rientrante senza pilastro Esterno 1,00 6,6 0,100 1,0 0,100 
+3 Pilastro Esterno 1,00 16,5 0,900 1,0 0,900 
+4 Finestra / Porta Esterno 1,00 67,2 0,150 1,0 0,150 
+5 Solaio di interpiano Esterno 1,00 41,2 0,700 0,5 0,350 
+6 Pavimento / Solaio controterra Esterno 1,00 46,2 0,500 1,0 0,500 
+7 Solaio di interpiano Esterno 1,00 1,20 0,700 1,0 0,700 
+8 Balcone Esterno 1,00 3,10 0,700 0,5 0,350 
+9 Balcone Esterno 1,00 3,10 0,700 1,0 0,700 
+ 
+Coefficienti di scambio termico per trasmissione 
+ 
+Trasmissione componenti trasparenti 
+ 
+# Descrizione componente finestrato Q.tà 
+[#] Confinante con b tr,x 
+[-] 
+Aw 
+[m²] 
+Ag 
+[m²] 
+U w,corr 
+[W/m²K] 
+H tr 
+[W/K] 
+<<PAGE>>
+ 
+# Descrizione componente finestrato Q.tà 
+[#] Confinante con b tr,x 
+[-] 
+Aw 
+[m²] 
+Ag 
+[m²] 
+U w,corr 
+[W/m²K] 
+H tr 
+[W/K] 
+1 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 4 Esterno 1,00 14,00 11,20 2,48 34,7 
+2 
+FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 
+(ombreggiata) 
+2 Esterno 1,00 7,00 5,60 2,48 17,4 
+3 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 3 Esterno 1,00 3,15 2,52 2,48 7,8 
+- GLOBALE - - - 24,2 - - 59,9 
+ 
+Trasmissione componenti opachi 
+ 
+# Descrizione componente opaco Confinante con b tr,x 
+[-] 
+Superficie 
+[m²] alfa sol U 
+[W/m²K] 
+H tr 
+[W/K] 
+1 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 100 0,6 0,30 30,0 
+2 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 33,08 0,6 0,30 9,9 
+3 CA02 - Cassonetto isolato Esterno 1,00 3,15 0,6 1,00 3,2 
+4 DE04 - Porta esterna blindata a risparmio 
+energetico Esterno 1,00 2,75 0,6 0,60 1,7 
+5 CS5B-415 - Pavimento su terreno tra zone C / 
+Terreno Terreno 1,00 121,92 0,0 0,00 0,0 
+- GLOBALE - - 260,9 - - 44,8 
+ 
+Trasmissione ponti termici 
+ 
+# Descrizione ponte termico Confinante con b tr,x 
+[-] 
+Lunghezza 
+[m] 
+U 
+[W/mK] 
+U,corr 
+[W/mK] 
+H tr 
+[W/K] 
+1 Angolo sporgente senza pilastro Esterno 1,00 19,80 -0,150 -0,150 -3,0 
+2 Angolo rientrante senza pilastro Esterno 1,00 6,60 0,100 0,100 0,7 
+3 Pilastro Esterno 1,00 16,50 0,900 0,900 14,9 
+4 Finestra / Porta Esterno 1,00 67,20 0,150 0,150 10,1 
+5 Solaio di interpiano Esterno 1,00 41,20 0,700 0,350 14,4 
+6 Pavimento / Solaio controterra Esterno 1,00 46,20 0,500 0,500 23,1 
+7 Solaio di interpiano Esterno 1,00 1,20 0,700 0,700 0,8 
+8 Balcone Esterno 1,00 3,10 0,700 0,350 1,1 
+9 Balcone Esterno 1,00 3,10 0,700 0,700 2,2 
+- GLOBALE - - - - - 64,2 
+ 
+Coefficienti globali di scambio termico 
+<<PAGE>>
+ 
+ 
+Coefficiente di scambio termico per trasmissione H tr W/K 192,4 
+Coefficiente di scambio termico per trasmissione H ve W/K 32,3 
+Coefficiente di scambio termico per trasmissione H ht W/K 224,7 
+ 
+Apporti interni 
+ 
+Apporti interni sensibili W 450,7 
+Apporti interni latenti g/h 250,0 
+Apporti interni sensibili da altre zone W 0,0 
+ 
+Apporti Solari 
+ 
+Area solare equivalente componenti trasparenti Asol,w [m2] 
+ 
+# Descrizione componente trasparente U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 3,784 3,784 3,784 3,738 3,587 3,490 3,490 3,654 3,776 3,780 3,784 3,784 
+2 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 1,561 1,509 1,480 1,500 1,493 1,464 1,431 1,437 1,458 1,483 1,646 1,544 
+3 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) (ombreggiata) 
+m² 2,943 2,845 2,699 2,592 2,588 2,600 2,519 2,457 2,590 2,739 2,879 2,883 
+4 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 1,479 1,555 1,460 1,439 1,446 1,417 1,424 1,417 1,418 1,404 1,440 1,493 
+5 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 1,135 1,135 1,135 1,121 1,076 1,047 1,047 1,096 1,133 1,134 1,135 1,135 
+6 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 0,441 0,427 0,405 0,389 0,388 0,390 0,378 0,369 0,389 0,411 0,432 0,432 
+ 
+Area solare equivalente componenti opachi Asol,op [m2] 
+ 
+# Descrizione componente opaco Confinante con Asol 
+[m²] 
+<<PAGE>>
+ 
+# Descrizione componente opaco Confinante con Asol 
+[m²] 
+1 PE5B - 5B - Parete esterna da 40 cm Esterno 0,151 
+2 PE5B - 5B - Parete esterna da 40 cm Esterno 0,261 
+3 PE5B - 5B - Parete esterna da 40 cm Esterno 0,151 
+4 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 0,028 
+5 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 0,059 
+6 PE5B - 5B - Parete esterna da 40 cm Esterno 0,151 
+7 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 0,059 
+8 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 0,090 
+9 CA02 - Cassonetto isolato Esterno 0,076 
+10 DE04 - Porta esterna blindata a risparmio 
+energetico Esterno 0,040 
+11 CS5B-415 - Pavimento su terreno tra zone C / 
+Terreno Terreno 0,000 
+12 CS5B-416A - Solaio da 35 cm tra zone C / C (flusso 
+ascendente) (partizione interna) 
+Altra zona 
+climatizzata 0,000 
+ 
+Flusso termico solare da componenti trasparenti Φsol,w [W] 
+ 
+# Descrizione componente trasparente U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 88,9 118,3 172,1 258,9 344,9 424,0 421,3 314,5 223,7 158,8 101,2 85,8 
+2 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 90,3 119,0 162,3 218,4 239,3 274,2 295,0 253,0 199,9 148,4 104,5 88,1 
+3 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) (ombreggiata) 
+W 314,0 314,8 297,8 247,9 206,8 206,9 216,4 238,1 294,6 335,6 305,1 325,9 
+4 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 85,5 122,6 160,1 209,6 231,8 265,4 293,6 249,4 194,4 140,5 91,5 85,2 
+5 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 26,7 35,5 51,6 77,7 103,5 127,2 126,4 94,4 67,1 47,6 30,4 25,8 
+6 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 55,3 58,2 56,4 51,6 45,6 47,2 50,1 51,7 57,6 62,0 54,1 57,1 
+ 
+Flusso termico solare da componenti opachi Φsol,op [W] 
+<<PAGE>>
+ 
+ 
+# Descrizione componente opaco U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 PE5B - 5B - Parete esterna da 40 cm W 8,7 11,9 16,6 22,0 24,2 28,3 31,2 26,6 20,7 15,1 9,6 8,6 
+2 PE5B - 5B - Parete esterna da 40 cm W 6,1 8,1 11,9 18,1 25,1 31,7 31,5 22,4 15,4 11,0 7,0 5,9 
+3 PE5B - 5B - Parete esterna da 40 cm W 8,7 11,9 16,6 22,0 24,2 28,3 31,2 26,6 20,7 15,1 9,6 8,6 
+4 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 3,2 3,4 3,4 3,3 2,9 3,0 3,3 3,5 3,6 3,7 3,2 3,4 
+5 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,5 3,0 4,3 6,9 8,1 9,6 10,6 8,6 6,0 3,4 1,7 1,3 
+6 PE5B - 5B - Parete esterna da 40 cm W 19,0 20,6 21,1 20,1 17,8 18,3 20,0 21,2 22,4 22,8 18,9 20,0 
+7 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,5 3,0 4,3 6,9 8,1 9,6 10,6 8,6 6,0 3,4 1,7 1,3 
+8 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 9,6 9,9 9,9 8,5 7,1 7,0 7,6 8,6 10,1 11,0 9,5 10,2 
+9 CA02 - Cassonetto isolato W 5,5 7,9 11,6 16,4 18,8 22,3 24,2 20,0 15,0 10,3 6,2 5,3 
+10 DE04 - Porta esterna blindata a risparmio 
+energetico W 5,0 5,4 5,5 5,3 4,7 4,8 5,2 5,6 5,9 6,0 5,0 5,2 
+11 CS5B-415 - Pavimento su terreno tra zone 
+C / Terreno W 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+12 CS5B-416A - Solaio da 35 cm tra zone C / C 
+(flusso ascendente) (partizione interna) W 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+ 
+Extraflusso termico verso la volta celeste da componenti trasparenti Φr,w [W] 
+ 
+# Descrizione componente trasparente U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 13,9 19,6 17,7 20,8 24,5 23,7 29,9 25,9 22,8 19,9 18,7 15,3 
+2 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 6,9 9,8 8,8 10,4 12,2 11,9 15,0 12,9 11,4 10,0 9,3 7,6 
+3 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) (ombreggiata) 
+W 11,1 15,7 14,2 16,7 19,6 19,0 24,0 20,7 18,3 16,0 15,0 12,3 
+4 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 6,9 9,8 8,8 10,4 12,2 11,9 15,0 12,9 11,4 10,0 9,3 7,6 
+5 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 4,2 5,9 5,3 6,2 7,3 7,1 9,0 7,8 6,8 6,0 5,6 4,6 
+<<PAGE>>
+ 
+# Descrizione componente trasparente U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+6 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 2,1 2,9 2,7 3,1 3,7 3,6 4,5 3,9 3,4 3,0 2,8 2,3 
+ 
+Extraflusso termico verso la volta celeste da componenti opachi Φr,op [W] 
+ 
+# Descrizione componente opaco U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 PE5B - 5B - Parete esterna da 40 cm W 5,4 7,6 6,9 8,1 9,5 9,2 11,7 10,1 8,9 7,8 7,3 6,0 
+2 PE5B - 5B - Parete esterna da 40 cm W 9,3 13,2 11,9 14,0 16,4 15,9 20,1 17,4 15,3 13,4 12,5 10,3 
+3 PE5B - 5B - Parete esterna da 40 cm W 5,4 7,6 6,9 8,1 9,5 9,2 11,7 10,1 8,9 7,8 7,3 6,0 
+4 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 0,9 1,3 1,1 1,3 1,6 1,5 1,9 1,7 1,5 1,3 1,2 1,0 
+5 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,7 2,4 2,1 2,5 3,0 2,9 3,6 3,1 2,8 2,4 2,3 1,9 
+6 PE5B - 5B - Parete esterna da 40 cm W 5,4 7,7 6,9 8,1 9,5 9,3 11,7 10,1 8,9 7,8 7,3 6,0 
+7 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,7 2,4 2,1 2,5 3,0 2,9 3,6 3,1 2,8 2,4 2,3 1,9 
+8 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 2,6 3,6 3,3 3,8 4,5 4,4 5,5 4,8 4,2 3,7 3,4 2,8 
+9 CA02 - Cassonetto isolato W 5,4 7,6 6,9 8,1 9,5 9,2 11,7 10,1 8,9 7,8 7,3 6,0 
+10 DE04 - Porta esterna blindata a risparmio 
+energetico W 1,4 2,0 1,8 2,1 2,5 2,4 3,1 2,6 2,3 2,0 1,9 1,6 
+11 CS5B-415 - Pavimento su terreno tra zone 
+C / Terreno W 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+12 CS5B-416A - Solaio da 35 cm tra zone C / C 
+(flusso ascendente) (partizione interna) W 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+ 
+Parametri dinamici 
+ 
+# Descrizione U.M. Valore 
+1 Capacità termica della zona KJ/K 14.618 
+2 Costante di tempo h 18,07 
+3 Alpha H - 2,20 
+4 Alpha C - 6,25 
+5 H lim - 1,45 
+6 C lim - 1,16 
+<<PAGE>>
+ 
+ 
+ZONA TERMICA ZH2 
+ 
+Destinazione d'uso della zona - Abitazioni adibite a residenza con carattere continuativo 
+Superficie utile m² 107,70 
+Volume netto m³ 323,10 
+Temperatura di set-point Invernale °C 20,0 
+Temperatura di set-point Estiva °C 26,0 
+Umidità relativa interna % 50,0 
+Portata media mensile di riferimento m³/h 96,93 
+Fattore di correzione b ve,k - 1,00 
+Apporti interni sensibili W 450,7 
+Apporti interni latenti W 250,0 
+ 
+Elenco superfici dei componenti trasparenti 
+ 
+# Descrizione componente finestrato Q.tà 
+[#] Confinante con b tr,x 
+[-] 
+Aw 
+[m²] 
+Ag 
+[m²] 
+Esposizione 
+[-] 
+Tilt 
+[°] 
+F sh,ob,d 
+[-] 
+1 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 2 Esterno 1,00 2,10 1,68 NORD 90 1,00 
+2 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 1 Esterno 1,00 1,05 0,84 SUD 90 1,00 
+3 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 2 Esterno 1,00 7,00 5,60 NORD 90 1,00 
+4 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 1 Esterno 1,00 3,50 2,80 EST 90 1,00 
+5 
+FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 
+(ombreggiata) 
+1 Esterno 1,00 3,48 2,78 SUD 90 0,80 
+6 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 1 Esterno 1,00 3,50 2,80 SUD 90 1,00 
+7 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 1 Esterno 1,00 3,50 2,80 OVEST 90 1,00 
+ 
+Elenco superfici dei componenti opachi 
+ 
+# Descrizione componente opaco Confinante con b tr,x 
+[-] 
+Superficie 
+[m²] alfa sol U 
+[W/m²K] Esposizione Tilt 
+[°] 
+F sh,ob,d 
+[-] 
+<<PAGE>>
+ 
+# Descrizione componente opaco Confinante con b tr,x 
+[-] 
+Superficie 
+[m²] alfa sol U 
+[W/m²K] Esposizione Tilt 
+[°] 
+F sh,ob,d 
+[-] 
+1 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 21,16 0,6 0,30 OVEST 90 1,00 
+2 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 36,50 0,6 0,30 NORD 90 1,00 
+3 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 21,16 0,6 0,30 EST 90 1,00 
+4 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 3,96 0,6 0,30 SUD 90 0,88 
+5 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 8,25 0,6 0,30 EST 90 0,80 
+6 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 27,49 0,6 0,30 SUD 90 1,00 
+7 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 8,25 0,6 0,30 OVEST 90 0,80 
+8 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 6,34 0,6 0,30 SUD 90 0,81 
+9 SOLE4A - 4A - Copertura su esterno 30 cm Esterno 1,00 0,00 0,6 0,24 Oriz 0 1,00 
+10 CA02 - Cassonetto isolato Esterno 1,00 3,15 0,6 1,00 Oriz 0 1,00 
+ 
+Elenco ponti termici 
+ 
+# Descrizione ponte termico Confinante con b tr,x 
+[-] 
+Lunghezza 
+[m] 
+Psi 
+[W/mK] 
+Coefficiente 
+di 
+attribuzione 
+Psi Eff. 
+[W/mK] 
+1 Angolo sporgente senza pilastro Esterno 1,00 19,8 -0,150 1,0 -0,150 
+2 Angolo rientrante senza pilastro Esterno 1,00 6,6 0,100 1,0 0,100 
+3 Pilastro Esterno 1,00 16,5 0,900 1,0 0,900 
+4 Finestra / Porta Esterno 1,00 59,98 0,150 1,0 0,150 
+5 Solaio di interpiano Esterno 1,00 48,6 0,700 1,0 0,700 
+6 Pavimento / Solaio controterra Esterno 1,00 42,4 0,500 1,0 0,500 
+7 Balcone Esterno 1,00 6,2 0,700 1,0 0,700 
+ 
+Coefficienti di scambio termico per trasmissione 
+ 
+Trasmissione componenti trasparenti 
+ 
+# Descrizione componente finestrato Q.tà 
+[#] Confinante con b tr,x 
+[-] 
+Aw 
+[m²] 
+Ag 
+[m²] 
+U w,corr 
+[W/m²K] 
+H tr 
+[W/K] 
+1 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 3 Esterno 1,00 3,15 2,52 2,48 7,8 
+2 FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 5 Esterno 1,00 17,50 14,00 2,48 43,4 
+3 
+FE08 - Infisso con telaio in metallo con taglio 
+termico e doppi vetri normali (4-8-4 Aria) 
+(ombreggiata) 
+1 Esterno 1,00 3,48 2,78 2,48 8,6 
+<<PAGE>>
+ 
+# Descrizione componente finestrato Q.tà 
+[#] Confinante con b tr,x 
+[-] 
+Aw 
+[m²] 
+Ag 
+[m²] 
+U w,corr 
+[W/m²K] 
+H tr 
+[W/K] 
+- GLOBALE - - - 24,1 - - 59,8 
+ 
+Trasmissione componenti opachi 
+ 
+# Descrizione componente opaco Confinante con b tr,x 
+[-] 
+Superficie 
+[m²] alfa sol U 
+[W/m²K] 
+H tr 
+[W/K] 
+1 PE5B - 5B - Parete esterna da 40 cm Esterno 1,00 106,31 0,6 0,30 31,9 
+2 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 1,00 26,8 0,6 0,30 8,0 
+3 SOLE4A - 4A - Copertura su esterno 30 cm Esterno 1,00 0,00 0,6 0,24 0,0 
+4 CA02 - Cassonetto isolato Esterno 1,00 3,15 0,6 1,00 3,2 
+- GLOBALE - - 136,3 - - 43,1 
+ 
+Trasmissione ponti termici 
+ 
+# Descrizione ponte termico Confinante con b tr,x 
+[-] 
+Lunghezza 
+[m] 
+U 
+[W/mK] 
+U,corr 
+[W/mK] 
+H tr 
+[W/K] 
+1 Angolo sporgente senza pilastro Esterno 1,00 19,80 -0,150 -0,150 -3,0 
+2 Angolo rientrante senza pilastro Esterno 1,00 6,60 0,100 0,100 0,7 
+3 Pilastro Esterno 1,00 16,50 0,900 0,900 14,9 
+4 Finestra / Porta Esterno 1,00 59,98 0,150 0,150 9,0 
+5 Solaio di interpiano Esterno 1,00 48,60 0,700 0,700 34,0 
+6 Pavimento / Solaio controterra Esterno 1,00 42,40 0,500 0,500 21,2 
+7 Balcone Esterno 1,00 6,20 0,700 0,700 4,3 
+- GLOBALE - - - - - 81,1 
+ 
+Coefficienti globali di scambio termico 
+ 
+Coefficiente di scambio termico per trasmissione H tr W/K 183,8 
+Coefficiente di scambio termico per trasmissione H ve W/K 32,3 
+Coefficiente di scambio termico per trasmissione H ht W/K 216,1 
+ 
+Apporti interni 
+ 
+Apporti interni sensibili W 450,7 
+Apporti interni latenti g/h 250,0 
+<<PAGE>>
+ 
+Apporti interni sensibili da altre zone W 0,0 
+ 
+Apporti Solari 
+ 
+Area solare equivalente componenti trasparenti Asol,w [m2] 
+ 
+# Descrizione componente trasparente U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 1,135 1,135 1,135 1,121 1,076 1,047 1,047 1,096 1,133 1,134 1,135 1,135 
+2 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 0,441 0,427 0,405 0,389 0,388 0,390 0,378 0,369 0,389 0,411 0,432 0,432 
+3 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 3,784 3,784 3,784 3,738 3,587 3,490 3,490 3,654 3,776 3,780 3,784 3,784 
+4 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 1,479 1,555 1,460 1,439 1,446 1,417 1,424 1,417 1,418 1,404 1,440 1,493 
+5 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) (ombreggiata) 
+m² 1,461 1,412 1,340 1,287 1,285 1,291 1,251 1,220 1,286 1,360 1,429 1,431 
+6 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 1,472 1,422 1,350 1,296 1,294 1,300 1,260 1,228 1,295 1,370 1,440 1,441 
+7 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+m² 1,561 1,509 1,480 1,500 1,493 1,464 1,431 1,437 1,458 1,483 1,646 1,544 
+ 
+Area solare equivalente componenti opachi Asol,op [m2] 
+ 
+# Descrizione componente opaco Confinante con Asol 
+[m²] 
+1 PE5B - 5B - Parete esterna da 40 cm Esterno 0,151 
+2 PE5B - 5B - Parete esterna da 40 cm Esterno 0,261 
+3 PE5B - 5B - Parete esterna da 40 cm Esterno 0,151 
+4 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 0,028 
+5 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 0,059 
+6 PE5B - 5B - Parete esterna da 40 cm Esterno 0,196 
+7 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 0,059 
+<<PAGE>>
+ 
+# Descrizione componente opaco Confinante con Asol 
+[m²] 
+8 PE5B - 5B - Parete esterna da 40 cm (ombreggiata) Esterno 0,045 
+9 SOLE4A - 4A - Copertura su esterno 30 cm Esterno 0,000 
+10 CA02 - Cassonetto isolato Esterno 0,076 
+ 
+Flusso termico solare da componenti trasparenti Φsol,w [W] 
+ 
+# Descrizione componente trasparente U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 26,7 35,5 51,6 77,7 103,5 127,2 126,4 94,4 67,1 47,6 30,4 25,8 
+2 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 55,3 58,2 56,4 51,6 45,6 47,2 50,1 51,7 57,6 62,0 54,1 57,1 
+3 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 88,9 118,3 172,1 258,9 344,9 424,0 421,3 314,5 223,7 158,8 101,2 85,8 
+4 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 85,5 122,6 160,1 209,6 231,8 265,4 293,6 249,4 194,4 140,5 91,5 85,2 
+5 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) (ombreggiata) 
+W 147,2 150,4 146,3 137,0 124,0 128,3 136,2 139,0 151,1 160,8 143,8 151,9 
+6 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 184,4 194,0 188,1 172,1 152,0 157,2 166,9 172,4 192,1 206,8 180,2 190,2 
+7 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 90,3 119,0 162,3 218,4 239,3 274,2 295,0 253,0 199,9 148,4 104,5 88,1 
+ 
+Flusso termico solare da componenti opachi Φsol,op [W] 
+ 
+# Descrizione componente opaco U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 PE5B - 5B - Parete esterna da 40 cm W 8,7 11,9 16,6 22,0 24,2 28,3 31,2 26,6 20,7 15,1 9,6 8,6 
+2 PE5B - 5B - Parete esterna da 40 cm W 6,1 8,1 11,9 18,1 25,1 31,7 31,5 22,4 15,4 11,0 7,0 5,9 
+3 PE5B - 5B - Parete esterna da 40 cm W 8,7 11,9 16,6 22,0 24,2 28,3 31,2 26,6 20,7 15,1 9,6 8,6 
+4 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 3,2 3,4 3,4 3,3 2,9 3,0 3,3 3,5 3,6 3,7 3,2 3,4 
+5 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,5 3,0 4,3 6,9 8,1 9,6 10,6 8,6 6,0 3,4 1,7 1,3 
+<<PAGE>>
+ 
+# Descrizione componente opaco U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+6 PE5B - 5B - Parete esterna da 40 cm W 24,6 26,8 27,4 26,1 23,1 23,7 26,0 27,6 29,1 29,6 24,6 25,9 
+7 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,5 3,0 4,3 6,9 8,1 9,6 10,6 8,6 6,0 3,4 1,7 1,3 
+8 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 4,6 4,8 5,0 4,8 4,4 4,5 4,9 5,2 5,3 5,4 4,6 4,8 
+9 SOLE4A - 4A - Copertura su esterno 30 cm W 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+10 CA02 - Cassonetto isolato W 5,5 7,9 11,6 16,4 18,8 22,3 24,2 20,0 15,0 10,3 6,2 5,3 
+ 
+Extraflusso termico verso la volta celeste da componenti trasparenti Φr,w [W] 
+ 
+# Descrizione componente trasparente U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 4,2 5,9 5,3 6,2 7,3 7,1 9,0 7,8 6,8 6,0 5,6 4,6 
+2 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 2,1 2,9 2,7 3,1 3,7 3,6 4,5 3,9 3,4 3,0 2,8 2,3 
+3 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 13,9 19,6 17,7 20,8 24,5 23,7 29,9 25,9 22,8 19,9 18,7 15,3 
+4 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 6,9 9,8 8,8 10,4 12,2 11,9 15,0 12,9 11,4 10,0 9,3 7,6 
+5 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) (ombreggiata) 
+W 5,5 7,8 7,1 8,3 9,8 9,5 11,9 10,3 9,1 7,9 7,4 6,1 
+6 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 6,9 9,8 8,8 10,4 12,2 11,9 15,0 12,9 11,4 10,0 9,3 7,6 
+7 
+FE08 - Infisso con telaio in metallo con 
+taglio termico e doppi vetri normali (4-8-4 
+Aria) 
+W 6,9 9,8 8,8 10,4 12,2 11,9 15,0 12,9 11,4 10,0 9,3 7,6 
+ 
+Extraflusso termico verso la volta celeste da componenti opachi Φr,op [W] 
+ 
+# Descrizione componente opaco U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+1 PE5B - 5B - Parete esterna da 40 cm W 5,4 7,6 6,9 8,1 9,5 9,2 11,7 10,1 8,9 7,8 7,3 6,0 
+2 PE5B - 5B - Parete esterna da 40 cm W 9,3 13,2 11,9 14,0 16,4 15,9 20,1 17,4 15,3 13,4 12,5 10,3 
+3 PE5B - 5B - Parete esterna da 40 cm W 5,4 7,6 6,9 8,1 9,5 9,2 11,7 10,1 8,9 7,8 7,3 6,0 
+<<PAGE>>
+ 
+# Descrizione componente opaco U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. 
+4 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 0,9 1,3 1,1 1,3 1,6 1,5 1,9 1,7 1,5 1,3 1,2 1,0 
+5 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,7 2,4 2,1 2,5 3,0 2,9 3,6 3,1 2,8 2,4 2,3 1,9 
+6 PE5B - 5B - Parete esterna da 40 cm W 7,0 9,9 9,0 10,5 12,4 12,0 15,1 13,1 11,5 10,1 9,4 7,7 
+7 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,7 2,4 2,1 2,5 3,0 2,9 3,6 3,1 2,8 2,4 2,3 1,9 
+8 PE5B - 5B - Parete esterna da 40 cm 
+(ombreggiata) W 1,3 1,8 1,7 2,0 2,3 2,2 2,8 2,4 2,1 1,9 1,8 1,4 
+9 SOLE4A - 4A - Copertura su esterno 30 cm W 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+10 CA02 - Cassonetto isolato W 5,4 7,6 6,9 8,1 9,5 9,2 11,7 10,1 8,9 7,8 7,3 6,0 
+ 
+Parametri dinamici 
+ 
+# Descrizione U.M. Valore 
+1 Capacità termica della zona KJ/K 7.177 
+2 Costante di tempo h 9,23 
+3 Alpha H - 1,62 
+4 Alpha C - 5,73 
+5 H lim - 1,62 
+6 C lim - 1,17 
+<<PAGE>>
+ 
+ 
+FABBISOGNI DI ENERGIA TERMICA UTILE DELLE ZONE TERMICHE 
+ 
+Fabbisogno di riscaldamento zona termica: ZH1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo di attivazione 
+riscaldamento gg 31 28 31 8 0 0 0 0 0 0 28 31 157 
+Tempo di attivazione 
+riscaldamento ore 744 672 744 192 0 0 0 0 0 0 672 744 3.768 
+Apporti interni kWh 335 303 335 87 0 0 0 0 0 0 303 335 1.698 
+Apporti interni da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Apporti solari W kWh 492 516 670 191 0 0 0 0 0 0 475 497 2.841 
+Apporti solari da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+TOTALE GUADAGNI kWh 827 819 1.005 278 0 0 0 0 0 0 778 832 4.539 
+Trasmissioni kWh 1.652 1.352 1.138 183 0 0 0 0 0 0 908 1.565 6.800 
+Extraflusso kWh 63 80 80 24 0 0 0 0 0 0 76 69 392 
+Extraflusso da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Ventilazione kWh 286 237 204 35 0 0 0 0 0 0 161 272 1.194 
+TOTALE DISPERSIONI kWh 2.001 1.669 1.422 242 0 0 0 0 0 0 1.145 1.906 8.386 
+Gamma H - 0,41 0,49 0,71 1,15 0 0 0 0 0 0 0,68 0,44 - 
+Eta,h - 0,91 0,88 0,80 0,64 0 0 0 0 0 0 0,81 0,90 - 
+Fabbisogno di energia termica 
+utile di riferimento kWh 1.248 946 622 65 0 0 0 0 0 0 517 1.155 4.552 
+Fabbisogno di energia termica 
+utile effettiva kWh 1.248 946 622 65 0 0 0 0 0 0 517 1.155 4.552 
+<<PAGE>>
+ 
+ 
+ 
+Fabbisogno di riscaldamento zona termica: ZH2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo di attivazione 
+riscaldamento gg 31 28 31 10 0 0 0 0 0 0 29 31 160 
+Tempo di attivazione 
+riscaldamento ore 744 672 744 240 0 0 0 0 0 0 696 744 3.840 
+Apporti interni kWh 335 303 335 108 0 0 0 0 0 0 314 335 1.731 
+Apporti interni da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Apporti solari W kWh 505 536 697 255 0 0 0 0 0 0 508 509 3.010 
+Apporti solari da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+TOTALE GUADAGNI kWh 840 839 1.032 363 0 0 0 0 0 0 822 844 4.741 
+Trasmissioni kWh 1.579 1.292 1.087 212 0 0 0 0 0 0 889 1.496 6.555 
+Extraflusso kWh 63 80 80 30 0 0 0 0 0 0 79 69 403 
+Extraflusso da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Ventilazione kWh 286 237 204 42 0 0 0 0 0 0 165 272 1.206 
+TOTALE DISPERSIONI kWh 1.928 1.609 1.371 284 0 0 0 0 0 0 1.133 1.837 8.164 
+Gamma H - 0,44 0,52 0,75 1,28 0 0 0 0 0 0 0,73 0,46 - 
+Eta,h - 0,83 0,80 0,70 0,54 0 0 0 0 0 0 0,71 0,82 - 
+Fabbisogno di energia termica 
+utile di riferimento kWh 1.228 941 647 88 0 0 0 0 0 0 548 1.143 4.595 
+Fabbisogno di energia termica 
+utile effettiva kWh 1.228 941 647 88 0 0 0 0 0 0 548 1.143 4.595 
+<<PAGE>>
+ 
+ 
+ 
+ 
+Fabbisogno di raffrescamento zona termica: ZC1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo di attivazione 
+raffrescamento gg 0 0 0 0 28 30 31 31 30 5 0 0 155 
+Tempo di attivazione 
+raffrescamento ore 0 0 0 0 672 720 744 744 720 120 0 0 3.720 
+Apporti interni kWh 0 0 0 0 303 325 335 335 325 54 0 0 1.677 
+Apporti interni kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Apporti solari W kWh 0 0 0 0 802 968 1.044 894 747 116 0 0 4.570 
+Apporti solari da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+TOTALE GUADAGNI kWh 0 0 0 0 1.105 1.293 1.379 1.229 1.072 170 0 0 6.247 
+Trasmissioni kWh 0 0 0 0 747 354 -188 -199 505 140 0 0 1.360 
+Extraflusso kWh 0 0 0 0 100 104 135 117 100 15 0 0 570 
+Extraflusso da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Ventilazione kWh 0 0 0 0 142 79 -10 -14 100 26 0 0 323 
+TOTALE DISPERSIONI kWh 0 0 0 0 989 537 -63 -96 705 181 0 0 2.253 
+Gamma C - 0 0 0 0 1,12 2,41 -22,24 -12,76 1,52 0,94 0 0 - 
+Eta,c - 0 0 0 0 0,90 1,00 1,00 1,00 0,97 0,84 0 0 - 
+Fabbisogno di energia termica 
+utile di riferimento kWh 0 0 0 0 210 758 1.441 1.325 385 19 0 0 4.138 
+Fabbisogno di energia termica 
+utile effettiva kWh 0 0 0 0 210 758 1.441 1.325 385 19 0 0 4.138 
+<<PAGE>>
+ 
+ 
+ 
+Fabbisogno di raffrescamento zona termica: ZC2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo di attivazione 
+raffrescamento gg 0 0 0 3 31 30 31 31 30 9 0 0 165 
+Tempo di attivazione 
+raffrescamento ore 0 0 0 72 744 720 744 744 720 216 0 0 3.960 
+Apporti interni kWh 0 0 0 32 335 325 335 335 325 97 0 0 1.785 
+Apporti interni kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Apporti solari W kWh 0 0 0 85 923 1.025 1.108 948 782 213 0 0 5.085 
+Apporti solari da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+TOTALE GUADAGNI kWh 0 0 0 117 1.258 1.350 1.443 1.283 1.107 310 0 0 6.870 
+Trasmissioni kWh 0 0 0 104 826 334 -184 -193 481 251 0 0 1.620 
+Extraflusso kWh 0 0 0 9 111 104 136 117 100 26 0 0 603 
+Extraflusso da U kWh 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Ventilazione kWh 0 0 0 20 163 79 -10 -14 100 48 0 0 387 
+TOTALE DISPERSIONI kWh 0 0 0 133 1.100 517 -58 -90 681 325 0 0 2.610 
+Gamma C - 0 0 0 0,89 1,14 2,61 -25,09 -14,25 1,62 0,95 0 0 - 
+Eta,c - 0 0 0 0,80 0,90 1,00 1,00 1,00 0,98 0,83 0 0 - 
+Fabbisogno di energia termica 
+utile di riferimento kWh 0 0 0 12 266 834 1.501 1.374 442 40 0 0 4.468 
+Fabbisogno di energia termica 
+utile effettiva kWh 0 0 0 12 266 834 1.501 1.374 442 40 0 0 4.468 
+<<PAGE>>
+ 
+ 
+ 
+Fabbisogno di acqua calda sanitaria della zona termica: ZW1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo di attivazione ACS gg 31 28 31 30 31 30 31 31 30 31 30 31 365 
+Tempo di attivazione ACS ore 744 672 744 720 744 720 744 744 720 744 720 744 8.760 
+Fabbisogno in litri l/mese 4.699 4.244 4.699 4.548 4.699 4.548 4.699 4.699 4.548 4.699 4.548 4.699 55.329 
+Fabbisogno energia termica kWh 127 115 127 123 127 123 127 127 123 127 123 127 1.499 
+Temperatura di 
+erogazione °C 40,0 
+Temperatura di ingresso °C 16,7 
+ 
+Fabbisogno di acqua calda sanitaria della zona termica: ZW2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo di attivazione ACS gg 31 28 31 30 31 30 31 31 30 31 30 31 365 
+Tempo di attivazione ACS ore 744 672 744 720 744 720 744 744 720 744 720 744 8.760 
+Fabbisogno in litri l/mese 4.699 4.244 4.699 4.548 4.699 4.548 4.699 4.699 4.548 4.699 4.548 4.699 55.329 
+Fabbisogno energia termica kWh 127 115 127 123 127 123 127 127 123 127 123 127 1.499 
+Temperatura di 
+erogazione °C 40,0 
+Temperatura di ingresso °C 16,7 
+DETTAGLIO SOTTOSISTEMI PRODUZIONE ACQUA CALDA SANITARIA (LATO UTENZA) 
+Vengono di seguito dettagliate le perdite e gli eventuali recuperi afferenti al sottosistema di produzione acqua calda sanita ria delle zone. 
+ 
+EROGAZIONE 
+ 
+Sottosistema di erogazione zona: ZW1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Fabbisogno - Piano 1 kWh 127,3 115,0 127,3 123,2 127,3 123,2 127,3 127,3 123,2 127,3 123,2 127,3 1.498,5 
+Rendimento - Piano 1 - 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 - 
+Perdite di erogazione - 
+Piano 1 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+<<PAGE>>
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Fabbisogno ingresso 
+erogazione - Piano 1 kWh 127,3 115,0 127,3 123,2 127,3 123,2 127,3 127,3 123,2 127,3 123,2 127,3 1.498,5 
+Fabbisogno ingresso totale kWh 127,3 115,0 127,3 123,2 127,3 123,2 127,3 127,3 123,2 127,3 123,2 127,3 1.498,5 
+ 
+ 
+Sottosistema di erogazione zona: ZW2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Fabbisogno - Piano 2 kWh 127,3 115,0 127,3 123,2 127,3 123,2 127,3 127,3 123,2 127,3 123,2 127,3 1.498,5 
+Rendimento - Piano 2 - 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 - 
+Perdite di erogazione - 
+Piano 2 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno ingresso 
+erogazione - Piano 2 kWh 127,3 115,0 127,3 123,2 127,3 123,2 127,3 127,3 123,2 127,3 123,2 127,3 1.498,5 
+Fabbisogno ingresso totale kWh 127,3 115,0 127,3 123,2 127,3 123,2 127,3 127,3 123,2 127,3 123,2 127,3 1.498,5 
+ 
+ 
+ 
+ 
+DISTRIBUZIONE 
+ 
+Sottosistema di distribuzione zona: ZW1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Fabbisogno in uscita - Piano 1 kWh 127,3 115,0 127,3 123,2 127,3 123,2 127,3 127,3 123,2 127,3 123,2 127,3 1.498,5 
+Rendimento - Piano 1 - 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 - 
+Perdite di distribuzione - Piano 
+1 kWh 10,2 9,2 10,2 9,9 10,2 9,9 10,2 10,2 9,9 10,2 9,9 10,2 119,9 
+Perdite recuperate - Piano 1 kWh 9,2 8,3 9,2 8,9 9,2 8,9 9,2 9,2 8,9 9,2 8,9 9,2 107,9 
+Fabbisogno ingresso - Piano 1 kWh 137,5 124,2 137,5 133,0 137,5 133,0 137,5 137,5 133,0 137,5 133,0 137,5 1.618,4 
+Fabbisogno ingresso totale kWh 137,5 124,2 137,5 133,0 137,5 133,0 137,5 137,5 133,0 137,5 133,0 137,5 1.618,4 
+ 
+ 
+<<PAGE>>
+ 
+Sottosistema di distribuzione zona: ZW2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Fabbisogno in uscita - Piano 2 kWh 127,3 115,0 127,3 123,2 127,3 123,2 127,3 127,3 123,2 127,3 123,2 127,3 1.498,5 
+Rendimento - Piano 2 - 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 0,926 - 
+Perdite di distribuzione - Piano 
+2 kWh 10,2 9,2 10,2 9,9 10,2 9,9 10,2 10,2 9,9 10,2 9,9 10,2 119,9 
+Perdite recuperate - Piano 2 kWh 9,2 8,3 9,2 8,9 9,2 8,9 9,2 9,2 8,9 9,2 8,9 9,2 107,9 
+Fabbisogno ingresso - Piano 2 kWh 137,5 124,2 137,5 133,0 137,5 133,0 137,5 137,5 133,0 137,5 133,0 137,5 1.618,4 
+Fabbisogno ingresso totale kWh 137,5 124,2 137,5 133,0 137,5 133,0 137,5 137,5 133,0 137,5 133,0 137,5 1.618,4 
+ 
+ 
+DETTAGLIO SOTTOSISTEMI RISCALDAMENTO (LATO UTENZA) 
+Vengono di seguito dettagliati  i fabbisogni ideali neatti e le perdite dei sottosistemi ad uso dell'impianto di riscaldament o per il lato utenza. 
+ 
+FABBISOGNI IDEALI NETTI 
+ 
+Fabbisogni ideali netti zona: ZH1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 31 28 31 8 0 0 0 0 0 0 28 31 157 
+Tempo attivazione ore 744 672 744 192 0 0 0 0 0 0 672 744 3.768 
+Fabbisogno ideale - Piano 1 kWh 1.247,6 946,3 621,8 64,6 0,0 0,0 0,0 0,0 0,0 0,0 517,0 1.155,1 4.552,5 
+Perdite recuperate dal sistema 
+di produzione ACS - Piano 1 kWh 9,2 8,3 9,2 2,4 0,0 0,0 0,0 0,0 0,0 0,0 8,3 9,2 46,4 
+Fabbisogno ideale netto - Piano 
+1 kWh 1.238,4 938,0 612,6 62,2 0,0 0,0 0,0 0,0 0,0 0,0 508,8 1.145,9 4.506,0 
+Fabbisogno ideale netto totale kWh 1.238,4 938,0 612,6 62,2 0,0 0,0 0,0 0,0 0,0 0,0 508,8 1.145,9 4.506,0 
+ 
+ 
+Fabbisogni ideali netti zona: ZH2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 31 28 31 10 0 0 0 0 0 0 29 31 160 
+<<PAGE>>
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione ore 744 672 744 240 0 0 0 0 0 0 696 744 3.840 
+Fabbisogno ideale - Piano 2 kWh 1.227,9 941,2 646,9 87,9 0,0 0,0 0,0 0,0 0,0 0,0 547,9 1.142,6 4.594,5 
+Perdite recuperate dal sistema 
+di produzione ACS - Piano 2 kWh 9,2 8,3 9,2 3,0 0,0 0,0 0,0 0,0 0,0 0,0 8,6 9,2 47,3 
+Fabbisogno ideale netto - Piano 
+2 kWh 1.218,7 933,0 637,8 85,0 0,0 0,0 0,0 0,0 0,0 0,0 539,4 1.133,4 4.547,2 
+Fabbisogno ideale netto totale kWh 1.218,7 933,0 637,8 85,0 0,0 0,0 0,0 0,0 0,0 0,0 539,4 1.133,4 4.547,2 
+ 
+ 
+ 
+ 
+ 
+EMISSIONE 
+ 
+Perdite di emissione riscaldamento zona: ZH1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 31 28 31 8 0 0 0 0 0 0 28 31 157 
+Tempo attivazione ore 744 672 744 192 0 0 0 0 0 0 672 744 3.768 
+Fabbisogno ideale netto - Piano 
+1 kWh 1.238,4 938,0 612,6 62,2 0,0 0,0 0,0 0,0 0,0 0,0 508,8 1.145,9 4.506,0 
+Rendimento emissione - Piano 1 - 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 - 
+Perdite di emissione - Piano 1 kWh 65,2 49,4 32,2 3,3 0,0 0,0 0,0 0,0 0,0 0,0 26,8 60,3 237,2 
+Energia ausiliaria - Piano 1 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 1 kWh 1.303,6 987,4 644,9 65,5 0,0 0,0 0,0 0,0 0,0 0,0 535,5 1.206,3 4.743,2 
+Fabbisogno in ingresso totale kWh 1.303,6 987,4 644,9 65,5 0,0 0,0 0,0 0,0 0,0 0,0 535,5 1.206,3 4.743,2 
+ 
+ 
+<<PAGE>>
+ 
+ 
+Perdite di emissione riscaldamento zona: ZH2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 31 28 31 10 0 0 0 0 0 0 29 31 160 
+Tempo attivazione ore 744 672 744 240 0 0 0 0 0 0 696 744 3.840 
+Fabbisogno ideale netto - Piano 
+2 kWh 1.218,7 933,0 637,8 85,0 0,0 0,0 0,0 0,0 0,0 0,0 539,4 1.133,4 4.547,2 
+Rendimento emissione - Piano 2 - 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 - 
+Perdite di emissione - Piano 2 kWh 64,1 49,1 33,6 4,5 0,0 0,0 0,0 0,0 0,0 0,0 28,4 59,7 239,3 
+Energia ausiliaria - Piano 2 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 2 kWh 1.282,9 982,1 671,3 89,5 0,0 0,0 0,0 0,0 0,0 0,0 567,7 1.193,1 4.786,5 
+Fabbisogno in ingresso totale kWh 1.282,9 982,1 671,3 89,5 0,0 0,0 0,0 0,0 0,0 0,0 567,7 1.193,1 4.786,5 
+ 
+ 
+<<PAGE>>
+ 
+ 
+ 
+ 
+REGOLAZIONE 
+ 
+Perdite di regolazione riscaldamento zona: ZH1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 31 28 31 8 0 0 0 0 0 0 28 31 157 
+Tempo attivazione ore 744 672 744 192 0 0 0 0 0 0 672 744 3.768 
+Fabbisogno - Piano 1 kWh 1.303,6 987,4 644,9 65,5 0,0 0,0 0,0 0,0 0,0 0,0 535,5 1.206,3 4.743,2 
+Rendimento regolazione - Piano 
+1 - 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 - 
+Perdite di regolazione - Piano 1 kWh 68,6 52,0 33,9 3,4 0,0 0,0 0,0 0,0 0,0 0,0 28,2 63,5 249,6 
+Fabbisogno in ingresso - Piano 1 kWh 1.372,2 1.039,4 678,8 68,9 0,0 0,0 0,0 0,0 0,0 0,0 563,7 1.269,7 4.992,8 
+Fabbisogno in ingresso totale kWh 1.372,2 1.039,4 678,8 68,9 0,0 0,0 0,0 0,0 0,0 0,0 563,7 1.269,7 4.992,8 
+ 
+ 
+ 
+Perdite di regolazione riscaldamento zona: ZH2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 31 28 31 10 0 0 0 0 0 0 29 31 160 
+Tempo attivazione ore 744 672 744 240 0 0 0 0 0 0 696 744 3.840 
+Fabbisogno - Piano 2 kWh 1.282,9 982,1 671,3 89,5 0,0 0,0 0,0 0,0 0,0 0,0 567,7 1.193,1 4.786,5 
+Rendimento regolazione - Piano 
+2 - 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 0,950 - 
+Perdite di regolazione - Piano 2 kWh 67,5 51,7 35,3 4,7 0,0 0,0 0,0 0,0 0,0 0,0 29,9 62,8 251,9 
+Fabbisogno in ingresso - Piano 2 kWh 1.350,4 1.033,8 706,7 94,2 0,0 0,0 0,0 0,0 0,0 0,0 597,6 1.255,9 5.038,5 
+Fabbisogno in ingresso totale kWh 1.350,4 1.033,8 706,7 94,2 0,0 0,0 0,0 0,0 0,0 0,0 597,6 1.255,9 5.038,5 
+ 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+DISTRIBUZIONE ACQUA 
+ 
+ 
+Perdite di distribuzione riscaldamento zona (rete idronica): ZH1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 31 28 31 8 0 0 0 0 0 0 28 31 157 
+Tempo attivazione ore 744 672 744 192 0 0 0 0 0 0 672 744 3.768 
+Fabbisogno - Piano 1 kWh 1.372,2 1.039,4 678,8 68,9 0,0 0,0 0,0 0,0 0,0 0,0 563,7 1.269,7 4.992,8 
+Rendimento distribuzione 
+acqua - Piano 1 - 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 - 
+Perdite di distribuzione - Piano 
+1 kWh 42,4 32,1 21,0 2,1 0,0 0,0 0,0 0,0 0,0 0,0 17,4 39,3 154,4 
+Perdite recuperate - Piano 1 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 1 kWh 1.414,7 1.071,5 699,8 71,1 0,0 0,0 0,0 0,0 0,0 0,0 581,2 1.309,0 5.147,3 
+Fabbisogno in ingresso totale kWh 1.414,7 1.071,5 699,8 71,1 0,0 0,0 0,0 0,0 0,0 0,0 581,2 1.309,0 5.147,3 
+ 
+ 
+Perdite di distribuzione riscaldamento zona (rete idronica): ZH2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 31 28 31 10 0 0 0 0 0 0 29 31 160 
+Tempo attivazione ore 744 672 744 240 0 0 0 0 0 0 696 744 3.840 
+Fabbisogno - Piano 2 kWh 1.350,4 1.033,8 706,7 94,2 0,0 0,0 0,0 0,0 0,0 0,0 597,6 1.255,9 5.038,5 
+Rendimento distribuzione 
+acqua - Piano 2 - 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 0,970 - 
+Perdite di distribuzione - Piano 
+2 kWh 41,8 32,0 21,9 2,9 0,0 0,0 0,0 0,0 0,0 0,0 18,5 38,8 155,8 
+Perdite recuperate - Piano 2 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 2 kWh 1.392,2 1.065,7 728,5 97,1 0,0 0,0 0,0 0,0 0,0 0,0 616,1 1.294,7 5.194,3 
+Fabbisogno in ingresso totale kWh 1.392,2 1.065,7 728,5 97,1 0,0 0,0 0,0 0,0 0,0 0,0 616,1 1.294,7 5.194,3 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+ 
+DETTAGLIO SOTTOSISTEMI RAFFRESCAMENTO (LATO UTENZA) 
+Vengono di seguito dettagliate le perdite dei sottosistemi ad uso dell'impianto di raffrescame nto per il lato utenza. 
+ 
+EMISSIONE 
+ 
+Perdite di emissione raffrescamento zona: ZC1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 0 0 0 0 28 30 31 31 30 5 0 0 155 
+Tempo attivazione ore 0 0 0 0 672 720 744 744 720 120 0 0 3.720 
+Fabbisogno ideale - Piano 1 kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+Rendimento emissione - Piano 1 - 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 - 
+Perdite di emissione - Piano 1 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Ausiliari emissione - Piano 1 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 1 kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+Fabbisogno in ingresso totale kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+ 
+ 
+Perdite di emissione raffrescamento zona: ZC2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 0 0 0 3 31 30 31 31 30 9 0 0 165 
+Tempo attivazione ore 0 0 0 72 744 720 744 744 720 216 0 0 3.960 
+Fabbisogno ideale - Piano 2 kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+Rendimento emissione - Piano 2 - 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 - 
+Perdite di emissione - Piano 2 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Ausiliari emissione - Piano 2 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 2 kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+Fabbisogno in ingresso totale kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+REGOLAZIONE 
+ 
+Perdite di regolazione raffrescamento zona: ZC1 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 0 0 0 0 28 30 31 31 30 5 0 0 155 
+Tempo attivazione ore 0 0 0 0 672 720 744 744 720 120 0 0 3.720 
+Fabbisogno - Piano 1 kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+Rendimento regolazione - Piano 
+1 - 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 - 
+Perdite di regolazione - Piano 1 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 1 kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+Fabbisogno in ingresso totale kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+ 
+ 
+Perdite di regolazione raffrescamento zona: ZC2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 0 0 0 3 31 30 31 31 30 9 0 0 165 
+Tempo attivazione ore 0 0 0 72 744 720 744 744 720 216 0 0 3.960 
+Fabbisogno - Piano 2 kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+Rendimento regolazione - Piano 
+2 - 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 - 
+Perdite di regolazione - Piano 2 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 2 kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+Fabbisogno in ingresso totale kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+ 
+ 
+ 
+ 
+DISTRIBUZIONE ACQUA 
+ 
+Perdite di distribuzione raffrescamento zona (rete idronica): ZC1 
+ 
+<<PAGE>>
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 0 0 0 0 28 30 31 31 30 5 0 0 155 
+Tempo attivazione ore 0 0 0 0 672 720 744 744 720 120 0 0 3.720 
+Fabbisogno - Piano 1 kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+Rendimento distribuzione 
+acqua - Piano 1 - 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 - 
+Perdite di distribuzione - Piano 
+1 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Perdite recuperate - Piano 1 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 1 kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+Fabbisogno in ingresso totale kWh 0,0 0,0 0,0 0,0 209,9 757,5 1.440,9 1.325,3 385,3 19,4 0,0 0,0 4.138,4 
+ 
+ 
+Perdite di distribuzione raffrescamento zona (rete idronica): ZC2 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Tempo attivazione gg 0 0 0 3 31 30 31 31 30 9 0 0 165 
+Tempo attivazione ore 0 0 0 72 744 720 744 744 720 216 0 0 3.960 
+Fabbisogno - Piano 2 kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+Rendimento distribuzione 
+acqua - Piano 2 - 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 1,000 - 
+Perdite di distribuzione - Piano 
+2 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Perdite recuperate - Piano 2 kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Fabbisogno in ingresso - Piano 2 kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+Fabbisogno in ingresso totale kWh 0,0 0,0 0,0 12,1 265,7 833,5 1.501,0 1.373,6 442,2 40,0 0,0 0,0 4.468,1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<<PAGE>>
+ 
+CARATTERISTICHE TECNICHE IMPIANTI E CENTRALI 
+ 
+IMPIANTI SOLARI TERMICI 
+ 
+Tipo di impianto Solare termico per ACS 
+ 
+Zone servite  
+Descrizione Sottocategoria 
+Piano 1 E.1 - EDIFICI ADIBITI A RESIDENZA E ASSIMILABILI 
+Piano 2 E.1 - EDIFICI ADIBITI A RESIDENZA E ASSIMILABILI 
+ 
+Dettaglio: Solare termco 
+Orientamento rispetto al SUD(Y)) – Azimut: 0,000 ° 
+Inclinazione pannelli rispetto all’orizzontale (β): 62,000 ° 
+Tipo riflessione ambientale: Coefficiente di riflessione standard (albedo) 
+Coefficiente di riflessione: 0,200 
+Anno di installazione: 2014 
+Ostruzioni: Assente 
+ 
+ 
+Caratteristiche collettori solari 
+ 
+Tipologia Collettori a tubi sottovuoto con assorbitore 
+piano 
+Rendimento a perdite nulle (Ƞ0) 0,900 
+Coefficiente di perdita lineare (a1) 1,800 (W/m2K) 
+Coefficiente di perdita quadratico (a2) 0,008 (W/m2K) 
+Coefficiente angolo di incidenza (IAM) 0,970 
+Superficie apertura singolo collettore 10,000 (m2) 
+ 
+Coeff. globale di perdita di calore delle tubazioni (Uloop,p) 10,000 (W/K) 
+<<PAGE>>
+ 
+Coeff. di perdita di energia del circuito (Uloop) 3,120 (W/m2K) 
+Rendimento circuito (Ƞloop) 0,800 
+Potenza nominale ausiliari (Waux) 100,000 (W) 
+Ore di funzionamento annuali (taux) 0,000 
+ 
+Dati accumulo 
+Servizio Accumulo ad acqua 
+Capacità nominale del serbatoio di accumulo 500,000 
+Volume solare (Vsol) 500,000 
+Volume a carico dell’integrazione (Vbu) 0,000 
+Coeff. di correlazione della capacità di accumulo (fst) 0,000 
+Coefficiente Kboll 1,400 
+Ubicazione serbatoio In ambiente esterno o non climatizzato 
+Temperatura media del locale di installazione 13,4583333333333 
+Temperatura media dell’acqua nel serbatoio 60 
+Integrazione Permanente 
+<<PAGE>>
+ 
+ 
+CENTRALI TERMICHE 
+ 
+Centrale: "Centrale Termica" 
+ 
+Tipo servizio Servizio combinato riscaldamento e produzione acqua calda sanitaria 
+ 
+Zone servite  
+Descrizione Acs Riscaldamento 
+Piano 1 Si Si 
+Piano 2 Si Si 
+ 
+Generatore: Caldaia a condensazione 
+ 
+Tipologia: Generatore analitico direttiva 
+Anno: 2013 
+Combustibile: Gas naturale (Metano) 
+Tipologia generatore: Generatore a condensazione a gas 
+Atmosferico: No 
+Ubicazione: All'esterno 
+Temperatura ambiente installazione [°C] 13,458 
+Potenza nominale [kW]: 20,000 
+Potenza intermedia [kW]: 6,000 
+Rendimento a carico nominale: 0,940 
+Rendimento a carico intermedio: 1,000 
+Perdite a carico nullo [W]: 336,442 
+ 
+Potenze ausiliari  
+A carico nominale [W]: 189,543 
+A carico intermedio [W]: 63,181 
+A carico nullo [W]: 15,000 
+ 
+ 
+<<PAGE>>
+ 
+ 
+ 
+RISULTATI DI CALCOLO PRESTAZIONALI IMPIANTI E CENTRALI 
+ 
+SOLARI TERMICI 
+ 
+Solare: Impianto Solare Termico - Solare termco 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Irradiazioni mensili kWh/
+m² 101,7 107,3 134,4 140,2 139,0 146,4 168,5 163,8 149,2 140,0 103,1 106,2 1.599,7 
+Perdite accumulo solare kWh 60,7 52,5 52,9 47,5 43,9 37,7 36,4 37,4 39,9 49,6 52,5 59,3 570,2 
+Q gn,w,out kWh 274,9 248,3 274,9 266,0 274,9 266,0 274,9 274,9 266,0 274,9 266,0 274,9 3.236,9 
+Q gn,h,out kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Pw - 1,0 1,0 1,0 1,0 1,0 1,0 1,0 1,0 1,0 1,0 1,0 1,0 - 
+Ph - 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 - 
+Q gn,w,solare kWh 335,6 300,8 327,8 313,5 318,8 303,7 311,3 312,3 306,0 324,5 318,6 334,2 3.807,0 
+Q gn,h,solare kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+DeltaT,w ° 104,44 102,12 96,55 86,34 78,69 70,80 61,98 61,52 72,89 81,93 93,77 103,05 - 
+DeltaT,h ° 91,90 90,90 88,50 84,10 80,80 77,40 73,60 73,40 78,30 82,20 87,30 91,30 - 
+T,aux,w - 127,11 134,12 168,01 175,31 173,78 183,05 210,70 204,73 186,54 175,00 128,90 132,74 - 
+T,aux,h - 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 - 
+Q sol,aux,w kWh 12,7 13,4 16,8 17,5 17,4 18,3 21,1 20,5 18,7 17,5 12,9 13,3 200,0 
+Q sol,aux,h kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Q sol,aux,rh,w kWh 10,2 10,7 13,4 14,0 13,9 14,6 16,9 16,4 14,9 14,0 10,3 10,6 160,0 
+Q sol,aux,rh,h kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+X,w - 6,39 6,30 6,05 5,48 5,07 4,64 4,09 4,05 4,74 5,19 5,85 6,34 - 
+X,h - 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 - 
+Y,w - 2,12 2,49 2,86 3,00 3,00 3,00 3,00 3,00 3,00 3,00 2,26 2,22 - 
+Y,h - 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 0,00 - 
+Q sol,w kWh 316,1 300,8 327,8 313,5 318,8 303,7 311,3 312,3 306,0 324,5 318,6 324,9 3.778,2 
+Q sol,h kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+<<PAGE>>
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Q sol,res,w kWh 19,6 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 9,3 28,9 
+Q sol,res,h kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Copertura,w % 94,2 100,0 100,0 100,0 100,0 100,0 100,0 100,0 100,0 100,0 100,0 97,2 - 
+Copertura,h % 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 - 
+ 
+ 
+GENERATORI 
+ 
+Dettaglio generatore: Centrale Termica - Servizio combinato riscaldamento e produzione acqua calda sanitaria - Caldaia a 
+condensazione 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Qgn,out H kWh 2.806,8 2.137,3 1.428,4 168,2 0,0 0,0 0,0 0,0 0,0 0,0 1.197,3 2.603,7 10.341,6 
+Qgn,out W kWh 19,6 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 9,3 28,9 
+Qgn,out C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Temp. fluido - 48,0 48,0 48,0 48,0 48,0 48,0 48,0 48,0 48,0 48,0 48,0 48,0 - 
+Eta gn,Pn,corr - 0,98 0,98 0,98 0,98 0,98 0,98 0,98 0,98 0,98 0,98 0,98 0,98 - 
+Eta gn,Pint,corr - 0,97 0,97 0,97 0,97 0,97 0,97 0,97 0,97 0,97 0,97 0,97 0,97 - 
+Fi gn,l,Pn,cor W 326 326 326 326 326 326 326 326 326 326 326 326 - 
+Fi gn,l,Pint,cor W 160 160 160 160 160 160 160 160 160 160 160 160 - 
+Fi gn,l,Po,cor W 306 285 245 216 178 144 127 134 160 220 255 294 - 
+FC - 0,19 0,16 0,10 0,01 0,00 0,00 0,00 0,00 0,00 0,00 0,08 0,18 - 
+Q gn,l kWh 159,0 147,2 162,2 154,1 132,7 103,9 94,3 99,5 115,3 163,7 164,9 160,6 1.657,3 
+Q gn,env,rl - 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+W aux,Px W 46 41 30 17 15 15 15 15 15 15 28 43 - 
+Eta gn - 0,95 0,94 0,90 0,52 0,00 0,00 0,00 0,00 0,00 0,00 0,88 0,94 - 
+Qgn,in H kWh 2.964,7 2.284,4 1.590,5 322,2 0,0 0,0 0,0 0,0 0,0 0,0 1.362,2 2.763,7 11.287,8 
+Qgn,in W kWh 20,7 0,0 0,0 0,0 132,7 103,9 94,3 99,5 115,3 163,7 0,0 9,9 739,9 
+Qgn,in C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Qgn,out residuo H kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Qgn,out residuo W kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+<<PAGE>>
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Qgn,out residuo C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Energia ausiliaria kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Energia ausiliaria generatore kWh 33,9 27,2 22,6 12,2 11,2 10,8 11,2 11,2 10,8 11,2 20,4 32,1 214,7 
+<<PAGE>>
+45 
+ 
+BILANCIO DI ENERGIA ELETTRICA 
+ 
+Fabbisogni di energia elettrica divisi per servizio 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H kWh 33,6 27,2 22,6 12,2 0,0 0,0 0,0 0,0 0,0 0,0 20,4 32,0 148,1 
+Servizio C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W kWh 12,9 13,4 16,8 17,5 28,5 29,1 32,2 31,6 29,5 28,7 12,9 13,4 266,6 
+Servizio V kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio T kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+ 
+Producibilità fonti onsite divise per servizio 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio V kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio T kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+ 
+Energia elettrica immediatamente utilizzata divisa per servizio 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio V kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio T kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+<<PAGE>>
+46 
+ 
+Energia elettrica in eccesso (Esportata) 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio V kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio T kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+ 
+Energia elettrica da integrare da rete 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H kWh 33,6 27,2 22,6 12,2 0,0 0,0 0,0 0,0 0,0 0,0 20,4 32,0 148,1 
+Servizio C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W kWh 12,9 13,4 16,8 17,5 28,5 29,1 32,2 31,6 29,5 28,7 12,9 13,4 266,6 
+Servizio V kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio T kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+ 
+<<PAGE>>
+47 
+ 
+ENERGIA PRIMARIA 
+ 
+Coefficienti di conversione in energia primaria 
+Per il calcolo delle prestazioni energetiche dell'edi ficio, si utilizzano i seguenti coefficienti di conversione in energia primario dati dalla legislazione nazionale 
+fatta eccezione per quelli afferenti all'energia elettrica prodotta da cogeneratori (ove presenti), calcolati secondi la UNI/ TS 11300 -5 tenend o conto dei 
+coefficienti di allocazione specificati dalla legislazione nazionale. 
+ 
+VETTORI DELIVERED fp,ren fp,nren fp,tot 
+Gas naturale (Metano) 0,00 1,05 1,05 
+ 
+dove: 
+fp,ren coefficiente di conversione in energia primaria rinnovabile 
+fp,nren coefficiente di conversione in energia primaria non rinnovabile 
+fp,tot coefficiente totale di conversione in energia primaria 
+ 
+ 
+Fabbisogni di energia primaria rinnovabile divisa per servizio 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H kWh 15,8 12,8 10,6 5,7 0,0 0,0 0,0 0,0 0,0 0,0 9,6 15,1 69,6 
+Servizio C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W kWh 322,1 307,1 335,7 321,8 332,2 317,4 326,4 327,2 319,8 338,0 324,6 331,2 3.903,5 
+Servizio V kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio T kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+GLOBALE kWh 338,0 319,9 346,4 327,5 332,2 317,4 326,4 327,2 319,8 338,0 334,2 346,2 3.973,1 
+ 
+Fabbisogni di energia primaria non rinnovabile divisa per servizio 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H kWh 3.178,5 2.451,8 1.714,2 362,0 0,0 0,0 0,0 0,0 0,0 0,0 1.470,1 2.964,4 12.141,0 
+Servizio C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W kWh 46,9 26,2 32,8 34,2 195,0 165,8 161,9 166,1 178,5 227,8 25,1 36,5 1.296,8 
+Servizio V kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+<<PAGE>>
+48 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio T kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+GLOBALE kWh 3.225,5 2.477,9 1.746,9 396,2 195,0 165,8 161,9 166,1 178,5 227,8 1.495,2 3.000,9 13.437,8 
+ 
+Fabbisogni di energia primaria totale divisa per servizio 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H kWh 3.194,3 2.464,6 1.724,8 367,8 0,0 0,0 0,0 0,0 0,0 0,0 1.479,7 2.979,4 12.210,6 
+Servizio C kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W kWh 369,1 333,3 368,5 355,9 527,2 483,3 488,3 493,3 498,3 565,7 349,8 367,6 5.200,2 
+Servizio V kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio T kWh 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+GLOBALE kWh 3.563,4 2.797,8 2.093,3 723,7 527,2 483,3 488,3 493,3 498,3 565,7 1.829,4 3.347,1 17.410,8 
+ 
+ 
+Quota di energia primaria da fonti rinnovabili 
+ 
+Descrizione U.M. Gen. Feb. Mar. Apr. Mag. Giu. Lug. Ago. Set. Ott. Nov. Dic. Totale 
+Servizio H % 0,5 0,5 0,6 1,6 0,0 0,0 0,0 0,0 0,0 0,0 0,6 0,5 0,6 
+Servizio C % 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio W % 87,3 92,2 91,1 90,4 63,0 65,7 66,8 66,3 64,2 59,7 92,8 90,1 75,1 
+Servizio V % 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio L % 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+Servizio T % 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 
+GLOBALE % 9,5 11,4 16,5 45,2 63,0 65,7 66,8 66,3 64,2 59,7 18,3 10,3 22,8 
+ 
+<<PAGE>>
+49 
+ 
+INDICI DI PRESTAZIONE ENERGETICA 
+Indici energia primaria rinnovabile 
+Servizi U.M. TOTALE 
+Servizio H kWh/m² 0,3 
+Servizio C kWh/m² 0,0 
+Servizio W kWh/m² 18,1 
+Servizio V kWh/m² 0,0 
+Servizio L kWh/m² 0,0 
+Servizio T kWh/m² 0,0 
+GLOBALE kWh/m² 18,4 
+ 
+Indici energia primaria non rinnovabile 
+Servizi U.M. TOTALE 
+Servizio H kWh/m² 56,4 
+Servizio C kWh/m² 0,0 
+Servizio W kWh/m² 6,0 
+Servizio V kWh/m² 0,0 
+Servizio L kWh/m² 0,0 
+Servizio T kWh/m² 0,0 
+GLOBALE kWh/m² 62,4 
+ 
+Indici energia primaria globale 
+Servizi U.M. TOTALE 
+Servizio H kWh/m² 56,7 
+Servizio C kWh/m² 0,0 
+Servizio W kWh/m² 24,1 
+Servizio V kWh/m² 0,0 
+Servizio L kWh/m² 0,0 
+Servizio T kWh/m² 0,0 
+GLOBALE kWh/m² 80,8 
+ 
+<<PAGE>>
+ 
+ 
+ALLEGATO 1 - DETTAGLIO CALCOLI 
+APPORTI DI ENERGIA INTERNA 
+ 
+Per ogni zona termica dell’edificio e per ogni mese o frazione di mese, gli apporti interni si calcolano secondo la 
+seguente equazione: 
+ 
+ 
+ 
+dove: 
+фint,mn,k flusso termico prodotto dalla k-esima sorgente di calore interna, mediato sul tempo [W]; 
+фint,mn,u,l flusso termico prodotto dalla l-esima sorgente di calore interna nell’ambiente non climatizzato adiacente u, mediato 
+sul tempo [W]; 
+btr,l fattore di riduzione per l’ambiente non climatizzato avente l-esima sorgente di calore interna. 
+ 
+In assenza d’informazioni che ne dimostrino la rilevanza, è lecito trascurare l’effetto degli apporti termici 
+prodotti all’interno di ambienti non climatizzati. 
+ 
+Apporti interni sensibili 
+ 
+Zona termica Destinazione d’uso Superficie netta 
+[m2] 
+фint 
+[W] 
+Piano 1 E.1.1 107,700 450,745 
+Piano 2 E.1.1 107,700 450,745 
+ 
+Apporti interni latenti 
+ 
+Di seguito si riporta la portata massima di vapore acqueo dovuta alla presenza di persone e di apparecchiature 
+per unità di superficie utile di pavimento (Gwv,Oc+Gwv,A)/A: 
+ 
+Zona termica Destinazione d’uso Superficie netta 
+[m2] 
+(Gwv,Oc+Gwv,A)/A 
+[g/h] 
+Piano 1 E.1.1 107,700 250,000 
+Piano 2 E.1.1 107,700 250,000 
+CALCOLO DEGLI SCAMBI DI ENERGIA TERMICA 
+ 
+Per il calcolo degli scambi termici mensili sono state utilizzate le seguenti formule (UNI/TS 11300-1): 
+ 
+ 
+dove: 
+фsol,op,mn,k flusso termico k-esimo di origine solare, mediato sul tempo [W]; 
+фsol,mn,u,l flusso termico k-esimo di origine solare nell’ambiente non climatizzato adiacente u, mediato sul tempo [W]; 
+btr,l fattore di riduzione per l’ambiente non climatizzato avente il flusso termico l-esimo di origine solare; 
+Qsd,op apporti di energia termica diretti attraverso le partizioni opache, dovuti alla radiazione solare entranti nella zona 
+climatizzata dalla serra j-esima [MJ] 
+Qsi apporti di energia termica indiretti dovuti alla radiazione solare entranti nella zona climatizzata dalla serra j-esima 
+[MJ] 
+ 
+Riscaldamento 
+  
+ 
+ 
+ 
+<<PAGE>>
+2 
+ 
+Raffrescamento 
+  
+ 
+ 
+dove: 
+Htr,adj coefficiente globale di scambio termico per trasmissione [W/K] 
+Hve,adj coefficiente globale di scambio termico per ventilazione [W/K] 
+θint,set,H temperatura interna di regolazione per il riscaldamento della zona considerata [°C] 
+θint,set,C temperatura interna di regolazione per il raffrescamento della zona considerata [°C] 
+θe temperatura esterna media del mese considerato o della frazione di mese [°C] 
+Fr,k fattore di forma tra il componente edilizio k-esimo e la volta celeste 
+Fr,l fattore di forma tra il componente edilizio l-esimo dell’ambiente non climatizzato e la volta celeste 
+фr,mn,k extra flusso termico dovuto alla radiazione infrarossa verso la volta celeste dal componente edilizio k-esimo [W] 
+фr,mn,u,l extra flusso termico dovuto alla radiazione infrarossa verso la volta celeste dal componente edilizio l-esimo dell’ambiente 
+non climatizzato [W] 
+btr,l fattore di riduzione delle dispersioni per l’ambiente non climatizzato avente il componente l-esimo soggetto alla 
+radiazione infrarossa verso la volta celeste 
+Qsol,op apporti di energia termica dovuti alla radiazione solare incidente sui componenti opachi [MJ] 
+t durata del mese considerato o della frazione di mese (s) 
+ 
+ 
+COEFFICIENTI GLOBALI DI SCAMBIO TERMICO 
+ 
+I coefficienti globali di scambio termico Htr,adj e Hve,adj si calcolano con le seguenti formule: 
+ 
+ 
+ 
+dove: 
+HD coefficiente di scambio termico diretto per trasmissione verso l’ambiente esterno [W/K] 
+Hg coefficiente di scambio termico stazionario per trasmissione verso il terreno [W/K] 
+HU coefficiente di scambio termico per trasmissione attraverso gli ambienti non climatizzati [W/K] 
+HA coefficiente di scambio termico per trasmissione verso altre zone climatizzate a temperatura diversa [W/K] 
+ 
+ 
+ 
+ 
+dove: 
+ρa ca capacità termica volumica dell’aria, pari a 1200 [J/(m3K)] 
+bve,k fattore di correzione della temperatura per il flusso d’aria k-esimo in ventilazione naturale [W/K] 
+qve,k,mn portata mediata sul tempo del flusso d’aria k-esimo [m3/s] 
+ 
+ 
+Zona climatizzata “Villetta Mario Rossi - Piano 1” 
+ 
+PERDITE DI CALORE PER TRASMISSIONE VERSO L’AMBIENTE ESTERNO (HD) 
+ 
+ 
+  [W/K] 
+ 
+dove: 
+A Superficie dell’elemento [m2] U Trasmittanza termica dell’elemento [W/m2K] 
+<<PAGE>>
+3 
+ 
+l Lunghezza lineare del ponte termico [m] Ψ Trasmittanza termica lineica del ponte termico [W/mK] 
+c Coefficiente di attribuzione del ponte termico   
+ 
+Locale HD,Comp. 
+opachi 
+HD,Comp. 
+Trasparenti HD,Ponti termici HD,tot 
+Ambiente unico 44,401 59,972 64,235 168,608 
+ 
+TOTALE ZONA: 44,401 59,972 64,235 168,608 
+ 
+Locale: Ambiente unico 
+ 
+Cod. Descrizione U 
+[W/m2K] 
+A 
+[m2] 
+Ψ 
+[W/mK] 
+Lung. 
+[m] C HD 
+[W/K] 
+COMPONENTI OPACHI 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 21,160    6,297 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 36,500    10,861 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 21,160    6,297 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 3,960    1,178 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 8,250    2,455 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 17,220    5,124 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 8,250    2,455 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 6,310    1,878 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 6,310    1,878 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 3,960    1,178 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,210    0,210 
+CA02 Cassonetto isolato 1,000 0,210    0,210 
+CA02 Cassonetto isolato 1,000 0,210    0,210 
+DE04 Porta esterna blindata a 
+risparmio energetico 0,600 2,750    1,650 
+COMPONENTI TRASPARENTI - "INFISSO SINGOLO" 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+2,483 3,500    8,692 
+<<PAGE>>
+4 
+ 
+normali (4-8-4 Aria) 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 1,050    2,607 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 1,050    2,607 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 1,050    2,607 
+PONTI TERMICI 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C8 Angolo rientrante senza 
+pilastro   0,100 3,300 1,000 0,330 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C8 Angolo rientrante senza 
+pilastro   0,100 3,300 1,000 0,330 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 4,400 1,000 0,660 
+W4 Finestra / Porta   0,150 4,400 1,000 0,660 
+W4 Finestra / Porta   0,150 4,400 1,000 0,660 
+IF4 Solaio di interpiano   0,700 1,200 0,500 0,420 
+IF4 Solaio di interpiano   0,700 2,500 0,500 0,875 
+GF4 Pavimento / Solaio 
+controterra   0,500 2,500 1,000 1,250 
+IF4 Solaio di interpiano   0,700 2,500 0,500 0,875 
+GF4 Pavimento / Solaio 
+controterra   0,500 2,500 1,000 1,250 
+IF4 Solaio di interpiano   0,700 1,200 1,000 0,840 
+IF4 Solaio di interpiano   0,700 7,600 0,500 2,660 
+GF4 Pavimento / Solaio 
+controterra   0,500 7,600 1,000 3,800 
+B4 Balcone   0,700 3,100 0,500 1,085 
+GF4 Pavimento / Solaio 
+controterra   0,500 3,100 1,000 1,550 
+B4 Balcone   0,700 3,100 1,000 2,170 
+GF4 Pavimento / Solaio 
+controterra   0,500 3,100 1,000 1,550 
+IF4 Solaio di interpiano   0,700 14,200 0,500 4,970 
+GF4 Pavimento / Solaio   0,500 14,200 1,000 7,100 
+<<PAGE>>
+5 
+ 
+controterra 
+IF4 Solaio di interpiano   0,700 7,600 0,500 2,660 
+GF4 Pavimento / Solaio 
+controterra   0,500 7,600 1,000 3,800 
+IF4 Solaio di interpiano   0,700 5,600 0,500 1,960 
+GF4 Pavimento / Solaio 
+controterra   0,500 5,600 1,000 2,800 
+W4 Finestra / Porta   0,150 7,200 1,000 1,080 
+ 
+ 
+PERDITE DI CALORE PER TRASMISSIONE VERSO IL TERRENO (Hg) 
+ 
+ 
+  [W/K] 
+  
+dove: 
+A Superficie dell’elemento [m2] U Trasmittanza termica dell’elemento [W/m2K] 
+l Lunghezza lineare del ponte termico [m] Ψ Trasmittanza termica lineica del ponte termico [W/mK] 
+c Coefficiente di attribuzione del ponte termico   
+ 
+ 
+Locale Hg,Comp. opachi Hg,Ponti termici Hg,tot 
+Ambiente unico 23,788 0,000 23,788 
+ 
+TOTALE ZONA: 23,788 0,000 23,788 
+ 
+Locale: Ambiente unico 
+ 
+ 
+Cod. Descrizione U 
+[W/m2K] 
+A 
+[m2] 
+Ψ 
+[W/mK] 
+Lung. 
+[m] C Hg 
+[W/K] 
+COMPONENTI CONTRO TERRA 
+CS5B-
+415 
+Pavimento su terreno tra 
+zone C / Terreno 0,195 121,920    23,788 
+ 
+PERDITE TOTALI PER TRASMISSIONE 
+ 
+Elemento disperdente Coefficienti di scambio termico per trasmissione [W/K] 
+ HD Hg HU HA 
+Componenti trasparenti 59,972    
+Componenti opachi verso esterno 44,401    
+Componenti opachi verso ambienti non 
+climatizzati  23,788 0,000 0,000 
+Ponti termici 64,235 0,000 0,000  
+ 
+Totale zona: 168,608 23,788 0,000 0,000 
+ 
+ 
+COEFFICIENTE DI SCAMBIO TERMICO PER VENTILAZIONE 
+ 
+Stagione Hve 
+[W/K] 
+Riscaldamento 32,310 
+Raffrescamento 32,310 
+ 
+Totale zone: 64,620 
+ 
+ 
+ 
+<<PAGE>>
+6 
+ 
+Zona climatizzata “Villetta Mario Rossi - Piano 2” 
+ 
+PERDITE DI CALORE PER TRASMISSIONE VERSO L’AMBIENTE ESTERNO (HD) 
+ 
+ 
+  [W/K] 
+ 
+dove: 
+A Superficie dell’elemento [m2] U Trasmittanza termica dell’elemento [W/m2K] 
+l Lunghezza lineare del ponte termico [m] Ψ Trasmittanza termica lineica del ponte termico [W/mK] 
+c Coefficiente di attribuzione del ponte termico   
+ 
+Locale HD,Comp. 
+opachi 
+HD,Comp. 
+Trasparenti HD,Ponti termici HD,tot 
+Ambiente unico 42,760 59,910 81,097 183,767 
+ 
+TOTALE ZONA: 42,760 59,910 81,097 183,767 
+ 
+Locale: Ambiente unico 
+ 
+Cod. Descrizione U 
+[W/m2K] 
+A 
+[m2] 
+Ψ 
+[W/mK] 
+Lung. 
+[m] C HD 
+[W/K] 
+COMPONENTI OPACHI 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 21,160    6,297 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 36,500    10,861 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 21,160    6,297 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 3,960    1,178 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 8,250    2,455 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 17,220    5,124 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 8,250    2,455 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 6,310    1,878 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 3,960    1,178 
+PE5B 5B - Parete esterna da 40 
+cm 0,298 6,340    1,887 
+SOLE4A 4A - Copertura su esterno 
+30 cm 0,244 0,000    0,000 
+CA02 Cassonetto isolato 1,000 0,210    0,210 
+CA02 Cassonetto isolato 1,000 0,210    0,210 
+CA02 Cassonetto isolato 1,000 0,210    0,210 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+CA02 Cassonetto isolato 1,000 0,420    0,420 
+COMPONENTI TRASPARENTI - "INFISSO SINGOLO" 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 1,050    2,607 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 1,050    2,607 
+FE08 Infisso con telaio in 2,483 1,050    2,607 
+<<PAGE>>
+7 
+ 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,475    8,630 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+FE08 
+Infisso con telaio in 
+metallo con taglio 
+termico e doppi vetri 
+normali (4-8-4 Aria) 
+2,483 3,500    8,692 
+PONTI TERMICI 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C8 Angolo rientrante senza 
+pilastro   0,100 3,300 1,000 0,330 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+C8 Angolo rientrante senza 
+pilastro   0,100 3,300 1,000 0,330 
+C4 Angolo sporgente senza 
+pilastro   -0,150 3,300 1,000 -0,495 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+P4 Pilastro   0,900 3,300 1,000 2,970 
+W4 Finestra / Porta   0,150 4,400 1,000 0,660 
+W4 Finestra / Porta   0,150 4,400 1,000 0,660 
+W4 Finestra / Porta   0,150 4,400 1,000 0,660 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,780 1,000 1,167 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+W4 Finestra / Porta   0,150 7,800 1,000 1,170 
+IF4 Solaio di interpiano   0,700 1,200 1,000 0,840 
+GF4 Pavimento / Solaio 
+controterra   0,500 1,200 1,000 0,600 
+IF4 Solaio di interpiano   0,700 2,500 1,000 1,750 
+GF4 Pavimento / Solaio 
+controterra   0,500 2,500 1,000 1,250 
+IF4 Solaio di interpiano   0,700 2,500 1,000 1,750 
+GF4 Pavimento / Solaio 
+controterra   0,500 2,500 1,000 1,250 
+<<PAGE>>
+8 
+ 
+IF4 Solaio di interpiano   0,700 1,200 1,000 0,840 
+GF4 Pavimento / Solaio 
+controterra   0,500 1,200 1,000 0,600 
+IF4 Solaio di interpiano   0,700 3,100 1,000 2,170 
+B4 Balcone   0,700 3,100 1,000 2,170 
+IF4 Solaio di interpiano   0,700 3,100 1,000 2,170 
+B4 Balcone   0,700 3,100 1,000 2,170 
+IF4 Solaio di interpiano   0,700 7,600 1,000 5,320 
+GF4 Pavimento / Solaio 
+controterra   0,500 7,600 1,000 3,800 
+IF4 Solaio di interpiano   0,700 14,200 1,000 9,940 
+GF4 Pavimento / Solaio 
+controterra   0,500 14,200 1,000 7,100 
+IF4 Solaio di interpiano   0,700 7,600 1,000 5,320 
+GF4 Pavimento / Solaio 
+controterra   0,500 7,600 1,000 3,800 
+IF4 Solaio di interpiano   0,700 5,600 1,000 3,920 
+GF4 Pavimento / Solaio 
+controterra   0,500 5,600 1,000 2,800 
+ 
+PERDITE TOTALI PER TRASMISSIONE 
+ 
+Elemento disperdente Coefficienti di scambio termico per trasmissione [W/K] 
+ HD Hg HU HA 
+Componenti trasparenti 59,910    
+Componenti opachi verso esterno 42,760    
+Componenti opachi verso ambienti non 
+climatizzati  0,000 0,000 0,000 
+Ponti termici 81,097 0,000 0,000  
+ 
+Totale zona: 183,767 0,000 0,000 0,000 
+ 
+ 
+COEFFICIENTE DI SCAMBIO TERMICO PER VENTILAZIONE 
+ 
+Stagione Hve 
+[W/K] 
+Riscaldamento 32,310 
+Raffrescamento 32,310 
+ 
+Totale zone: 64,620 
+ 
+ 
+APPORTI SOLARI ATTRAVERSO COMPONENTI OPACHI 
+ 
+Per ogni zona termica dell’edificio e per ogni mese o frazione di mese, gli apporti solari si calcolano secondo le 
+seguenti equazioni: 
+ 
+ 
+dove: 
+фsol,op,mn,k flusso termico k-esimo di origine solare, mediato sul tempo [W]; 
+фsol,mn,u,l flusso termico k-esimo di origine solare nell’ambiente non climatizzato adiacente u, mediato sul tempo [W]; 
+btr,l fattore di riduzione per l’ambiente non climatizzato avente il flusso termico l-esimo di origine solare; 
+Qsd,op apporti di energia termica diretti attraverso le partizioni opache, dovuti alla radiazione solare entranti nella zona 
+climatizzata dalla serra j-esima [MJ] 
+Qsi apporti di energia termica indiretti dovuti alla radiazione solare entranti nella zona climatizzata dalla serra j-
+esima [MJ] 
+ 
+Flusso termico di origine solare 
+<<PAGE>>
+9 
+ 
+ 
+Il flusso termico k-esimo di origine solare (фsol,op,k), espresso in MJ, si calcola con la seguente equazione: 
+ 
+ 
+ 
+dove: 
+Fsh,ob,k fattore di riduzione per ombreggiatura relativo ad elementi esterni per l’area di captazione solare effettiva della 
+superficie k-esima; 
+Isol,k irradianza solare media del mese considerato o della frazione del mese, sulla superficie k-esima, con dato 
+orientamento e angolo d’inclinazione sul piano orizzontale [MJ/m2];  
+Asol,op,k area di captazione solare effettiva della superficie opaca k -esima con dato orientamento e ango lo di inclinazione sul 
+piano orizzontale, nella zona o ambiente considerato [m2], determinato con l’equazione seguente: 
+  
+ 
+  
+ αsol fattore di assorbimento solare del componente opaco; 
+ Rse resistenza termica superficiale esterna del componente opaco [m2K/W]; 
+ Uc,eq trasmittanza termica equivalente del componente opaco [W/m2K]; 
+ Ac area proiettata del componente opaco [m2]. 
+ 
+Zona climatizzata “Villetta Mario Rossi - Piano 1” 
+ 
+Locale: Ambiente unico 
+ 
+Stagione di riscaldamento 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione OVEST) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin αsol A 
+[m2] 
+U 
+[W/m2K] 
+Rse 
+[m2K/W] 
+Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 5,0 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 0,755 
+Febbraio 28 6,8 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 1,030 
+Marzo 31 9,5 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 1,432 
+Aprile 15 12,6 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 1,902 
+Novembre 30 5,5 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 0,829 
+Dicembre 31 4,9 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 0,745 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione NORD) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin αsol A 
+[m2] 
+U 
+[W/m2K] 
+Rse 
+[m2K/W] 
+Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 2,0 1,00 1,00 1,00 0,6 36,500 0,298 0,040 0,261 0,529 
+Febbraio 28 2,7 1,00 1,00 1,00 0,6 36,500 0,298 0,040 0,261 0,704 
+Marzo 31 3,9 1,00 1,00 1,00 0,6 36,500 0,298 0,040 0,261 1,024 
+Aprile 15 6,0 1,00 1,00 1,00 0,6 36,500 0,298 0,040 0,261 1,560 
+Novembre 30 2,3 1,00 1,00 1,00 0,6 36,500 0,298 0,040 0,261 0,602 
+Dicembre 31 2,0 1,00 1,00 1,00 0,6 36,500 0,298 0,040 0,261 0,511 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione EST) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin αsol A 
+[m2] 
+U 
+[W/m2K] 
+Rse 
+[m2K/W] 
+Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 5,0 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 0,755 
+Febbraio 28 6,8 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 1,030 
+Marzo 31 9,5 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 1,432 
+Aprile 15 12,6 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 1,902 
+Novembre 30 5,5 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 0,829 
+Dicembre 31 4,9 1,00 1,00 1,00 0,6 21,160 0,298 0,040 0,151 0,745 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione SUD) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin αsol A 
+[m2] 
+U 
+[W/m2K] 
+Rse 
+[m2K/W] 
+Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 10,8 1,00 1,00 0,91 0,6 3,960 0,298 0,040 0,028 0,278 
+Febbraio 28 11,8 1,00 1,00 0,88 0,6 3,960 0,298 0,040 0,028 0,294 
+Marzo 31 12,0 1,00 1,00 0,87 0,6 3,960 0,298 0,040 0,028 0,295 
+Aprile 15 11,5 1,00 1,00 0,87 0,6 3,960 0,298 0,040 0,028 0,281 
+<<PAGE>>
+10 
+ 
+Novembre 30 10,8 1,00 1,00 0,91 0,6 3,960 0,298 0,040 0,028 0,277 
+Dicembre 31 11,4 1,00 1,00 0,91 0,6 3,960 0,298 0,040 0,028 0,292 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione EST) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin αsol A 
+[m2] 
+U 
+[W/m2K] 
+Rse 
+[m2K/W] 
+Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 5,0 1,00 1,00 0,43 0,6 8,250 0,298 0,040 0,059 0,127 
+Febbraio 28 6,8 1,00 1,00 0,65 0,6 8,250 0,298 0,040 0,059 0,261 
+Marzo 31 9,5 1,00 1,00 0,67 0,6 8,250 0,298 0,040 0,059 0,374 
+Aprile 15 12,6 1,00 1,00 0,80 0,6 8,250 0,298 0,040 0,059 0,594 
+Novembre 30 5,5 1,00 1,00 0,45 0,6 8,250 0,298 0,040 0,059 0,146 
+Dicembre 31 4,9 1,00 1,00 0,40 0,6 8,250 0,298 0,040 0,059 0,116 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione SUD) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin αsol A 
+[m2] 
+U 
+[W/m2K] 
+Rse 
+[m2K/W] 
+Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 10,8 1,00 1,00 1,00 0,6 17,220 0,298 0,040 0,123 1,331 
+Febbraio 28 11,8 1,00 1,00 1,00 0,6 17,220 0,298 0,040 0,123 1,449 
+Marzo 31 12,0 1,00 1,00 1,00 0,6 17,220 0,298 0,040 0,123 1,481 
+Aprile 15 11,5 1,00 1,00 1,00 0,6 17,220 0,298 0,040 0,123 1,411 
+Novembre 30 10,8 1,00 1,00 1,00 0,6 17,220 0,298 0,040 0,123 1,330 
+Dicembre 31 11,4 1,00 1,00 1,00 0,6 17,220 0,298 0,040 0,123 1,402 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione OVEST) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin αsol A 
+[m2] 
+U 
+[W/m2K] 
+Rse 
+[m2K/W] 
+Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 5,0 1,00 1,00 0,43 0,6 8,250 0,298 0,040 0,059 0,127 
+Febbraio 28 6,8 1,00 1,00 0,65 0,6 8,250 0,298 0,040 0,059 0,261 
+Marzo 31 9,5 1,00 1,00 0,67 0,6 8,250 0,298 0,040 0,059 0,374 
+Aprile 15 12,6 1,00 1,00 0,80 0,6 8,250 0,298 0,040 0,059 0,594 
+Novembre 30 5,5 1,00 1,00 0,45 0,6 8,250 0,298 0,040 0,059 0,146 
+Dicembre 31 4,9 1,00 1,00 0,40 0,6 8,250 0,298 0,040 0,059 0,116 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione SUD) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin αsol A 
+[m2] 
+U 
+[W/m2K] 
+Rse 
+[m2K/W] 
+Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 10,8 1,00 0,89 1,00 0,6 6,310 0,298 0,040 0,045 0,435 
+Febbraio 28 11,8 1,00 0,83 1,00 0,6 6,310 0,298 0,040 0,045 0,443 
+Marzo 31 12,0 1,00 0,79 1,00 0,6 6,310 0,298 0,040 0,045 0,428 
+Aprile 15 11,5 1,00 0,71 1,00 0,6 6,310 0,298 0,040 0,045 0,366 
+Novembre 30 10,8 1,00 0,88 1,00 0,6 6,310 0,298 0,040 0,045 0,430 
+Dicembre 31 11,4 1,00 0,90 1,00 0,6 6,310 0,298 0,040 0,045 0,464 
+ 
+…omissis 
+APPORTI SOLARI ATTRAVERSO COMPONENTI TRASPARENTI 
+ 
+Per ogni zona termica dell’edificio e per ogni me se o frazione di mese, gli apporti di energia termica dovuti alla 
+radiazione solare incidente sui componenti vetrati si calcolano secondo le seguenti equazioni:  
+ 
+ 
+dove: 
+фsol,w,mn,k flusso termico k-esimo di origine solare, mediato sul tempo [W]; 
+Qsd,w,j apporti di energia termica diretti attraverso le partizioni trasparenti, dovuti alla radiazione solare entranti nella zona 
+climatizzata dalla serra j-esima [MJ] 
+ 
+ 
+Flusso termico di origine solare 
+ 
+Il flusso termico k-esimo di origine solare (фsol,w,k), espresso in MJ, si calcola con la seguente equazione:  
+ 
+ 
+<<PAGE>>
+11 
+ 
+ 
+dove: 
+Fsh,ob,k fattore di riduzione per ombreggiatura relativo ad elementi esterni per l ’area di captazione solar e effettiva della 
+superficie k-esima; 
+Isol,k irradianza solare media del mese considerato o della frazione del mese, sulla superficie k-esima, con dato 
+orientamento e angolo d’inclinazione sul piano orizzontale [MJ/m2];  
+Asol,k area di captazione solare effettiva della superficie vetrata k-esima con dato orientamento e angolo di inclinazione sul 
+piano orizzontale, nella zona o ambiente considerato [m2], determinato con l’equazione seguente: 
+  
+ 
+  
+ Fsh,gl fattore di riduzione degli apporti solari relativo all’utilizzo di schermature mobili; 
+ FF frazione di area relativa al telaio (rapporto tra l ’area proiettata del telaio e l’area proiettata totale del 
+componente finestrato); 
+ Aw,p area proiettata totale del componente vetrato [m2]; 
+ ggl 
+trasmittanza di energia solare della parte trasparente del componente, ricavati moltiplicando i valori di 
+trasmittanza di energia solare totale per incidenza normale (g gl,n) per un fattore di esposizione (F w) che 
+considera la variazione della trasmittanza di energia solare totale in funzione dell’angolo d’incidenza della 
+radiazione solare. 
+ 
+Zona climatizzata “Villetta Mario Rossi - Piano 1” 
+ 
+Locale: Ambiente unico 
+ 
+Stagione di riscaldamento 
+ 
+FE08 - Infisso con telaio in metallo con taglio termico e doppi vetri normali ( 4-8-4 Aria) (Esposizione 
+NORD) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin ggl,n Aw 
+[m2] 
+Fw 
+[m2] 
+Fsh,gl Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 2,030 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 3,841 
+Febbraio 28 2,70 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 5,109 
+Marzo 31 3,93 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 7,436 
+Aprile 15 5,99 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,869 11,186 
+Novembre 30 2,31 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 4,371 
+Dicembre 31 1,96 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 3,709 
+ 
+FE08 - Infisso con telaio in metallo con taglio termico e doppi vetri normali (4 -8-4 Aria) (Esposizione 
+NORD) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin ggl,n Aw 
+[m2] 
+Fw 
+[m2] 
+Fsh,gl Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 2,030 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 3,841 
+Febbraio 28 2,70 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 5,109 
+Marzo 31 3,93 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 7,436 
+Aprile 15 5,99 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,869 11,186 
+Novembre 30 2,31 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 4,371 
+Dicembre 31 1,96 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,892 3,709 
+ 
+FE08 - Infisso con telaio in metallo con taglio termico e doppi vetri normali (4 -8-4 Aria) (Esposizione 
+OVEST) 
+Mese gg Isol 
+[MJ/m2gg] 
+Fhor Fov Ffin ggl,n Aw 
+[m2] 
+Fw 
+[m2] 
+Fsh,gl Asol 
+[m2] 
+фsol,op 
+[MJ] 
+Gennaio 31 4,996 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,561 7,801 
+Febbraio 28 6,81 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,509 10,283 
+Marzo 31 9,47 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,480 14,018 
+Aprile 15 12,58 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,500 18,872 
+Novembre 30 5,49 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,646 9,032 
+Dicembre 31 4,93 1,00 1,00 1,00 0,75 3,500 2,800 0,650 1,544 7,610 
+ 
+…omissis 
+ 
+EXTRA FLUSSO VERSO LA VOLTA CELESTE 
+ 
+Di seguito è riportato il calcolo dell’extraf lusso termico per radiazione infrarossa verso la volta celeste ( фr) di 
+tutti i componenti, sia opachi che trasparenti, esposti direttamente verso l’ambiente esterno.  
+<<PAGE>>
+12 
+ 
+ 
+ 
+dove: 
+Rse resistenza superficiale esterna del componente [m2K/W]; 
+UC trasmittanza termica del componente [W/m2K]; 
+AC area proiettata del componente [m2]; 
+hr coefficiente di scambio termico esterno per irraggiamento [W/m2K]; 
+Δθer differenza tra la temperatura dell’ara esterna e la temperatura apparente del cielo 
+ 
+ 
+Il calcolo è effettuato adottando le seguenti ipotesi: 
+ La differenza di temperatura dell’aria esterna e la temperatura apparente del cielo vale: 
+ 
+dove: 
+ 
+ 
+pv,e pressione parziale del vapore d’acqua media del mese considerato [Pa]; 
+ 
+ Il coefficiente di scambio termico esterno per irraggiamento [W/m2K] è determinato con l’equazione: 
+ 
+dove: 
+ε emissività della superficie esterna del componente; 
+σ costante di Stefan-Boltzmann (=5,67∙10-8) [W/m2K4]; 
+θsky temperatura equivalente di corpo nero della volta celeste [°C]; 
+ 
+Zona climatizzata “Villetta Mario Rossi - Piano 1” 
+ 
+Locale: Ambiente unico 
+ 
+ 
+Stagione di riscaldamento 
+ 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione OVEST) 
+Mese Rse 
+[m2K/W] 
+Uc 
+[W/m2K] 
+Ac 
+[m2] 
+hr 
+[W/m2K] 
+Δθer фr  
+[W] 
+Gennaio 0,040 0,298 21,160 4,298 9,967 10,790 
+Febbraio 0,040 0,298 21,160 4,247 14,253 15,245 
+Marzo 0,040 0,298 21,160 4,402 12,395 13,742 
+Aprile 0,040 0,298 21,160 4,575 14,021 16,156 
+Novembre 0,040 0,298 21,160 4,446 12,942 14,493 
+Dicembre 0,040 0,298 21,160 4,304 10,951 11,870 
+TOTALE: 82,297 
+ 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione NORD) 
+Mese Rse 
+[m2K/W] 
+Uc 
+[W/m2K] 
+Ac 
+[m2] 
+hr 
+[W/m2K] 
+Δθer фr  
+[W] 
+Gennaio 0,040 0,298 36,500 4,298 9,967 18,612 
+Febbraio 0,040 0,298 36,500 4,247 14,253 26,297 
+Marzo 0,040 0,298 36,500 4,402 12,395 23,705 
+Aprile 0,040 0,298 36,500 4,575 14,021 27,868 
+Novembre 0,040 0,298 36,500 4,446 12,942 25,000 
+Dicembre 0,040 0,298 36,500 4,304 10,951 20,476 
+TOTALE: 141,959 
+<<PAGE>>
+13 
+ 
+ 
+ 
+PE5B - 5B - Parete esterna da 40 cm (Esposizione EST) 
+Mese Rse 
+[m2K/W] 
+Uc 
+[W/m2K] 
+Ac 
+[m2] 
+hr 
+[W/m2K] 
+Δθer фr  
+[W] 
+Gennaio 0,040 0,298 21,160 4,298 9,967 10,790 
+Febbraio 0,040 0,298 21,160 4,247 14,253 15,245 
+Marzo 0,040 0,298 21,160 4,402 12,395 13,742 
+Aprile 0,040 0,298 21,160 4,575 14,021 16,156 
+Novembre 0,040 0,298 21,160 4,446 12,942 14,493 
+Dicembre 0,040 0,298 21,160 4,304 10,951 11,870 
+TOTALE: 82,297 
+ 
+ 
+…omissis 
+ 
+<<PAGE>>

@@ -30,9 +30,10 @@ aside {
   transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .25s;
 }
 aside.chiuso { transform: translateX(-120%); opacity: 0; pointer-events: none; }
+aside { font-family: system-ui, "Segoe UI", Roboto, sans-serif; }
 aside h1 { color: var(--hud-oro); letter-spacing: .04em; text-transform: uppercase; font-size: 15px; }
 aside .sub, aside .riga.info { color: var(--hud-muto) !important; }
-aside button, aside select, aside input[type=number] {
+aside button, aside select, aside input[type=number], aside input[type=text], aside textarea {
   background: rgba(255,255,255,0.06) !important;
   color: var(--hud-testo) !important;
   border: 1px solid rgba(255,255,255,0.14) !important;
@@ -42,6 +43,9 @@ aside button, aside select, aside input[type=number] {
 }
 aside button:hover { border-color: var(--hud-oro) !important; box-shadow: 0 0 14px rgba(255,196,77,.35); transform: translateY(-1px); }
 aside select option { background: #0f1522; }
+aside textarea { border-radius: 10px !important; font: 12px/1.4 ui-monospace, Consolas, monospace; }
+aside { overflow-x: hidden !important; }
+aside label, aside input, aside textarea, aside select { max-width: 100%; box-sizing: border-box; }
 #messaggi, #esito .riga { border-radius: 10px; }
 #messaggi { background: rgba(61,220,247,0.08) !important; color: var(--hud-testo) !important; }
 
@@ -112,7 +116,10 @@ aside select option { background: #0f1522; }
   aside { width: auto !important; right: 14px; }
   .hud-hotbar { transform: none; left: 8px; right: 8px; justify-content: space-between; }
   .hud-slot { width: 0; flex: 1; height: 58px; }
-  .hud-tabs { display: none; }
+  /* le schede restano raggiungibili: riga scorrevole invece di nasconderle */
+  .hud-top { overflow-x: auto; }
+  .hud-tabs { margin-left: 4px; overflow-x: auto; flex-shrink: 0; }
+  .hud-tab { padding: 6px 8px; white-space: nowrap; }
 }
 
 /* Interruttore 3D | 2D: la pillola scorre da una parte all'altra */
@@ -158,3 +165,28 @@ aside select option { background: #0f1522; }
   background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); color: var(--hud-testo); }
 .scheda-azione.pericolo { border-color: rgba(255,95,109,.5); color: #ff8f99; }
 .scheda-azione.pericolo:hover { background: rgba(255,95,109,.18); }
+
+/* Affidabilita' dei risultati: badge di stato, righe dei risultati, schede dei motori */
+.badge-stato { display: inline-block; padding: 2px 8px; border-radius: 999px; font: 700 10px/1.4 system-ui, sans-serif; letter-spacing: .06em; vertical-align: middle; white-space: nowrap; }
+.badge-stato.esatto { background: rgba(88,230,160,.18); color: #7ef2b5; border: 1px solid rgba(88,230,160,.5); }
+.badge-stato.dati { background: rgba(61,220,247,.14); color: #8be9fb; border: 1px solid rgba(61,220,247,.45); }
+.badge-stato.stima { background: rgba(255,196,77,.16); color: #ffd47a; border: 1px solid rgba(255,196,77,.5); }
+.badge-stato.incompleto { background: rgba(255,95,109,.16); color: #ff8f99; border: 1px solid rgba(255,95,109,.5); }
+.riga-risultato { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; }
+.nota-risultato { color: var(--hud-muto); font-size: 11.5px; margin-top: 2px; }
+.aff-legenda { display: grid; gap: 6px; margin: 8px 0 12px; font-size: 12px; color: var(--hud-muto); }
+.aff-card { margin: 10px 0; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); font-size: 12.5px; }
+.aff-card.stima { border-left: 4px solid rgba(255,196,77,.7); }
+.aff-card.incompleto { border-left: 4px solid rgba(255,95,109,.7); }
+.aff-card.dati { border-left: 4px solid rgba(61,220,247,.6); }
+.aff-card.esatto { border-left: 4px solid rgba(88,230,160,.7); }
+.aff-card ul { margin: 4px 0 6px 16px; padding: 0; }
+.aff-card li { margin: 3px 0; }
+.aff-card summary { cursor: pointer; font-weight: 600; }
+.aff-card a { color: var(--hud-ciano); }
+.aff-testa { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.aff-nome { font-weight: 700; color: var(--hud-testo); }
+.aff-titolo { margin-top: 8px; color: var(--hud-oro); font-weight: 600; font-size: 11.5px; letter-spacing: .03em; }
+.aff-doc li.ok .aff-segno { color: #7ef2b5; }
+.aff-doc li.manca .aff-segno { color: #ff8f99; }
+.aff-segno { color: var(--hud-muto); font-weight: 600; }

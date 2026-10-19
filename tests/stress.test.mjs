@@ -102,9 +102,11 @@ test("buildModel: nessuna eccezione e geometria finita su planimetrie casuali (8
   }
 });
 
-test("antincendio e stanze concordano sul piano AR-02: 278,548725 m2 (cross-check tra motori)", () => {
+test("antincendio e stanze concordano sul piano AR-02: 278,329350 m2 (cross-check tra motori)", () => {
+  // Valore corretto il 2026-10-19: prima era 278,548725 m2 perche' la stanza_002 contiene un moncone di muro
+  // (da 17500,9500 a 14500,9500) di cui veniva tolta solo meta' impronta (219.375 mm2 in piu').
   const sup = superficiePerPiano([{ piano: "terra", plan }])[0].superficieLordaMm2;
-  assert.equal(sup, 278548725);
+  assert.equal(sup, 278329350);
   assert.equal(stanze(plan.walls).reduce((s, x) => s + x.superficieMm2, 0), sup);
 });
 
@@ -180,8 +182,8 @@ test("Energia: carico estivo cresce con la superficie vetrata e con il solare", 
 });
 
 test("Energia: controprova a mano del carico invernale di un appartamento tipo", () => {
-  // H_tr = 0,6 W/m2K * 150 m2 = 90 W/K; ponti 10 % -> 99 W/K; V 270 m3, 0,5/h -> 45,9 W/K; delta 20 K
-  const tr = dispersioneTrasmissione([{ id: "inv", U: 0.6, A_m2: 150 }]);
+  // H_tr = 0,6 W/m2K * 150 m2 = 90 W/K; ponti psi: 0,9 W/mK x 10 m = 9 W/K -> 99 W/K; V 270 m3, 0,5/h -> 45,9 W/K; delta 20 K
+  const tr = dispersioneTrasmissione([{ id: "inv", U: 0.6, A_m2: 150 }], { ponti: { modo: "psi", nodi: [{ psi_W_mK: 0.9, l_m: 10 }] } });
   const c = caricoInvernale(tr.H_con_ponti_W_K, 270, { theta_ext_inv: 0, ricambi_h: 0.5 });
   assert.ok(Math.abs(c.H_tot_W_K - (99 + 0.34 * 0.5 * 270)) < 1e-9);
   assert.ok(Math.abs(c.carico_W - (99 + 45.9) * 20) < 1e-6);
@@ -220,8 +222,62 @@ test("Parser PDF: campi estratti dalle due relazioni reali (Blumatica e ACCA Ter
   assert.deepEqual(a.mancanti, []);
 });
 
+test("Parser PDF: relazione di Roma a due zone (Blumatica UNI 10349): giorni non scambiati per gradi giorno, zone segnalate", () => {
+  const r = parseDatiEnergetici(leggi("fixtures/relazione-blumatica-roma-uni10349.txt"));
+  assert.equal(r.campi.gg, 1415);                       // non "166 gg" (giorni di riscaldamento)
+  assert.equal(r.campi.theta_ext_inv_C, 0);             // "Temperatura progetto invernale 0,0 °C"
+  assert.equal(r.campi.theta_ext_est_C, 33.8);
+  assert.equal(r.campi.superficie_utile_m2, 215.4);
+  assert.deepEqual(r.mancanti, []);
+  const s = r.ambigui.find((x) => x.campo === "superficie_disperdente_m2");
+  assert.ok(s && s.valori.includes(285.05) && s.valori.includes(160.385), JSON.stringify(r.ambigui));
+});
+
 test("Parser PDF: testo senza dati restituisce tutti i campi mancanti, senza eccezioni", () => {
   const r = parseDatiEnergetici("Relazione generica senza numeri utili");
   assert.deepEqual(Object.keys(r.campi), []);
   assert.equal(r.mancanti.length, 6);
+});
+
+test("Involucro dalla geometria: vetri su ogni lato riconosciuti senza il tipo 'perimetrale' (200 casi)", () => {
+  const r = rng(8);
+  for (let i = 0; i < 200; i++) {
+    const W = intra(r, 4000, 9000), H = intra(r, 4000, 7000), x = intra(r, 1500, W - 1500);
+    const p = appartamento(W, H, x);
+    for (const w of p.walls) w.kind = "tramezzo"; // nessun aiuto dal tipo
+    p.openings = [
+      { id: "fn", wall: "n", offset: 300, width: 900, height: 1200, sill: 900, type: "finestra" },
+      { id: "fs", wall: "s", offset: 300, width: 900, height: 1200, sill: 900, type: "finestra" },
+      { id: "fo", wall: "o", offset: 300, width: 900, height: 1200, sill: 900, type: "finestra" },
+      { id: "fe", wall: "e", offset: 300, width: 900, height: 1200, sill: 900, type: "finestra" },
+      { id: "fi", wall: "tr", offset: 300, width: 900, height: 1200, sill: 900, type: "finestra" },
+    ];
+    const g = calcolaGSA(p, {});
+    const o = Object.fromEntries(g.righe.map((x) => [x.vano, x.orientamento]));
+    // Y cresce verso sud: il muro a y = H e' a sud, quello a y = 0 a nord
+    assert.deepEqual(o, { fn: "S", fs: "N", fo: "O", fe: "E" }, `caso ${i}: ${JSON.stringify(o)}`);
+  }
+});
+
+test("Involucro: Nord del disegno ruotato di 90 gradi sposta gli orientamenti", () => {
+  const p = appartamento(6000, 5000, 3000);
+  p.openings = [{ id: "fs", wall: "s", offset: 300, width: 900, height: 1200, sill: 900, type: "finestra" }];
+  assert.equal(calcolaGSA(p, {}).righe[0].orientamento, "N");
+  assert.equal(calcolaGSA(p, { nordGradi: 90 }).righe[0].orientamento, "O");
+});
+
+test("Stanze con moncone di muro: si toglie l'impronta intera del moncone (200 casi)", () => {
+  const r = rng(9);
+  for (let i = 0; i < 200; i++) {
+    const W = intra(r, 4000, 9000), H = intra(r, 3000, 7000);
+    const x = intra(r, 1000, W - 1000), l = intra(r, 500, H - 1500);
+    const p = appartamento(W, H, x);
+    p.walls = p.walls.filter((w) => w.id !== "tr");
+    p.walls.push({ id: "moncone", a: [x, 0], b: [x, l], t: 100, kind: "tramezzo" });
+    const s = stanze(p.walls);
+    assert.equal(s.length, 1, `caso ${i}`);
+    // interno (W-200)x(H-200) meno il moncone: dal filo interno (y = 100) alla testa (y = l), largo 100 mm
+    assert.equal(s[0].superficieMm2, (W - 200) * (H - 200) - 100 * (l - 100), `caso ${i} W=${W} H=${H} x=${x} l=${l}`);
+    assert.equal(s[0].monconi, 1);
+  }
 });

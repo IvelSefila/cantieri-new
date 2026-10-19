@@ -272,7 +272,7 @@ export function createViewer(container) {
   window.addEventListener("resize", resize);
 
   function applicaLivello(nome) {
-    livello = nome === "auto" ? qualitaAutomatica(renderer.getContext()) : nome;
+    livello = nome === "auto" ? qualitaAutomatica(renderer) : nome;
     const q = QUALITA[livello] ?? QUALITA.medio;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, q.dpr));
     sole.shadow.mapSize.set(q.ombre, q.ombre);

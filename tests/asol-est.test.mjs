@@ -1,25 +1,30 @@
 // Asol,est normativo (DM 26/06/2015, App. A, par. 2.2) e back-test sul caso Poroton (Bologna, zona E).
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { fsolEst, IRRAGGIAMENTO_ROMA_W_M2 } from "../src/core/fsol.js";
+import { fsolEst } from "../src/core/fsol.js";
+import { irradianzaMediaAnnuaOrizzontale_W_m2 } from "../src/core/clima.js";
 import { calcolaAsolEst, LIMITE_ASOL_EST } from "../src/core/gsa.js";
 
 
-test("Fsol,est derivato da PVGIS: valori attesi per Roma", () => {
-  assert.ok(Math.abs(fsolEst("S") - 0.6903) < 0.001);
-  assert.ok(Math.abs(fsolEst("E") - 0.8923) < 0.001);
-  assert.ok(Math.abs(fsolEst("N") - 0.3289) < 0.001);
+test("Fsol,est dai dati UNI 10349:2016 di Roma: luglio sull'esposizione / media annua orizzontale", () => {
+  // media annua orizzontale: somma(H_mese x giorni) / 365 = 15,6208 MJ/m2 al giorno; luglio S = 11,45 -> 0,7330
+  assert.ok(Math.abs(fsolEst("S") - 11.45 / 15.6208) < 1e-4);
+  assert.ok(Math.abs(fsolEst("E") - 17.81 / 15.6208) < 1e-4);
+  assert.ok(Math.abs(fsolEst("N") - 10.43 / 15.6208) < 1e-4);
+  assert.ok(Math.abs(fsolEst("Oriz") - 27.70 / 15.6208) < 1e-4);
   assert.equal(fsolEst("X"), null);
   // a luglio est e ovest ricevono piu' del sud sul verticale; il nord il meno
   assert.ok(fsolEst("E") > fsolEst("S") && fsolEst("S") > fsolEst("N"));
-  assert.ok(IRRAGGIAMENTO_ROMA_W_M2.annuoOrizzontale > 180 && IRRAGGIAMENTO_ROMA_W_M2.annuoOrizzontale < 200);
+  assert.equal(fsolEst("E"), fsolEst("O"));
+  // 15,6208 MJ/m2 al giorno = 180,8 W/m2
+  assert.ok(Math.abs(irradianzaMediaAnnuaOrizzontale_W_m2() - 15.6208e6 / 86400) < 0.01);
 });
 
 test("Asol,est: un vano a sud, valori a mano", () => {
-  // 0,28 x (1 - 0,20) x 1,80 x 0,6903 = 0,2783 m2 ; Asup 100 m2 -> rapporto 0,0028
+  // 0,28 x (1 - 0,20) x 1,80 x 0,7330 = 0,2955 m2 ; Asup 100 m2 -> rapporto 0,0030
   const r = calcolaAsolEst([{ id: "v1", orientamento: "S", Aw_m2: 1.8, FF: 0.2, gglsh: 0.28 }], { asupUtile_m2: 100 });
-  assert.ok(Math.abs(r.asolEst_m2 - 0.2783) < 0.0002);
-  assert.ok(Math.abs(r.rapporto - 0.002783) < 0.00001);
+  assert.ok(Math.abs(r.asolEst_m2 - 0.4032 * (11.45 / (5701.6 / 365))) < 1e-9); // 5701,6 MJ/m2 anno sul piano orizzontale
+  assert.ok(Math.abs(r.rapporto - r.asolEst_m2 / 100) < 1e-12);
   assert.equal(r.verifica, true);
   assert.equal(r.completo, true);
   assert.equal(r.righe[0].Fsh_ob, 1); // ombreggiatura assente = 1 (valore conservativo)

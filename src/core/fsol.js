@@ -1,22 +1,18 @@
-// Fattore di correzione per l'irraggiamento incidente Fsol,est (DM 26/06/2015, App. A, par. 2.2):
-//   Fsol,est = irradianza media di LUGLIO sull'esposizione / irradianza media ANNUA di Roma sul piano orizzontale.
-//
-// ATTENZIONE: non e' la tabella UNI/TS 11300-1 (testo a pagamento, non reperibile). Valori DERIVATI da
-// PVGIS-SARAH3 (JRC, serie oraria 2015-2019, Roma 41,9 N / 12,5 E), piano verticale per orientamento.
-// Vanno confermati con la tabella ufficiale prima di un uso per la verifica di legge.
-// Stesso mese, stessa media oraria: il rapporto tra medie orarie coincide con quello tra irradiazioni mensili.
+// Fattore di correzione per l'irraggiamento incidente Fsol,est (DM 26/06/2015 come aggiornato dal DM 28/10/2025,
+// Allegato 1, par. 2.2):
+//   Fsol,est = irradianza media di LUGLIO, nella località e sull'esposizione / irradianza media ANNUA di Roma sul
+//   piano orizzontale.
+// Dati: UNI 10349:2016 di Roma (src/core/clima.js). Per una località diversa da Roma il numeratore cambia:
+// servono i dati UNI 10349 di quel comune.
+import { UNI10349_ROMA, irradianzaMedia_W_m2, irradianzaMediaAnnuaOrizzontale_W_m2 } from "./clima.js";
 
-export const IRRAGGIAMENTO_ROMA_W_M2 = {
-  fonte: "PVGIS-SARAH3 (JRC) 2015-2019, medie orarie G(i)",
-  annuoOrizzontale: 188.24,
-  // luglio sul piano verticale per orientamento (W/m2)
-  luglioVerticale: { N: 61.93, NE: 116.51, E: 167.97, SE: 161.98, S: 129.95, SO: 162.38, O: 167.10, NO: 119.42 },
-  luglioOrizzontale: 317.75,
-};
+const LUGLIO = 6;
 
-// Fsol,est per orientamento (adimensionale)
-export function fsolEst(orientamento) {
-  const v = IRRAGGIAMENTO_ROMA_W_M2.luglioVerticale[orientamento];
-  if (v === undefined) return null;
-  return v / IRRAGGIAMENTO_ROMA_W_M2.annuoOrizzontale;
+export const FONTE_FSOL = UNI10349_ROMA.fonte;
+
+// Fsol,est per orientamento (N, NE, E, SE, S, SO, O, NO) o "Oriz". Restituisce null se l'orientamento non esiste.
+export function fsolEst(orientamento, dati = UNI10349_ROMA) {
+  const luglio = irradianzaMedia_W_m2(orientamento, LUGLIO, dati);
+  if (luglio === null) return null;
+  return luglio / irradianzaMediaAnnuaOrizzontale_W_m2(UNI10349_ROMA);
 }

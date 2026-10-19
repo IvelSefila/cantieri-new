@@ -176,7 +176,15 @@ export function contornoInterno(pts, mezziSpessori) {
     const q = offs[i];
     const v = dirs[i];
     const den = u[0] * v[1] - u[1] * v[0];
-    if (Math.abs(den) < 1e-12) { out.push(q); continue; }
+    if (Math.abs(den) < 1e-12) {
+      // lati paralleli: muro che prosegue dritto (anche con spessore diverso) o moncone di muro (inversione a 180°).
+      // Si mettono la fine del lato precedente e l'inizio del successivo: il contorno gira intorno alla testa del
+      // moncone e ne toglie l'impronta intera (prima ne toglieva circa meta').
+      const fine = [pts[i][0] + (p[0] - pts[prev][0]), pts[i][1] + (p[1] - pts[prev][1])];
+      out.push(fine);
+      if (Math.hypot(fine[0] - q[0], fine[1] - q[1]) > 1e-9) out.push(q);
+      continue;
+    }
     const s = ((q[0] - p[0]) * v[1] - (q[1] - p[1]) * v[0]) / den;
     out.push([p[0] + s * u[0], p[1] + s * u[1]]);
   }
@@ -199,6 +207,8 @@ export function stanze(muri) {
       return w ? w.t / 2 : 0;
     });
     const interno = contornoInterno(pts, mezzi);
+    // monconi: muri che entrano nella stanza senza chiuderla (il contorno torna indietro sullo stesso tratto)
+    const monconi = pts.filter((p, i) => samePt(pts[(i - 1 + pts.length) % pts.length], pts[(i + 1) % pts.length])).length;
     const areaInterna = Math.abs(areaFirmata(interno));
     out.push({
       id: `stanza_${String(out.length + 1).padStart(3, "0")}`,
@@ -206,6 +216,7 @@ export function stanze(muri) {
       interno,
       superficieMm2: Math.round(areaInterna),
       superficieAsseMm2: Math.round(area),
+      monconi,
     });
   }
   return out;

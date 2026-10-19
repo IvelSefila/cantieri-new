@@ -30,7 +30,7 @@ test("multipiano: due piani uguali con stesso ambito sommano le superfici", () =
 test("affollamento = densita' x superficie lorda, arrotondato per eccesso; nullo senza densita'", () => {
   const senza = superficiePerAmbito([{ piano: "P0", plan: rettangolo }]).ambiti[0];
   assert.equal(senza.affollamento, null);
-  assert.ok(senza.mancanti.some((m) => m.includes("densita")));
+  assert.ok(senza.mancanti.some((m) => m.includes("densit")));
   const con = superficiePerAmbito([{ piano: "P0", plan: rettangolo }], { "P0:stanza_001": { ambito: "X", destinazione: "uffici", densita: 0.1, riferimentoDensita: "Tab S.4-12" } }).ambiti[0];
   assert.equal(con.affollamento, Math.ceil(10.64 * 0.1));
 });
