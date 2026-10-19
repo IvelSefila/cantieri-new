@@ -61,7 +61,7 @@ function aggiornaPrimaPersona(on) {
 // Manopola virtuale: cerchio con pallino; il valore va da -1 a 1 (y positivo = su)
 function manopola(lato, onChange) {
   const base = document.createElement("div");
-  base.style.cssText = `position:absolute;bottom:20px;${lato}:16px;width:150px;height:150px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none`;
+  base.style.cssText = `position:absolute;bottom:20px;${lato}:16px;width:150px;height:150px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;pointer-events:auto`;
   const pallino = document.createElement("div");
   pallino.style.cssText = "position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none";
   base.append(pallino);
@@ -78,17 +78,25 @@ function manopola(lato, onChange) {
     const zona = (v) => { const a = Math.abs(v); return a < 0.12 ? 0 : Math.sign(v) * (a - 0.12) / 0.88; };
     onChange({ x: zona(dx / raggio), y: zona(-dy / raggio) });
   };
+  // Il rilascio si ascolta sulla finestra intera: cosi' il dito che esce dalla manopola non la lascia bloccata
+  const fine = () => {
+    if (id === null) return;
+    id = null;
+    pallino.style.transform = "translate(0,0)";
+    onChange({ x: 0, y: 0 });
+  };
   base.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
     id = e.pointerId;
     muovi(e);
-    try { base.setPointerCapture(id); } catch { /* il dito resta comunque sulla manopola */ }
     e.stopPropagation();
   });
-  base.addEventListener("pointermove", (e) => { if (e.pointerId === id) muovi(e); });
-  const fine = () => { id = null; pallino.style.transform = "translate(0,0)"; onChange({ x: 0, y: 0 }); };
-  base.addEventListener("pointerup", fine);
-  base.addEventListener("pointercancel", fine);
-  base.addEventListener("lostpointercapture", fine);
+  window.addEventListener("pointermove", (e) => { if (e.pointerId === id) muovi(e); });
+  window.addEventListener("pointerup", (e) => { if (e.pointerId === id) fine(); });
+  window.addEventListener("pointercancel", (e) => { if (e.pointerId === id) fine(); });
+  window.addEventListener("touchend", fine);
+  window.addEventListener("touchcancel", fine);
+  window.addEventListener("blur", fine);
   return base;
 }
 function montaManopole() {
