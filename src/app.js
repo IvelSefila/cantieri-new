@@ -1,5 +1,5 @@
 // Interfaccia: progetto modificabile (vuoto all'avvio), modalita' vista e costruzione, import/export.
-import { validatePlan } from "./core/model.js";
+import { validatePlan, wallLengthMm } from "./core/model.js";
 import { buildModel } from "./core/build.js";
 import { measurePlan } from "./core/measure.js";
 import { TIPO_PER_CATEGORIA } from "./core/cdi.js";
@@ -78,8 +78,42 @@ function annullaUltimo() {
 }
 
 // ---- Costruzione del modello ----
+// Misure in sovrimpressione: lunghezze dei muri, larghezze dei vani e superfici delle stanze, in mm
+function costruisciMisure(p) {
+  const lista = [];
+  const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  for (const w of p.walls) {
+    const L = wallLengthMm(w);
+    const dx = (w.b[0] - w.a[0]) / L;
+    const dy = (w.b[1] - w.a[1]) / L;
+    const off = w.t / 2 + 250;
+    lista.push({ testo: `${fmt(L)} mm`, mm: [(w.a[0] + w.b[0]) / 2 - dy * off, (w.a[1] + w.b[1]) / 2 + dx * off], h: 1400 });
+  }
+  for (const o of p.openings) {
+    const w = p.walls.find((x) => x.id === o.wall);
+    if (!w) continue;
+    const L = wallLengthMm(w);
+    const dx = (w.b[0] - w.a[0]) / L;
+    const dy = (w.b[1] - w.a[1]) / L;
+    const s = o.offset + o.width / 2;
+    lista.push({ testo: `${o.id} · ${fmt(o.width)} mm`, mm: [w.a[0] + dx * s, w.a[1] + dy * s], h: o.sill + o.height / 2 });
+  }
+  for (const s of stanze(p.walls)) {
+    const n = s.contorno.length;
+    const cx = s.contorno.reduce((a, q) => a + q[0], 0) / n;
+    const cy = s.contorno.reduce((a, q) => a + q[1], 0) / n;
+    lista.push({ testo: `${(s.superficieMm2 / 1e6).toFixed(2).replace(".", ",")} m²`, mm: [cx, cy], h: 1000 });
+  }
+  return lista;
+}
+
+function aggiornaMisureVista() {
+  if (stato.misure && stato.viewer) stato.viewer.setMisure(costruisciMisure(stato.progetto));
+}
+
 function ricostruisci() {
   const p = stato.progetto;
+  aggiornaMisureVista();
   if (stato.vista2d) aggiornaVista2d();
   const check = verificaProgetto(p);
   const righe = [];
@@ -305,18 +339,36 @@ function costruisciPannello() {
   $("sez-costruzione").appendChild(box);
   $("sez-progetto-azioni").append($("nuovo"), $("esempio"));
   $("sez-vista").append($("vista2d"));
+  const etMisure = document.createElement("div");
+  etMisure.style.cssText = "margin-top:10px;";
+  etMisure.textContent = "Misure in sovrimpressione:";
+  const swMisure = document.createElement("button");
+  swMisure.id = "misure-switch";
+  swMisure.className = "switch-2d";
+  swMisure.setAttribute("role", "switch");
+  swMisure.setAttribute("aria-checked", "false");
+  swMisure.innerHTML = '<span>OFF</span><i class="knob"></i><span>ON</span>';
+  swMisure.onclick = () => {
+    stato.misure = !stato.misure;
+    swMisure.classList.toggle("on", stato.misure);
+    swMisure.setAttribute("aria-checked", String(stato.misure));
+    stato.viewer?.setMisureVisibili(stato.misure);
+    aggiornaMisureVista();
+  };
+  $("sez-vista").append(etMisure, swMisure);
   const stileBox = document.createElement("div");
   stileBox.innerHTML = `<div>Stile di resa:</div><select id="stile">
-        <option value="solido">1. Solido (realistico)</option>
-        <option value="argilla">2. Argilla (modello bianco)</option>
-        <option value="vetro">3. Vetro (contorni)</option>
-        <option value="ultra-glass">4. Ultra glass (senza contorni)</option>
-        <option value="blueprint">5. Blueprint (cianografia)</option>
-        <option value="notte">6. Notte (luci calde)</option>
-        <option value="neon">7. Neon (contorni luminosi)</option>
-        <option value="dollhouse">8. Dollhouse 1,30 m</option>
-        <option value="iso-dollhouse">9. Isometrico dollhouse</option>
-        <option value="vetro-dollhouse">10. Vetro + dollhouse</option>
+        <option value="fotorealistico">1. Fotorealistico (PBR)</option>
+        <option value="solido">2. Solido</option>
+        <option value="argilla">3. Argilla (modello bianco)</option>
+        <option value="vetro">4. Vetro (contorni)</option>
+        <option value="ultra-glass">5. Ultra glass (senza contorni)</option>
+        <option value="blueprint">6. Blueprint (cianografia)</option>
+        <option value="notte">7. Notte (luci calde)</option>
+        <option value="neon">8. Neon (contorni luminosi)</option>
+        <option value="dollhouse">9. Dollhouse 1,30 m</option>
+        <option value="iso-dollhouse">10. Isometrico dollhouse</option>
+        <option value="vetro-dollhouse">11. Vetro + dollhouse</option>
       </select>`;
   $("sez-vista").appendChild(stileBox);
 

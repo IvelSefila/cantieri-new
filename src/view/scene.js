@@ -8,6 +8,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { parquet, intonaco, marmo } from "./materials.js";
+import { materialeRealistico, texturaRilievo } from "./realistico.js";
+import { creaSovrimpressione, proiettore } from "./misure.js";
 
 const MM_TO_M = 0.001;
 const TAGLIO_DOLLHOUSE_MM = 1300;
@@ -30,6 +32,7 @@ export function qualitaAutomatica(gl, navigatore = globalThis.navigator) {
 
 // Catalogo degli stili, nell'ordine del menu (dal realistico allo stilizzato).
 export const STILI = {
+  fotorealistico: { nome: "Fotorealistico", modo: "realistico", sfondo: ["#dfeaf6", "#f1f5fa", "#fbfaf6"], griglia: [0xc9d3e0, 0xe2e8f0], sole: 3.2, cielo: 0.7 },
   solido: { nome: "Solido", sfondo: ["#1b2440", "#2a3658", "#0b1020"], griglia: [0x5b6b8c, 0x2c3652], sole: 2.4, cielo: 0.45 },
   argilla: { nome: "Argilla", modo: "argilla", sfondo: ["#f5f7fb", "#e4e9f2", "#c9d1de"], griglia: [0xa9b3c4, 0xd5dce8], sole: 2.6, cielo: 0.9 },
   dollhouse: { nome: "Dollhouse 1,30 m", dollhouse: true, sfondo: ["#1b2440", "#2a3658", "#0b1020"], griglia: [0x5b6b8c, 0x2c3652], sole: 2.4, cielo: 0.45 },
@@ -68,6 +71,9 @@ export function createViewer(container) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.localClippingEnabled = true;
   container.appendChild(renderer.domElement);
+  const sovra = creaSovrimpressione(container);
+  let misureOn = false;
+  const rilievo = texturaRilievo();
 
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog(0x1b2440, 70, 170);
@@ -206,6 +212,9 @@ export function createViewer(container) {
   }
 
   function materialeGruppo(kind) {
+    if (cfg.modo === "realistico") {
+      return materialeRealistico(kind, { clip: clip(), texParquet, texIntonaco, rilievo, alta: livello === "alto" });
+    }
     switch (cfg.modo) {
       case "ultra": return materialeUltra(kind);
       case "blueprint": return materialeBlueprint();
@@ -250,6 +259,7 @@ export function createViewer(container) {
     if (!richiesta && !cambiata) return;
     richiesta = false;
     renderer.render(scene, camera);
+    if (misureOn) aggiornaMisure();
     fpsMisura.n++;
     const ora = performance.now();
     if (ora - fpsMisura.t >= 1000) {
@@ -300,6 +310,7 @@ export function createViewer(container) {
     griglia.material.color.set(cfg.griglia[0]);
     griglia.material.opacity = cfg.modo === "blueprint" ? 0.8 : 0.55;
     sole.intensity = cfg.sole;
+    renderer.toneMappingExposure = cfg.modo === "realistico" ? 1.12 : 1.05;
     cielo.intensity = cfg.cielo;
     sole.castShadow = cfg.ombre !== false;
     piano.material.opacity = cfg.piano ?? 0.28;
@@ -433,6 +444,13 @@ export function createViewer(container) {
 
   function setStile(id) { applicaStile(id); }
 
+  // Misure in sovrimpressione: etichette in mm sul modello
+  function aggiornaMisure() {
+    sovra.aggiorna(proiettore(camera, MM_TO_M, container.clientWidth, container.clientHeight), container.clientWidth, container.clientHeight);
+  }
+  function setMisure(lista) { sovra.imposta(lista); richiesta = true; if (misureOn) aggiornaMisure(); }
+  function setMisureVisibili(v) { misureOn = !!v; sovra.visibile(misureOn); richiesta = true; if (misureOn) aggiornaMisure(); }
+
   function setPickHandler(fn) { pickHandler = fn; }
   function setHoverHandler(fn) { hoverHandler = fn; }
   function statistiche() {
@@ -450,7 +468,7 @@ export function createViewer(container) {
   ciclo();
 
   return {
-    setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello,
+    setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
     statistiche, camera, controls, dispose: () => cancelAnimationFrame(frame),
   };
 }
