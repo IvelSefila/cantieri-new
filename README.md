@@ -84,3 +84,8 @@ I test verificano: precisione al mm (pieni + vani = lunghezza del muro), nessuna
 - Infissi e porte sono generati a codice con dimensioni standard del tipo; non sono modelli fotografici CDI.
 - Nessun calcolo di aeroilluminante o di normativa in questa versione.
 - La planimetria di esempio è convertita da AR-02; le vetrate dei terrazzi sono centrate sul disegno (da confermare).
+
+## Modalità e qualità
+
+- **Semplice**: controlli essenziali (progetto, costruzione, vista, stile). **Architetto**: aggiunge importazione DXF, tracciamento, elenco vani e statistiche di resa.
+- **Qualità di resa**: automatica (sceglie in base a core, memoria e GPU), oppure basso / medio / alto. La scena si ridisegna solo quando cambia qualcosa.

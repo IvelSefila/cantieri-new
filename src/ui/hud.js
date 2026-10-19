@@ -1,5 +1,5 @@
-// HUD in stile videogioco: barra a schede, hotbar degli strumenti, coordinate, notifiche.
-// Non contiene logica del progetto: aziona i controlli esistenti (modalita', strumento, stile, 2D).
+// HUD: barra a schede (ogni scheda mostra il suo pannello), modalita' Semplice / Architetto,
+// hotbar degli strumenti, coordinate in mm, notifiche. Non contiene logica del progetto.
 
 const ICONE = {
   muro: '<svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="6" rx="1"/></svg>',
@@ -26,8 +26,12 @@ const SCHEDE = [
   { id: "stile", nome: "Stile" },
 ];
 
-export function montaHud({ onScheda, onStrumento, onModo, onVista2d } = {}) {
+let ultimo = null;
+
+export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita } = {}) {
   const radice = document.body;
+  const aside = document.querySelector("aside");
+  const sezioni = [...document.querySelectorAll(".scheda")];
 
   // Barra superiore
   const top = document.createElement("div");
@@ -40,18 +44,30 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d } = {}) {
     b.className = "hud-tab";
     b.dataset.scheda = s.id;
     b.textContent = s.nome;
-    b.onclick = () => { impostaScheda(s.id); onScheda?.(s.id); };
+    b.onclick = () => apriScheda(s.id);
     tabs.appendChild(b);
   }
   top.appendChild(tabs);
   const spazio = document.createElement("div");
   spazio.className = "hud-spacer";
   top.appendChild(spazio);
+
+  // Selettore di modalita': Semplice (amichevole) / Architetto (avanzata)
+  const mod = document.createElement("div");
+  mod.className = "hud-mode";
+  for (const [id, nome] of [["semplice", "Semplice"], ["architetto", "Architetto"]]) {
+    const b = document.createElement("button");
+    b.dataset.modo = id;
+    b.textContent = nome;
+    b.onclick = () => impostaModalita(id);
+    mod.appendChild(b);
+  }
+  top.appendChild(mod);
   const chip2d = document.createElement("button");
   chip2d.className = "hud-chip";
   chip2d.id = "hud-2d";
   chip2d.textContent = "Pianta 2D";
-  chip2d.onclick = () => { chip2d.classList.toggle("on"); onVista2d?.(); };
+  chip2d.onclick = () => onVista2d?.();
   top.appendChild(chip2d);
   radice.appendChild(top);
 
@@ -68,44 +84,52 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d } = {}) {
   }
   radice.appendChild(barra);
 
-  // Coordinate
   const coord = document.createElement("div");
   coord.className = "hud-coord";
   coord.id = "hud-coord";
   coord.innerHTML = "X <b>—</b> · Y <b>—</b> mm";
   radice.appendChild(coord);
 
-  // Notifiche
   const toasts = document.createElement("div");
   toasts.className = "hud-toasts";
   radice.appendChild(toasts);
 
-  // Cassetto: apri/chiudi con la scheda "Progetto" o con il tasto Tab
-  const aside = document.querySelector("aside");
-
-  function impostaScheda(id) {
+  // Scheda attiva: mostra solo il suo pannello e apre il cassetto
+  function apriScheda(id) {
     for (const b of tabs.querySelectorAll(".hud-tab")) b.classList.toggle("attiva", b.dataset.scheda === id);
-    if (id === "progetto") aside.classList.remove("chiuso");
-    if (id === "costruzione") { aside.classList.remove("chiuso"); onModo?.("costruzione"); }
-    if (id === "vista") { onModo?.("vista"); }
+    for (const s of sezioni) s.classList.toggle("attiva", s.dataset.scheda === id);
+    aside?.classList.remove("chiuso");
+    if (id === "costruzione") onModo?.("costruzione");
+    if (id === "vista") onModo?.("vista");
+    onScheda?.(id);
   }
 
   function selezionaStrumento(id) {
     for (const b of barra.querySelectorAll(".hud-slot")) b.classList.toggle("attivo", b.dataset.strumento === id);
-    onModo?.("costruzione");
     onStrumento?.(id);
-    impostaScheda("costruzione");
+    apriScheda("costruzione");
+  }
+
+  function impostaModalita(id) {
+    radice.classList.toggle("modo-semplice", id === "semplice");
+    radice.classList.toggle("modo-architetto", id === "architetto");
+    for (const b of mod.querySelectorAll("button")) b.classList.toggle("on", b.dataset.modo === id);
+    onModalita?.(id);
+    if (id === "semplice") {
+      // in Semplice si nasconde il controllo avanzato, ma la scheda attiva resta
+    }
   }
 
   window.addEventListener("keydown", (e) => {
     if (e.target.closest && e.target.closest("input, select, textarea")) return;
     const s = SLOT.find((x) => x.tasto === e.key);
     if (s) selezionaStrumento(s.id);
-    if (e.key === "Tab") { e.preventDefault(); aside.classList.toggle("chiuso"); }
+    if (e.key === "Tab") { e.preventDefault(); aside?.classList.toggle("chiuso"); }
   });
 
-  impostaScheda("progetto");
-  if (aside) aside.classList.add("chiuso");
+  impostaModalita("semplice");
+  apriScheda("progetto");
+  aside?.classList.add("chiuso");
 
   return {
     coordinate(mm) {
@@ -116,6 +140,10 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d } = {}) {
         : "X <b>—</b> · Y <b>—</b> mm";
     },
     toast(testo, tipo = "info") {
+      // niente doppioni: stesso testo entro 1,5 secondi viene mostrato una volta sola
+      const ora = Date.now();
+      if (ultimo && ultimo.testo === testo && ora - ultimo.t < 1500) return;
+      ultimo = { testo, t: ora };
       const t = document.createElement("div");
       t.className = `hud-toast ${tipo}`;
       t.textContent = testo;
@@ -125,5 +153,7 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d } = {}) {
       while (toasts.children.length > 4) toasts.firstChild.remove();
     },
     evidenziaStrumento: (id) => { for (const b of barra.querySelectorAll(".hud-slot")) b.classList.toggle("attivo", b.dataset.strumento === id); },
+    apriScheda,
+    impostaModalita,
   };
 }

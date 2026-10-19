@@ -266,14 +266,6 @@ function costruisciPannello() {
       <button data-modo="vista">Vista</button>
       <button data-modo="costruzione">Costruzione</button>
     </div>
-    <div style="margin-top:6px;">Stile:
-      <select id="stile">
-        <option value="solido">Solido</option>
-        <option value="vetro">Vetro (semi-trasparente)</option>
-        <option value="dollhouse">Dollhouse 1,30 m</option>
-        <option value="vetro-dollhouse">Vetro + dollhouse</option>
-      </select>
-    </div>
     <div id="pannello-costruzione" style="display:none; margin-top:6px;">
       <div>Strumento:
         <select id="strumento">
@@ -305,7 +297,17 @@ function costruisciPannello() {
       <button id="nuovo">Nuovo progetto (vuoto)</button>
       <button id="esempio">Apri esempio AR-02</button>
     </div>`;
-  $("nome-plan").before(box);
+  $("sez-costruzione").appendChild(box);
+  $("sez-progetto-azioni").append($("nuovo"), $("esempio"));
+  $("sez-vista").append($("vista2d"));
+  const stileBox = document.createElement("div");
+  stileBox.innerHTML = `<div>Stile di resa:</div><select id="stile">
+        <option value="solido">Solido</option>
+        <option value="vetro">Vetro (semi-trasparente)</option>
+        <option value="dollhouse">Dollhouse 1,30 m</option>
+        <option value="vetro-dollhouse">Vetro + dollhouse</option>
+      </select>`;
+  $("sez-stile").appendChild(stileBox);
 
   for (const b of box.querySelectorAll("[data-modo]")) {
     b.onclick = () => {
@@ -352,6 +354,18 @@ async function init() {
   stato.catalogo = catalogo;
   stato.arrediEsempio = arredi.arredi;
   costruisciPannello();
+  $("stile").onchange = (e) => stato.viewer.setStile(e.target.value);
+  const q = document.createElement("div");
+  q.innerHTML = `<div style="margin-top:8px;">Qualità di resa:
+      <select id="qualita"><option value="auto">Automatica (consigliata)</option><option value="basso">Basso (PC lenti)</option><option value="medio">Medio</option><option value="alto">Alto</option></select>
+    </div>
+    <div id="statistiche" class="hud-stat avanzato" style="margin-top:8px;"></div>`;
+  $("sez-vista").appendChild(q);
+  $("qualita").onchange = (e) => stato.viewer.setQualita(e.target.value);
+  setInterval(() => {
+    const st = stato.viewer?.statistiche();
+    if (st) $("statistiche").textContent = `Qualità ${st.livello} · ${st.fps} fps · ${st.chiamate} gruppi · ${st.triangoli.toLocaleString("it-IT")} triangoli`;
+  }, 1000);
   stato.viewer.setPickHandler(gestisciClic);
   stato.viewer.setHoverHandler((mm) => hud?.coordinate(mm));
   hud = montaHud({
