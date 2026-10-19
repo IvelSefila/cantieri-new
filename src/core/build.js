@@ -2,6 +2,29 @@
 // Nessuna dipendenza da Three.js: la stessa funzione gira nel browser e nei test Node.
 import { wallLengthMm, validatePlan } from "./model.js";
 import { openingLocalBoxes, TIPO_PER_CATEGORIA } from "./cdi.js";
+import { ingombroArredo, MATERIALI_PAVIMENTO, LIBRERIA_ARREDI } from "./project.js";
+
+// Pavimenti e arredi del progetto (vuoto di default): scatole sottili o parallelepipedi in mm.
+function extrasProgetto(plan) {
+  const out = [];
+  for (const f of plan.floors || []) {
+    const mat = MATERIALI_PAVIMENTO[f.materiale] || MATERIALI_PAVIMENTO.parquet;
+    out.push({
+      kind: "pavimento", id: f.id, wall: null, materiale: f.materiale, colore: mat.colore,
+      cx: (f.x0 + f.x1) / 2, cy: (f.y0 + f.y1) / 2, cz: 5,
+      L: f.x1 - f.x0, D: f.y1 - f.y0, H: 10, ang: 0, s0: 0, s1: f.x1 - f.x0,
+    });
+  }
+  for (const a of plan.furniture || []) {
+    const g = ingombroArredo(a);
+    out.push({
+      kind: "arredo", id: a.id, wall: null, colore: g.colore,
+      cx: g.x0 + g.L / 2, cy: g.y0 + g.D / 2, cz: g.H / 2,
+      L: g.L, D: g.D, H: g.H, ang: 0, s0: 0, s1: g.L,
+    });
+  }
+  return out;
+}
 
 // Scatole di muro tra i vani: pieni, sottofinestra e sopra-vano.
 function wallPieces(wall, ops, L, H, nLo, nHi) {
@@ -84,6 +107,8 @@ export function buildModel(plan, catalog, assignment = {}, arredi = []) {
     }
     for (const lb of local) boxes.push(toWorld(lb, wall, ux, uy, L));
   }
+
+  boxes.push(...extrasProgetto(plan));
 
   for (const a of arredi) {
     const [L, D, H] = a.dimensioni;

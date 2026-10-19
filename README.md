@@ -40,6 +40,13 @@ tests/core.test.mjs      test del motore (Node)
 - `offset`: distanza del vano dal punto `a`, lungo il muro.
 - `type`: `finestra`, `porta`, `scorrevole`. `cdi`: id del catalogo, oppure assente/`null` per vano aperto.
 
+## Progetto vuoto e modalità costruzione
+
+- Il progetto si apre **vuoto**: nessun muro, nessun pavimento, nessun arredo.
+- **Costruzione**: muro (2 clic), vano (clic su un muro), pavimento (2 clic su angoli opposti), arredo (clic, con rotazione a 90°), sposta, elimina. Griglia 1–100 mm, annulla con Ctrl+Z.
+- **Stili**: solido, vetro (muri semi-trasparenti con contorni), dollhouse (taglio a 1,30 m), vetro + dollhouse.
+- L'esempio AR-02 si apre a richiesta; i suoi arredi si mostrano solo con la casella dedicata.
+
 ## Importazione DXF
 
 - Pulsante **Importa DXF**: legge LINE, LWPOLYLINE e POLYLINE (ASCII). Le unità vengono da `$INSUNITS`.
