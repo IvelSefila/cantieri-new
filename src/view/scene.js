@@ -864,7 +864,7 @@ export function createViewer(container) {
   }
 
   return {
-    avviaPasseggiata, esciPasseggiata, passeggiataAttiva: () => passeggiata.attiva(),
+    avviaPasseggiata, esciPasseggiata, passeggiataAttiva: () => passeggiata.attiva(), setStickPasseggiata: (m, l) => passeggiata.setStick(m, l),
     setPasseggiataHandler: (fn) => { passeggHandler = fn; },
     setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
     setDoppioClicHandler, setEvidenzaMuro, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },

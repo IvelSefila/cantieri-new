@@ -46,10 +46,52 @@ function entraPrimaPersona() {
     messaggio("Frecce o W A S D per camminare, trascina per guardare, Shift corre, Esc esce.", "info");
   }
 }
+// Telefono (schermo tattile): due manopole come nei giochi; computer: tasti WASD e frecce
+const TATTILE = window.matchMedia("(pointer: coarse)").matches;
+let manopole = null;
 function aggiornaPrimaPersona(on) {
   if (pulsantePP) pulsantePP.textContent = on ? "Esci dalla prima persona" : "Entra in prima persona";
   if (messaggioPP) messaggioPP.style.display = on ? "block" : "none";
-  if (tastiPP) tastiPP.style.display = on ? "grid" : "none";
+  if (tastiPP) tastiPP.style.display = on && !TATTILE ? "grid" : "none";
+  if (manopole) manopole.style.display = on && TATTILE ? "block" : "none";
+  document.body.classList.toggle("pp-on", on && TATTILE); // in prima persona sul telefono sparisce la barra degli strumenti
+  if (!on && manopole) stato.viewer.setStickPasseggiata({ x: 0, y: 0 }, { x: 0, y: 0 });
+}
+
+// Manopola virtuale: cerchio con pallino; il valore va da -1 a 1 (y positivo = su)
+function manopola(lato, onChange) {
+  const base = document.createElement("div");
+  base.style.cssText = `position:absolute;bottom:12px;${lato}:12px;width:128px;height:128px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none`;
+  const pallino = document.createElement("div");
+  pallino.style.cssText = "position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none";
+  base.append(pallino);
+  let id = null;
+  const muovi = (e) => {
+    const r = base.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    let dx = e.clientX - cx, dy = e.clientY - cy;
+    const raggio = r.width / 2 - 27;
+    const d = Math.hypot(dx, dy);
+    if (d > raggio) { dx = (dx / d) * raggio; dy = (dy / d) * raggio; }
+    pallino.style.transform = `translate(${dx}px,${dy}px)`;
+    onChange({ x: dx / raggio, y: -dy / raggio });
+  };
+  base.addEventListener("pointerdown", (e) => { id = e.pointerId; base.setPointerCapture(id); muovi(e); e.stopPropagation(); });
+  base.addEventListener("pointermove", (e) => { if (e.pointerId === id) muovi(e); });
+  const fine = () => { id = null; pallino.style.transform = "translate(0,0)"; onChange({ x: 0, y: 0 }); };
+  base.addEventListener("pointerup", fine);
+  base.addEventListener("pointercancel", fine);
+  return base;
+}
+function montaManopole() {
+  manopole = document.createElement("div");
+  manopole.style.cssText = "display:none;position:fixed;inset:0;pointer-events:none;z-index:75";
+  const sinistra = manopola("left", (v) => stato.viewer.setStickPasseggiata(v, null));
+  const destra = manopola("right", (v) => stato.viewer.setStickPasseggiata(null, v));
+  sinistra.style.pointerEvents = "auto";
+  destra.style.pointerEvents = "auto";
+  manopole.append(sinistra, destra);
+  document.body.append(manopole);
 }
 function montaPrimaPersona() {
   const stile = "padding:8px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(16,22,38,.9);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer";
@@ -1051,6 +1093,7 @@ async function init() {
   montaAutomatismi();
   montaLegenda();
   montaPrimaPersona();
+  if (TATTILE) montaManopole();
   stato.energia = montaScheda($("sez-energia"), {
     getRigheGSA: () => calcolaGSA(stato.progetto, {
       orientamenti: stato.orientamenti ?? {},

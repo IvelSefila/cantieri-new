@@ -26,6 +26,8 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
   let ultimo = 0;
   let trascino = null;
   const tasti = new Set();
+  // Joystick virtuali (telefono): movimento e sguardo, valori -1..1
+  const stick = { move: { x: 0, y: 0 }, look: { x: 0, y: 0 } };
 
   // Ante reali: le stesse parti dell'infisso montato (costruisciAnta), ruotate attorno alla cerniera.
   // Il perno sta sulla cerniera; il pezzo e' riportato in coordinate relative al perno.
@@ -169,11 +171,14 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
     const prima = { x: stato.pos[0], y: stato.pos[1], yaw: stato.yaw, pitch: stato.pitch, angoli: stato.angoli };
     if (tasti.has("ArrowLeft")) stato.yaw += VELOCITA_GIRO_RAD_S * dt;
     if (tasti.has("ArrowRight")) stato.yaw -= VELOCITA_GIRO_RAD_S * dt;
+    // joystick di sguardo: destra = girare a destra, su = guardare in alto
+    stato.yaw -= stick.look.x * VELOCITA_GIRO_RAD_S * dt;
+    stato.pitch = Math.max(-LIMITE_PITCH, Math.min(LIMITE_PITCH, stato.pitch + stick.look.y * VELOCITA_GIRO_RAD_S * 0.7 * dt));
     const input = {
-      avanti: tasti.has("KeyW") || tasti.has("ArrowUp"),
-      indietro: tasti.has("KeyS") || tasti.has("ArrowDown"),
-      sinistra: tasti.has("KeyA"),
-      destra: tasti.has("KeyD"),
+      avanti: tasti.has("KeyW") || tasti.has("ArrowUp") || stick.move.y > 0.3,
+      indietro: tasti.has("KeyS") || tasti.has("ArrowDown") || stick.move.y < -0.3,
+      sinistra: tasti.has("KeyA") || stick.move.x < -0.3,
+      destra: tasti.has("KeyD") || stick.move.x > 0.3,
       corsa: tasti.has("ShiftLeft") || tasti.has("ShiftRight"),
     };
     stato = aggiornaPasseggiata(stato, input, dt, progetto);
@@ -185,5 +190,9 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
     return mossa || girata || porteMosse;
   }
 
-  return { avvia, esci, aggiorna, attiva: () => attiva };
+  function setStick(move, look) {
+    if (move) Object.assign(stick.move, move);
+    if (look) Object.assign(stick.look, look);
+  }
+  return { avvia, esci, aggiorna, attiva: () => attiva, setStick };
 }
