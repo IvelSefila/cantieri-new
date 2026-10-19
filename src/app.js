@@ -78,7 +78,12 @@ function manopola(lato, onChange) {
     const zona = (v) => { const a = Math.abs(v); return a < 0.12 ? 0 : Math.sign(v) * (a - 0.12) / 0.88; };
     onChange({ x: zona(dx / raggio), y: zona(-dy / raggio) });
   };
-  base.addEventListener("pointerdown", (e) => { id = e.pointerId; base.setPointerCapture(id); muovi(e); e.stopPropagation(); });
+  base.addEventListener("pointerdown", (e) => {
+    id = e.pointerId;
+    muovi(e);
+    try { base.setPointerCapture(id); } catch { /* il dito resta comunque sulla manopola */ }
+    e.stopPropagation();
+  });
   base.addEventListener("pointermove", (e) => { if (e.pointerId === id) muovi(e); });
   const fine = () => { id = null; pallino.style.transform = "translate(0,0)"; onChange({ x: 0, y: 0 }); };
   base.addEventListener("pointerup", fine);
