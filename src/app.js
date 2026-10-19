@@ -306,6 +306,7 @@ function costruisciPannello() {
         <option value="vetro">Vetro (semi-trasparente)</option>
         <option value="dollhouse">Dollhouse 1,30 m</option>
         <option value="vetro-dollhouse">Vetro + dollhouse</option>
+        <option value="ultra-glass">Ultra glass (senza contorni)</option>
       </select>`;
   $("sez-stile").appendChild(stileBox);
 

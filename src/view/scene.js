@@ -98,15 +98,38 @@ export function createViewer(container) {
   const texMarmo = marmo();
   const taglio = [new THREE.Plane(new THREE.Vector3(0, -1, 0), TAGLIO_DOLLHOUSE_MM * MM_TO_M)];
 
-  let stile = { vetro: false, dollhouse: false };
+  let stile = { vetro: false, dollhouse: false, ultra: false };
   let ultime = [];
   let gruppo = new THREE.Group();
   scene.add(gruppo);
   let pickHandler = null;
   let hoverHandler = null;
 
+  // Stile "Ultra glass": vetro lattiginoso senza contorni. Con qualita' alta usa la trasmissione reale.
+  function materialeUltraGlass(kind) {
+    const base = { clippingPlanes: stile.dollhouse ? taglio : null, clipShadows: stile.dollhouse };
+    const tinta = kind === "pavimento" ? 0xe8efff : kind === "arredo" ? 0xffffff : 0xdfeaff;
+    const alta = livello === "alto";
+    return new THREE.MeshPhysicalMaterial({
+      ...base,
+      color: tinta,
+      roughness: 0.06,
+      metalness: 0,
+      clearcoat: 1,
+      clearcoatRoughness: 0.05,
+      ior: 1.45,
+      transparent: !alta,
+      opacity: alta ? 1 : 0.2,
+      transmission: alta ? 0.92 : 0,
+      thickness: alta ? 0.25 : 0,
+      depthWrite: false,
+      envMapIntensity: 1.4,
+    });
+  }
+
   // Materiale per gruppo di elementi.
   function materialeGruppo(kind) {
+    if (stile.ultra) return materialeUltraGlass(kind);
     const base = { clippingPlanes: stile.dollhouse ? taglio : null, clipShadows: stile.dollhouse };
     switch (kind) {
       case "vetro":
@@ -260,7 +283,7 @@ export function createViewer(container) {
           if (kind === "pavimento") colore.set(0xffffff);
           mesh.setColorAt(i, colore);
         }
-        if (stile.vetro && kind !== "vetro") bordi.push(b);
+        if (stile.vetro && !stile.ultra && kind !== "vetro") bordi.push(b);
       });
       mesh.instanceMatrix.needsUpdate = true;
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
@@ -296,7 +319,7 @@ export function createViewer(container) {
 
   // Stile: "solido" | "vetro" | "dollhouse" | "vetro-dollhouse".
   function setStile(nome) {
-    stile = { vetro: nome.includes("vetro"), dollhouse: nome.includes("dollhouse") };
+    stile = { vetro: nome.includes("vetro"), dollhouse: nome.includes("dollhouse"), ultra: nome === "ultra-glass" };
     setBoxes(ultime);
   }
 
