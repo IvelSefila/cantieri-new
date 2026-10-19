@@ -246,3 +246,24 @@ aside label, aside input, aside textarea, aside select { max-width: 100%; box-si
   #tasti-pp, #btn-legenda, #pannello-legenda { display: none !important; }
 }
 body.pp-on .hud-hotbar, body.pp-on .hud-coord, body.pp-on .hud-top { display: none !important; }
+
+/* Barra in alto sul telefono: prima riga Semplice/Architetto e 2D/3D, seconda riga le schede a scorrimento */
+@media (max-width: 700px) {
+  .hud-top {
+    top: 8px; left: 8px; right: 8px; height: auto !important; min-height: 0; overflow: visible !important; flex-wrap: wrap;
+    row-gap: 8px; column-gap: 8px; padding: 8px 10px;
+  }
+  .hud-logo { display: none; }
+  .hud-spacer { display: none; }
+  .hud-mode { order: 1; flex: 1 1 auto; justify-content: center; }
+  .hud-mode button { flex: 1 1 0; padding: 8px 6px; font-size: 12px; text-align: center; }
+  .switch-2d { order: 2; flex: 0 0 112px; width: 112px; height: 36px; }
+  .hud-tabs { order: 3; flex: 0 0 100%; width: 100%; margin: 0; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .hud-tabs::-webkit-scrollbar { display: none; }
+  .hud-tab { flex: 0 0 auto; white-space: nowrap; background: rgba(255,255,255,0.06) !important; color: var(--hud-muto) !important; border: 1px solid rgba(255,255,255,0.12) !important; border-radius: 999px; padding: 7px 12px; font: 600 12px system-ui, sans-serif; }
+  .hud-tab.attiva { background: linear-gradient(135deg, var(--hud-oro), #ffe08a) !important; color: #0a0e18 !important; }
+  .hud-tabs { background: transparent; height: auto !important; overflow-y: hidden !important; padding: 2px 0 4px; }
+  aside { top: 108px !important; bottom: 96px; }
+  .hud-toasts { top: 108px; }
+  #msg-pp { top: 108px !important; }
+}
