@@ -180,5 +180,19 @@ export function createViewer(container) {
 
   function setPickHandler(fn) { pickHandler = fn; }
 
-  return { setBoxes, setStile, setPickHandler, camera, controls };
+  // Hover: coordinate in mm del punto sotto il cursore sul piano (per il HUD).
+  let hoverHandler = null;
+  renderer.domElement.addEventListener("pointermove", (ev) => {
+    if (!hoverHandler) return;
+    const r = renderer.domElement.getBoundingClientRect();
+    puntatore.x = ((ev.clientX - r.left) / r.width) * 2 - 1;
+    puntatore.y = -((ev.clientY - r.top) / r.height) * 2 + 1;
+    raycaster.setFromCamera(puntatore, camera);
+    const piani = raycaster.intersectObject(piano, false);
+    if (!piani.length) return hoverHandler(null);
+    hoverHandler([Math.round(piani[0].point.x / MM_TO_M), Math.round(piani[0].point.z / MM_TO_M)]);
+  });
+  function setHoverHandler(fn) { hoverHandler = fn; }
+
+  return { setBoxes, setStile, setPickHandler, setHoverHandler, camera, controls };
 }

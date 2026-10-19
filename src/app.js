@@ -14,6 +14,9 @@ import { montaTracciamento } from "./trace/ui.js";
 import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
 import { stanze } from "./core/rooms.js";
 import { planSvg } from "./view2d/plan.js";
+import { montaHud } from "./ui/hud.js";
+
+let hud = null;
 
 const $ = (id) => document.getElementById(id);
 const stato = {
@@ -42,6 +45,7 @@ function messaggio(testo, tipo = "info") {
   const el = $("messaggi");
   el.textContent = testo;
   el.dataset.tipo = tipo;
+  if (hud) hud.toast(testo, tipo);
 }
 
 function scrivi(righe) {
@@ -82,7 +86,7 @@ function ricostruisci() {
   for (const e of check.errors) righe.push({ tipo: "errore", testo: `ERRORE: ${e}` });
   for (const w of check.warnings) righe.push({ tipo: "avviso", testo: `avviso: ${w}` });
 
-  const arredi = stato.mostraArrediEsempio && stato.arrediEsempio ? stato.arrediEsempio : [];
+  const arredi = [];
   const res = buildModel(p, stato.catalogo, stato.assegnazioni, arredi);
   if (!res.ok) {
     scrivi(righe);
@@ -156,8 +160,6 @@ function aggiornaVista2d() {
 function caricaProgetto(p, nome, { esempio = false } = {}) {
   stato.progetto = { floors: [], furniture: [], ...p };
   stato.mostraArrediEsempio = esempio;
-  const chk = document.getElementById("mostra-esempio");
-  if (chk) chk.checked = esempio;
   stato.storia = [];
   stato.assegnazioni = {};
   stato.pendente = null;
@@ -297,7 +299,6 @@ function costruisciPannello() {
         <button id="annulla">Annulla (Ctrl+Z)</button>
         <button id="esc">Esc</button>
       </div>
-      <div style="margin-top:6px;"><label><input id="mostra-esempio" type="checkbox"> Mostra arredi di esempio AR-02</label></div>
     </div>
     <div style="margin-top:8px; display:flex; gap:4px; flex-wrap:wrap;">
       <button id="vista2d">Vista 2D / 3D</button>
@@ -334,14 +335,12 @@ function costruisciPannello() {
     aggiornaVista2d();
   };
   $("esempio").onclick = () => apriEsempio();
-  $("mostra-esempio").onchange = (e) => { stato.mostraArrediEsempio = e.target.checked; ricostruisci(); };
 }
 
 // Esempio AR-02: pavimento parquet sotto l'impronta dei muri e arredi di esempio visibili.
 async function apriEsempio() {
   const p = await fetch("data/plan-ar02.json").then((r) => r.json());
-  const floor = { id: "pav_esempio", x0: 280, y0: 280, x1: 21720, y1: 13720, materiale: "parquet" };
-  caricaProgetto({ ...p, floors: [floor] }, "esempio", { esempio: true });
+  caricaProgetto({ ...p, floors: [], furniture: [] }, "esempio", { esempio: true });
 }
 
 async function init() {
@@ -354,6 +353,26 @@ async function init() {
   stato.arrediEsempio = arredi.arredi;
   costruisciPannello();
   stato.viewer.setPickHandler(gestisciClic);
+  stato.viewer.setHoverHandler((mm) => hud?.coordinate(mm));
+  hud = montaHud({
+    onScheda: (id) => {
+      const aside = document.querySelector("aside");
+      if (id === "vista") { stato.modo = "vista"; $("pannello-costruzione").style.display = "none"; }
+      if (id === "stile") aside.classList.remove("chiuso");
+    },
+    onStrumento: (id) => {
+      stato.strumento = id;
+      stato.pendente = null;
+      stato.arredoSelezionato = null;
+      $("strumento").value = id;
+      hud.evidenziaStrumento(id);
+    },
+    onModo: (m) => {
+      if (m === "costruzione") document.querySelector("[data-modo=costruzione]").click();
+      else document.querySelector("[data-modo=vista]").click();
+    },
+    onVista2d: () => $("vista2d").click(),
+  });
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") { stato.pendente = null; stato.arredoSelezionato = null; ricostruisci(); }
