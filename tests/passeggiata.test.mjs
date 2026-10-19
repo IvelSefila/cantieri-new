@@ -128,3 +128,18 @@ test("passeggiata: senza input il corpo resta fermo", () => {
   const st = aggiornaPasseggiata(st0, {}, 0.05, progetto);
   assert.deepEqual(st.pos, [1450, -500]);
 });
+
+test("arredo: il corpo non attraversa un divano in pianta", () => {
+  const conArredo = { ...progetto, furniture: [{ id: "d1", tipo: "divano", x: 2000, y: 600, rot: 0 }] };
+  const obst = ostacoli(conArredo, {});
+  assert.ok(obst.some((o) => o.tipo === "arredo"));
+  // il divano occupa circa y in [600 - D/2, 600 + D/2]: il corpo, avanzando verso +y da y=-200, si ferma prima
+  const st = aggiornaPasseggiata({ pos: [2000, -200], yaw: 0, pitch: 0, angoli: {}, timer: {} }, { avanti: true }, 2, conArredo);
+  assert.ok(st.pos[1] < 600, `attraversato l'arredo: y=${st.pos[1]}`);
+});
+
+test("partenza: lo sguardo punta verso l'interno dell'edificio", () => {
+  const p = posizioneIniziale(progetto);
+  // l'edificio di prova e' a y=0 e il punto di partenza sta a y=800: lo sguardo deve andare verso -y
+  assert.ok(Math.cos(p.yaw) < 0, `sguardo verso l'esterno: yaw=${p.yaw}`);
+});

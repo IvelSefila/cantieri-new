@@ -666,6 +666,7 @@ function costruisciPannello() {
   btnPasseggiata.onclick = () => {
     if (stato.viewer.passeggiataAttiva()) stato.viewer.esciPasseggiata();
     else {
+      document.querySelector("aside")?.classList.add("chiuso"); // il pannello laterale non copre la vista
       stato.viewer.avviaPasseggiata(stato.progetto);
       messaggio("Frecce o W A S D per camminare, trascina per guardare, Shift corre, Esc esce.", "info");
     }

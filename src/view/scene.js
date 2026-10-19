@@ -147,6 +147,8 @@ export function createViewer(container) {
   const passeggiata = creaPasseggiata({
     scene, camera, dom: renderer.domElement, controls,
     onStato: (on) => { passeggHandler?.(on); richiesta = true; },
+    onRichiesta: () => { richiesta = true; },
+    onRichiestaEsci: () => esciPasseggiata(),
   });
 
   const clip = () => (cfg.dollhouse ? taglio : null);
@@ -656,6 +658,11 @@ export function createViewer(container) {
     if (passeggiata.attiva()) return;
     statoPassegg = { stile: stileId, pos: camera.position.clone(), target: controls.target.clone() };
     if (cfg.dollhouse) applicaStile("solido"); // il taglio dollhouse nasconderebbe le pareti sopra gli occhi
+    // Durante la camminata: niente SSAO/bloom e pixel ratio 1, per tenere i fotogrammi fluidi. Si ripristina all'uscita.
+    statoPassegg.livello = livello;
+    renderer.setPixelRatio(1);
+    post?.imposta("basso");
+    resize();
     passeggiata.avvia(progetto);
     richiesta = true;
   }
@@ -663,6 +670,7 @@ export function createViewer(container) {
     if (!passeggiata.attiva()) return;
     passeggiata.esci();
     if (statoPassegg) {
+      applicaLivello(statoPassegg.livello);
       applicaStile(statoPassegg.stile);
       camera.position.copy(statoPassegg.pos);
       controls.target.copy(statoPassegg.target);

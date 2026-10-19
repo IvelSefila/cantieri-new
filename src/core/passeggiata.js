@@ -6,6 +6,8 @@
 //   lato:    "+" = l'anta si apre verso la normale +n del muro; "-" verso -n
 // Se manca, la porta usa cardine "a" e lato "+" e la differenza viene segnalata nel report del modello.
 
+import { ingombroArredo } from "./project.js";
+
 export const ALTEZZA_OCCHI_MM = 1600;
 export const RAGGIO_CORPO_MM = 250;
 export const VELOCITA_MM_S = 1800;
@@ -84,6 +86,12 @@ export function ostacoli(progetto, stato = {}) {
     } else if (o.type === "finestra" || o.type === "scorrevole") {
       // le finestre sono vetri nel muro: il muro intero resta un ostacolo
     }
+  }
+  // Arredi: il perimetro dell'ingombro in pianta blocca il corpo
+  for (const a of progetto.furniture ?? []) {
+    const r = ingombroArredo(a);
+    const pts = r.angoli ?? [[r.x0, r.y0], [r.x0 + r.L, r.y0], [r.x0 + r.L, r.y0 + r.D], [r.x0, r.y0 + r.D]];
+    for (let i = 0; i < pts.length; i++) out.push({ tipo: "arredo", id: a.id, a: pts[i], b: pts[(i + 1) % pts.length], r: 0 });
   }
   return out;
 }
@@ -164,7 +172,11 @@ export function posizioneIniziale(progetto) {
   if (!porte.length) return { pos: c, yaw: 0 };
   const g = porte.reduce((m, x) => (len(sub(x.centro, c)) < len(sub(m.centro, c)) ? x : m));
   const lato = dot(sub(c, g.centro), g.n) >= 0 ? 1 : -1;
-  return { pos: add(g.centro, mul(g.n, lato * 800)), yaw: 0 };
+  const pos = add(g.centro, mul(g.n, lato * 800));
+  // lo sguardo parte verso l'interno dell'edificio, non verso un muro esterno
+  const verso = sub(c, pos);
+  const yaw = len(verso) > 1 ? Math.atan2(verso[0], verso[1]) : 0;
+  return { pos, yaw };
 }
 
 // Vettore di sguardo unitario [x, y, z] del piano (x, y in mm e z in altezza): yaw sul piano, pitch verso l'alto

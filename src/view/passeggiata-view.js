@@ -1,6 +1,6 @@
 // Passeggiata in prima persona nella vista 3D: camera a altezza occhi, movimento con collisioni sul piano,
 // porte che si aprono avvicinandosi. La logica e' in src/core/passeggiata.js; qui solo Three.js e input.
-// Comandi: frecce o W A S D per camminare (A/D di lato), frecce sinistra/destra per girare,
+// Comandi: W A S D o frecce su/giu' per camminare (A/D di lato), frecce sinistra/destra per girare,
 // trascinamento del mouse per guardare, Shift per correre, Esc per uscire.
 import * as THREE from "three";
 import { ALTEZZA_OCCHI_MM, statoPasseggiata, aggiornaPasseggiata, vettoreSguardo, geometriaPorta, direzioneAnta } from "../core/passeggiata.js";
@@ -11,8 +11,15 @@ const LIMITE_PITCH = 1.2;
 const SENSIBILITA_MOUSE = 0.004;
 const VELOCITA_GIRO_RAD_S = 1.8;
 const DT_MASSIMO_S = 0.05;
+const TASTI_USATI = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"]);
 
-export function creaPasseggiata({ scene, camera, dom, controls, onStato }) {
+// Campi di testo e menu: i tasti digitati li' non devono muovere la camera
+const inCampo = (e) => {
+  const t = e.target;
+  return !!t && (t.isContentEditable || t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT");
+};
+
+export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichiesta, onRichiestaEsci }) {
   let attiva = false;
   let progetto = null;
   let stato = null;
@@ -21,7 +28,6 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato }) {
   let trascino = null;
   const tasti = new Set();
   const materiale = new THREE.MeshStandardMaterial({ color: 0xe9e4da, roughness: 0.6 });
-  const TASTI_USATI = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"]);
 
   function costruisciAnte() {
     ante = new THREE.Group();
@@ -49,6 +55,7 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato }) {
     }
   }
 
+  // Piano (x, y) in mm -> mondo (x, z) in m; y = altezza occhi
   function applicaCamera() {
     const x = stato.pos[0] * MM, z = stato.pos[1] * MM, y = ALTEZZA_OCCHI_MM * MM;
     const d = vettoreSguardo(stato.yaw, stato.pitch);
@@ -58,19 +65,36 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato }) {
 
   function premuto(e) {
     if (!attiva) return;
-    if (e.code === "Escape") { esci(); onStato?.(false); return; }
+    if (e.code === "Escape") {
+      // Esc esce dalla passeggiata; l'evento non arriva agli altri gestori della pagina
+      e.stopPropagation();
+      e.preventDefault();
+      onRichiestaEsci?.();
+      return;
+    }
+    if (inCampo(e)) return;
     if (TASTI_USATI.has(e.code)) e.preventDefault();
     tasti.add(e.code);
   }
   function rilasciato(e) { tasti.delete(e.code); }
-  function puntatoreGiu(e) { trascino = { x: e.clientX, y: e.clientY }; }
-  function puntatoreSu() { trascino = null; }
+  function perdeFocus() { tasti.clear(); trascino = null; }
+
+  function puntatoreGiu(e) {
+    if (!attiva) return;
+    trascino = { x: e.clientX, y: e.clientY };
+    dom.setPointerCapture?.(e.pointerId);
+  }
+  function puntatoreSu(e) {
+    trascino = null;
+    dom.releasePointerCapture?.(e.pointerId);
+  }
   function puntatoreMosso(e) {
     if (!trascino || !attiva) return;
     stato.yaw -= (e.clientX - trascino.x) * SENSIBILITA_MOUSE;
     stato.pitch = Math.max(-LIMITE_PITCH, Math.min(LIMITE_PITCH, stato.pitch - (e.clientY - trascino.y) * SENSIBILITA_MOUSE));
     trascino = { x: e.clientX, y: e.clientY };
     applicaCamera();
+    onRichiesta?.();
   }
 
   function avvia(p) {
@@ -81,11 +105,14 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato }) {
     attiva = true;
     controls.enabled = false;
     ultimo = performance.now();
-    window.addEventListener("keydown", premuto);
+    tasti.clear();
+    window.addEventListener("keydown", premuto, true);
     window.addEventListener("keyup", rilasciato);
+    window.addEventListener("blur", perdeFocus);
     dom.addEventListener("pointerdown", puntatoreGiu);
-    window.addEventListener("pointerup", puntatoreSu);
     dom.addEventListener("pointermove", puntatoreMosso);
+    dom.addEventListener("pointerup", puntatoreSu);
+    dom.addEventListener("pointercancel", puntatoreSu);
     applicaCamera();
     aggiornaAnte();
     onStato?.(true);
@@ -96,24 +123,29 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato }) {
     attiva = false;
     controls.enabled = true;
     tasti.clear();
-    window.removeEventListener("keydown", premuto);
+    trascino = null;
+    window.removeEventListener("keydown", premuto, true);
     window.removeEventListener("keyup", rilasciato);
+    window.removeEventListener("blur", perdeFocus);
     dom.removeEventListener("pointerdown", puntatoreGiu);
-    window.removeEventListener("pointerup", puntatoreSu);
     dom.removeEventListener("pointermove", puntatoreMosso);
+    dom.removeEventListener("pointerup", puntatoreSu);
+    dom.removeEventListener("pointercancel", puntatoreSu);
     if (ante) {
       for (const mesh of ante.children) mesh.geometry.dispose();
       ante.removeFromParent();
       ante = null;
     }
+    onStato?.(false);
   }
 
-  // Un passo di simulazione. Ritorna true se la scena va ridisegnata.
+  // Un passo di simulazione. Ritorna true se la scena va ridisegnata (movimento, giro, porte in moto).
   function aggiorna() {
     if (!attiva) return false;
     const ora = performance.now();
     const dt = Math.min(DT_MASSIMO_S, (ora - ultimo) / 1000);
     ultimo = ora;
+    const prima = { x: stato.pos[0], y: stato.pos[1], yaw: stato.yaw, pitch: stato.pitch, angoli: stato.angoli };
     if (tasti.has("ArrowLeft")) stato.yaw += VELOCITA_GIRO_RAD_S * dt;
     if (tasti.has("ArrowRight")) stato.yaw -= VELOCITA_GIRO_RAD_S * dt;
     const input = {
@@ -123,14 +155,13 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato }) {
       destra: tasti.has("KeyD"),
       corsa: tasti.has("ShiftLeft") || tasti.has("ShiftRight"),
     };
-    const prima = { pos: stato.pos, angoli: stato.angoli, yaw: stato.yaw };
     stato = aggiornaPasseggiata(stato, input, dt, progetto);
-    const mossa = stato.pos[0] !== prima.pos[0] || stato.pos[1] !== prima.pos[1];
-    const porteMosse = Object.keys(stato.angoli).some((id) => stato.angoli[id] !== (prima.angoli[id] ?? 0));
+    const mossa = stato.pos[0] !== prima.x || stato.pos[1] !== prima.y;
     const girata = stato.yaw !== prima.yaw;
+    const porteMosse = Object.keys(stato.angoli).some((id) => stato.angoli[id] !== (prima.angoli[id] ?? 0));
     applicaCamera();
     aggiornaAnte();
-    return mossa || porteMosse || girata;
+    return mossa || girata || porteMosse;
   }
 
   return { avvia, esci, aggiorna, attiva: () => attiva };
