@@ -25,6 +25,19 @@ export function fotoFile(file, { lineare = false } = {}) {
   return t;
 }
 
+// Set fotografico di un materiale (colore, normale, rugosita') da assets/tex/<slug>_*.webp, caricato una sola volta
+const SET_FOTO = new Map();
+export function fotoSet(slug) {
+  if (!SET_FOTO.has(slug)) {
+    SET_FOTO.set(slug, {
+      colore: fotoFile(`${slug}_colore.webp`),
+      normale: fotoFile(`${slug}_normale.webp`, { lineare: true }),
+      rugosita: fotoFile(`${slug}_rugosita.webp`, { lineare: true }),
+    });
+  }
+  return SET_FOTO.get(slug);
+}
+
 // Generatore pseudo-casuale deterministico (stessa scena = stessa grana, sempre).
 function rng(seme) {
   let s = seme >>> 0;

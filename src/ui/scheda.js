@@ -68,6 +68,25 @@ export function apriScheda(dati, onAzione) {
     box.append(titoloFin, griglia);
   }
 
+  // Colori: campioni cliccabili; la scelta applica "tinta:<id>"
+  if (dati.tinte) {
+    const titoloTinte = document.createElement("div");
+    titoloTinte.className = "scheda-sezione";
+    titoloTinte.textContent = dati.tinte.titolo;
+    const campioni = document.createElement("div");
+    campioni.className = "scheda-tinte";
+    for (const op of dati.tinte.opzioni) {
+      const b = document.createElement("button");
+      b.className = `scheda-tinta${op.id === dati.tinte.attiva ? " attiva" : ""}`;
+      b.style.background = op.hex;
+      b.title = op.nome;
+      b.setAttribute("aria-label", op.nome);
+      b.onclick = () => { chiudiScheda(); onAzione(`tinta:${op.id}`); };
+      campioni.appendChild(b);
+    }
+    box.append(titoloTinte, campioni);
+  }
+
   for (const az of dati.azioni || []) {
     const b = document.createElement("button");
     b.className = `scheda-azione${az.pericolo ? " pericolo" : ""}`;

@@ -7,7 +7,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { parquet, intonaco, marmo } from "./materials.js";
+import { parquet, intonaco, marmo, fotoSet } from "./materials.js";
+import { MATERIALI_PAVIMENTO, MATERIALI_MURO, TINTE_MURO } from "../core/project.js";
 import { materialeRealistico, texturaRilievo } from "./realistico.js";
 import { creaSovrimpressione, proiettore } from "./misure.js";
 import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js";
@@ -228,22 +229,27 @@ export function createViewer(container) {
     }
   }
 
-  // Finiture scelte dall'utente: pavimenti (parquet, marmo) e muri (intonaco tinteggiato, marmo)
-  const TINTA_MURO = { intonaco_bianco: 0xf6f4ef, intonaco_grigio: 0xb0b4ba, intonaco_ocra: 0xd9b77a, marmo: 0xffffff };
-  function materialeFinitura(kind, chiave) {
-    const base = { clippingPlanes: clip(), clipShadows: !!cfg.dollhouse };
-    if (kind === "pavimento") {
-      const marmo = chiave === "marmo";
-      return new THREE.MeshStandardMaterial({ ...base, map: marmo ? texMarmo : texParquet, roughness: marmo ? 0.22 : 0.55, metalness: 0, envMapIntensity: 0.6 });
-    }
-    const marmo = chiave === "marmo";
-    return new THREE.MeshStandardMaterial({ ...base, color: TINTA_MURO[chiave] ?? 0xf6f4ef, map: marmo ? texMarmo : texIntonaco, roughness: marmo ? 0.25 : 0.92 });
+  // Finiture fotografiche (assets/tex): la foto si ripete sulle dimensioni reali della scatola
+  const TILE_PAVIMENTO_MM = 1200;
+  const TILE_MURO_MM = 1500;
+  function materialeFinitura(b) {
+    const pavimento = b.kind === "pavimento";
+    const cat = pavimento ? MATERIALI_PAVIMENTO[b.materiale] : MATERIALI_MURO[b.finitura ?? "intonaco_bianco"];
+    const set = fotoSet(cat.foto);
+    const ripeti = pavimento ? [b.L / TILE_PAVIMENTO_MM, b.D / TILE_PAVIMENTO_MM] : [b.L / TILE_MURO_MM, b.H / TILE_MURO_MM];
+    const copia = (t) => { const c = t.clone(); c.repeat.set(ripeti[0], ripeti[1]); c.needsUpdate = true; return c; };
+    // Il colore della foto resta com'e' sui pavimenti; sui muri la tinta si moltiplica sulla foto
+    const tinta = pavimento ? "#ffffff" : (TINTE_MURO[b.tinta ?? "naturale"]?.hex ?? "#ffffff");
+    return new THREE.MeshStandardMaterial({
+      clippingPlanes: clip(), clipShadows: !!cfg.dollhouse,
+      map: copia(set.colore), normalMap: copia(set.normale), roughnessMap: copia(set.rugosita),
+      normalScale: new THREE.Vector2(0.6, 0.6), roughness: 1, metalness: 0, color: tinta,
+    });
   }
   // Le finiture si vedono solo negli stili realistici e solidi; gli altri stili restano invariati
   const finitureVisibili = () => !["argilla", "blueprint", "neon", "notte"].includes(cfg.modo);
 
-  function materialeGruppo(kind, finitura = null) {
-    if (finitura && finitureVisibili()) return materialeFinitura(kind, finitura);
+  function materialeGruppo(kind) {
     if (cfg.modo === "realistico") {
       return materialeRealistico(kind, { clip: clip(), texParquet, texIntonaco, rilievo, alta: livello === "alto" });
     }
@@ -369,7 +375,7 @@ export function createViewer(container) {
     raycaster.setFromCamera(puntatore, camera);
   }
   function colpito() {
-    const hits = raycaster.intersectObjects([...gruppo.children.filter((o) => o.isInstancedMesh), dettagli, fantasma].filter(Boolean), true)
+    const hits = raycaster.intersectObjects([...gruppo.children.filter((o) => o.isInstancedMesh || o.userData?.finito), dettagli, fantasma].filter(Boolean), true)
       .filter((h) => !h.object.userData.fantasma);
     if (!hits.length) return null;
     const h = hits[0];
@@ -533,31 +539,28 @@ export function createViewer(container) {
     scene.remove(gruppo);
     gruppo.traverse((o) => {
       // la geometria unitaria e' condivisa: si libera solo materiale e contorni
-      if (o.isInstancedMesh || o.isLineSegments) {
+      if (o.isInstancedMesh || o.isLineSegments || o.userData?.finito) {
         if (o.isLineSegments) o.geometry.dispose();
         if (o.material) o.material.dispose();
       }
     });
     gruppo = new THREE.Group();
 
-    // una InstancedMesh per tipo di elemento
-    // Pavimenti e muri si raggruppano anche per finitura: ogni gruppo ha il suo materiale
-    const chiaveGruppo = (b) => {
-      if (b.kind.startsWith("muro")) return `muro|${b.finitura ?? "intonaco_bianco"}`;
-      if (b.kind === "pavimento") return `pavimento|${b.materiale ?? "parquet"}`;
-      return b.kind;
-    };
+    // Pavimenti e muri con foto reale: una mesh per scatola, con le foto ripetute sulle dimensioni reali.
+    // Il resto: una InstancedMesh per tipo di elemento.
+    const finitoFoto = (b) => (b.kind === "pavimento" ? MATERIALI_PAVIMENTO[b.materiale]?.foto : b.kind.startsWith("muro") ? MATERIALI_MURO[b.finitura ?? "intonaco_bianco"]?.foto : null);
+    const conFoto = finitureVisibili();
+    const finiti = conFoto ? boxes.filter((b) => finitoFoto(b)) : [];
+    const altri = conFoto ? boxes.filter((b) => !finitoFoto(b)) : boxes;
     const gruppi = new Map();
-    for (const b of boxes) {
-      const k = chiaveGruppo(b);
+    for (const b of altri) {
+      const k = b.kind.startsWith("muro") ? "muro" : b.kind;
       if (!gruppi.has(k)) gruppi.set(k, []);
       gruppi.get(k).push(b);
     }
     const perColore = new Map(); // colore contorno -> scatole
-    for (const [chiave, lista] of gruppi) {
-      const kind = chiave.split("|")[0];
-      const finitura = chiave.includes("|") ? chiave.split("|")[1] : null;
-      const mesh = new THREE.InstancedMesh(unitaria, materialeGruppo(kind, finitura), lista.length);
+    for (const [kind, lista] of gruppi) {
+      const mesh = new THREE.InstancedMesh(unitaria, materialeGruppo(kind), lista.length);
       mesh.castShadow = kind !== "vetro" && cfg.ombre !== false;
       mesh.receiveShadow = true;
       mesh.userData = { kind, scatole: lista.map((b) => ({ id: b.id, kind: b.kind, wall: b.wall })) };
@@ -582,6 +585,23 @@ export function createViewer(container) {
       mesh.instanceMatrix.needsUpdate = true;
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
       gruppo.add(mesh);
+    }
+
+    // Pavimenti e muri con finitura fotografica: mesh singola, materiale proprio
+    for (const b of finiti) {
+      const mesh = new THREE.Mesh(unitaria, materialeFinitura(b));
+      mesh.scale.set(b.L * MM_TO_M, b.H * MM_TO_M, b.D * MM_TO_M);
+      mesh.position.set(b.cx * MM_TO_M, b.cz * MM_TO_M, b.cy * MM_TO_M);
+      mesh.quaternion.setFromAxisAngle(asseY, -b.ang);
+      mesh.castShadow = cfg.ombre !== false;
+      mesh.receiveShadow = true;
+      mesh.userData = { kind: b.kind, id: b.id, wall: b.wall, finito: true };
+      gruppo.add(mesh);
+      if (cfg.contorni) {
+        const c = coloreContorno(b.kind, cfg.contorni);
+        if (!perColore.has(c)) perColore.set(c, []);
+        perColore.get(c).push(b);
+      }
     }
 
     // contorni: una LineSegments per colore, con i 12 spigoli di ogni scatola

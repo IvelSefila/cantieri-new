@@ -174,6 +174,10 @@ aside label, aside input, aside textarea, aside select { max-width: 100%; box-si
   background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); color: var(--hud-testo); }
 .scheda-finitura:hover { border-color: var(--hud-ciano); }
 .scheda-finitura.attiva { border-color: var(--hud-oro); box-shadow: 0 0 0 2px rgba(255,196,77,.35); }
+.scheda-tinte { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.scheda-tinta { width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(255,255,255,.25); }
+.scheda-tinta:hover { border-color: var(--hud-ciano); }
+.scheda-tinta.attiva { border-color: var(--hud-oro); box-shadow: 0 0 0 2px rgba(255,196,77,.4); }
 
 /* Affidabilita' dei risultati: badge di stato, righe dei risultati, schede dei motori */
 .badge-stato { display: inline-block; padding: 2px 8px; border-radius: 999px; font: 700 10px/1.4 system-ui, sans-serif; letter-spacing: .06em; vertical-align: middle; white-space: nowrap; }

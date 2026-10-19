@@ -1,7 +1,7 @@
 // Finiture di pavimenti e muri, e regole di abbattimento dei muri portanti.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { impostaFinituraMuro, impostaMaterialePavimento, MATERIALI_MURO, MATERIALI_PAVIMENTO, aggiungiPavimento, progettoVuoto } from "../src/core/project.js";
+import { impostaFinituraMuro, impostaMaterialePavimento, impostaTintaMuro, MATERIALI_MURO, MATERIALI_PAVIMENTO, TINTE_MURO, aggiungiPavimento, progettoVuoto } from "../src/core/project.js";
 import { descrivi, eseguiAzione } from "../src/core/elementi.js";
 
 function progettoConMuri() {
@@ -55,4 +55,21 @@ test("finitura applicata dalla scheda: 'finitura:<id>' cambia il materiale", () 
   const nuovo = eseguiAzione(p, "muro", "tr_1", "finitura:intonaco_ocra");
   assert.equal(nuovo.walls.find((w) => w.id === "tr_1").finitura, "intonaco_ocra");
   assert.ok(MATERIALI_MURO.intonaco_ocra);
+});
+
+test("tinta del muro: naturale di default, tinte note, tinta sconosciuta rifiutata", () => {
+  const p = progettoConMuri();
+  assert.equal(descrivi(p, "muro", "tr_1").tinte.attiva, "naturale");
+  const r = impostaTintaMuro(p, "tr_1", "ocra");
+  assert.equal(r.p.walls.find((w) => w.id === "tr_1").tinta, "ocra");
+  assert.ok(impostaTintaMuro(p, "tr_1", "verde_fluo").errore);
+  const nuovo = eseguiAzione(p, "muro", "tr_1", "tinta:salvia");
+  assert.equal(nuovo.walls.find((w) => w.id === "tr_1").tinta, "salvia");
+});
+
+test("catalogo: ogni finitura con foto ha il set di file dichiarato", () => {
+  for (const v of [...Object.values(MATERIALI_PAVIMENTO), ...Object.values(MATERIALI_MURO)]) {
+    if (v.foto) assert.match(v.foto, /^[a-z0-9_]+$/);
+  }
+  assert.ok(Object.keys(TINTE_MURO).length >= 5);
 });

@@ -57,6 +57,7 @@ function toWorld(local, wall, ux, uy, L) {
     id: local.id,
     wall: wall.id,
     finitura: wall.finitura ?? "intonaco_bianco",
+    tinta: wall.tinta ?? "naturale",
     cx: ax + ux * sc + nx * nc,
     cy: ay + uy * sc + ny * nc,
     cz: (local.z0 + local.z1) / 2,

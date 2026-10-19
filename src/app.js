@@ -487,7 +487,7 @@ function gestisciDoppio(hit) {
     if (s) { tipo = "stanza"; id = s; dati = descrivi(p, "stanza", s); stato.viewer.setEvidenza(s.interno); }
   }
   if (!dati) return messaggio("Nessun elemento qui.", "info");
-  apriScheda({ titolo: dati.titolo, portante: dati.portante, righe: dati.righe, azioni: dati.azioni, finiture: dati.finiture }, (az) => {
+  apriScheda({ titolo: dati.titolo, portante: dati.portante, righe: dati.righe, azioni: dati.azioni, finiture: dati.finiture, tinte: dati.tinte }, (az) => {
     const nuovo = eseguiAzione(p, tipo, id, az);
     if (!nuovo) return;
     applica(nuovo);

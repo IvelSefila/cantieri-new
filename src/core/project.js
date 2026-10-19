@@ -9,19 +9,45 @@ export const LIBRERIA_ARREDI = Object.fromEntries(Object.entries(LIBRERIA_3D).ma
   nome: v.nome, categoria: v.categoria, L: v.L, D: v.D, H: v.H, colore: rgb(v.finiture[0].colore),
 }]));
 
+// Pavimenti: legni e marmo con foto reali (assets/tex, Poly Haven CC0). "foto" = slug del set fotografico.
+// Il gres non ha foto: resta a colore pieno.
 export const MATERIALI_PAVIMENTO = {
-  parquet: { nome: "Parquet rovere", colore: [200, 164, 118] },
+  parquet: { nome: "Parquet rovere a doghe", colore: [200, 164, 118], foto: "parquet" },
+  rovere_doghe: { nome: "Rovere naturale a doghe", colore: [196, 160, 116], foto: "pav_rovere_doghe" },
+  spina_pesce: { nome: "Parquet a spina di pesce", colore: [190, 150, 104], foto: "pav_spina_pesce" },
+  rovere_scuro: { nome: "Rovere scuro", colore: [92, 62, 40], foto: "pav_rovere_scuro" },
+  quadrotti: { nome: "Parquet a quadrotti", colore: [180, 140, 96], foto: "pav_quadrotti" },
+  marmo: { nome: "Marmo chiaro", colore: [240, 240, 236], foto: "marmo" },
   gres: { nome: "Gres chiaro", colore: [220, 218, 212] },
-  marmo: { nome: "Marmo chiaro", colore: [240, 240, 236] },
 };
 
-// Finiture dei muri: intonaco tinteggiato o rivestimento in marmo
+// Finiture dei muri: diversi bianchi, intonaci e marmo, con foto reali
 export const MATERIALI_MURO = {
-  intonaco_bianco: { nome: "Intonaco bianco", colore: [244, 242, 236] },
-  intonaco_grigio: { nome: "Intonaco grigio perla", colore: [176, 180, 186] },
-  intonaco_ocra: { nome: "Intonaco ocra", colore: [217, 183, 122] },
-  marmo: { nome: "Marmo chiaro", colore: [240, 240, 236] },
+  intonaco_bianco: { nome: "Bianco calce", colore: [246, 245, 240], foto: "mur_bianco_calce" },
+  bianco_latte: { nome: "Bianco latte", colore: [240, 236, 226], foto: "mur_bianco_latte" },
+  bianco_civile: { nome: "Bianco civile", colore: [242, 240, 234], foto: "mur_bianco_civile" },
+  intonaco_grigio: { nome: "Grigio perla", colore: [176, 180, 186], foto: "mur_grigio_perla" },
+  intonaco_ocra: { nome: "Intonaco beige", colore: [217, 183, 122], foto: "intonaco" },
+  marmo: { nome: "Marmo chiaro", colore: [240, 240, 236], foto: "marmo" },
 };
+
+// Tinte dei muri, moltiplicate sulla foto (Naturale = nessuna tinta)
+export const TINTE_MURO = {
+  naturale: { nome: "Naturale", hex: "#ffffff" },
+  avorio: { nome: "Avorio", hex: "#f2e8d4" },
+  ocra: { nome: "Ocra", hex: "#d9b77a" },
+  salvia: { nome: "Verde salvia", hex: "#a9b8a0" },
+  terracotta: { nome: "Terracotta", hex: "#c98a6b" },
+  ardesia: { nome: "Blu ardesia", hex: "#6e7f96" },
+  grafite: { nome: "Grafite", hex: "#5b6068" },
+};
+
+// Cambia la tinta di un muro. Restituisce { p } o { errore }.
+export function impostaTintaMuro(p, id, tinta) {
+  if (!TINTE_MURO[tinta]) return { errore: "tinta sconosciuta" };
+  if (!p.walls.some((w) => w.id === id)) return { errore: "muro inesistente" };
+  return { p: { ...p, walls: p.walls.map((w) => (w.id === id ? { ...w, tinta } : w)) } };
+}
 
 // Cambia il materiale di un pavimento. Restituisce { p } o { errore }.
 export function impostaMaterialePavimento(p, id, materiale) {
