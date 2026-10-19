@@ -170,15 +170,14 @@ export function montaGSA(box) {
         if (risposta.volumi_rilevati && risposta.volumi_rilevati.length > 1) {
           const rMulti = el("div");
           rMulti.style.cssText = "margin: 8px 0; padding: 6px; background: rgba(255,196,77,0.08); border: 1px dashed rgba(255,196,77,0.3); border-radius: 6px;";
-          rMulti.append(el("div", "hud-stat", `Volumi / Opzioni rilevate (${risposta.volumi_rilevati.length}). Seleziona corpo o piani:`));
+          rMulti.append(el("div", "hud-stat", `Complesso multi-corpo rilevato (${risposta.volumi_rilevati.length} volumi). Seleziona la palazzina da valutare:`));
           const btnGroup = el("div");
           btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;";
           risposta.volumi_rilevati.forEach((v) => {
-            const label = v.piani ? `${v.tipo_presunto}: ~${v.altezza_m.toFixed(1)} m` : `${v.tipo_presunto}: ${v.altezza_m.toFixed(1)} m`;
-            const b = el("button", "", label);
+            const b = el("button", "", v.tipo_presunto || `${v.altezza_m.toFixed(1)} m`);
             b.style.cssText = v.selezionato
-              ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 3px 8px;"
-              : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 3px 8px; cursor: pointer;";
+              ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 4px 8px; border-radius: 4px;"
+              : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 8px; cursor: pointer; border-radius: 4px;";
             b.onclick = async () => {
               const rRicalcolo = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe, indice_volume: v.indice });
               renderizzaCard(rRicalcolo);
@@ -186,6 +185,12 @@ export function montaGSA(box) {
             btnGroup.append(b);
           });
           rMulti.append(btnGroup);
+
+          const rGuida = el("div", "hud-stat");
+          rGuida.style.cssText = "font-size: 10.5px; color: var(--hud-muto); margin-top: 6px; line-height: 1.4;";
+          rGuida.innerHTML = "💡 <b>Guida ai corpi:</b> Le <b>Palazzine</b> (≥10 m) sono i condomini abitabili (es. Palazzine A, B da 18 m e Palazzina C da 13 m). I <b>fabbricati bassi</b> (5–9 m) e i <b>box</b> (≤4 m) sono pertinenze accessorie (rampe garages interrati, cabine contatori o autorimesse). Cliccando sulla palazzina desiderata, Google Earth 3D si orienta e si sposta automaticamente davanti alla sua facciata.";
+          rMulti.append(rGuida);
+
           card.append(rMulti);
         }
 
@@ -218,11 +223,22 @@ export function montaGSA(box) {
           card.append(rFonti);
         }
 
-        const linkGe = el("a", "", "↗ Visualizza edificio in Google Earth 3D");
-        linkGe.href = `https://earth.google.com/web/@${risposta.coordinate.lat},${risposta.coordinate.lon},300a,500d,35y,0t,45r`;
+        const vLat = risposta.edificio_lidar?.lat || risposta.coordinate.lat;
+        const vLon = risposta.edificio_lidar?.lon || risposta.coordinate.lon;
+        const altSlm = (risposta.edificio_lidar && risposta.edificio_lidar.quota_estradosso_m) || 320;
+        const volCorrente = risposta.volumi_rilevati?.find((v) => v.selezionato);
+        const etichettaBtn = volCorrente ? `↗ Inquadra ${volCorrente.tipo_presunto} in Google Earth 3D (Vista Frontale)` : "↗ Inquadra Palazzina in Google Earth 3D (Vista Frontale)";
+
+        const linkGe = el("a", "", etichettaBtn);
+        // Parametri Google Earth 3D:
+        // - altSlma: quota s.l.m.
+        // - 120d: distanza della telecamera a 120 m (inquadratura ravvicinata del palazzo anziché panoramica da 500 m)
+        // - 45y: orientamento angolare (heading)
+        // - 65t: tilt a 65 gradi (prospettiva 3D frontale inclinata, visualizza le facciate e i piani)
+        linkGe.href = `https://earth.google.com/web/@${vLat.toFixed(5)},${vLon.toFixed(5)},${altSlm}a,120d,45y,65t,0r`;
         linkGe.target = "_blank";
         linkGe.rel = "noopener noreferrer";
-        linkGe.style.cssText = "display: inline-block; margin-top: 8px; color: var(--hud-ciano); font-size: 11px; text-decoration: none; border: 1px solid rgba(61,220,247,0.3); padding: 4px 10px; border-radius: 999px; background: rgba(61,220,247,0.06);";
+        linkGe.style.cssText = "display: inline-block; margin-top: 8px; color: var(--hud-ciano); font-size: 11px; text-decoration: none; border: 1px solid rgba(61,220,247,0.3); padding: 5px 12px; border-radius: 999px; background: rgba(61,220,247,0.06); font-weight: 600;";
         card.append(linkGe);
 
         esitoCivico.append(card);

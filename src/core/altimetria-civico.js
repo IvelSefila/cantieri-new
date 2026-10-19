@@ -54,7 +54,7 @@ export function normalizzaRegione(str) {
 }
 
 // Estrae i volumi edilizi (un_vol) dal GML restituito dal WFS BDTRE Piemonte
-export function parseGmlUnVol(gmlText) {
+export function parseGmlUnVol(gmlText, centroRiferimento = null) {
   const volumi = [];
   if (!gmlText) return volumi;
 
@@ -68,17 +68,50 @@ export function parseGmlUnVol(gmlText) {
     const porM = blocco.match(/<(?:ms:)?un_vol_por>([^<]*)<\/(?:ms:)?un_vol_por>/);
     const modoM = blocco.match(/<(?:ms:)?modo_prod>([^<]*)<\/(?:ms:)?modo_prod>/);
     const enteM = blocco.match(/<(?:ms:)?ente_prod>([^<]*)<\/(?:ms:)?ente_prod>/);
+    const coordsM = blocco.match(/<gml:coordinates[^>]*>([^<]+)<\/gml:coordinates>/);
+    const posM = blocco.match(/<gml:posList[^>]*>([^<]+)<\/gml:posList>/);
 
     const altezzaM = avM ? parseFloat(avM[1].replace(",", ".")) : null;
     const estradossoM = qeM ? parseFloat(qeM[1].replace(",", ".")) : null;
 
     if (altezzaM !== null && !isNaN(altezzaM)) {
+      let vLat = centroRiferimento ? centroRiferimento.lat : null;
+      let vLon = centroRiferimento ? centroRiferimento.lon : null;
+      const coordStr = coordsM ? coordsM[1] : (posM ? posM[1] : "");
+      if (coordStr) {
+        const parts = coordStr.trim().split(/[\s,]+/);
+        let sLat = 0, sLon = 0, cnt = 0;
+        for (let j = 0; j < parts.length - 1; j += 2) {
+          const p1 = parseFloat(parts[j]);
+          const p2 = parseFloat(parts[j + 1]);
+          if (!isNaN(p1) && !isNaN(p2)) {
+            sLat += p1;
+            sLon += p2;
+            cnt++;
+          }
+        }
+        if (cnt > 0) {
+          vLat = sLat / cnt;
+          vLon = sLon / cnt;
+        }
+      }
+
+      let distM = 0;
+      if (centroRiferimento && typeof vLat === "number" && typeof vLon === "number") {
+        const dLat = (vLat - centroRiferimento.lat) * 111320;
+        const dLon = (vLon - centroRiferimento.lon) * 111320 * Math.cos(centroRiferimento.lat * Math.PI / 180);
+        distM = Math.round(Math.sqrt(dLat * dLat + dLon * dLon) * 10) / 10;
+      }
+
       volumi.push({
         altezza_volumetrica_m: altezzaM,
         quota_estradosso_m: isNaN(estradossoM) ? null : estradossoM,
         piano_origine: porM ? porM[1].trim() : null,
         ente_prod: enteM ? enteM[1].trim() : "ARPA PIEMONTE",
         modo_prod: modoM ? modoM[1].trim() : "LiDAR DSM-DTM",
+        lat: vLat,
+        lon: vLon,
+        distM,
       });
     }
   }
@@ -275,23 +308,60 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
 }
 
 // Interroga il servizio WFS BDTRE della Regione Piemonte per un punto lat/lon
-export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggioGradi = 0.0003 } = {}) {
+export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggioGradi = 0.0006 } = {}) {
   const minLat = (lat - raggioGradi).toFixed(6);
   const maxLat = (lat + raggioGradi).toFixed(6);
   const minLon = (lon - raggioGradi).toFixed(6);
   const maxLon = (lon + raggioGradi).toFixed(6);
 
-  const url = `${WFS_BDT_RE_IMM}?service=WFS&version=1.1.0&request=GetFeature&typename=un_vol&maxfeatures=5&srsname=EPSG:4326&bbox=${minLat},${minLon},${maxLat},${maxLon},EPSG:4326`;
+  const url = `${WFS_BDT_RE_IMM}?service=WFS&version=1.1.0&request=GetFeature&typename=un_vol&maxfeatures=25&srsname=EPSG:4326&bbox=${minLat},${minLon},${maxLat},${maxLon},EPSG:4326`;
 
   try {
     const res = await fetchFn(url);
     if (!res.ok) return { ok: false, errore: `Errore WFS BDTRE HTTP ${res.status}` };
     const gml = await res.text();
-    const volumi = parseGmlUnVol(gml);
+    let volumi = parseGmlUnVol(gml, { lat, lon });
     if (volumi.length === 0) {
       return { ok: false, errore: "Nessun volume edilizio (un_vol) censito per queste coordinate nella BDTRE Piemonte", rawGml: gml };
     }
+
+    // Filtra per pertinenza entro 62 m dal civico (cattura palazzine arretrate ed esclude lotti distanti)
+    const pertinenti = volumi.filter((v) => !v.distM || v.distM <= 62);
+    if (pertinenti.length > 0) {
+      volumi = pertinenti;
+    }
+
+    // Ordina per altezza decrescente (palazzine principali in testa)
     volumi.sort((a, b) => b.altezza_volumetrica_m - a.altezza_volumetrica_m);
+
+    // Assegna tipo presunto e denominazione descrittiva
+    let countPalazzine = 0;
+    volumi.forEach((v) => {
+      const h = v.altezza_volumetrica_m;
+      if (h >= 10) {
+        countPalazzine++;
+        const pianiStimati = Math.max(3, Math.round((h - 1.2) / 3.05));
+        v.tipo_presunto = `Palazzina ${String.fromCharCode(64 + countPalazzine)} (${h.toFixed(1)} m, ~${pianiStimati} piani)`;
+        v.piani = pianiStimati;
+      } else if (h >= 5) {
+        v.tipo_presunto = `Fabbricato Basso / Pertinenza (${h.toFixed(1)} m)`;
+        v.piani = 2;
+      } else {
+        v.tipo_presunto = `Box Auto / Accessorio (${h.toFixed(1)} m)`;
+        v.piani = 1;
+      }
+    });
+
+    // Mantieni tutte le palazzine distinte (≥10 m) e condensa le pertinenze e box duplicati
+    const palazzine = volumi.filter((v) => v.altezza_volumetrica_m >= 10);
+    const pertinenze = volumi.filter((v) => v.altezza_volumetrica_m >= 5 && v.altezza_volumetrica_m < 10);
+    const box = volumi.filter((v) => v.altezza_volumetrica_m < 5);
+
+    const compatti = [...palazzine];
+    if (pertinenze.length > 0) compatti.push(pertinenze[0]);
+    if (box.length > 0) compatti.push(box[0]);
+    volumi = compatti;
+
     return { ok: true, volumi, volumePrincipale: volumi[0] };
   } catch (err) {
     return { ok: false, errore: `Impossibile interrogare il geoportale Piemonte: ${err.message}` };
@@ -395,8 +465,13 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
   // 5. Preparazione fonti per la fusione conservativa
   const fonti = [];
 
-  // Se il volume ha numero di piani esplicito (da OSM o stima), usiamo la stima da piani
-  if (volumeScelto.piani) {
+  // Se il volume proviene da LiDAR o tag metrico height, usiamo l'altezza esatta
+  if (volumeScelto.altezza_volumetrica_m && (!volumeScelto.piani || volumeScelto.modo_prod?.includes("LiDAR") || volumeScelto.modo_prod?.includes("height"))) {
+    const stimaH = stimaAltezzaAntincendiDaEdificio(volumeScelto.altezza_volumetrica_m, {
+      fonte: provider,
+    });
+    if (stimaH) fonti.push(stimaH);
+  } else if (volumeScelto.piani) {
     const stimaPiani = stimaAltezzaAntincendiDaPiani(volumeScelto.piani, {
       fonte: `${provider} (${volumeScelto.piani} piani)`,
     });
@@ -451,6 +526,9 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     edificio_selezionato: {
       altezza_volumetrica_m: volumeScelto.altezza_volumetrica_m,
       piani: volumeScelto.piani || null,
+      quota_estradosso_m: volumeScelto.quota_estradosso_m || null,
+      lat: volumeScelto.lat || geo.lat,
+      lon: volumeScelto.lon || geo.lon,
       ente: volumeScelto.ente_prod,
       metodo: volumeScelto.modo_prod,
     },
@@ -458,6 +536,9 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     edificio_lidar: {
       altezza_volumetrica_m: volumeScelto.altezza_volumetrica_m,
       piani: volumeScelto.piani || null,
+      quota_estradosso_m: volumeScelto.quota_estradosso_m || null,
+      lat: volumeScelto.lat || geo.lat,
+      lon: volumeScelto.lon || geo.lon,
       ente: volumeScelto.ente_prod,
       metodo: volumeScelto.modo_prod,
       indice_selezionato: idxSelezionato,
@@ -466,6 +547,10 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
       indice: i,
       altezza_m: v.altezza_volumetrica_m,
       piani: v.piani || null,
+      quota_estradosso_m: v.quota_estradosso_m || null,
+      lat: v.lat || geo.lat,
+      lon: v.lon || geo.lon,
+      distanza_m: v.distM || null,
       tipo_presunto: v.tipo_presunto || (v.piani ? `${v.piani} piani` : (v.altezza_volumetrica_m >= 12 ? "Corpo principale alto" : v.altezza_volumetrica_m >= 7 ? "Corpo secondario / basso" : "Box / accessorio")),
       selezionato: i === idxSelezionato,
     })),
