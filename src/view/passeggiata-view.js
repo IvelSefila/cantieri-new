@@ -114,9 +114,15 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
   }
 
   // porteInfisso: [{ op, wall, parti }] delle sole porte con infisso montato; costruisciAnta(d) restituisce il gruppo dell'anta
+  // Obiettivo piu' ampio in prima persona: le cose appaiono piu' piccole e in scala, non ingrandite
+  const FOV_PRIMA_PERSONA = 62;
+  let fovPrecedente = null;
   function avvia(p, porteInfisso = [], costruisciAnta = () => new THREE.Group()) {
     if (attiva) return;
     progetto = p;
+    fovPrecedente = camera.fov;
+    camera.fov = FOV_PRIMA_PERSONA;
+    camera.updateProjectionMatrix();
     stato = statoPasseggiata(p);
     costruisciAnte(porteInfisso, costruisciAnta);
     attiva = true;
@@ -142,6 +148,7 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
   function esci() {
     if (!attiva) return;
     attiva = false;
+    if (fovPrecedente !== null) { camera.fov = fovPrecedente; camera.updateProjectionMatrix(); fovPrecedente = null; }
     controls.enabled = true;
     tasti.clear();
     trascino = null;
