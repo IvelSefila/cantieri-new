@@ -33,10 +33,10 @@ function el(tag, cls, testo) {
 
 // Miniatura per i modelli senza foto: l'infisso disegnato dal motore 3D
 function anteprima(item, op) {
-  if (item.image) return item.image;
+  if (item.image) return Promise.resolve(item.image);
   const campione = { ...op, id: "anteprima", offset: 0 };
   const muro = { id: "m", a: [0, 0], b: [op.width, 0], t: 300 };
-  return miniatura(`infisso:${item.id}:${op.type}`, () => gruppoInfisso(partiInfisso(campione, 300, item), campione, muro, {}), { sfondo: "#162036" });
+  return miniatura(`infisso:${item.id}:${op.type}`, () => gruppoInfisso(partiInfisso(campione, 300, item), campione, muro, {}));
 }
 
 const VALORI = [
@@ -99,8 +99,11 @@ export function apriDockInfissi(opz) {
       c.style.animationDelay = `${i * 35}ms`;
       c.disabled = m.stato === "no";
       const img = el("div", "dock-card-img");
-      const src = anteprima(m.item, op);
-      if (src) { const im = el("img"); im.src = src; im.alt = m.item.nome; im.loading = "lazy"; img.append(im); }
+      const im = el("img");
+      im.alt = m.item.nome;
+      im.loading = "lazy";
+      img.append(im);
+      anteprima(m.item, op).then((src) => { if (src) im.src = src; });
       if (m.item.id === assegnato) img.append(el("span", "dock-nastro", "MONTATO"));
       const valori = el("div", "dock-card-valori");
       if (m.item.uw != null) valori.append(el("span", "chip", `Uw ${String(m.item.uw).replace(".", ",")}`));

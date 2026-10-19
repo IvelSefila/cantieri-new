@@ -266,13 +266,13 @@ export function gruppoArredo(parti, a, opz = {}, sostituto = null) {
   }
   g.userData = dati;
   const def = LIBRERIA_3D[a.tipo];
-  if (def?.modello) collocaModello(g, def.modello, dimensioniArredo(a), segnaposti);
+  if (def?.modello) g.userData.pronto = collocaModello(g, def.modello, dimensioniArredo(a), segnaposti);
   return g;
 }
 
 // Modello glTF di un arredo: scalato sull'ingombro L x D x H del progetto e centrato in pianta; il segnaposto si nasconde al caricamento
 function collocaModello(g, url, { L, D, H }, segnaposti) {
-  modelloGlb(url).then((scena) => {
+  return modelloGlb(url).then((scena) => {
     const obj = scena.clone(true);
     obj.updateMatrixWorld(true);
     const misura = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3());
@@ -287,30 +287,65 @@ function collocaModello(g, url, { L, D, H }, segnaposti) {
   }).catch(() => { /* file assente: resta il segnaposto */ });
 }
 
-// Miniature 3D (per le schede del catalogo): un piccolo renderer fuori schermo, una volta sola per modello.
+// Miniature 3D (per le schede del catalogo): un renderer fuori schermo con sfondo trasparente.
+// La miniatura si fa solo quando il modello e le sue texture sono caricati, altrimenti verrebbe nera.
 let RENDER_MINI = null;
 const MINIATURE = new Map();
-export function miniatura(chiave, costruisci, { larghezza = 220, altezza = 160, sfondo = "#1b2440" } = {}) {
+const ATTESA_MAX_MS = 8000;
+
+// Attende che tutte le texture del gruppo abbiano l'immagine (le foto arrivano in modo asincrono)
+function texturePronte(gruppo) {
+  const mancanti = [];
+  gruppo.traverse((o) => {
+    if (!o.isMesh) return;
+    for (const m of [].concat(o.material)) {
+      for (const k of ["map", "normalMap", "roughnessMap", "metalnessMap"]) {
+        const t = m?.[k];
+        if (t && !t.image) mancanti.push(t);
+      }
+    }
+  });
+  return Promise.all(mancanti.map((t) => new Promise((ok) => {
+    const inizio = performance.now();
+    const controlla = () => (t.image || performance.now() - inizio > ATTESA_MAX_MS ? ok() : setTimeout(controlla, 80));
+    controlla();
+  })));
+}
+
+// Miniatura PNG con sfondo trasparente: la scheda la mostra dentro la sua forma. Ritorna Promise<string|null>.
+// Le miniature si renderizzano una alla volta: la scena e' condivisa, altrimenti i modelli si sovrapporrebbero
+let CODA_MINIATURE = Promise.resolve();
+export function miniatura(chiave, costruisci, opzioni = {}) {
+  if (MINIATURE.has(chiave)) return Promise.resolve(MINIATURE.get(chiave));
+  const esito = CODA_MINIATURE.then(() => renderMiniatura(chiave, costruisci, opzioni));
+  CODA_MINIATURE = esito.catch(() => null);
+  return esito;
+}
+
+async function renderMiniatura(chiave, costruisci, { larghezza = 260, altezza = 260 } = {}) {
   if (MINIATURE.has(chiave)) return MINIATURE.get(chiave);
   try {
     if (!RENDER_MINI) {
-      const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: false });
+      const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: true });
       r.setSize(larghezza, altezza, false);
+      r.setClearColor(0x000000, 0);
       r.outputColorSpace = THREE.SRGBColorSpace;
       r.toneMapping = THREE.ACESFilmicToneMapping;
       const sc = new THREE.Scene();
       const pm = new THREE.PMREMGenerator(r);
       sc.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
-      sc.add(new THREE.HemisphereLight(0xffffff, 0x445066, 0.9));
-      const sole = new THREE.DirectionalLight(0xfff1dc, 2.2);
+      sc.add(new THREE.HemisphereLight(0xffffff, 0x556070, 1.1));
+      const sole = new THREE.DirectionalLight(0xffffff, 2.2);
       sole.position.set(3, 5, 4);
       sc.add(sole);
-      RENDER_MINI = { r, sc, cam: new THREE.PerspectiveCamera(30, larghezza / altezza, 0.01, 50) };
+      RENDER_MINI = { r, sc, cam: new THREE.PerspectiveCamera(28, larghezza / altezza, 0.01, 50) };
     }
     const { r, sc, cam } = RENDER_MINI;
-    sc.background = new THREE.Color(sfondo);
     const g = costruisci();
     sc.add(g);
+    if (g.userData.pronto) await g.userData.pronto;
+    await texturePronte(g);
+    g.updateMatrixWorld(true);
     const bb = new THREE.Box3().setFromObject(g);
     const c = bb.getCenter(new THREE.Vector3());
     const dim = bb.getSize(new THREE.Vector3()).length();

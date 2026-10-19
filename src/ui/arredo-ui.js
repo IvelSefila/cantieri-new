@@ -64,8 +64,10 @@ export function montaArredo(opz) {
       c.style.animationDelay = `${i * 30}ms`;
       c.title = `${d.nome} · ${d.L} × ${d.D} × ${d.H} mm`;
       const img = el("div", "arr-card-img");
-      const src = miniatura(`arredo:${tipo}`, () => gruppoArredo(partiArredo({ tipo, x: 0, y: 0, rot: 0 }), { id: "m", tipo, x: 0, y: 0, rot: 20 }));
-      if (src) { const im = el("img"); im.src = src; im.alt = d.nome; img.append(im); }
+      const im = el("img");
+      im.alt = d.nome;
+      img.append(im);
+      miniatura(`arredo:${tipo}`, () => gruppoArredo(partiArredo({ tipo, x: 0, y: 0, rot: 0 }), { id: "m", tipo, x: 0, y: 0, rot: 20 })).then((src) => { if (src) im.src = src; });
       c.append(img, el("div", "arr-card-nome", d.nome), el("div", "arr-card-dim", `${d.L / 10} × ${d.D / 10} × ${d.H / 10} cm`));
       c.onclick = () => { iniziaPosa(tipo); };
       griglia.append(c);
