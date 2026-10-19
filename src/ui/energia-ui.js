@@ -6,6 +6,8 @@ import { DEFAULT_ENERGIA, dispersioneTrasmissione, caricoInvernale, fabbisognoRi
 import { CLIMA_ROMA } from "../core/clima.js";
 import { parseDatiEnergetici } from "../core/pdfdati.js";
 import { DEFAULT_GSA } from "../core/gsa.js";
+import { verificaHT } from "../core/limiti.js";
+import { NORME, DATA_VERIFICA } from "../core/registro-norme.js";
 
 // Valori inseriti dall'utente. null = dato mancante (non c'e' un default). Il default di Roma e' dichiarato in clima.js.
 export function valoriIniziali() {
@@ -14,6 +16,7 @@ export function valoriIniziali() {
     volume_m3: null,
     superficie_disperdente_m2: null,
     U_medio_W_m2K: null,          // trasmittanza media dell'involucro: dato di progetto, non stimato
+    zona: "D",                    // zona climatica: Roma e' zona D
     gg: CLIMA_ROMA.gradiGiorno,
     theta_ext_inv_C: DEFAULT_ENERGIA.theta_ext_inv,
     theta_ext_est_C: DEFAULT_ENERGIA.theta_ext_est,
@@ -61,6 +64,13 @@ export function calcolaEnergiaScheda(v, righeGSA = []) {
     const inv = caricoInvernale(tr.H_con_ponti_W_K, v.volume_m3, p);
     const { ok, fuori } = vetrature(righeGSA, v);
     const risc = fabbisognoRiscaldamento(inv.H_tot_W_K, ok, p);
+    // H'T del DM 2025: Htr,adj (con ponti termici) / superficie disperdente lorda, confronto con Tabella 10
+    risultati.verificaHT = verificaHT({
+      Htr_adj_W_K: tr.H_con_ponti_W_K,
+      A_tot_m2: v.superficie_disperdente_m2,
+      zona: v.zona ?? "D",
+      SV: v.superficie_disperdente_m2 / v.volume_m3,
+    });
     const pdc = copPompaCalore(45, v.theta_ext_inv_C, p);
     risultati.riscaldamento = {
       carico_W: inv.carico_W,
@@ -164,6 +174,14 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
     l.append(i);
     griglia.append(l);
   }
+  const selZona = document.createElement("select");
+  selZona.dataset.campo = "zona";
+  for (const z of ["A", "B", "C", "D", "E", "F"]) selZona.append(new Option(z, z, false, z === v.zona));
+  selZona.onchange = () => { v.zona = selZona.value; aggiorna(); };
+  const lZ = document.createElement("label");
+  lZ.style.display = "block";
+  lZ.append("Zona climatica ", selZona);
+  griglia.append(lZ);
   const selOr = document.createElement("select");
   selOr.dataset.campo = "orientamento_FV";
   for (const o of ["N", "NE", "E", "SE", "S", "SO", "O", "NO"]) selOr.append(new Option(o, o, false, o === v.orientamento_FV));
@@ -176,6 +194,12 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
 
   const esito = document.createElement("div");
   box.append(esito);
+  const norme = document.createElement("div");
+  norme.className = "riga info";
+  norme.style.marginTop = "10px";
+  norme.textContent = `Norme usate (verifica del ${DATA_VERIFICA}): ` + Object.values(NORME)
+    .filter((n) => n.usatoDa.length).map((n) => `${n.titolo.split(" ").slice(0, 3).join(" ")} [${n.stato}]`).join(" · ");
+  box.append(norme);
 
   function aggiorna() {
     esito.innerHTML = "";
@@ -206,6 +230,10 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
     if (risultati.solareTermico) {
       const s = risultati.solareTermico;
       riga(`Solare termico ACS: ${f0(s.Q_utile_kWh)} kWh utili su ${f0(s.Q_acs_kWh)} kWh richiesti · frazione ${s.frazione_solare === null ? "—" : (100 * s.frazione_solare).toFixed(0) + " %"}`, "ok");
+    }
+    if (risultati.verificaHT) {
+      const h = risultati.verificaHT;
+      riga(`H'T ${h.HT.toFixed(3).replace(".", ",")} W/m²K, limite Tab. 10 (zona ${v.zona}) ${h.limite.toFixed(2).replace(".", ",")}: ${h.verifica ? "VERIFICATO" : "NON VERIFICATO"}`, h.verifica ? "ok" : "avviso");
     }
     if (mancanti.length) {
       riga("Dati mancanti per completare il calcolo:", "avviso");
