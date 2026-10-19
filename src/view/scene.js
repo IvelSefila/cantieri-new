@@ -13,6 +13,9 @@ import { creaSovrimpressione, proiettore } from "./misure.js";
 import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js";
 import { creaPost } from "./post.js";
 import { creaPasseggiata } from "./passeggiata-view.js";
+
+// Parti dell'infisso che seguono l'anta quando la porta si apre (il resto e' telaio, fisso nel muro)
+const RUOLI_ANTA = new Set(["anta", "maniglia", "fresatura", "cilindro_serratura"]);
 import { onTexturaCaricata } from "./materials.js";
 
 const MM_TO_M = 0.001;
@@ -561,12 +564,17 @@ export function createViewer(container) {
   }
   function setDettagli(lista) {
     ultimiDettagli = lista;
+    renderDettagli(lista, null);
+  }
+  // anteFuori: id delle porte la cui anta e' disegnata a parte (passeggiata): in gruppo restano solo i telai
+  function renderDettagli(lista, anteFuori) {
     scene.remove(dettagli);
     dettagli = new THREE.Group();
     const opz = { clip: clip(), alta: livello === "alto" };
     const sost = sostitutoStile();
     for (const d of lista) {
-      const g = d.tipo === "infisso" ? gruppoInfisso(d.parti, d.op, d.wall, opz, sost) : gruppoArredo(d.parti, d.a, opz, sost);
+      const parti = d.tipo === "infisso" && anteFuori?.has(d.op.id) ? d.parti.filter((p) => !RUOLI_ANTA.has(p.ruolo)) : d.parti;
+      const g = d.tipo === "infisso" ? gruppoInfisso(parti, d.op, d.wall, opz, sost) : gruppoArredo(d.parti, d.a, opz, sost);
       if (cfg.ombre === false) g.traverse((m) => { m.castShadow = false; });
       dettagli.add(g);
     }
@@ -656,19 +664,35 @@ export function createViewer(container) {
   // Passeggiata in prima persona: salva la vista orbitale e lo stile, poi li ripristina all'uscita
   function avviaPasseggiata(progetto) {
     if (passeggiata.attiva()) return;
-    statoPassegg = { stile: stileId, pos: camera.position.clone(), target: controls.target.clone() };
+    statoPassegg = { stile: stileId, livello, pos: camera.position.clone(), target: controls.target.clone() };
     if (cfg.dollhouse) applicaStile("solido"); // il taglio dollhouse nasconderebbe le pareti sopra gli occhi
+    // Porte con infisso montato: l'anta si muove. Scorrevoli (binario) restano chiuse e bloccano.
+    // Vani senza infisso: passaggio libero, nessuna anta.
+    const porteInfisso = ultimiDettagli.filter((d) => d.tipo === "infisso" && d.op.type === "porta");
+    const battenti = porteInfisso.filter((d) => !d.parti.some((p) => p.ruolo === "binario"));
+    const idBattenti = new Set(battenti.map((d) => d.op.id));
+    const idConInfisso = new Set(porteInfisso.map((d) => d.op.id));
+    const conRuoli = {
+      ...progetto,
+      openings: progetto.openings.map((o) => {
+        if (o.type !== "porta") return o;
+        if (!idConInfisso.has(o.id)) return { ...o, senzaAnta: true };
+        return idBattenti.has(o.id) ? o : { ...o, fisso: true };
+      }),
+    };
+    renderDettagli(ultimiDettagli, idBattenti);
     // Durante la camminata: niente SSAO/bloom e pixel ratio 1, per tenere i fotogrammi fluidi. Si ripristina all'uscita.
-    statoPassegg.livello = livello;
     renderer.setPixelRatio(1);
     post?.imposta("basso");
     resize();
-    passeggiata.avvia(progetto);
+    const opz = { clip: null, alta: false };
+    passeggiata.avvia(conRuoli, battenti, (d) => gruppoInfisso(d.parti.filter((p) => RUOLI_ANTA.has(p.ruolo)), d.op, d.wall, opz, sostitutoStile()));
     richiesta = true;
   }
   function esciPasseggiata() {
     if (!passeggiata.attiva()) return;
     passeggiata.esci();
+    renderDettagli(ultimiDettagli, null);
     if (statoPassegg) {
       applicaLivello(statoPassegg.livello);
       applicaStile(statoPassegg.stile);

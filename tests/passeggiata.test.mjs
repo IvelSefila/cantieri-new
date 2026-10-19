@@ -143,3 +143,41 @@ test("partenza: lo sguardo punta verso l'interno dell'edificio", () => {
   // l'edificio di prova e' a y=0 e il punto di partenza sta a y=800: lo sguardo deve andare verso -y
   assert.ok(Math.cos(p.yaw) < 0, `sguardo verso l'esterno: yaw=${p.yaw}`);
 });
+
+test("posizione iniziale: mai dentro un muro, anche se il lato interno e' bloccato", () => {
+  // muro perpendicolare a 800 mm dal vano: il punto interno standard cadrebbe nel muro
+  const conTramezzo = {
+    ...progetto,
+    walls: [...progetto.walls, { id: "m2", a: [1450, 600], b: [1450, 3000], t: 200, kind: "tramezzo" }],
+  };
+  const p = posizioneIniziale(conTramezzo);
+  const obst = ostacoli(conTramezzo, {});
+  for (const o of obst) {
+    assert.ok(distanzaPuntoSegmento(p.pos, o.a, o.b) >= 250 + o.r - 1e-9, `dentro ostacolo ${o.tipo} ${o.id}`);
+  }
+});
+
+test("anta: non si apre sopra chi sta passando davanti al vano", () => {
+  let stato = statoPasseggiata(progetto);
+  const g = geometriaPorta(progetto.openings[0], progetto.walls[0]);
+  // fermo a 800 mm dal vano, dal lato in cui l'anta si aprirebbe
+  stato = { ...stato, pos: [g.centro[0] + g.n[0] * 800, g.centro[1] + g.n[1] * 800] };
+  for (let i = 0; i < 300; i++) stato = aggiornaPasseggiata(stato, {}, 0.05, progetto);
+  const theta = stato.angoli.p1 ?? 0;
+  const fine = [g.cerniera[0] + direzioneAnta(g, theta)[0] * g.larghezza, g.cerniera[1] + direzioneAnta(g, theta)[1] * g.larghezza];
+  assert.ok(distanzaPuntoSegmento(stato.pos, g.cerniera, fine) >= 250 + 20 - 1e-6, `anta sul corpo: theta=${theta}`);
+});
+
+test("sguardo di partenza: guarda verso lo spazio libero, non verso un muro vicino", () => {
+  const p = posizioneIniziale(progetto);
+  const obst = ostacoli(progetto, {});
+  const d = vettoreSguardo(p.yaw, 0);
+  // la distanza libera nella direzione scelta deve essere almeno quella di un passo di camminata
+  let libero = 0;
+  for (let k = 50; k <= 2000; k += 50) {
+    const q = [p.pos[0] + d[0] * k, p.pos[1] + d[1] * k];
+    if (obst.some((o) => distanzaPuntoSegmento(q, o.a, o.b) < o.r + 30)) break;
+    libero = k;
+  }
+  assert.ok(libero >= 1000, `sguardo verso un muro a ${libero} mm`);
+});

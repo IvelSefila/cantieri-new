@@ -6,7 +6,6 @@ import * as THREE from "three";
 import { ALTEZZA_OCCHI_MM, statoPasseggiata, aggiornaPasseggiata, vettoreSguardo, geometriaPorta, direzioneAnta } from "../core/passeggiata.js";
 
 const MM = 0.001;
-const SPESSORE_ANTA_MM = 40;
 const LIMITE_PITCH = 1.2;
 const SENSIBILITA_MOUSE = 0.004;
 const VELOCITA_GIRO_RAD_S = 1.8;
@@ -27,31 +26,32 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
   let ultimo = 0;
   let trascino = null;
   const tasti = new Set();
-  const materiale = new THREE.MeshStandardMaterial({ color: 0xe9e4da, roughness: 0.6 });
 
-  function costruisciAnte() {
+  // Ante reali: le stesse parti dell'infisso montato (costruisciAnta), ruotate attorno alla cerniera.
+  // Il perno sta sulla cerniera; il pezzo e' riportato in coordinate relative al perno.
+  function costruisciAnte(porteInfisso, costruisciAnta) {
     ante = new THREE.Group();
-    for (const o of progetto.openings) {
-      if (o.type !== "porta") continue;
-      const w = progetto.walls.find((x) => x.id === o.wall);
-      if (!w) continue;
-      const g = geometriaPorta(o, w);
-      const geo = new THREE.BoxGeometry(o.width * MM, o.height * MM, SPESSORE_ANTA_MM * MM);
-      geo.translate((o.width * MM) / 2, (o.height * MM) / 2, 0);
-      const mesh = new THREE.Mesh(geo, materiale);
-      mesh.position.set(g.cerniera[0] * MM, 0, g.cerniera[1] * MM);
-      mesh.userData = { id: o.id, g };
-      ante.add(mesh);
+    for (const d of porteInfisso) {
+      const g = geometriaPorta(d.op, d.wall);
+      const cerniera = new THREE.Vector3(g.cerniera[0] * MM, 0, g.cerniera[1] * MM);
+      const pezzo = costruisciAnta(d);
+      pezzo.position.sub(cerniera);
+      const perno = new THREE.Group();
+      perno.position.copy(cerniera);
+      perno.add(pezzo);
+      perno.userData = { id: d.op.id, g, phi: Math.atan2(g.u[1], g.u[0]), segno: g.cardine === "b" ? -1 : 1 };
+      ante.add(perno);
     }
     scene.add(ante);
   }
 
+  // Rotazione del perno: la lama del pezzo (asse X) va nella direzione dell'anta aperta, a partire dalla posizione chiusa
   function aggiornaAnte() {
     if (!ante) return;
-    for (const mesh of ante.children) {
-      const { g } = mesh.userData;
-      const d = direzioneAnta(g, stato.angoli[mesh.userData.id] ?? 0);
-      mesh.rotation.y = Math.atan2(-d[1], d[0]);
+    for (const perno of ante.children) {
+      const { g, phi, id, segno } = perno.userData;
+      const d = direzioneAnta(g, stato.angoli[id] ?? 0);
+      perno.rotation.y = Math.atan2(-segno * d[1], segno * d[0]) + phi;
     }
   }
 
@@ -97,11 +97,12 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
     onRichiesta?.();
   }
 
-  function avvia(p) {
+  // porteInfisso: [{ op, wall, parti }] delle sole porte con infisso montato; costruisciAnta(d) restituisce il gruppo dell'anta
+  function avvia(p, porteInfisso = [], costruisciAnta = () => new THREE.Group()) {
     if (attiva) return;
     progetto = p;
     stato = statoPasseggiata(p);
-    costruisciAnte();
+    costruisciAnte(porteInfisso, costruisciAnta);
     attiva = true;
     controls.enabled = false;
     ultimo = performance.now();
@@ -132,7 +133,6 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
     dom.removeEventListener("pointerup", puntatoreSu);
     dom.removeEventListener("pointercancel", puntatoreSu);
     if (ante) {
-      for (const mesh of ante.children) mesh.geometry.dispose();
       ante.removeFromParent();
       ante = null;
     }

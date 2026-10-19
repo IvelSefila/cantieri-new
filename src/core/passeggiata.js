@@ -14,8 +14,8 @@ export const VELOCITA_MM_S = 1800;
 export const VELOCITA_CORSA_MM_S = 3000;
 export const APERTURA_MAX_RAD = (95 * Math.PI) / 180;
 export const VELOCITA_APERTURA_RAD_S = (150 * Math.PI) / 180;
-const APRI_DENTRO_MM = 1000; // la porta si apre quando ci si avvicina entro questa distanza dal vano
-const CHIUDI_OLTRE_MM = 1700; // e si richiude quando ci si allontana oltre questa distanza
+const APRI_DENTRO_MM = 2000; // la porta comincia ad aprirsi quando ci si avvicina entro questa distanza dal centro del vano
+const CHIUDI_OLTRE_MM = 2600; // e si richiude quando ci si allontana oltre questa distanza
 const RITARDO_CHIUSURA_S = 1.5;
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
@@ -76,7 +76,8 @@ export function ostacoli(progetto, stato = {}) {
     if (cursore < L) out.push({ tipo: "muro", id: w.id, a: add(w.a, mul(u, cursore)), b: w.b, r: w.t / 2 });
   }
   for (const o of progetto.openings) {
-    if (o.type === "porta") {
+    // senzaAnta: vano aperto senza infisso, passaggio libero. Le porte fisse (fisso) restano chiuse e bloccano.
+    if (o.type === "porta" && !o.senzaAnta) {
       const w = progetto.walls.find((x) => x.id === o.wall);
       if (!w) continue;
       const g = geometriaPorta(o, w);
@@ -133,10 +134,9 @@ export function aggiornaPorte(porte, pos, angoli, timer, dt) {
   const nuoviTimer = { ...timer };
   for (const g of porte) {
     const dx = pos[0] - g.centro[0], dy = pos[1] - g.centro[1];
-    const lungo = Math.abs(dot([dx, dy], g.u));
-    const perp = Math.abs(dot([dx, dy], g.n));
-    const vicino = lungo <= g.larghezza / 2 + APRI_DENTRO_MM && perp <= APRI_DENTRO_MM;
-    const lontano = len([dx, dy]) > CHIUDI_OLTRE_MM;
+    const distanza = len([dx, dy]);
+    const vicino = distanza <= APRI_DENTRO_MM;
+    const lontano = distanza > CHIUDI_OLTRE_MM;
     let target = nuovi[g.id] ?? 0;
     if (vicino) { target = APERTURA_MAX_RAD; nuoviTimer[g.id] = RITARDO_CHIUSURA_S; }
     else if (lontano || (nuoviTimer[g.id] ?? 0) > 0) {
@@ -154,11 +154,42 @@ export function aggiornaPorte(porte, pos, angoli, timer, dt) {
 export function porteDelProgetto(progetto) {
   const out = [];
   for (const o of progetto.openings) {
-    if (o.type !== "porta") continue;
+    if (o.type !== "porta" || o.senzaAnta || o.fisso) continue;
     const w = progetto.walls.find((x) => x.id === o.wall);
     if (w) out.push(geometriaPorta(o, w));
   }
   return out;
+}
+
+// Distanza libera (mm) lungo una direzione dalla posizione, fino al primo ostacolo o al limite
+function distanzaLibera(pos, dir, obst, limite = 8000, passo_ = 50) {
+  for (let d = passo_; d <= limite; d += passo_) {
+    const p = add(pos, mul(dir, d));
+    if (obst.some((o) => distanzaPuntoSegmento(p, o.a, o.b) < o.r + 30)) return d - passo_;
+  }
+  return limite;
+}
+
+// Sguardo di partenza: la direzione piu' vicina al centro dell'edificio che abbia almeno 1 m libero davanti;
+// se nessuna la ha, quella con piu' spazio libero. Cosi' non si parte di fronte a un muro.
+function sguardoLibero(pos, obst, centro) {
+  const verso = sub(centro, pos);
+  const base = len(verso) > 1 ? Math.atan2(verso[0], verso[1]) : 0;
+  // scostamenti dal centro, dal piu' vicino: 0, +-22,5, +-45, ... fino a 180 gradi
+  const scostamenti = Array.from({ length: 17 }, (_, k) => (k * Math.PI) / 8).sort((a, b) => a - b);
+  const candidati = [];
+  for (const s of scostamenti) { candidati.push(base + s); if (s) candidati.push(base - s); }
+  candidati.sort((a, b) => Math.abs(Math.atan2(Math.sin(a - base), Math.cos(a - base))) - Math.abs(Math.atan2(Math.sin(b - base), Math.cos(b - base))));
+  for (const yaw of candidati) {
+    if (distanzaLibera(pos, [Math.sin(yaw), Math.cos(yaw)], obst) >= 1000) return yaw;
+  }
+  let migliore = base;
+  let migliore_d = -1;
+  for (const yaw of candidati) {
+    const d = distanzaLibera(pos, [Math.sin(yaw), Math.cos(yaw)], obst);
+    if (d > migliore_d) { migliore_d = d; migliore = yaw; }
+  }
+  return migliore;
 }
 
 // Punto di partenza: davanti al vano piu' vicino al centro dell'edificio, dal lato dell'edificio (o l'origine se non ci sono muri).
@@ -169,14 +200,23 @@ export function posizioneIniziale(progetto) {
   const ys = progetto.walls.flatMap((w) => [w.a[1], w.b[1]]);
   const c = [(Math.min(...xs) + Math.max(...xs)) / 2, (Math.min(...ys) + Math.max(...ys)) / 2];
   const porte = porteDelProgetto(progetto);
+  const obst = ostacoli(progetto, {});
+  // Il punto di partenza non deve stare dentro un muro (o a meno del raggio del corpo da esso)
+  const libero = (p) => obst.every((o) => distanzaPuntoSegmento(p, o.a, o.b) >= RAGGIO_CORPO_MM + o.r);
   if (!porte.length) return { pos: c, yaw: 0 };
-  const g = porte.reduce((m, x) => (len(sub(x.centro, c)) < len(sub(m.centro, c)) ? x : m));
-  const lato = dot(sub(c, g.centro), g.n) >= 0 ? 1 : -1;
-  const pos = add(g.centro, mul(g.n, lato * 800));
-  // lo sguardo parte verso l'interno dell'edificio, non verso un muro esterno
-  const verso = sub(c, pos);
-  const yaw = len(verso) > 1 ? Math.atan2(verso[0], verso[1]) : 0;
-  return { pos, yaw };
+  // Vani in ordine di vicinanza al centro; per ciascuno si prova il lato interno, poi l'esterno, a distanze crescenti
+  const ordinate = [...porte].sort((p, q) => len(sub(p.centro, c)) - len(sub(q.centro, c)));
+  for (const g of ordinate) {
+    const lato0 = dot(sub(c, g.centro), g.n) >= 0 ? 1 : -1;
+    for (const lato of [lato0, -lato0]) {
+      for (const d of [800, 1000, 1300, 1600]) {
+        const pos = add(g.centro, mul(g.n, lato * d));
+        if (!libero(pos)) continue;
+        return { pos, yaw: sguardoLibero(pos, obst, c) };
+      }
+    }
+  }
+  return { pos: c, yaw: 0 };
 }
 
 // Vettore di sguardo unitario [x, y, z] del piano (x, y in mm e z in altezza): yaw sul piano, pitch verso l'alto
@@ -196,6 +236,16 @@ export function statoPasseggiata(progetto) {
 export function aggiornaPasseggiata(stato, input, dt, progetto) {
   const obst = ostacoli(progetto, stato.angoli);
   const mosso = passo(stato, input, dt, obst);
-  const r = aggiornaPorte(porteDelProgetto(progetto), mosso.pos, stato.angoli, stato.timer, dt);
-  return { ...mosso, angoli: r.angoli, timer: r.timer };
+  const porte = porteDelProgetto(progetto);
+  const r = aggiornaPorte(porte, mosso.pos, stato.angoli, stato.timer, dt);
+  // Un'anta che si apre non puo' investire chi sta passando: se l'anta nuova toccherebbe il corpo, resta com'era
+  const angoli = { ...r.angoli };
+  for (const g of porte) {
+    const nuovo = angoli[g.id] ?? 0;
+    const prima = stato.angoli[g.id] ?? 0;
+    if (nuovo === prima) continue;
+    const fine = add(g.cerniera, mul(direzioneAnta(g, nuovo), g.larghezza));
+    if (distanzaPuntoSegmento(mosso.pos, g.cerniera, fine) < RAGGIO_CORPO_MM + 20) angoli[g.id] = prima;
+  }
+  return { ...mosso, angoli, timer: r.timer };
 }
