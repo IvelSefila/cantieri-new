@@ -43,7 +43,7 @@ function flussoArredo(mostraRisultato) {
     const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
     const span = Math.max(x1 - x0, y1 - y0);
     stato.viewer.volaA({
-      camera: [Math.round(cx), Math.round(cy) + 1, Math.round(span * 1.15 + 3000)], // +1 mm: evita il polo della camera
+      camera: [Math.round(cx), Math.round(cy) + 1, Math.round(span * 2.2 + 4000)], // piu' lontano: tutta la planimetria visibile e prospettiva minima // +1 mm: evita il polo della camera
       bersaglio: [Math.round(cx + span * 0.35), Math.round(cy), 0], // il bersaglio spostato a destra porta la planimetria a sinistra
     });
   }
