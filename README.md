@@ -89,3 +89,9 @@ I test verificano: precisione al mm (pieni + vani = lunghezza del muro), nessuna
 
 - **Semplice**: controlli essenziali (progetto, costruzione, vista, stile). **Architetto**: aggiunge importazione DXF, tracciamento, elenco vani e statistiche di resa.
 - **Qualità di resa**: automatica (sceglie in base a core, memoria e GPU), oppure basso / medio / alto. La scena si ridisegna solo quando cambia qualcosa.
+
+## Nessuna connessione esterna
+
+- Three.js è incluso nel sito (`vendor/three`), non viene caricato da internet.
+- La pagina dichiara una politica di sicurezza (Content Security Policy) che consente solo file del sito: nessun server, nessun dato in uscita, nessun accesso alla rete locale.
+- Verificato con tutte le richieste esterne bloccate: la pagina funziona e disegna il modello.
