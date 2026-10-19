@@ -1,7 +1,8 @@
 // Vista Three.js ottimizzata. Il modello in mm viene reso con poche chiamate di disegno:
 //  - una InstancedMesh per tipo di elemento (muri, vetri, arredi...) invece di una mesh per scatola;
 //  - rendering su richiesta: nessun frame se la scena e' ferma;
-//  - livelli di qualita' rilevati dal dispositivo (basso / medio / alto), cambiabili dall'utente.
+//  - livelli di qualita' rilevati dal dispositivo (basso / medio / alto), cambiabili dall'utente;
+//  - stili di resa: ognuno cambia materiali, sfondo, luci e (se serve) i contorni.
 // Clic e hover restituiscono il punto del piano in mm e l'elemento colpito (instanceId -> scatola).
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -13,9 +14,9 @@ const TAGLIO_DOLLHOUSE_MM = 1300;
 
 // Livelli di qualita'. "auto" sceglie in base a core, memoria e capacita' della GPU.
 export const QUALITA = {
-  basso: { dpr: 1, ombre: 512, ambiente: false, antialias: false, nebbia: true },
-  medio: { dpr: 1.5, ombre: 1024, ambiente: true, antialias: true, nebbia: true },
-  alto: { dpr: 2, ombre: 2048, ambiente: true, antialias: true, nebbia: true },
+  basso: { dpr: 1, ombre: 512, ambiente: false, nebbia: true },
+  medio: { dpr: 1.5, ombre: 1024, ambiente: true, nebbia: true },
+  alto: { dpr: 2, ombre: 2048, ambiente: true, nebbia: true },
 };
 
 export function qualitaAutomatica(gl, navigatore = globalThis.navigator) {
@@ -27,16 +28,29 @@ export function qualitaAutomatica(gl, navigatore = globalThis.navigator) {
   return "alto";
 }
 
-// Sfondo a gradiente verticale (texture su canvas, costo quasi nullo).
-function sfondoGradiente() {
+// Catalogo degli stili, nell'ordine del menu (dal realistico allo stilizzato).
+export const STILI = {
+  solido: { nome: "Solido", sfondo: ["#1b2440", "#2a3658", "#0b1020"], griglia: [0x5b6b8c, 0x2c3652], sole: 2.4, cielo: 0.45 },
+  argilla: { nome: "Argilla", modo: "argilla", sfondo: ["#f5f7fb", "#e4e9f2", "#c9d1de"], griglia: [0xa9b3c4, 0xd5dce8], sole: 2.6, cielo: 0.9 },
+  dollhouse: { nome: "Dollhouse 1,30 m", dollhouse: true, sfondo: ["#1b2440", "#2a3658", "#0b1020"], griglia: [0x5b6b8c, 0x2c3652], sole: 2.4, cielo: 0.45 },
+  "iso-dollhouse": { nome: "Isometrico dollhouse", dollhouse: true, iso: true, sfondo: ["#1b2440", "#2a3658", "#0b1020"], griglia: [0x5b6b8c, 0x2c3652], sole: 2.4, cielo: 0.45 },
+  vetro: { nome: "Vetro (contorni)", modo: "vetro", contorni: 0x0f172a, sfondo: ["#1b2440", "#2a3658", "#0b1020"], griglia: [0x5b6b8c, 0x2c3652], sole: 2.4, cielo: 0.45 },
+  "vetro-dollhouse": { nome: "Vetro + dollhouse", modo: "vetro", dollhouse: true, contorni: 0x0f172a, sfondo: ["#1b2440", "#2a3658", "#0b1020"], griglia: [0x5b6b8c, 0x2c3652], sole: 2.4, cielo: 0.45 },
+  "ultra-glass": { nome: "Ultra glass", modo: "ultra", sfondo: ["#1b2440", "#2a3658", "#0b1020"], griglia: [0x5b6b8c, 0x2c3652], sole: 2.4, cielo: 0.45 },
+  blueprint: { nome: "Blueprint", modo: "blueprint", contorni: 0xffffff, sfondo: ["#0a2a66", "#0f3d8f", "#082049"], griglia: [0x6fa8ff, 0x2f5fb8], sole: 0, cielo: 1.1, ombre: false, piano: 0 },
+  notte: { nome: "Notte", modo: "notte", sfondo: ["#05070d", "#0c1222", "#02030a"], griglia: [0x2a3550, 0x141b2e], sole: 0.35, cielo: 0.18 },
+  neon: { nome: "Neon", modo: "neon", contorni: "neon", sfondo: ["#06070d", "#0b1024", "#020208"], griglia: [0x233a66, 0x101a33], sole: 0.6, cielo: 0.25 },
+};
+
+function gradienteSfondo(colori) {
   const c = document.createElement("canvas");
   c.width = 4;
   c.height = 256;
   const ctx = c.getContext("2d");
   const g = ctx.createLinearGradient(0, 0, 0, 256);
-  g.addColorStop(0, "#1b2440");
-  g.addColorStop(0.55, "#2a3658");
-  g.addColorStop(1, "#0b1020");
+  g.addColorStop(0, colori[0]);
+  g.addColorStop(0.55, colori[1]);
+  g.addColorStop(1, colori[2]);
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, 4, 256);
   const t = new THREE.CanvasTexture(c);
@@ -56,16 +70,24 @@ export function createViewer(container) {
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.background = sfondoGradiente();
   scene.fog = new THREE.Fog(0x1b2440, 70, 170);
+  const sfondi = new Map();
+  function sfondoPer(id) {
+    const cfg = STILI[id];
+    const chiave = cfg.sfondo.join();
+    if (!sfondi.has(chiave)) sfondi.set(chiave, gradienteSfondo(cfg.sfondo));
+    return sfondi.get(chiave);
+  }
 
   const pmrem = new THREE.PMREMGenerator(renderer);
   const ambiente = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
-  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 500);
-  camera.position.set(20, 26, 30);
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
+  const TARGET = new THREE.Vector3(11, 1.2, 7);
+  const POSIZIONE_LIBERA = new THREE.Vector3(20, 26, 30);
+  camera.position.copy(POSIZIONE_LIBERA);
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.target.set(11, 1.2, 7);
+  controls.target.copy(TARGET);
   controls.enableDamping = true;
   controls.maxPolarAngle = Math.PI * 0.49;
 
@@ -75,12 +97,11 @@ export function createViewer(container) {
   sole.shadow.bias = -0.0004;
   sole.shadow.normalBias = 0.02;
   sole.shadow.radius = 3;
-  Object.assign(sole.shadow.camera, { left: -28, right: 28, top: 28, bottom: -28, near: 1, far: 120 });
+  Object.assign(sole.shadow.camera, { left: -28, right: 28, top: 28, bottom: -28, near: 1, far: 160 });
   scene.add(sole);
   const cielo = new THREE.HemisphereLight(0xdfe8ff, 0x2b3142, 0.45);
   scene.add(cielo);
 
-  // Griglia sfumata: visibile vicino al centro, dissolta lontano.
   const griglia = new THREE.GridHelper(80, 80, 0x5b6b8c, 0x2c3652);
   griglia.position.y = 0.001;
   griglia.material.transparent = true;
@@ -98,39 +119,62 @@ export function createViewer(container) {
   const texMarmo = marmo();
   const taglio = [new THREE.Plane(new THREE.Vector3(0, -1, 0), TAGLIO_DOLLHOUSE_MM * MM_TO_M)];
 
-  let stile = { vetro: false, dollhouse: false, ultra: false };
+  let stileId = "solido";
+  let cfg = STILI.solido;
   let ultime = [];
   let gruppo = new THREE.Group();
   scene.add(gruppo);
   let pickHandler = null;
   let hoverHandler = null;
+  let richiesta = true;
+  let frame = 0;
+  let fpsMisura = { t: performance.now(), n: 0, fps: 0 };
+  let vistaIso = false;
 
-  // Stile "Ultra glass": vetro lattiginoso senza contorni. Con qualita' alta usa la trasmissione reale.
-  function materialeUltraGlass(kind) {
-    const base = { clippingPlanes: stile.dollhouse ? taglio : null, clipShadows: stile.dollhouse };
+  const clip = () => (cfg.dollhouse ? taglio : null);
+
+  function materialeUltra(kind) {
     const tinta = kind === "pavimento" ? 0xe8efff : kind === "arredo" ? 0xffffff : 0xdfeaff;
     const alta = livello === "alto";
     return new THREE.MeshPhysicalMaterial({
-      ...base,
-      color: tinta,
-      roughness: 0.06,
-      metalness: 0,
-      clearcoat: 1,
-      clearcoatRoughness: 0.05,
-      ior: 1.45,
-      transparent: !alta,
-      opacity: alta ? 1 : 0.2,
-      transmission: alta ? 0.92 : 0,
-      thickness: alta ? 0.25 : 0,
-      depthWrite: false,
-      envMapIntensity: 1.4,
+      clippingPlanes: clip(), clipShadows: !!cfg.dollhouse, color: tinta, roughness: 0.06, metalness: 0,
+      clearcoat: 1, clearcoatRoughness: 0.05, ior: 1.45,
+      transparent: !alta, opacity: alta ? 1 : 0.2, transmission: alta ? 0.92 : 0, thickness: alta ? 0.25 : 0,
+      depthWrite: false, envMapIntensity: 1.4,
     });
   }
 
-  // Materiale per gruppo di elementi.
-  function materialeGruppo(kind) {
-    if (stile.ultra) return materialeUltraGlass(kind);
-    const base = { clippingPlanes: stile.dollhouse ? taglio : null, clipShadows: stile.dollhouse };
+  function materialeBlueprint() {
+    return new THREE.MeshBasicMaterial({ clippingPlanes: clip(), color: 0x1e5fd6, transparent: true, opacity: 0.2, depthWrite: false });
+  }
+
+  function materialeNeon(kind) {
+    return new THREE.MeshStandardMaterial({
+      clippingPlanes: clip(), color: kind === "pavimento" ? 0x101a36 : 0x0b1024,
+      roughness: 0.7, transparent: true, opacity: kind === "vetro" ? 0.12 : 0.3, depthWrite: false,
+    });
+  }
+
+  function materialeNotte(kind) {
+    switch (kind) {
+      case "vetro":
+        return new THREE.MeshStandardMaterial({ clippingPlanes: clip(), color: 0xffd9a0, emissive: 0xffb24d, emissiveIntensity: 1.3, transparent: true, opacity: 0.7, depthWrite: false });
+      case "pavimento":
+        return new THREE.MeshStandardMaterial({ clippingPlanes: clip(), map: texParquet, color: 0x6b5a48, roughness: 0.6 });
+      case "arredo":
+        return new THREE.MeshStandardMaterial({ clippingPlanes: clip(), color: 0x2a2f3c, roughness: 0.8 });
+      default:
+        return new THREE.MeshStandardMaterial({ clippingPlanes: clip(), color: 0x343a4c, emissive: 0x1f1408, emissiveIntensity: 0.4, roughness: 0.9 });
+    }
+  }
+
+  function materialeArgilla() {
+    return new THREE.MeshStandardMaterial({ clippingPlanes: clip(), clipShadows: !!cfg.dollhouse, color: 0xf2efe9, roughness: 1, metalness: 0 });
+  }
+
+  // Materiali standard (solido, dollhouse, vetro)
+  function materialeStandard(kind) {
+    const base = { clippingPlanes: clip(), clipShadows: !!cfg.dollhouse };
     switch (kind) {
       case "vetro":
         return new THREE.MeshPhysicalMaterial({ ...base, color: 0xbfe6f7, transparent: true, opacity: 0.22, roughness: 0.04, metalness: 0, clearcoat: 1, depthWrite: false });
@@ -144,12 +188,33 @@ export function createViewer(container) {
         return new THREE.MeshStandardMaterial({ ...base, color: 0xd0d5dc, roughness: 0.25, metalness: 0.9 });
       case "arredo":
         return new THREE.MeshStandardMaterial({ ...base, color: 0xffffff, roughness: 0.7 });
-      default: // muri
+      default:
         return new THREE.MeshStandardMaterial({
           ...base, color: 0xf6f4ef, map: texIntonaco, roughness: 0.92,
-          transparent: stile.vetro, opacity: stile.vetro ? 0.4 : 1, depthWrite: !stile.vetro,
+          transparent: cfg.modo === "vetro", opacity: cfg.modo === "vetro" ? 0.4 : 1, depthWrite: cfg.modo !== "vetro",
         });
     }
+  }
+
+  function materialeGruppo(kind) {
+    switch (cfg.modo) {
+      case "ultra": return materialeUltra(kind);
+      case "blueprint": return materialeBlueprint();
+      case "neon": return materialeNeon(kind);
+      case "notte": return materialeNotte(kind);
+      case "argilla": return materialeArgilla();
+      default: return materialeStandard(kind);
+    }
+  }
+
+  // Colore dei contorni per tipo di elemento (solo stili con contorni)
+  function coloreContorno(kind, base) {
+    if (cfg.contorni === "neon") {
+      if (kind === "vetro") return 0xffc44d;
+      if (kind.startsWith("muro")) return 0x3ddcf7;
+      return 0x9bd6ff;
+    }
+    return base;
   }
 
   const unitaria = new THREE.BoxGeometry(1, 1, 1);
@@ -158,6 +223,7 @@ export function createViewer(container) {
   const scala = new THREE.Vector3();
   const pos = new THREE.Vector3();
   const colore = new THREE.Color();
+  const asseY = new THREE.Vector3(0, 1, 0);
 
   function resize() {
     const w = container.clientWidth;
@@ -168,10 +234,7 @@ export function createViewer(container) {
     richiesta = true;
   }
 
-  // Rendering su richiesta: si disegna solo se qualcosa e' cambiato (camera, modello, stile, resize).
-  let richiesta = true;
-  let frame = 0;
-  let fpsMisura = { t: performance.now(), n: 0, fps: 0 };
+  // Rendering su richiesta: si disegna solo se qualcosa e' cambiato.
   function ciclo() {
     frame = requestAnimationFrame(ciclo);
     const cambiata = controls.update();
@@ -193,7 +256,6 @@ export function createViewer(container) {
     livello = nome === "auto" ? qualitaAutomatica(renderer.getContext()) : nome;
     const q = QUALITA[livello] ?? QUALITA.medio;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, q.dpr));
-    renderer.shadowMap.enabled = true;
     sole.shadow.mapSize.set(q.ombre, q.ombre);
     if (sole.shadow.map) { sole.shadow.map.dispose(); sole.shadow.map = null; }
     scene.environment = q.ambiente ? ambiente : null;
@@ -201,6 +263,39 @@ export function createViewer(container) {
     scene.fog.near = q.nebbia ? 70 : 500;
     resize();
     richiesta = true;
+  }
+
+  // Vista isometrica: prospettiva a campo stretto, quasi ortogonale. Vista libera: ritorna alla prospettiva.
+  function applicaVista() {
+    if (cfg.iso && !vistaIso) vistaIso = true;
+    else if (!cfg.iso && vistaIso) vistaIso = false;
+    if (vistaIso) {
+      camera.fov = 9;
+      camera.position.copy(TARGET).add(new THREE.Vector3(1, 0.9, 1).normalize().multiplyScalar(260));
+    } else {
+      camera.fov = 42;
+      camera.position.copy(POSIZIONE_LIBERA);
+    }
+    controls.target.copy(TARGET);
+    camera.updateProjectionMatrix();
+    controls.update();
+    richiesta = true;
+  }
+
+  // Applica lo stile: sfondo, griglia, luci, piano delle ombre, poi ridisegna il modello.
+  function applicaStile(id) {
+    stileId = id in STILI ? id : "solido";
+    cfg = STILI[stileId];
+    scene.background = sfondoPer(stileId);
+    scene.fog.color.set(cfg.sfondo[1]);
+    griglia.material.color.set(cfg.griglia[0]);
+    griglia.material.opacity = cfg.modo === "blueprint" ? 0.8 : 0.55;
+    sole.intensity = cfg.sole;
+    cielo.intensity = cfg.cielo;
+    sole.castShadow = cfg.ombre !== false;
+    piano.material.opacity = cfg.piano ?? 0.28;
+    applicaVista();
+    setBoxes(ultime);
   }
 
   // Clic senza trascinamento: punto del piano in mm + elemento colpito.
@@ -259,48 +354,53 @@ export function createViewer(container) {
     });
     gruppo = new THREE.Group();
 
-    // raggruppa per tipo: una InstancedMesh per gruppo
+    // una InstancedMesh per tipo di elemento
     const gruppi = new Map();
     for (const b of boxes) {
       const k = b.kind.startsWith("muro") ? "muro" : b.kind;
       if (!gruppi.has(k)) gruppi.set(k, []);
       gruppi.get(k).push(b);
     }
-    const bordi = [];
+    const perColore = new Map(); // colore contorno -> scatole
     for (const [kind, lista] of gruppi) {
       const mesh = new THREE.InstancedMesh(unitaria, materialeGruppo(kind), lista.length);
-      mesh.castShadow = kind !== "vetro";
+      mesh.castShadow = kind !== "vetro" && cfg.ombre !== false;
       mesh.receiveShadow = true;
       mesh.userData = { kind, scatole: lista.map((b) => ({ id: b.id, kind: b.kind, wall: b.wall })) };
+      const coloriArredo = cfg.modo !== "argilla";
       lista.forEach((b, i) => {
         scala.set(b.L * MM_TO_M, b.H * MM_TO_M, b.D * MM_TO_M);
         pos.set(b.cx * MM_TO_M, b.cz * MM_TO_M, b.cy * MM_TO_M);
-        quat.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -b.ang);
+        quat.setFromAxisAngle(asseY, -b.ang);
         mat4.compose(pos, quat, scala);
         mesh.setMatrixAt(i, mat4);
-        if (kind === "arredo" || (kind === "pavimento" && b.colore)) {
+        if (coloriArredo && (kind === "arredo" || (kind === "pavimento" && b.colore && cfg.modo !== "notte"))) {
           colore.setRGB(b.colore[0] / 255, b.colore[1] / 255, b.colore[2] / 255);
           if (kind === "pavimento") colore.set(0xffffff);
           mesh.setColorAt(i, colore);
         }
-        if (stile.vetro && !stile.ultra && kind !== "vetro") bordi.push(b);
+        if (cfg.contorni) {
+          const c = coloreContorno(kind, cfg.contorni);
+          if (!perColore.has(c)) perColore.set(c, []);
+          perColore.get(c).push(b);
+        }
       });
       mesh.instanceMatrix.needsUpdate = true;
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
       gruppo.add(mesh);
     }
 
-    // contorni per lo stile vetro: un'unica LineSegments con i 12 spigoli di ogni scatola
-    if (bordi.length) {
+    // contorni: una LineSegments per colore, con i 12 spigoli di ogni scatola
+    for (const [colore, lista] of perColore) {
       const pts = [];
       const v = new THREE.Vector3();
       const corners = [];
-      for (const b of bordi) {
+      const idx = [[0,1],[2,3],[4,5],[6,7],[0,2],[1,3],[4,6],[5,7],[0,4],[1,5],[2,6],[3,7]];
+      for (const b of lista) {
         const hx = (b.L * MM_TO_M) / 2, hy = (b.H * MM_TO_M) / 2, hz = (b.D * MM_TO_M) / 2;
         corners.length = 0;
         for (const sx of [-1, 1]) for (const sy of [-1, 1]) for (const sz of [-1, 1]) corners.push([sx * hx, sy * hy, sz * hz]);
-        const idx = [[0,1],[2,3],[4,5],[6,7],[0,2],[1,3],[4,6],[5,7],[0,4],[1,5],[2,6],[3,7]];
-        const q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -b.ang);
+        const q = new THREE.Quaternion().setFromAxisAngle(asseY, -b.ang);
         for (const [i, j] of idx) {
           for (const c of [corners[i], corners[j]]) {
             v.set(c[0], c[1], c[2]).applyQuaternion(q).add(new THREE.Vector3(b.cx * MM_TO_M, b.cz * MM_TO_M, b.cy * MM_TO_M));
@@ -310,18 +410,19 @@ export function createViewer(container) {
       }
       const geo = new THREE.BufferGeometry();
       geo.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
-      const lin = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ color: 0x0f172a, transparent: true, opacity: 0.5, clippingPlanes: stile.dollhouse ? taglio : null }));
-      gruppo.add(lin);
+      const neon = cfg.contorni === "neon";
+      const mat = new THREE.LineBasicMaterial({
+        color: colore, transparent: true, opacity: neon ? 0.95 : cfg.modo === "blueprint" ? 0.85 : 0.5,
+        blending: neon ? THREE.AdditiveBlending : THREE.NormalBlending, depthWrite: false,
+        clippingPlanes: clip(),
+      });
+      gruppo.add(new THREE.LineSegments(geo, mat));
     }
     scene.add(gruppo);
     richiesta = true;
   }
 
-  // Stile: "solido" | "vetro" | "dollhouse" | "vetro-dollhouse".
-  function setStile(nome) {
-    stile = { vetro: nome.includes("vetro"), dollhouse: nome.includes("dollhouse"), ultra: nome === "ultra-glass" };
-    setBoxes(ultime);
-  }
+  function setStile(id) { applicaStile(id); }
 
   function setPickHandler(fn) { pickHandler = fn; }
   function setHoverHandler(fn) { hoverHandler = fn; }
@@ -331,10 +432,11 @@ export function createViewer(container) {
     gruppo.traverse((o) => {
       if (o.isInstancedMesh) { chiamate++; triangoli += o.count * 12; }
     });
-    return { livello, fps: fpsMisura.fps, chiamate, triangoli, scatole: ultime.length };
+    return { livello, stile: stileId, fps: fpsMisura.fps, chiamate, triangoli, scatole: ultime.length };
   }
 
   applicaLivello("auto");
+  applicaStile("solido");
   resize();
   ciclo();
 

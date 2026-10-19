@@ -303,10 +303,15 @@ function costruisciPannello() {
   const stileBox = document.createElement("div");
   stileBox.innerHTML = `<div>Stile di resa:</div><select id="stile">
         <option value="solido">1. Solido (realistico)</option>
-        <option value="dollhouse">2. Dollhouse 1,30 m</option>
-        <option value="vetro">3. Vetro (contorni)</option>
-        <option value="vetro-dollhouse">4. Vetro + dollhouse</option>
-        <option value="ultra-glass">5. Ultra glass (senza contorni)</option>
+        <option value="argilla">2. Argilla (modello bianco)</option>
+        <option value="dollhouse">3. Dollhouse 1,30 m</option>
+        <option value="iso-dollhouse">4. Isometrico dollhouse</option>
+        <option value="vetro">5. Vetro (contorni)</option>
+        <option value="vetro-dollhouse">6. Vetro + dollhouse</option>
+        <option value="ultra-glass">7. Ultra glass (senza contorni)</option>
+        <option value="blueprint">8. Blueprint (cianografia)</option>
+        <option value="notte">9. Notte (luci calde)</option>
+        <option value="neon">10. Neon (contorni luminosi)</option>
       </select>`;
   $("sez-stile").appendChild(stileBox);
 
