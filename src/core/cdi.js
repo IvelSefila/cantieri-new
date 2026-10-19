@@ -26,13 +26,15 @@ function meta(kind, id, b) {
 // REGOLA DI PROGETTO (permanente): il materiale di un vano e' quello dichiarato nel modello.
 // Se non e' dichiarato: le porte sono in legno, le finestre e le vetrate in vetro.
 // Il vetro non si assegna mai a una porta da solo.
-export const MATERIALI_VANO = ["legno", "vetro"];
+// La planimetria prevale: se il materiale e' dichiarato, si usa quello (es. vetro fume' per lo scrigno).
+export const MATERIALI_VANO = ["legno", "vetro", "vetro_fume"];
 export function materialeVano(op) {
   if (op.materiale) return op.materiale;
   return op.type === "porta" ? "legno" : "vetro";
 }
 
 export const PROFILO_PORTA_LEGNO_MM = 40; // telaio sottile
+export const PROFILO_SCRIGNO_MM = 30;     // profilo sottile della porta scrigno
 export const ANTA_LEGNO_MM = 40;
 export const MANIGLIA_VERTICALE_MM = 25;
 
@@ -46,6 +48,19 @@ export function openingLocalBoxes(op, wallT, item) {
   // il tipo del vano (dal modello) prevale sul catalogo: una porta resta una porta
   const tipo = op.type === "porta" ? "porta" : item ? TIPO_PER_CATEGORIA[item.categoria] || op.type : op.type;
   const out = [];
+
+  if (tipo === "porta" && materialeVano(op) === "vetro_fume") {
+    // porta scrigno a scomparsa in vetro fume': due ante di vetro scuro, binario superiore, profilo sottile, nessun davanzale
+    const p = PROFILO_SCRIGNO_MM;
+    const mid = Math.floor(W / 2);
+    out.push(meta("telaio_scrigno", `${op.id}:stipite_sx`, { s0: 0, s1: p, z0, z1, n0: nLo, n1: nHi }));
+    out.push(meta("telaio_scrigno", `${op.id}:stipite_dx`, { s0: W - p, s1: W, z0, z1, n0: nLo, n1: nHi }));
+    out.push(meta("binario", `${op.id}:binario`, { s0: 0, s1: W, z0: z1 - 60, z1, n0: nLo, n1: nHi }));
+    out.push(meta("vetro_fume", `${op.id}:anta_sx`, { s0: p, s1: mid + 10, z0, z1: z1 - 60, n0: -14, n1: 2 }));
+    out.push(meta("vetro_fume", `${op.id}:anta_dx`, { s0: mid - 10, s1: W - p, z0, z1: z1 - 60, n0: -2, n1: 14 }));
+    out.push(meta("maniglia", `${op.id}:maniglia`, { s0: mid - 40, s1: mid - 30, z0: z0 + 900, z1: z0 + 1800, n0: 14, n1: 14 + MANIGLIA_VERTICALE_MM }));
+    return out;
+  }
 
   if (tipo === "porta" && materialeVano(op) === "legno") {
     // porta in legno: telaio sottile, anta piena, maniglia verticale

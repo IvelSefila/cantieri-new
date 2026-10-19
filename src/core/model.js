@@ -46,6 +46,7 @@ export function validatePlan(plan) {
     if (errors.some((e) => e.startsWith(`vano ${o.id}`))) continue;
     const L = wallLengthMm(w);
     if (o.width <= 0 || o.height <= 0) errors.push(`vano ${o.id}: larghezza e altezza > 0`);
+    if (o.materiale !== undefined && !["legno", "vetro", "vetro_fume"].includes(o.materiale)) errors.push(`vano ${o.id}: materiale non ammesso (${o.materiale})`);
     if (o.sill < 0) errors.push(`vano ${o.id}: davanzale negativo`);
     if (o.offset < 0 || o.offset + o.width > L) errors.push(`vano ${o.id}: fuori dal muro ${w.id} (lunghezza ${L} mm)`);
     if (o.sill + o.height > plan.altezza_muri) errors.push(`vano ${o.id}: supera l'altezza dei muri`);

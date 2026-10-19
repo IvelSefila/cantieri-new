@@ -33,3 +33,18 @@ test("il vetro compare solo su finestre e vetrate", () => {
   const boxes = openingLocalBoxes({ ...base, type: "finestra", id: "f", sill: 900, height: 1250 }, wall.t, { categoria: "finestre_pvc" });
   assert.ok(boxes.some((b) => b.kind === "vetro"));
 });
+
+test("vetro fume' dichiarato: scrigno in vetro scuro, profilo sottile, binario, nessun vetro chiaro", () => {
+  const boxes = openingLocalBoxes({ ...base, type: "porta", materiale: "vetro_fume", id: "s", width: 1200 }, wall.t, null);
+  assert.ok(boxes.some((b) => b.kind === "vetro_fume"));
+  assert.ok(!boxes.some((b) => b.kind === "vetro"), "non deve essere vetro chiaro");
+  assert.ok(boxes.some((b) => b.kind === "binario"), "binario superiore");
+  assert.ok(!boxes.some((b) => b.kind === "telaio"), "non deve avere il telaio delle finestre");
+});
+
+test("materiale non ammesso: rifiutato dal validatore", async () => {
+  const { validatePlan } = await import("../src/core/model.js");
+  const p = { schema: 1, unit: "mm", altezza_muri: 2800, walls: [{ id: "w", a: [0, 0], b: [4000, 0], t: 250 }],
+    openings: [{ id: "o", wall: "w", offset: 500, width: 900, height: 2100, sill: 0, type: "porta", materiale: "marmo" }] };
+  assert.equal(validatePlan(p).ok, false);
+});

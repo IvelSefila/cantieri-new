@@ -318,8 +318,8 @@
       "sill": 0,
       "type": "porta",
       "cdi": "porta-battente-rovere",
-      "nota": "Scrigno cucina B: porta in legno (regola: vetro solo se dichiarato)",
-      "materiale": "legno"
+      "nota": "Scrigno cucina B: scrigno a scomparsa doppio binario in vetro fume' (da planimetria AR-02)",
+      "materiale": "vetro_fume"
     },
     {
       "id": "disimpegno_b",

@@ -182,6 +182,11 @@ export function createViewer(container) {
         return new THREE.MeshStandardMaterial({ ...base, map: texParquet, roughness: 0.55 });
       case "telaio":
         return new THREE.MeshStandardMaterial({ ...base, color: 0x2c323b, roughness: 0.4, metalness: 0.3 });
+      case "vetro_fume":
+        return new THREE.MeshPhysicalMaterial({ ...base, color: 0x2b2d31, transparent: true, opacity: 0.62, roughness: 0.08, metalness: 0, clearcoat: 0.6, depthWrite: false });
+      case "telaio_scrigno":
+      case "binario":
+        return new THREE.MeshStandardMaterial({ ...base, color: 0x1c1f24, roughness: 0.3, metalness: 0.6 });
       case "telaio_legno":
         return new THREE.MeshStandardMaterial({ ...base, color: 0x6b4a2e, roughness: 0.7, metalness: 0 });
       case "anta_legno":
