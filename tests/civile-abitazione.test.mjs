@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { REGOLE_DM246 } from "../src/core/regole-dm246.js";
-import { valutaCivileAbitazione, classificaTipo, metriAMm, altezzaAntincendi } from "../src/core/civile-abitazione.js";
+import { valutaCivileAbitazione, classificaTipo, metriAMm, altezzaAntincendi, classificaAttivitaDPR } from "../src/core/civile-abitazione.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -21,7 +21,8 @@ const h = (metri) => alt(metri, 0);
 
 test("regole: il file JSON e il modulo JS coincidono (rules/dm246_gsa.json)", () => {
   const json = JSON.parse(readFileSync(join(here, "..", "rules", "dm246_gsa.json"), "utf-8"));
-  assert.equal(json.stato, "in_attesa_approvazione");
+  assert.equal(json.stato, "approvata");
+  assert.equal(REGOLE_DM246.stato, json.stato);
   for (const t of REGOLE_DM246.tipi) {
     const j = json.tipi.find((x) => x.id === t.id);
     assert.equal(j.da_mm, t.da_mm);
@@ -29,6 +30,14 @@ test("regole: il file JSON e il modulo JS coincidono (rules/dm246_gsa.json)", ()
     assert.equal(j.lp_base, t.lp_base);
   }
   assert.equal(json.incremento.soglia_h_mm, REGOLE_DM246.incremento.soglia_h_mm);
+  assert.equal(json.dpr151.stato, REGOLE_DM246.dpr151.stato);
+  assert.deepEqual(json.dpr151["77"].classi, REGOLE_DM246.dpr151["77"].classi);
+  assert.deepEqual(json.dpr151["74"].classi, REGOLE_DM246.dpr151["74"].classi);
+  assert.deepEqual(json.dpr151["49"].classi, REGOLE_DM246.dpr151["49"].classi);
+  assert.equal(json.dpr151["74"].soglia_kw, REGOLE_DM246.dpr151["74"].soglia_kw);
+  assert.equal(json.dpr151["49"].soglia_kw, REGOLE_DM246.dpr151["49"].soglia_kw);
+  assert.equal(json.dpr151["75"].soglia_m2, REGOLE_DM246.dpr151["75"].soglia_m2);
+  assert.equal(json.dpr151["77"].soglia_h_mm, REGOLE_DM246.dpr151["77"].soglia_h_mm);
 });
 
 test("T1 h = 11,99 m: fuori campo", () => assert.equal(valutaCivileAbitazione(h(11.99)).esito, "FUORI_CAMPO"));
@@ -88,7 +97,37 @@ test("T13 solo altezza stimata: risultato provvisorio", () => {
 test("T14 h < 12 m con autorimessa 400 m2: FUORI_CAMPO per la GSA, altre attivita' non calcolate", () => {
   const r = valutaCivileAbitazione({ ...h(8), attivita: [{ descrizione: "autorimessa 400 m2", soggetta_DPR151: "da_verificare", comunicante: "si", pertinente: "si" }] });
   assert.equal(r.esito, "FUORI_CAMPO");
-  assert.match(r.altre_attivita, /non_calcolate/);
+  assert.equal(r.altre_attivita[0].stato, "non_classificata");
+});
+
+test("attivita 77: classe A/B/C dalla sola altezza, non prevista sotto 24 m", () => {
+  assert.equal(valutaCivileAbitazione(h(20)).categoria_attivita_77.stato, "non_soggetta");
+  assert.equal(valutaCivileAbitazione(h(24.0)).categoria_attivita_77.stato, "non_soggetta");
+  assert.equal(valutaCivileAbitazione(h(24.01)).categoria_attivita_77.classe, "A");
+  assert.equal(valutaCivileAbitazione(h(32.0)).categoria_attivita_77.classe, "A");
+  assert.equal(valutaCivileAbitazione(h(32.01)).categoria_attivita_77.classe, "B");
+  assert.equal(valutaCivileAbitazione(h(54.0)).categoria_attivita_77.classe, "B");
+  assert.equal(valutaCivileAbitazione(h(54.01)).categoria_attivita_77.classe, "C");
+});
+
+test("altre attivita' 74/49: soglie 116 e 25 kW, classi A/B/C ai limiti 350 e 700", () => {
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "74", potenza_kw: 116 }).stato, "non_soggetta");
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "74", potenza_kw: 116.5 }).classe, "A");
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "74", potenza_kw: 350 }).classe, "A");
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "74", potenza_kw: 350.1 }).classe, "B");
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "74", potenza_kw: 700.1 }).classe, "C");
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "49", potenza_kw: 25 }).stato, "non_soggetta");
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "49", potenza_kw: 26 }).classe, "A");
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "49", potenza_kw: 400 }).classe, "B");
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "74" }).stato, "dati_mancanti");
+});
+
+test("altre attivita' 75: soglia 300 m2, classe di dettaglio non ancora codificata", () => {
+  assert.equal(classificaAttivitaDPR({ categoria_dpr151: "75", superficie_m2: 300 }).stato, "non_soggetta");
+  const r = classificaAttivitaDPR({ categoria_dpr151: "75", superficie_m2: 301 });
+  assert.equal(r.stato, "soggetta");
+  assert.equal(r.classe, null);
+  assert.equal(classificaAttivitaDPR({ descrizione: "deposito" }).stato, "non_classificata");
 });
 
 test("dato mancante: quota assente -> INDETERMINATO con elenco, mai un 'no'", () => {

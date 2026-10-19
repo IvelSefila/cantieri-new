@@ -64,19 +64,54 @@ export function incrementoAttivita(h_mm, attivita = []) {
   return { stato: "non_applicabile", motivo: "nessuna attivita' comunicante non pertinente soggetta al DPR 151/2011" };
 }
 
+// Classe da limiti del registro: oltre_<u> esclusivo, fino_a_<u> inclusivo
+function classeInSoglie(valore, classi, unita) {
+  const c = classi.find((k) => (k[`oltre_${unita}`] === undefined || valore > k[`oltre_${unita}`]) && (k[`fino_a_${unita}`] === undefined || valore <= k[`fino_a_${unita}`]));
+  return c ? c.classe : null;
+}
+
+// Attivita' 77 (DPR 151/2011 all. I, n. 77): edificio civile con altezza antincendi > 24 m. Classe dalla sola h.
+export function categoriaAttivita77(h_mm) {
+  const c = R.dpr151["77"];
+  if (!Number.isInteger(h_mm)) return { stato: "non_calcolata", motivo: "altezza antincendi non disponibile" };
+  if (h_mm <= c.soglia_h_mm) return { stato: "non_soggetta", motivo: `h <= ${c.soglia_h_mm} mm: attivita' 77 non prevista` };
+  return { stato: "soggetta", classe: classeInSoglie(h_mm, c.classi, "mm"), motivo: `altezza antincendi ${h_mm} mm (DPR 151/2011 n. 77)` };
+}
+
+// Altre attivita' DPR 151/2011 dichiarate: { descrizione, categoria_dpr151: "74"|"49"|"75", potenza_kw, superficie_m2 }
+// Output separato dall'incremento LP. Le attivita' senza categoria o con categoria non codificata restano non_classificate.
+export function classificaAttivitaDPR(a = {}) {
+  const base = { descrizione: a.descrizione || "senza descrizione", categoria_dpr151: a.categoria_dpr151 ?? null };
+  const cat = a.categoria_dpr151;
+  if (cat === "74" || cat === "49") {
+    const c = R.dpr151[cat];
+    if (!Number.isFinite(a.potenza_kw)) return { ...base, stato: "dati_mancanti", motivo: "potenza in kW non indicata" };
+    if (a.potenza_kw <= c.soglia_kw) return { ...base, stato: "non_soggetta", motivo: `potenza ${a.potenza_kw} kW non superiore a ${c.soglia_kw} kW` };
+    return { ...base, stato: "soggetta", classe: classeInSoglie(a.potenza_kw, c.classi, "kw"), motivo: `potenza ${a.potenza_kw} kW (DPR 151/2011 n. ${cat})` };
+  }
+  if (cat === "75") {
+    const c = R.dpr151["75"];
+    if (!Number.isFinite(a.superficie_m2)) return { ...base, stato: "dati_mancanti", motivo: "superficie coperta in m2 non indicata" };
+    if (a.superficie_m2 <= c.soglia_m2) return { ...base, stato: "non_soggetta", motivo: `superficie ${a.superficie_m2} m2 non superiore a ${c.soglia_m2} m2` };
+    return { ...base, stato: "soggetta", classe: null, motivo: "classe di dettaglio (n. 75) non ancora codificata" };
+  }
+  return { ...base, stato: "non_classificata", motivo: "indicare la categoria DPR 151/2011 (74, 49 o 75); altre categorie non ancora codificate" };
+}
+
 // Valutazione completa. input: { quote: {...} , attivita: [...] , piano_esterno_accessibile_mezzi_vvf, ... }
 export function valutaCivileAbitazione(input = {}) {
   const alt = altezzaAntincendi(input.altezza ?? {});
   if (alt.errore) return { esito: "ERRORE", errore: alt.errore };
-  const riferimenti = ["DM 16/5/1987 n. 246, punto 1.0, 1.1, 2.0 (Tabella A)", "DM 25/1/2019, punto 9-bis.2", "DM 30/11/1983, p. 1.1 (altezza antincendi, da estrarre)"];
+  const riferimenti = ["DM 16/5/1987 n. 246, punto 1.0, 1.1, 2.0 (Tabella A)", "DM 25/1/2019, punto 9-bis.2", "DM 30/11/1983, p. 1.1 (altezza antincendi, estratto, in attesa di approvazione)", "DPR 151/2011 all. I, n. 74, 49, 75, 77 (estratto, in attesa di approvazione)"];
   const base = {
     versione_regole: R.versione_regole,
     stato_regole: R.stato,
     avvertenza: "Strumento di supporto al professionista. Non attesta la conformita' antincendio e non sostituisce la valutazione di un tecnico abilitato.",
     altezza: { h_mm: alt.h_mm, stato: alt.stato, avvisi: alt.avvisi },
     riferimenti,
-    categoria_attivita_77: "non_calcolata: DPR 151/2011 all. I non ancora estratto",
-    altre_attivita: "non_calcolate: DPR 151/2011 all. I non ancora estratto",
+    stato_dpr151: R.dpr151.stato,
+    categoria_attivita_77: categoriaAttivita77(alt.h_mm),
+    altre_attivita: (input.attivita ?? []).map(classificaAttivitaDPR),
     percorso_codice_v14: "non_calcolato: fuori dalla v1",
   };
   if (alt.esito === "INDETERMINATO") return { ...base, esito: "INDETERMINATO", dati_mancanti: alt.mancanti, lp_finale: null };

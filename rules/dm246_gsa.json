@@ -1,19 +1,55 @@
 {
   "versione_regole": "dm246-gsa@2026-10-19",
-  "stato": "in_attesa_approvazione",
-  "approvato_da": null,
+  "stato": "approvata",
+  "approvato_da": "ingegnere, su indicazione dell'utente, 2026-10-19: approvazione del report docs/rules_extraction_report.md (R1-R7)",
   "nota": "Regole estratte dal testo ufficiale (vedi docs/rules_extraction_report.md). Non attive finche' l'ingegnere non le approva: il motore lo dichiara in ogni output.",
   "fonti": {
     "F1": "DM 16/05/1987 n. 246 (testo coordinato VVF, sources/vvf_coord_246_1987.pdf)",
     "F2": "DM 25/01/2019 GU n. 30 del 5/2/2019 (sources/gu_2019_30.pdf)",
-    "F4": "DM 30/11/1983 p. 1.1 (non ancora estratto)"
+    "F4": "DM 30/11/1983 p. 1.1 (testo coordinato VVF, sources/coord_1983.pdf)",
+    "F6": "DPR 151/2011 all. I (copia di terzi, sources/dpr151_imec.pdf; confrontare con GU)"
   },
   "tipi": [
-    { "id": "a", "da_mm": 12000, "a_mm": 24000, "inclusivo_a": true, "lp_base": 0, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" },
-    { "id": "b", "da_mm": 24000, "a_mm": 32000, "inclusivo_a": true, "lp_base": 1, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" },
-    { "id": "c", "da_mm": 32000, "a_mm": 54000, "inclusivo_a": true, "lp_base": 1, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" },
-    { "id": "d", "da_mm": 54000, "a_mm": 80000, "inclusivo_a": true, "lp_base": 2, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" },
-    { "id": "e", "da_mm": 80000, "a_mm": null, "inclusivo_a": false, "lp_base": 3, "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2" }
+    {
+      "id": "a",
+      "da_mm": 12000,
+      "a_mm": 24000,
+      "inclusivo_a": true,
+      "lp_base": 0,
+      "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2"
+    },
+    {
+      "id": "b",
+      "da_mm": 24000,
+      "a_mm": 32000,
+      "inclusivo_a": true,
+      "lp_base": 1,
+      "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2"
+    },
+    {
+      "id": "c",
+      "da_mm": 32000,
+      "a_mm": 54000,
+      "inclusivo_a": true,
+      "lp_base": 1,
+      "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2"
+    },
+    {
+      "id": "d",
+      "da_mm": 54000,
+      "a_mm": 80000,
+      "inclusivo_a": true,
+      "lp_base": 2,
+      "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2"
+    },
+    {
+      "id": "e",
+      "da_mm": 80000,
+      "a_mm": null,
+      "inclusivo_a": false,
+      "lp_base": 3,
+      "rif": "DM 246/1987 Tabella A; DM 25/1/2019 9-bis.2"
+    }
   ],
   "limite_campo_mm": 12000,
   "incremento": {
@@ -21,10 +57,16 @@
     "tetto_lp": 3,
     "passi": 1,
     "rif": "DM 25/1/2019 9-bis.2 (ultimo capoverso)",
-    "da_confermare": ["tetto LP 3 non scritto nel testo", "il passo +1 e' ricavato da 'un livello superiore'"]
+    "da_confermare": [
+      "tetto LP 3 non scritto nel testo",
+      "il passo +1 e' ricavato da 'un livello superiore'"
+    ]
   },
   "disomogeneita": [
-    { "h_mm": 24000, "avviso": "Tabella A include 24 m nel tipo a (LP 0); 9-bis.3.1 scrive 12 m <= h < 24 m; 9-bis.3.2 scrive 24 m < h <= 54 m. Applicata la Tabella A." }
+    {
+      "h_mm": 24000,
+      "avviso": "Tabella A include 24 m nel tipo a (LP 0); 9-bis.3.1 scrive 12 m <= h < 24 m; 9-bis.3.2 scrive 24 m < h <= 54 m. Applicata la Tabella A."
+    }
   ],
   "esistenti": {
     "scadenza_allarme_anni": 2,
@@ -35,9 +77,96 @@
     "entrata_in_vigore_rif": "DM 25/1/2019 art. 3 comma 3 (90 giorni dalla pubblicazione)"
   },
   "misure_lp": {
-    "0": { "rif": "9-bis.3.1 Tabella 0", "contenuto": "non codificato" },
-    "1": { "rif": "9-bis.3.2 Tabella 1", "contenuto": "non codificato" },
-    "2": { "rif": "9-bis.3.3 Tabella 2", "contenuto": "non codificato" },
-    "3": { "rif": "9-bis.3.4 Tabella 3", "contenuto": "non codificato" }
+    "0": {
+      "rif": "9-bis.3.1 Tabella 0",
+      "contenuto": "non codificato"
+    },
+    "1": {
+      "rif": "9-bis.3.2 Tabella 1",
+      "contenuto": "non codificato"
+    },
+    "2": {
+      "rif": "9-bis.3.3 Tabella 2",
+      "contenuto": "non codificato"
+    },
+    "3": {
+      "rif": "9-bis.3.4 Tabella 3",
+      "contenuto": "non codificato"
+    }
+  },
+  "altezza_antincendi": {
+    "rif": "DM 30/11/1983 p. 1.1",
+    "testo": "Altezza massima misurata dal livello inferiore dell'apertura piu' alta dell'ultimo piano abitabile e/o agibile, escluse quelle dei vani tecnici, al livello del piano esterno piu' basso.",
+    "stato": "estratta_in_attesa_approvazione",
+    "nota_chiarimento": "DM 246/1987 nota 2: chiarimento P558/4122 sott. 67 del 24/03/2004 (piano di riferimento)"
+  },
+  "dpr151": {
+    "stato": "estratta_in_attesa_approvazione",
+    "77": {
+      "rif": "DPR 151/2011 all. I n. 77",
+      "descrizione": "Edifici destinati ad uso civile con altezza antincendio superiore a 24 m",
+      "soglia_h_mm": 24000,
+      "classi": [
+        {
+          "classe": "A",
+          "fino_a_mm": 32000
+        },
+        {
+          "classe": "B",
+          "oltre_mm": 32000,
+          "fino_a_mm": 54000
+        },
+        {
+          "classe": "C",
+          "oltre_mm": 54000
+        }
+      ]
+    },
+    "74": {
+      "rif": "DPR 151/2011 all. I n. 74",
+      "descrizione": "Impianti per la produzione di calore alimentati a combustibile solido, liquido o gassoso con potenzialita' superiore a 116 kW",
+      "soglia_kw": 116,
+      "classi": [
+        {
+          "classe": "A",
+          "fino_a_kw": 350
+        },
+        {
+          "classe": "B",
+          "oltre_kw": 350,
+          "fino_a_kw": 700
+        },
+        {
+          "classe": "C",
+          "oltre_kw": 700
+        }
+      ]
+    },
+    "49": {
+      "rif": "DPR 151/2011 all. I n. 49",
+      "descrizione": "Gruppi per la produzione di energia elettrica sussidiaria con motori endotermici ed impianti di cogenerazione di potenza complessiva superiore a 25 kW",
+      "soglia_kw": 25,
+      "classi": [
+        {
+          "classe": "A",
+          "fino_a_kw": 350
+        },
+        {
+          "classe": "B",
+          "oltre_kw": 350,
+          "fino_a_kw": 700
+        },
+        {
+          "classe": "C",
+          "oltre_kw": 700
+        }
+      ]
+    },
+    "75": {
+      "rif": "DPR 151/2011 all. I n. 75",
+      "descrizione": "Autorimesse pubbliche e private, parcheggi pluriplano e meccanizzati di superficie complessiva coperta superiore a 300 m2",
+      "soglia_m2": 300,
+      "classi": "da_estrarre_dettaglio"
+    }
   }
 }

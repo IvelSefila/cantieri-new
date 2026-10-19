@@ -1,0 +1,1081 @@
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Testo coordinato del  
+ 
+DM 30 novembre 1983 
+Termini e definizioni di prevenzione incendi 
+ 
+ 
+INDICE 
+ 
+Termini, definizioni generali e simboli grafici di prevenzione incendi .................................................................. 2 
+Stato normativo .............................................................................................................................................................................. 2 
+DM  30 novembre 1983 ............................................................................................................................................................... 3 
+Note al DM 30/11/1983........................................................................................................................................................... 12 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Termini, definizioni generali e simboli grafici di prevenzione incendi 
+ 
+Stato normativo 
+La normativa inerente la prevenzione incendi impiega una terminologia specifica che ha, quindi, un significato 
+diverso da quello utilizzata comunemente. 
+È consigliabile , soprattutto a chi tratta per la prima volta questa materia, la lettura al DM 30 novembre 1983 –  
+Termini,  definizioni  generali  e  simboli grafici di prevenzione incendi  – in modo da comprendere  i significati dei  
+termini impiegati in quanto, quasi tutta la normativa specifica, rimanda a tale decreto per tali aspetti. 
+È opportuno porre una certa attenzione a tali aspetti anche nella redazione delle relazioni in quanto un utilizzo non 
+corretto dei termini potrebbe conseguire un risultato diverso da quello atteso. 
+ 
+ 
+ 
+ 
+ 
+NB 
+Si deve porre cura alla lettura di alcune circolari e chiarimenti, riportate di seguito , emanate prima della 
+pubblicazione del DPR 01/08/2011, n. 151, in quanto possono riportare argomenti superati dalla pubblicazione 
+del DPR stesso. Alcune di esse sono state riportate per un confronto fra le procedure che si sono succedute.  
+ 
+Alcune circolari e chiarimenti potrebbero essere richiamate in più note in quanto interessano più aspetti del 
+decreto, esse sono state riportate una s ola volta richiamando i vari numeri delle note per contenere la dimensione 
+del documento. 
+ 
+ 
+ 
+ 
+ 
+Esonero di responsabilità: nonostante si sia operato col massimo impegno per la realizzazione del 
+presente lavoro, si declina ogni responsabilità per possibili e rrori e/o omissioni e per 
+eventuali danni risultanti dall’uso delle informazioni contenute nello stesso. 
+ 
+ 
+ 
+ 
+2 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+MINISTERO DELL’INTERNO 
+ 
+DM  30 novembre 1983 
+ (Gazz. Uff., 12 dicembre, n.  339). 
+ 
+Termini,  definizioni  generali  e  simboli grafici di prevenzione incendi. 
+ 
+Il Ministro dell’interno: 
+ 
+Vista la legge 13 maggio 1961, n. 469, art. 1; 
+Vista la legge 26 luglio 1965, n. 966, art. 2; 
+Vista la legge 18 luglio 1980, n. 406, art. 2; 
+Visto il decreto del Presidente della Repubblica 27 aprile 1955, n. 547;  
+Visto il decreto del Presidente della Repubblica 29 luglio 1982, n. 577;  
+Rilevata  la necessità di definire in maniera univoca i termini, le definizioni  generali  e  i  simboli  grafici relativi ad 
+espressioni specifiche   della   prevenzione   incendi  secondo  quanto  disposto dall ’art.  1  del  decreto  del Presidente 
+della Repubblica 29 luglio 1982, n. 577; 
+Viste le definizioni e la simbologia grafica elaborate dal Comitato centrale  tecnico -scientifico  per  la  prevenzione  
+incendi  di  cui all’art.  10  del  decreto  del Presidente della Repubblica 29 luglio 1982, n. 577;  
+Visto  l’art. 11 del citato decreto del Presidente della Repubblica 29 luglio 1982, n. 577;  
+ 
+Decreta: 
+ 
+È approvato l’elenco contenente i termini e le definizioni generali di prevenzione incendi riportati nell’allegato A al 
+presente decreto. 
+È  altresì  approvata  la tabella contenente i fondamentali simboli grafici,  riferibili  esclusivamente a misure di 
+prevenzione incendi, da  adottarsi  nella  esecuzione  di  elaboratori tecnici r elativi ad attività  soggette  ai  controlli  da  
+parte  del Corpo nazionale dei vigili del fuoco, riportata nell’allegato B al presente decreto. 
+Sono  abrogati i termini e le definizioni generali, riportati nelle norme  e  nei  criteri  tecnici attualmente in vigore di 
+cui al primo comma  dell ’art.  22  del  decreto del Presidente della Repubblica 29 luglio  1982, n. 577, non conformi a 
+quelli approvati con il presente decreto. 
+ 
+ 
+ 
+                                                       Allegato A  
+ 
+DEFINIZIONI GENERALI DI PREVENZIONE INCENDI 
+ 
+Scopo. 
+ 
+Scopo  del  presente  decreto è quello di dare definizioni generali relativamente  ad espressioni specifiche della 
+prevenzione incendi ai fini  di  una  uniforme applicazione delle norme emanate ai sensi del decr eto del Presidente della 
+Repubblica 29 luglio 1982, n. 577. 
+Nella  elaborazione  delle  singole  norme  di  prevenzione incendi potranno  essere  aggiunte  altre  particolari 
+definizioni al fine di precisare elementi o dati specifici delle situazioni considerate. 
+ 
+ 
+1.- CARATTERISTICHE COSTRUTTIVE. 
+ 
+1.1. Altezza ai fini antincendi degli edifici civili.1 
+Altezza massima misurata  dal  livello  inferiore  dell’ apertura più alta dell ’ultimo piano  abitabile  e/o  agibile,  
+escluse  quelle dei vani tecnici, al livello del piano esterno più basso. 
+ 
+1.2. Altezza  dei  piani. 
+Altezza massima tra pavimento e intradosso del soffitto. 
+ 
+1.3. Carico  d’incendio.   
+1 Vedasi, in merito a quale piano riferirsi per la determinazione della “altezza ai fini antincendio degli edifici civili” , il 
+chiarimento prot. n° P558/4122 sott. 67 del 24/03/2004 . N.d.R. 
+3 
+                                                                        
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Carico d’incendio: potenziale termico netto della totalità dei materiali combustibili contenuti in uno spazio corretto 
+in b ase ai parametri indicativi della partecipazione alla combustione dei singoli materiali.  Il carico di incendio è 
+espresso in MJ; convenzionalmente 1 MJ è assunto pari a 0,054 chilogrammi di legna equivalente. 2 (Punto così 
+sostituito dal c. 2 dell’art. 4 del DM 09/03/2007. N.d.R.) 
+ 
+“Potenziale  termico  della  totalità  dei materiali  combustibili  contenuti  in  uno  spazio,  ivi  compresi i 
+rivestimenti  dei muri, delle pareti provvisorie, dei pavimenti e dei soffitti.  Convenzionalmente  è  espresso  in  
+chilogrammi  di  legno equivalente (potere calorifico inferiore 4.400 Kcal/kg). ” (Definizione originale sostituita dal c. 2 
+dell’art. 4 del DM 09/03/2007. N.d.R.) 
+ 
+1.4. Carico  d’incendio  specifico.   
+Carico d’incendio riferito alla unità di superficie lorda. 
+ 
+1.5. Compartimento  antincendio.   
+Compartimento antincendio: parte della costruzione organizzata per rispondere alle esigenze della sicurezza in caso 
+di incendio e delimitata da elementi costruttivi idonei a garantire, sotto l’ azione del fuoco e per un dato intervallo di 
+tempo, la capacità di compartimentazione. (Punto così sostituito dal c. 2 dell’art. 4 del DM 09/03/2007. N.d.R.) 
+ 
+“Parte  di  edificio  delimitata da elementi   costruttivi   di  resistenza  al  fuoco  predeterminata  e organizzato per 
+rispondere alle esigenze della prevenzione incendi. ” (Definizione originale sostituita dal c. 2 dell’ art. 4 del DM 
+09/03/2007. N.d.R.) 
+ 
+ 
+1.6. Comportamento  al  fuoco.   
+Insieme  di trasformazioni fisiche e chimiche  di  un materiale o di un elemento da costruzione s ottoposto all’azione   
+del  fuoco.  Il  comportamento  al  fuoco  comprende  la resistenza  al  fuoco  delle  strutture  e  la  reazione al fuoco dei 
+materiali. 
+ 
+1.7. Filtro  a  prova  di  fumo.   
+Vano  delimitato  da strutture con resistenza  al  fuoco  REI pr edeterminata, e comunque non inferiore a 60’, dotato 
+di due o più porte munite di congegni di autochiusura con resistenza  al  fuoco  REI predeterminata, e comunque non 
+inferiore a 60’,  con  camino  di ventilazione di sezione adeguata e comunque non infer iore   a   0,10   m 2  sfociante  al  
+di  sopra  della  copertura dell ’edificio3,   oppure   vano   con  le  stesse  caratteristiche  di resistenza  al fuoco e 
+mantenuto in sovrappressione ad almeno 0,3 (Così rettificato nella Gazz. Uff. n. 146 del 29/05/84. N.d.R.) mbar,  anche  
+in  condizioni di emergenza, oppure aerato direttamente verso  l ’esterno con aperture libere di superficie non inferiore 
+ad 1 m² con esclusione di condotti. 
+ 
+1.8. Intercapedine  antincendi.4   
+Vano  di  distacco  con funzione di aerazion e  e/o  scarico  di  prodotti  della combustione di larghezza trasversale  
+non  inferiore  a  0,60  m; con funzione di passaggio di persone di larghezza trasversale non inferiore a 0,90 m. 
+Longitudinalmente  è  delimitata  dai muri perimetrali (con o senza aperture)  appartenenti  al fabbricato servito e da 
+terrapieno e/o da muri di altro fabbricato, aventi pari resistenza al fuoco. 
+Ai soli scopi di aerazione e scarico dei prodotti della combustione è  inferiormente delimitata da un piano ubicato a 
+quota non inferiore ad 1 m dall’intradosso del solaio del locale stesso. 
+2 Su tale parametro la lettera circolare prot. n° P414/4122 sott. 55 del 28/03/2008, relativa a chirimenti al DM 
+09/03/2007, riporta:  
+“Il punto 1 dell’allegato al decreto riporta una serie di definizioni che hanno preso spunto dalle attuali norme europee 
+che regolano la materia, alle quali l’atto regolamentare nazionale si è quindi principalmente riferito, anche ai fini della 
+definizione numerica di parametri e coefficienti che possono assumere rilevanza ai fini della sua applicazione. Tuttavia 
+occorre rilevare che al punto 1 lettera c) dell’allegato (definizione di CARICO DI INCENDIO) viene indicato, come 
+corrispondente ad 1 MJ, un valore pari a 0, 054 kg di legna equivalente, leggermente inferiore a quello contenuto nelle 
+stesse norme europee che prevedono un valore pari a 0,057 (ossia 1 kg di legna equivalente viene assunto pari a 17,5 
+MJ). Si ritiene opportuno, al fine di una migliore e necessaria coerenza con gli atti normativi europei in materia ed anche 
+per evitare possibili equivoci o contraddizioni, fare riferimento a tale ultimo valore.” N.d.R. 
+3 Vedasi, in merito al poter considerare la porzione della copertura del corpo di fabbrica immediat amente sovrastante il 
+filtro stesso, con caratteristiche di spazio scoperto, quale punto alto della copertura, e la possibilità che il camino abbia  
+tratti sub-orizzontali, il chiarimento prot. n° P478/4155/1 sott. 3 del 13/06/2000. N.d.R. 
+4 Vedasi, in merito ai requisiti di aerazione dell’intercapedine antincendi di cui al presente punto , il chiarimento prot. n° 
+P2054/4122 sott. 67 del 11/03/2005 . N.d.R. 
+4 
+                                                                        
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Per  la  funzione  di  passaggio  di  persone,  la profondità della intercapedine  deve essere tale da assicurare il 
+passaggio nei locali serviti attraverso varchi aventi altezza libera di almeno 2 m. 
+Superiormente è delimitata da «spazio scoperto». 
+ 
+1.9. Materiale.   
+Il componente (o i componenti variamente associati) che  può (o possono) partecipare alla combustione in 
+dipendenza della propria natura chimica e delle effettive condizioni di messa in opera per l’utilizzazione. 
+ 
+1.10. Reazione  al  fuoco.5 
+Grado  di partecipazione di un materiale combustibile  al  fuoco  al  quale è sottoposto. In relazione a ciò i materiali  
+sono  assegnati  (circolare  n.  12 del 17 maggio 1980 del Ministero  dell ’interno) alle classi 0, 1, 2, 3, 4, 5 con 
+l’aumentare della  loro  partecipazione alla combustione; quelli di classe 0 sono non combustibili. 
+ 
+1.11. Resistenza  al fuoco. 6 
+Resistenza al fuoco: una delle fondamentali strategie di protezione da perseguire per garantire un adeguato livello di 
+sicurezza della costruzione in condizioni di incendio. Essa riguarda la capacità portante in caso di incendio, per una 
+struttura, per una parte della struttura o per un elemento strutturale nonché la capacità di compartimentazione r ispetto 
+all’incendio per gli elementi di separazione sia strutturali, come muri e solai, sia non strutturali, come porte e tramezzi. 
+(Punto così sostituito dal c. 2 dell’art. 4 del DM 09/03/2007. N.d.R.) 
+ 
+“Attitudine di un elemento da costruzione (componente o struttura) a conservare- secondo un programma termico 
+prestabilito  e  per  un tempo determinato - in tutto o in parte: la stabilità  «R»,  la  tenuta «E», l’ isolamento termico 
+«I», così definiti: 
+- stabilità: attitudine di un elemento da costruzione a conservare la resistenza meccanica sotto l’azione del fuoco; 
+- tenuta:  attitudine di un elemento da costruzione a non lasciar passare  né produrre - se sottoposto all ’azione del 
+fuoco su un lato - fiamme, vapori o gas caldi sul lato non esposto; 
+- isolamento  termico: attitudine di un elemento da costruzione a ridurre, entro un dato limite, la trasmissione del 
+calore. 
+  Pertanto: 
+- con il simbolo «REI» si identifica un elemento costruttivo che deve  conservare, per un tempo determinato, la 
+stabilità, la tenuta e l’isolamento termico; 
+-  con il simbolo «RE» si identifica un elemento costruttivo che deve conservare, per un tempo determinato, la 
+stabilità e la tenuta; 
+-  con  il simbolo «R» si identifica un elemento costruttivo che deve conservare, per un tem po determinato, la 
+stabilità. 
+In  relazione  ai  requisiti  dimostrati  gli  elementi strutturali vengono classificati da un numero che esprime i minuti 
+primi. 
+Per  la  classificazione  degli  elementi  non portanti il criterio «R»  è  automaticamente  sod disfatto  qualora  siano  
+soddisfatti i criteri «E» ed «I».” (Definizione originale sostituita dal c. 2 dell’art. 4 del DM 09/03/2007. N.d.R.) 
+ 
+ 
+1.12. Spazio  scoperto.7 
+Spazio  a  cielo  libero  o  superiormente grigliato  avente,  anche  se  delimitato su tutti i lati, superficie minima  in 
+pianta (m2) non inferiore a quella calcolata moltiplicando per tre l’altezza in metri della parete più bassa che lo delimita. 
+La  distanza  fra  le  strutture verticali che delimitano lo spazio scoperto deve essere non inferiore a 3,50 m. 
+Se le pareti delimitanti lo spazio a cielo libero o grigliato hanno strutture  che  aggettano  o  rientrano,  detto  spazio 
+è considerato «scoperto»  se sono rispettate le condizioni del precedente comma e se  il rapporto fra la sporgenza (o  
+rientranza) e la relativa altezza di impostazione è non superiore ad 1/2. 
+La superficie minima libera deve risultare al netto delle superfici aggettanti. 
+La  minima di 3,50 m deve essere computata fra le pareti più vicine in  caso  di rientranze, fra parete e limite esterno 
+della proiezione dell’aggetto  in  caso di sporgenze, fra i limiti delle proiezioni di aggetti prospicienti. 
+ 
+1.13. Superficie  lorda  di  un  compartimento.  
+5 Vedasi, per la nu ova classificazione della reazione al fuoco , per i prodotti da costruzione, in base al sistema di 
+classificazione europeo, il DM 10/03/2005 ed  il DM 15/03/2005 ai quali si rimanda. N.d.R. 
+6 Vedasi, per la classificazione  di  resistenza  al  fuoco  di  pr odotti  ed elementi costruttivi di opere da costruzione, il 
+DM 16/02/2007 al quale si rimanda. N.d.R. 
+7 Vedasi, in merito alla possibilità di considerare “ spazio scoperto ” i balconi/ballatoi/terrazzi a cielo libero aventi 
+determinate caratteristiche, il chiarimento prot. n° 7941-362/ 032101.01.4183.010.0B7 del 17/07/2009 . N.d.R. 
+5 
+                                                                        
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Superficie in pianta compresa  entro  il  perimetro  interno  delle  pareti delimitanti il compartimento. 
+ 
+ 
+2.- DISTANZE. 
+ 
+2.1. Distanza  di  sicurezza esterna.8 
+Valore minimo, stabilito dalla norma,  delle  distanze  misurate orizzontalmente tra il perimetro in pianta  di ciascun 
+elemento pericoloso di una attività e il perimetro del  più  v icino  fabbricato  esterno alla attività stessa o di altre opere  
+pubbliche  o  private  oppure  rispetto  ai  confini  di  aree edificabili verso le quali tali distanze devono essere osservate.  
+ 
+2.2. Distanza  di  sicurezza interna.  
+Valore minimo, stabilito dalla norma,  delle  distanze  misurate  orizzontalmente  tra  i rispettivi perimetri in pianta 
+dei vari elementi pericolosi di una attività. 
+ 
+2.3. Distanza  di  protezione.  
+Valore minimo, stabilito dalla norma, delle distanze misurate orizzontalmente tra il pe rimetro in pianta di ciascun  
+elemento  pericoloso  di  una  attività e la recinzione (ove prescritta)  ovvero  il  confine  dell ’area  su  cui sorge l’attività 
+stessa. 
+ 
+ 
+3.- AFFOLLAMENTO - ESODO. 
+ 
+3.1. Capacità di deflusso o di sfollamento.  
+Numero massimo di persone che,  in  un  sistema  di  vie  d ’uscita,  si assume possano defluire attraverso  una  
+uscita di «modulo uno». Tale dato, stabilito dalla norma,  tiene  conto del tempo occorrente per lo sfollamento ordinato 
+di un compartimento. 
+ 
+3.2. Densità  di affollamento.  
+Numero massimo di persone assunto per unità di superficie lorda di pavimento (persone/m2). 
+ 
+3.3.   Larghezza   delle  uscite  di  ciascun  compartimento.   
+Numero complessivo di moduli di uscita necessari allo sfollamento totale del compartimento. 
+ 
+3.4. Luogo  sicuro.9 
+Spazio scoperto ovvero compartimento antincendio -  separato da altri compartimenti mediante spazio scoperto o 
+filtri a  prova  di  fumo -   avente  caratteristiche  idonee  a ricevere e contenere un predeterminato numero di persone 
+(luogo sicuro statico), ovvero a consentirne il movimento ordinato (luogo sicuro dinamico). 
+ 
+3.5. Massimo affollamento ipotizzabile.  
+Numero di persone ammesso in un  compartimento. È  determinato  dal  prodotto  della  densità  di affollamento per 
+la superficie lorda del pavimento. 
+ 
+3.6. Modulo di uscita.  
+Unità di misura della larghezza delle uscite. Il  «modulo  uno»,  che  si  assume  uguale  a  0,60  m, esprime la 
+larghezza media occupata da una persona. 
+ 
+3.7. Scala  di sicurezza esterna.10  
+Scala totalmente esterna, ri spetto al  fabbricato  servito, munito di parapetto regolamentare e di altre caratteristiche 
+stabilite dalla norma. 
+ 
+3.8. Scala  a prova di fumo.  
+8 Vedasi, in merito al comprendere anche le larghezze di strade e canali  nel computo della distanza di sicurezza esterna, 
+il chiarimento prot. n° P362/4106 sott. 40/DI del 29/03/2006. N.d.R. 
+9 Vedasi, in merito alla possibilità di considerare “ dinamico” o “statico” un terrazzo con caratteristiche di luogo sicuro, 
+il punto 1) del chiarimento prot. n° 1304-032101.01.4109.044B.000 del 23/03/2009 . N.d.R. 
+10 Vedasi, in merito alle caratteristiche di tale scala, per le attività civili soggette ad affollamento di persone, il 
+chiarimento prot. n° P702/4122 sott. 32 del 27/06/2001 . N.d.R. 
+6 
+                                                                        
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Scala in vano costituente compartimento antincendio  avente  accesso  per  ogni  piano -   mediante porte di 
+resistenza  al fuoco almeno RE predeterminata e dotate di congegno di autochiusura -  da spazio scoperto o da 
+disimpegno aperto per almeno un lato su spazio scoperto dotato di parapetto a giorno. 
+ 
+3.9. Scala  a  prova  di  fumo  interna.   
+Scala  in vano costituente compartimento antincendio avente accesso, per ogni piano, da filtro a prova di fumo. 
+ 
+3.10. Scala  protetta.   
+Scala  in  vano  costituente  compartimento antincendio  avente  accesso  diretto  da  ogni  piano,  con porte di 
+resistenza  al  fuoco  REI  predeterminata  e  dotate  di congegno di autochiusura. 
+ 
+3.11.  Sistema  di vie di uscita.  
+Percorso senza ostacoli al deflusso che  consente  alle  persone  che occupano un edificio o un locale di raggiungere  
+un luogo sicuro. La lunghezza massima del sistema di vie di uscita è stabilita dalle norme. 
+ 
+3.12. Uscita.  
+Apertura atta a consentire il deflusso di persone verso un luogo sicuro avente altezza non inferiore a 2,00 m. 
+ 
+ 
+4.- MEZZI ANTINCENDI. 
+ 
+4.1. Attacco di mandata per autopompa.  
+Dispositivo costituito da una va lvola di intercettazione ed una di non ritorno, dotato di uno o più attacchi  unificati  
+per  tubazioni flessibili antincendi. Serve come alimentazione idrica sussidiaria. 
+ 
+4.2.   Estintore   carrellato.    
+Apparecchio   contenente  un  agente estinguente  che  può  essere  proiettato e diretto su un fuoco sotto l ’azione  di  
+una pressione interna. È concepito per essere portato e utilizzato su carrello. 
+ 
+4.3.   Estintore  portatile.   
+Definizione,  contrassegni  distintivi, capacità   estinguente  e  requisiti  sono  specificati  nel  decreto ministeriale  
+20  dicembre  1982  (Gazzetta  Ufficiale  n.  19 del 20 gennaio 1983).  
+ 
+4.4. Idrante  antincendio.   
+Attacco  unificato, dotato di valvola di intercettazione   ad  apertura  manuale,  collegato  a  una  rete  di 
+alimentazione  idrica.  Un  idrante  può  essere  a  muro,  a colonna soprasuolo oppure sottosuolo. 
+ 
+4.5. Impianto  automatico  di  rivelazione  d’incendio.   
+Insieme  di apparecchiature   destinate   a  rilevare,  localizzare  e  segnalare automaticamente u n principio di 
+incendio. 
+ 
+4.6. Impianto  di allarme.  
+Insieme di apparecchiature ad azionamento manuale utilizzate per segnalare un principio di incendio. 
+ 
+4.7.   Impianto   fisso   di   estinzione.    
+Insieme  di  sistemi  di alimentazione,   di   valvole,  di  condutture  e  di  erogatori  per proiettare  o  scaricare  un  
+idoneo  agente  estinguente su una zona d ’incendio. La sua attivazione ed il suo funzionamento possono essere 
+automatici o manuali. 
+ 
+4.8 Lancia  erogatrice.   
+Dispositivo  provvisto  di  un bocc hello di sezione  opportuna e di un attacco unificato. Può essere anche dotata di  
+una valvola che permette il getto pieno, il getto frazionato e la chiusura. 
+ 
+4.9. Naspo.  
+Attrezzatura antincendio costituita da una bobina mobile su cui è avvolta una tubazione semirigida collegata ad una 
+estremità, in modo permanente, con una rete di alimentazione idrica in pressione e terminante   all ’altra  estremità  con  
+una  lancia erogatrice munita di valvola regolatrice e di chiusura del getto. 
+ 
+4.10.  Rete  di  idranti.  
+7 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Sistema di tubazioni fisse in pressione per alimentazione  idrica  sulle  quali  sono  derivati uno o più idranti 
+antincendio. 
+ 
+4.11.  Riserva  di sostanza estinguente.  
+Quantitativo di estinguente, stabilito  dalla autorità, destinato permanentemente alla esigenza di estinzione. 
+ 
+4.12. Tubazione  flessibile.   
+Tubo  la cui sezione diventa circolare quando  viene  messo in pressione e che è appiattito in condizioni di riposo. 
+ 
+4.13. Tubazione  semirigida.  
+Tubo la cui sezione resta sensibilmente circolare anche se non in pressione. 
+ 
+ 
+5.- TOLLERANZE DELLE MISURE.11 
+ 
+Ai  fini  delle  presenti indicazioni e tenuto conto dei criteri di tolleranza  normalmente  in uso per i dati quantitativi 
+facenti parte delle  normative  o  delle  prescrizioni tecniche, si stabiliscono le tolleranze  ammesse per le misure di vario 
+tipo riportate nei termini e definizioni generali di prevenzione incendi: 
+ 
+ 
+                                                            2% per misure maggiori di 2,40 m  
+misure lineari......          tolleranza           
+                                                            5% per misure minori o uguali di 2,40 m  
+                                               
+misure di superficie ...  tolleranza        5% 
+misure di volume .....    tolleranza        5% 
+misure di pressione ..    tolleranza        1% 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+11 Vedasi, in merito alla possibilità dell’utilizzo delle tolleranze dimensionali in fase progettuale, il chiarimento prot. n° 
+2975/032101.01.4108.022.000 del 09/04/2009 e 3372/032101.01.4108.022.000 del 16/04/2009 . N.d.R. 
+8 
+                                                                        
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+9 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+10 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+11 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Note al DM 30/11/1983 
+ 
+ 
+[1] 
+ 
+ 
+Chiarimento) 
+PROT. n°  P558/4122 sott. 67 
+Roma, 24 marzo 2004 
+ 
+OGGETTO: Definizione di altezza ai f ini antincendio degli edifici civili, di cui al punto 1.1 del D.M. 30                     
+novembre 1983.  
+ 
+In relazione a quanto richiesto, si conferma che nella definizione di “altezza ai fini antincendio degli edifici civili”, 
+pur se non esplicitato, il piano esterno più basso al quale riferirsi è quello accessibile ai mezzi di soccorso dei vigili del 
+fuoco. 
+Il concetto che sta alla base della definizione è connesso, infatti, alla possibilità di effettuare il soccorso tecnico 
+urgente dall’esterno dell’edificio, restando inteso che dall’accesso esterno possano essere raggiungibili, con un percorso 
+interno, i vari locali dell’edificio. 
+ 
+ 
+ 
+[3] 
+ 
+(Chiarimento) 
+PROT. n°  P478/4155/1 sott. 3 
+Roma, 13 giugno 2000 
+ 
+OGGETTO: Sbocco dei camini di ventilazione dei filtri a prova di fumo. 
+ 
+È pervenuta a questo Ufficio, da parte di un libero professionista, richiesta di chiarimenti in ordine ai camini di 
+ventilazione dei filtri a prova di fumo alla luce di quanto formulato al riguardo dal D.M. 30 novembre 1983.  
+Il professionista chiede sostanzialmente di conoscere se i camini in questione debbano sempre e comunque sfociare 
+sulla copertura dell ’edificio più alto, direttamente o indirettamente servito dal vano filtro, oppure se g li sbocchi dei 
+camini possano avvenire su aree scoperte sovrastanti o adiacenti ai filtri stessi. Il professionista chiede, inoltre, di 
+conoscere se tali camini possano comprendere anche tratti ad andamento sub-orizzontale.  
+Per quanto attiene il primo que sito, si fa rilevare che la condizione dello sbocco dei camini di ventilazione al di 
+sopra della copertura dell’edificio, così come formulato al punto 1.7 del D.M. 30.11.1983, trova oggettivo ed immediato 
+riferimento nella tipologia più comune degli edifici serviti da scale a prova di fumo interne le quali ultime, comportando 
+una serie di filtri verticalmente sovrapposti, richiedono in conseguenza lo sbocco dei camini alla sommità degli edifici 
+stessi.  
+Nei casi, invece, di singoli vani filtro interposti tr a compartimenti ubicati sullo stesso piano, si ritiene che lo sbocco 
+dei camini di ventilazione possa immettere sull’ area a cielo libero sovrastante o adiacente –  ovvero più prossima –  al 
+filtro stesso, purché tale area abbia i requisiti di “ spazio scopert o” così come definito dal punto 1.12. del citato D.M. 
+30.11.1983.  
+Per quanto riguarda il secondo quesito, ossia alla possibilità che i camini di ventilazione possano comprendere anche 
+tratti di condotto ad andamento sub -orizzontale, lo scrivente Ufficio n on ravvede –  dal punto di vista tecnico –  motivi 
+ostativi alla loro realizzazione, a condizione che sia garantito il tiraggio naturale del condotto e che quest ’ultimo sia 
+adeguatamente protetto rispetto agli ambienti attraversati.  
+Al riguardo, si soggiunge che un efficace sistema di ventilazione mediante condotte, può essere garantito da una 
+doppia canalizzazione indipendente, una in entrata (immissione) ed una in uscita (estrazione), con condotti aventi la 
+medesima sezione e relative bocche poste, rispettivamente, nella parte bassa e nella parte alta del locale. 
+ 
+Quesito del libero professionista 
+Il sottoscritto libero professionista, in relazione a quanto formulato dal D.M. 30/11/1983 relativamente al camino di 
+ventilazione sfociante al di sopra della cop ertura dell’edificio, chiede se tale sbocco è da intendere sempre e comunque 
+al di sopra dell’edificio più alto e più vicino al filtro o se invece è da intendere, come sostiene il sottoscritto, la porzione 
+della copertura del corpo di fabbrica immediatamente sovrastante il filtro stesso.  
+12 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Tale richiesta viene formulata poiché frequentemente vengono indicate soluzioni che prevedono filtri sottostanti a 
+spazi scoperti (cortili, giardini, etc.), per i quali la copertura è rappresentata dalla struttura dei cort ili e dei giardini in 
+questione e quindi atti per lo sbocco dei camini di ventilazione.  
+Infatti, a parere dello scrivente le parole “ ……….sfociante al di sopra della copertura dell ’edificio ………. ” del 
+punto 1.7. del D.M. 30/11/1983 lasciano intendere che la  copertura di riferimento per lo sbocco del camino di 
+ventilazione del filtro è quella che trovasi nell’area sovrastante la porzione di edificio in cui è ubicato il filtro.  
+Si chiede altresì di conoscere se il camino di ventilazione deve avere necessariam ente sviluppo verticale o se lo 
+stesso può comprendere tratti con andamento sub-orizzontali che garantiscano comunque il tiraggio. 
+ 
+ 
+ 
+[4] 
+ 
+(Chiarimento) 
+PROT. n°  P2054/4122 sott. 67 
+Roma, 11 marzo 2005  
+ 
+OGGETTO: Intercapedine. Punto 1.8 allegato D.M. 30 novembre 1983. Aerazione. -  
+ 
+Con riferimento al quesito pari oggetto inviato con la nota indicata a margine, si concorda con il parere fornito da 
+codesta Direzione Regionale 
+ 
+Parere della Direzione Regionale 
+Si trasmette il quesito proposto da Comando provinciale VV.F. di Milano volto a chiarire i requisiti di aerazione 
+dell’intercapedine antincendi di cui al punto 1.8 del D.M. 30.11.1983. 
+Al riguardo si ritiene che tale caratteristica sia definita dalle specifiche regole tecniche relative alle attività a rischio 
+di incendio. 
+ 
+ 
+ 
+[7] 
+ 
+(Chiarimento) 
+PROT. n° 7941 
+362/ 032101.01.4183.010.0B7 
+Roma, 17 luglio 2009  
+ 
+OGGETTO: Quesiti relativi al punto 4.2.5. del D.M. 12/04/19 96 ed al punto 1.12 del D.M. 30/11/1983.  
+ 
+Con riferimento ai quesiti riportati a margine, si specifica quanta segue: 
+1. Nell’ottica dell’approccio prescrittivo che caratterizza la legislazione antincendio italiana, l ’applicazione del 
+punto 4.2.5 del D.M. 12/4/1996 vale anche nel caso di specie relativo ad una centrale termica situata 
+all’ultimo piano di un edificio dotato di autorimessa al piano interrato priva di comunicazione diretta con il 
+locale. Pertanto l ’accesso alla centrale può avvenire esc1usivamente dall’esterno o da intercapedine 
+antincendio di larghezza non inferiore a 0,9 m.  
+Sebbene non rientranti nel caso trattato, si richiama l ’attenzione sul fatto che per i locali ospitanti centrali 
+termiche posizionati sulle coperture degli edifici, qualora c lassificabili come “esterni” in base al punto 1.1 
+del D.M. 12/4/1996, non risultano applicabili le limitazioni sull’accesso riportate al comma precedente. 
+2. Nella definizione di “spazio scoperto” sono ricompresi anche i balconi, i ballatoi ed i terrazzi se i n possesso 
+dei requisiti prescritti dal D.M. 30/11/1983.  
+ 
+Parere della Direzione Regionale 
+Si trasmette il quesito pervenuto attraverso il Comando provinciale Vigili del fuoco di Pavia volto a chiarire alcuni 
+aspetti riguardanti i punti indicati in oggetto.  
+A tale proposito si ritiene che:  
+1. nel caso di fabbricato destinato anche parzialmente ad attività 92 la norma richieda che l ’accesso al locale 
+caldaia sia realizzato dall ’esterno, anche in caso di ubicazione all ’ultimo piano; tale richiesta, a parere d ello 
+scrivente, non appare giustificata quando non esistano comunicazioni dirette tra autorimessa e centrale 
+termica; 
+13 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+2. l’apertura della centrale termica di cui al quesito n.2 appare correttamente attestata su spazio a cielo libero.  
+ 
+Si resta in attesa delle determinazioni di codesto ufficio.  
+ 
+Parere del Comando 
+Con la presente si trasmette il quesito di pari oggetto, posto dallo studio di ingegneria associato XXXX – YYYY, 
+volto a chiedere i seguenti chiarimenti: 
+1. Se l’applicazione del punto 4.2.5 del DM 12/ 04/96 riportante: “ Nel caso di locali ubicati all’ interno del 
+volume di fabbricati destinati, anche parzialmente a pubblico spettacolo, caserme, attività comprese nei 
+punti 51, 75, 84, 85, 86, 87, 89, 90, 92 e 94 (per altezza antincendio oltre 54 m), dell ’allegato al D.M. 16 
+febbraio 1982 o soggetti ad affollamento superiore a 0,4 persone per m 2, l ’accesso deve avvenire 
+direttamente dall’esterno o da intercapedine antincendio di larghezza non inferiore a 0,9 m. ” valga anche 
+per locali caldaia ubicati in som mità di edifici di abitazione aventi autorimessa al piano interrato o se per 
+tali tipologia sia ammissibile l’accesso da disimpegno aerato. 
+2. Se nella definizione di “ spazio scoperto”  di cui al punto 1.12 del DM 30/11/83, siano ricompresi 
+balconi/ballatoi/terrazzi a cielo libero aventi caratteristiche meglio definite nella richiesta dello studio 
+tecnico . 
+ 
+Lo scrivente Comando ritiene che: 
+1. sebbene il punto 4.2.5 del DM 12/04/96 si chiaro in merito e che la nota prot. n°  P868/4108 sott. 22/20 del 
+05 novembre 2007 ribadisca tale punto, nel caso specifico, considerando che il secondo quesito della stessa 
+nota consente l’installazione della centrale termica sul terrazzo, avente caratteristiche di spazio scoperto, di 
+edifici civile con altezza antincendio > 54 m, si possa accettare tale ubicazione alle seguenti condizioni: 
+- l’accesso avvenga da disimpegno con strutture almeno REI 60 e sia areato;  
+- la tubazione di adduzione gas sia munita di due elettrovalvole, una subito a monte del contatore gas ed 
+una prima dell’ingresso alla CT, comandate da rivelatori di gas in centrale termica o da interruttore in 
+zona visibile ed accessibile, che oltre a chiudere l ’alimentazione del gas aprano una valvola in sommità 
+che vuoti la tubazione stessa al di sopra del tetto dell’edificio. 
+ 
+2. Si ritiene che i balconi/ballatoi/terrazzi con le caratteristiche definite dallo studio tecnico non siano 
+riconducibili alla definizione di spazio scoperto. 
+ 
+Al fine di dirimere ogni dubbio e per una corretta ed uniforme applicazione della normativa,  si chiede il definitivo 
+parere di codesto superiore Ufficio. 
+ 
+Si allega copia della richiesta trasmessa dal tecnico. 
+ 
+Richiesta del tecnico 
+D.M. 12/04/1996 
+ 
+Premesso che  
+- il D.M. 12/04/96, al punto 4.2.5 richiede l ’accesso direttamente dall’esterno o da intercapedine antincendio per “i 
+locali ubicati all’interno del volume di fabbricati destinati, anche parzialmente, ad attività comprese nei punti . 
+.. 911... dell’allegato al decreta ministeriale 16-2-1982 ..” 
+  
+Chiedo se l ’applicazione del punto di cui s opra ricomprenda anche i locali caldaia ubicati in sommità di edifici 
+d’abitazione (condomini e simili) aventi autorimesse al piano interrato o se per tali tipologie sia ammissibile l’ accesso 
+da disimpegno aerato.  
+ 
+D.M. 30/11/1983 
+ 
+premesso che: 
+- l’allegato A al D.M. 30/11/1993 al punto 1.12 definisce come “ spazio scoperto”  un generico spazio con 
+particolari caratteristiche.  
+ 
+Chiedo se un balcone/ballatoio/terrazzo a cielo libero avente sviluppo non inferiore a 3,5 m, larghezza non inferiore 
+a 0,8 m e pros piciente vuoto sui piani inferiori con dimensioni non inferiori a 3,5 x 3,5 m e con superficie non inferiore 
+1 Leggasi “92”. N.d.R. 
+14 
+                                                                        
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+a quella calcolata moltiplicando per tre l ’altezza in metri della parete più bassa che lo delimita, sia definibile “ spazio 
+scoperto”.  
+ 
+Ringrazio anticipatamente e porgo distinti saluti. 
+ 
+ 
+ 
+[8] 
+ 
+(Chiarimento) 
+PROT. n°  P362/4106 sott. 40/DI 
+Roma, 29 marzo 2006 
+ 
+OGGETTO: Distanze di sicurezza esterne - Quesito. 
+ 
+Con riferimento al quesito posto da codesta As sociazione con la nota indicata a margine, si conferma che nel 
+computo delle distanze di sicurezza esterna previste dal D.M. 13 ottobre 1994 possono comprendersi anche le larghezze 
+di strade e canali, in analogia a quanto espressamente previsto in altre di sposizioni tecniche di prevenzione incendi che 
+regolamentano settori affini. 
+ 
+Richiesta dell’associazione 
+Un’Azienda distributrice, nostra associata, titolare di un deposito di GPL soggetto agli adempimenti di cui all’art. 8 
+del D. Lgs. 334/99 sito in XXXX, ci segnala che in occasione di un sopralluogo di verifica, da parte di un funzionario 
+componente la Commissione sono state avanzate perplessità circa la sussistenza delle “ distanze di sicurezza esterna” in 
+riferimento ad alcuni punti pericolosi del deposito stesso (ad esempio: da punti di travaso, da autocisterne o ferrocisterne 
+in travaso, ecc.). 
+In particolare, l’azienda ci ha segnalato che oggetto di difforme interpretazione risulta la corretta applicazione della 
+distanza di sicurezza esterna in rappor to a strade esterne allo stabilimento stesso, nei confronti delle quali - secondo 
+un’interpretazione non condivisa dalla scrivente Associazione -  tale distanza dovrebbe essere osservata ai fini del 
+computo. 
+In proposit o, va ricordato che le disposizioni re lative ai cri teri di sicurezza antincendio per la progettazione, la 
+costruzione, l’installazione e l ’esercizio dei depositi di GPL in serbatoi fissi di capacità complessiva superiore a 5m 3 
+sono stabilite, in via generale, nel D.M. 13.10.1994. 
+Tale pro vvedimento - per quanto concerne la tematica in discussione -  nel punto 4.2.1 stabilisce le distanze di 
+sicurezza esterne che si devono osservare dai vari elementi pericolosi, senza peraltro specificare quali siano gli elementi 
+esterni da proteggere. 
+Inoltre, il DM 13.10.94 - nello specific o punto 4.2.2 -  impone in maniera esplicita il rispetto delle distanze di 
+sicurezza esterne rispetto a “linee ferroviarie pubbliche e a linee tranviarie in sede propria”. 
+Pertanto, a nostro a vviso, il DM 13.10.94, nel preveder e espressamente le suddette due tipologie di opere, nulla ha 
+ritenuto di disporre, in analogia, per le “aree stradali”, evidentemente non prive di tutela in quanto comunque distanziate 
+dai punti pericolosi in forza delle “distanze di protezione” e delle “zone di rispetto”. 
+Peraltro, va ricordato che anche le normative precedenti al DM 13.10.94 consentivano espressamente che la 
+larghezza di strade, giardini, ecc., potesse essere computata nella misura delle distanze di sicurezza esterne. 
+Infatti, anche il De creto ministeriale del 31.07.1934 - norma di sicurezza per gli stabilimenti ed i depositi di “ oli 
+minerali” tuttora vigente -  che ha costituito il riferimento principale per l’evoluzione delle regole tecniche di 
+prevenzione incendi dedicate a specifiche at tività, nell’art. 40 espressamente prevede che la “la larghezza di strade, a 
+qualsiasi categoria appartengano, che corrono fra gli stabilimenti o i depositi ed i fabbricati esterni, i ponti, i 
+monumenti, etc., è compresa nel computo delle distanze di rispe tto stabilite per i serbatoi e per i locali pericolosi, e 
+cioè come se le strade stesse non esistessero”. 
+In particolare, quanto sopra era espressamente consentito dalla Circolare del Ministero dell’ Interno n. 74 /1956 - da 
+cui discende direttamente il DM 1 3.10.94 – che prevedeva che le distanze di sicurezza esterne (titolo  II, artt. 4 -  10) 
+venissero computate da fabbricati non pertinenti lo stabilimento stesso e dai confini di aree indicate come edificabili nel 
+Piano Regolatore Comunale. 
+In proposito, si desidera evidenziare che non risulta, né dalla letteratura né dalla prassi applicativa, che questo 
+orientamento sia stato abbandonato o prevaricato, in quanto questo avrebbe significato il sacrificio di una notevole quota 
+di stabilimenti e depositi esistenti sul territorio nazionale, pur valutati sicuri ai fini della prevenzione incendi. 
+Le suddette considerazioni trovano, altresì, conferma in tempi recenti in altri pro vvedimenti normativi, alcuni dei 
+quali inerenti sempre il settore del GPL ed altri attività affini. 
+Si intende, in particolare, far riferimento ai seguenti provvedimenti: 
+15 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+- D.M. 12.09.2003, recante “ Approvazione della regola tecnica di prevenzione incendi per l’installazione e 
+l’esercizio di depositi di gasolio per autotrazione ad uso privato, di capacità geometrica non superiore a 9 m 3, in 
+contenitori-distributori rimovibili per il rifornimento di automezzi destinati all’attività di autotrasporto”. 
+- D.M. 14.05.2004, recante “ Approvazione della regola tecnica di prevenzione incendi per l’installazione e 
+l’esercizio dei depositi di gas di petrolio liquefatto con capacità complessiva non superiore a 13 m3”; 
+Tutti questi pro vvedimenti esprimono chiaramente determinate restrizioni rispetto ad infrastrutture ferroviarie 
+oppure a linee elettriche, mentre consentono che le strade ricadano all’interno delle distanze di sicurezza esterne rispetto 
+ai punti definiti pericolosi. 
+In ultimo, si desidera sottolineare che le disposizioni del DM 13.10.94, regola tecnica di carattere generale, per 
+quanto riguarda i depositi soggetti a “ notifica” - ai sensi della normativa per le attività a rischio di incidenti rilevanti - 
+costituiscono “un orientamento progettuale da verificare sulla base delle previste analisi di rischio ” (DM 13.10.94, titolo 
+I, punto 1,.1). 
+Orbene, tali analisi di rischio, correttamente effettuate e validate dalla formale istruttoria collegiale a term ini del D. 
+Lgs 334/99 -  così come modificato dal D. Lgs. 238/05 -  comprendono apprestamenti tecnici, impiantistici ed 
+organizzativi volti alla minimizzazione del rischio nei confronti di qualsiasi parametro di riferimento, ivi comprese le 
+distanze di sicurezza. 
+Inoltre, a riprova dell’attenzione posta dal Legislatore, negli ambiti pertinenti, verso la tutela delle infrastrutture 
+stradali, si ricorda ch e con D.M. 15.05.96 il Ministero dell’Ambiente -  in conformità alle determinazioni della 
+Conferenza di Servizi per i rischi I ndustriali – ha dettato precise norme per la valutazione della compatibilità territoriale 
+connessa ai depositi di GPL, con particol are riguardo alla valutazione della vulnerabilità del territorio circostante il 
+deposito stesso, in relazione ai possibili danni derivanti da eventi incidentali, e, conseguentemente, tenendo debito conto 
+della presenza di strade. 
+Con riferimento alle sopra  esposte considerazioni, XXXX chiede conferma della corretta interpretazione della 
+normativa citata nel senso di ritenere che, anche nel caso di depositi di GPL soggetti al D.M. 13.10.1994, nella misura 
+delle distanze di sicurezza esterna possa essere computata la larghezza di strade, canali, ecc. 
+Ringraziando anti cipatamente per l ’attenzione che si vorrà porre alla presente, si resta in attesa della suddetta 
+conferma. 
+Con i migliori saluti. 
+ 
+ 
+ 
+[9] 
+ 
+(Chiarimento) 
+PROT. n°  1304 
+032101.01.4109.044B.000 
+Roma, 23 marzo 2009 
+ 
+OGGETTO: locale di pubblico spettacolo. Luogo sicuro e capacità di deflusso del sistema delle vie di esodo. 
+Quesito. 
+ 
+Con riferimento ai quesiti indicati a margine, si concorda con il parere della  Direzione Interregionale Veneto e 
+Trentino Alto Adige. 
+ 
+Parere della Direzione Interregionale 
+In Allegato alla presente si trasmette, il quesito pervenuto dal Comando di Treviso, inerente l’oggetto. 
+Al riguardo lo scrivente, nel condividere le osservazioni del Comando, che legge per conoscenza, ritiene di acquisire 
+nel merito il parere di codesto Ministero. 
+ 
+Parere del Comando 
+In data 29.05.08, con prot. 7716, è pervenuta a questo Comando l ’allegata nota, a firma del XXXXX di Castelfranco 
+Veneto (TV), con la quale si chiedono  indicazioni sulla capacità di deflusso del sistema di vie di esodo di un locale di 
+pubblico spettacolo. 
+Si tratta di un disco  bar/discoteca (di cui si allegano anche alcuni elaborati grafici,  anche se non in scala) da 
+realizzare al primo piano di un complesso edilizio che: 
+• al piano interrato ospita un ’autorimessa (attività inserita nell’elenco di cui al DM 16.02.82 al n. 92) ed una serie 
+di magazzini (cfr. tav. 1VF); 
+• al piano seminterrato ospita un ’autorimessa (attività inserita nell’elenco di cui al DM 16.02.82 al n. 92) ed un 
+parcheggio scoperto; 
+16 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+• al piano terra ospita un centro commerciale con vari negozi di superficie superiore a 400 mq (attività inserita 
+nell’elenco di cui al DM 16.02.82 al n. 87) che si affacciano su cortili  di smistamento in gran parte a cielo libero 
+(cfr. tav. 3VF e tv. 4VF); 
+• al piano primo, (ultimo piano dell’ edificio), oltre al locale di pubblico spettacolo, ospita  due locali con 
+destinazione d’uso direzionale-commerciale (cfr. tav. 5VF e tv. 7VF). 
+La separazione del locale di pubblico spettacolo con i locali sottostanti e/o adiacenti ha caratteristiche di resistenza 
+al fuoco REI 60 (cfr. sezione tav. 11VF). 
+Parte della superficie del piano primo è una ter razza a cielo libero sulla quale sfociano le uscite di sicu rezza del 
+locale di pubblico spettacolo e dei locali con destinazione  d’uso direzionale commerciale. Tale terrazza, pertanto, 
+sovrasta un centro commerciale (p.to 87 dell ’elenco allegato al DM 16.02.82) ed è da esso separata da un solaio avente 
+caratteristiche di resistenza al fuoco REI 60. La terrazza secondo la definizione riportata al  punto 1.12 del Decreto 
+Ministeriale 30 Novembre 1983 risulta essere uno spazio scoperto.  La sua superficie è tale da consentire lo 
+stazionamento di tutte le persone costitu enti la capienza massima del disco bar /discoteca (affollamento massimo circa 
+1000 persone). La te rrazza è servita da n° 2 scale esterne di larghezza 1,2 m, realizzate in conformità al punto 4.5.4 
+dell’all. al DM 19.08.96, che sfociano direttamente su corti le esterno di tipo aperto direttamente  collegato alla pubblica 
+via (cfr. tav. 4VF). 
+Tutto ciò premesso si chiede: 
+1. se la terrazza al piano primo, spazio scoperto sovrastante attività soggetta a controllo  VV.F. e da essa separata 
+con solaio avente caratteris tiche di resiste nza al fuoco REI 60,  possa essere considerata un luogo sicuro  
+secondo la definizione di cui al p.to 3.4 del DM  30.11.83 e, in particolare, se sia da conside rare luogo sicuro 
+statico e si possa pertanto  prescindere dalla valutazione del sist ema di vie di esodo dalla  terrazza stessa (visto 
+che la sua superficie permette lo stazionamento di tutte le persone previste nel locale di pubblico  spettacolo 
+con una densità di affol lamento di 1 -1,2 pers /m2) o luogo sicuro dinamico  valutando anche la cap acità di 
+deflusso dei due vani scala scoperti per raggiungere la pubblica via al piano terra. 
+2. nel caso in cui la te rrazza sia considerata luogo sicuro dinamico, se ai due vani scala scoperti possa essere 
+attribuita una capacità di deflusso pari a  250 (nel qual caso n. 2 scale di larghezza 1,20 m sono suff icienti per 
+l’evacuazione di 1000 persone), in linea con il p.to 4.2 Titolo IV dell ’all. al DM 19.08.96, come peraltro 
+previsto per la zona spettatori degli impianti sportivi all’ aperto (art. 8 del DM 18.03.96), o debba essere 
+attribuita una capacità di deflusso di 37,5, essendo la quota del piano primo a circa 4- 5 m rispetto al piano di 
+riferimento. 
+3. se i due vani scala scoperti, che dal piano primo portano all ’autorimessa al piano seminterrato, siano da 
+considerare parti comuni del centro commerciale e ne sia, pertanto, v ietata la comunicazione e la promiscuità 
+con il locale di pubblico spettacolo, visto che il p.to 2.2.3 lett. b)  dell’all. al DM 19.08.96, esclude i locali di 
+tipo f) (sale da ballo e discoteche) dalla possibilità di comunicare con le parti comuni di centri commerciali. 
+A parere di questo Comando: 
+1. la terrazza deve essere considerata luogo sicuro dinamico; 
+2. la capacità di deflusso del le scale esterne deve essere pari a 37,5 per cui, nel caso di specie, si rende necessario 
+prevedere ulteriori percorsi di esodo per il deflusso delle 1000 persone previste nel locale di pubblico 
+spettacolo; 
+3. i due vani scala scoperti sono parti comuni del centro commerciale, la comunicazione attraverso percorsi 
+scoperti e la promiscuità con il locale di pubblico spettacolo può essere consentita con il procedimento di 
+deroga di cui all ’art. 6 del DPR 37/ 98, a condizione che tali percorsi non rientrino nel sistema di vie di esodo 
+del centro commerciale stesso. 
+In attesa di riscontro si porgono distinti saluti. 
+ 
+(Si omettono gli allegati. N.d.R.) 
+ 
+ 
+ 
+[10] 
+ 
+(Chiarimento) 
+PROT. n°  P702/4122 sott. 32 
+Roma, 27 giugno 2001 
+ 
+OGGETTO: Edificio scolastico - Scala di sicurezza esterna. 
+ 
+ Con riferimento ai chiarimenti richiesti dal Comando Provinciale in merito alla scala esterna a servizio dell’ Istituto 
+scolastico, si ritiene che detta scala una volta adeguata con gli interventi proposti, abbia caratteristiche costruttive tali da 
+poter essere assimilata ad una scala di sicurezza esterna.  
+17 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Si rimanda alle valutazioni del Comando in merito alla necessità di prescrivere il requisito di resistenza al fuoco per 
+la parete, compresi i relativi infissi, su ci è attestata la scala, prendendo a riferimento i criteri previsti al punto 4.5.4 del 
+DM 19 agosto 1996, i quali sono utilizzabili, in linea di massima, anche per le altre attività civili soggette ad 
+affollamento di persone. 
+ 
+Parere del Comando 
+ È pervenuto a questo Comando, un quesito teso a ch iarire le caratteristiche che deve possedere una scala di 
+emergenza esterna a servizio di un edificio scolastico; in particolare si chiede se la scala di seguito descritta può essere 
+considerata come scala di sicurezza esterna ai fini dell ’applicazione dell’art. 5.2 comma 2 dell ’allegato al DM 26.8.92, 
+in base al quale occorre che gli spazi frequentati da alunni e personale docente e non docente, qualora distribuiti su più 
+piani, devono essere dotati di una scala di sicurezza esterna o a prova di fumo o a prova di fumo interna.  
+Trattasi di una scala esistente con struttura portante in calcestruzzo, esterna al volume dell ’edificio, i cui pianerottoli 
+di piano per il collegamento con il fabbricato sono dotati di parapetti aventi altezza regolamentare, ma le cui rampe ed i 
+pianerottoli di interpiano sono delimitati non da parapetti bensì da pareti continue in calcestruzzo prive di aperture. È 
+intendimento dell’Amministrazione Provinciale realizzare alcuni fori di aerazione permanente ad altezza del filo 
+intradosso della soletta in c.a. dei pianerottoli di interpiano al fine di impedire l’ accumulo di fumo nelle zone chiuse da 
+muratura. Inoltre tutto il rivestimento in gomma della scala verrebbe rimosso e sostituito con un nuovo rivestimento in 
+materiale incombustibile.  
+Il p.to 3.7 dell ’allegato al DM 30.11.83 definisce la scala di sicurezza esterna come scala totalmente esterna rispetto 
+al fabbricato servito, munito di parapetto regolarmente e di altre caratteristiche stabilite dalla norma: la regola tecnica 
+relativa agli edifici scolastici non indica alcuna prescrizione specifica relativa alle modalità realizzative di una scala di 
+sicurezza esterna.  
+Premesso quanto sopra, lo scrivente è del parere che, con gli interventi di adeguamento proposti 
+dall’Amministrazione Provinciale, la scala in parola, seppur non dotata sul “ giro scala” di veri e propri parapetti, abbia 
+caratteristiche tali da essere assimilata ad una delle tipologie previste dall’art. 5.2 comma 2 dell’allegato al DM 26.8.92.  
+Si trasmette copia del q uesito e si rimane in attesa di un superiore parere in merito da parte di codesto Ispettorato; 
+più in generale si chiede di indicare quali caratteristiche debba possedere, dal punto di vista della sicurezza antincendio, 
+una scala di emergenza esterna nei casi in cui la stessa risulta a servizio di un ’attività non normata e nei casi in cui, pur 
+trattandosi di attività normata, la regola tecnica non detta specifiche disposizioni in materia: in particolare si chiede:  
+- Se la scala debba essere completamente aperta o se possa essere racchiusa anche da pareti pur dotate di idonee 
+superfici di aerazione permanente atte a garantire una sufficiente ventilazione naturale; 
+-  Se la parete su cui è attestata la scala debba avere caratteristiche di resistenza al fuoco; 
+- Se previa opportuna valutazione del caso specifico, possano essere estesi anche in altri ambiti i criteri previsti 
+dal p.to 4.5.4 dell’allegato al DM 19.8.96 per i locali di pubblico spettacolo.  
+ 
+(Si omettono gli allegati. N.d.R.) 
+ 
+ 
+ 
+[11] 
+ 
+ 
+(Chiarimento) 
+PROT. n°  3372 
+032101 01 4108 022 000 
+Roma, 16 aprile 2009 
+ 
+OGGETTO: Quesiti inerenti il DM 1/2/1986 e s.m.i. “ Norme di sicurezza antincendi per la costruzione e 
+l’esercizio di autorimesse e simili”, presentati dall’ing. XXX YYY. 
+ 
+Per opportuna conoscenza, si trasmettono, in allegat o, i quesiti inerenti l’ applicazione del DM 1/2/1986 e s.m.i. 
+presentati dall’ing. XXX YYY ed i relativi chiarimenti espressi da quest’Area.  
+ 
+ 
+ 
+MINISTERO DELL’INTERNO 
+ 
+DIPARTIMENTO DEI VIGILI DEL FUOCO, DEL SOCCORSO PUBBLICO E DELLA DIFESA CIVILE 
+DIREZIONE CENTRALE PER LA PREVENZIONE E LA SICUREZZA TECNICA 
+AREA PREVENZIONE INCENDI 
+18 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+ 
+(Chiarimento) 
+PROT. n°  2975 
+032101.01.4108.022.000 
+Roma, 09 aprile 2009 
+ 
+OGGETTO: Quesiti inerenti il DM 1/2/1986 e s.m.i. “ Norme di sicurezza antincendi per la costruzione e 
+l’esercizio di autorimesse e simili”. 
+ 
+Con riferimento alla nota indicata a margine, si ritiene quanto segue:  
+punto 2.1 lett. a la misurazione delle superfici dei compartimenti va effettuata al netto dello spessore delle pareti 
+perimetrali;  
+punto 2.1 lett. b.1 le superfici dei corpi scala e dei percorsi di esodo vanno detratte dal calcolo della superf icie del 
+compartimento solo se le stesse non fanno parte del compartimento considerato;  
+punto 2.1 lett. b.2 la misurazione delle superfici dei compartimenti deve tenere conto del la misura delle superfici 
+delle intercapedini solo qualora la proiezione in pianta di queste ultime sia utilizzata anche per 
+parcare e/o movimentare autoveicoli; 
+punto 2.1 lett. b.3 la misurazione delle superfici dei compartimenti deve essere effettuata al lordo del lo spessore 
+delle pareti divisorie tra box e posti auto; 
+punto 2.1 lett. b.4 le superfici dei l ocali tecnici e dei ripostigli di se rvizio v anno detratte dal calcol o della 
+superficie del compartimento solo se le stesse non fanno parte del compartimento considerato;  
+punto 2.1 lett. b.5 le superfici delle rampe vanno detratte dal calcolo dell a superficie del compartimento solo se di 
+“tipo apert o” così come definite al punto 0. del D.M. 1/2/1986 e s.m.i. o  se compartimentate 
+rispetto al compartimento considerato; 
+punto 2.2 i progetti da presentare al Comando VVF per attività  soggette devono possedere i requisiti di 
+cui al punto A.3 dell’ Allegato A al D.M. 4/5/98. Non sono ammesse indeterminazioni nelle 
+indicazioni delle misure a corredo degli elaborati grafici. L ’utilizzo delle tolleranze 
+dimensionali di cui al D.M. 30/11/83 è  consentito solo in fase di riscontro tra quanto previsto in 
+fase progettuale e quanto realizzato;  
+punto 2.3 il computo del numero di uscite finalizzato all’applicazione del 2° comma del punto 3 .10.4 del 
+DM 1/2/1986 e s.m.i. è da riferirsi alle uscite di piano e non a quelle complessivamente presenti 
+nell’autorimessa. Pertanto, in caso di autorimesse pluripiano, è  consentito per ogni piano, che 
+una di esse abbia larghezza di un modulo solo se presenti due o  più uscite per ciascun piano: il 
+percorso di esodo fino al  luogo sicuro, non deve presentare in ogni caso restringimenti rispetto 
+alla larghezza delle suddette uscite. Si richiama altres ì l’attenzione sul punto 1.6.3 dell’allegato 
+IV al D.Lgs. 81/08 che prevede una larghezza minima delle porte di 80 cm.  
+ 
+Parere del tecnico 
+1. Premessa  
+Il D.M. in oggetto, emanato oltre 20 a nni fa, presenta alcune difficoltà interpretative che si sono accentuate in 
+questi ultimi tempi a fronte di interpretazioni sempre più restrittive da parte di alcuni Comandi Provinciali.  
+2. Ciò premesso si richiede cortesemente di voler fornire un chiarimento sui seguenti argomenti.  
+2.1 Metodica di calcolo delle superfici nei casi con compartimento unico su più piani sotterranei. 
+Il punto 3.6.1 del D.M. 01.02.1986, stabilisce, nei vari casi, la massima dimensione ammessa dei 
+compartimenti, senza però chiarire la metodica di calcolo. 
+Richiamandoci al la definizione di “ autorimessa” (punto 0 del D.M.) che recita “ area coperta destinata 
+esclusivamente al ricovero, alla sosta e alla manovra autoveicoli con i servizi annessi ”, si ritiene, a parere dello  
+scrivente, che la misura d a assumere come base per il calcolo dei compartimenti e delle corrispondenti 
+aerazioni siano determinate come segue:  
+a) misurando solo le parti comprese all ’interno dei muri perimetrali, che so no quindi esclusi fino al  loro 
+filo interno  
+b)  detraendo le superfici:  
+b.1  dei corpi scala e dei relativi percorsi di esodo  
+b.2  degli spazi destinati alle intercapedini di aerazione  
+b.3  delle pareti e/o i setti divisori tra box e/o posti auto 
+b4 dei locali tecnici ed i ripostigli di servizio 
+b.5 dei piani inclinati della rampa (piano inclinato carrabile destinato a superare dislivelli, punto 
+“0” del D.M. 01.02.1986) 
+Per l e detrazioni degli spazi indicati nei primi b1 - b2 - b3 - b4 non servono particolari motivazioni perch é 
+chiaramente estranee alle zone di “ ... ricovero, sosta e manovra ...”. 
+19 
+<<PAGE>>
+ 
+Ministero dell’Interno 
+Dipartimento dei Vigili del Fuoco, del Soccorso Pubblico e della Difesa Civile 
+Direzione Centrale per la Prevenzione e la Sicurezza Tecnica 
+  
+ 
+Per quanto riguarda la rampa inclinata (punto b.5), la  sua esclusione d al calcolo delle superfici trova 
+fondamento proprio nella definizione del D.M. 01.02.1986 che la  differenzia in modo preciso (piano  inclinato 
+carrabile destinato a superare dislivelli) rispetto a quella dell’autorimessa (ricovero, sosta e manovra). 
+2.2  Tolleranze ammesse dal D.M. 30.11.83 
+Nella determinazione dell a misura delle superfici si ritiene che sui progetti presentati al  Comando VVF, che 
+non sono ancora a livello esecutivo, e pertanto presentano un certo grado di indeterminatezza, possa essere 
+applicata la tolleranza del 5% ammessa al punto 5 del D.M. 30.11.1983. 
+Si rappresenta che tale D .M., oltretutto antecedente alla  data di emanazione del D.M. 01.02.1986, é una norma 
+cosiddetta “orizzontale” cioè che e applicabile a tutte le normative specifiche per cui anche al caso in esame.  
+2.3 Vie di esodo 
+Il 2° comma dell ’art. 3.10.4 ( D.M. 01.02.1986) acconsente, nel coso di due o più uscite, che una uscita abbia 
+larghezza non inferiore a 0,6 m.  
+Nel c aso di autorimesse poste su pi ù piani normalmente si prevede, oltre al le necessarie scale d a 2 moduli, 
+anche una scala da 1 modulo che serva i vari piani.  
+È stato sollevato il dubbio, se rvendo la scala d a 1 modulo pi ù piani, che non si sia pi ù in presenza di “una 
+uscita” ma di una pluralità di uscite da 1 modulo.  
+A parere dello  scrivente si ritiene che con il termine “ una uscita ” (ammessa d a 1  modulo) ci si riferisca 
+all’autorimessa nel suo assieme e non al singolo piano.  
+3. Conclusione  
+Atteso quanto sopra esplicitato si prega cortesemente di voler esprimere un parere circa:  
+a)  la metodica utilizzata nella misura della superficie (punto 2.1)  
+b) l’utilizzo delle tolleranze ammesse (punto 2.2)  
+c) l’uso della scala da 1 modulo (punto 2.3).  
+ 
+Ringraziando e restando in attesa di riscontro, si inviano cordiali saluti. 
+20 
+<<PAGE>>
