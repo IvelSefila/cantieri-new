@@ -95,9 +95,9 @@ export function montaGSA(box) {
   const sezCivico = el("div", "blocco");
   sezCivico.style.cssText = "background: rgba(61, 220, 247, 0.05); border: 1px solid rgba(61, 220, 247, 0.25); border-radius: 12px; padding: 12px; margin-bottom: 16px;";
 
-  const titCivico = el("h2", "", "Palazzi e Condomini — Calcolo da Civico");
+  const titCivico = el("h2", "", "Palazzi e Condomini d'Italia — Calcolo da Civico (Tutte le 20 Regioni)");
   titCivico.style.cssText = "color: var(--hud-ciano); font-size: 13px; margin: 0 0 4px;";
-  const subCivico = el("div", "sub", "Inserisci l'indirizzo con civico (Piemonte): interroga il LiDAR regionale BDTRE (ARPA Piemonte) e calcola altezza antincendi e livello GSA (DM 246/1987 + DM 2019).");
+  const subCivico = el("div", "sub", "Inserisci qualsiasi indirizzo in Italia: interroga il LiDAR regionale BDTRE (Piemonte / ARPA) o i volumi 3D cartografici nazionali (OpenStreetMap 3D / Modello DM 5/7/1975) e calcola altezza antincendi e livello GSA (DM 246/1987 + DM 25/1/2019).");
   subCivico.style.cssText = "font-size: 11px; margin-bottom: 8px; color: var(--hud-muto);";
 
   const rowIndirizzo = el("div", "riga-azioni");
@@ -105,7 +105,7 @@ export function montaGSA(box) {
 
   const inpIndirizzo = el("input");
   inpIndirizzo.type = "text";
-  inpIndirizzo.placeholder = "Indirizzo e civico (es. Corso Nizza 10, Cuneo)";
+  inpIndirizzo.placeholder = "Indirizzo e civico (es. Corso Nizza 10 Cuneo, Via Dante 10 Milano, Via del Corso 20 Roma)";
   inpIndirizzo.style.cssText = "width: 100%; box-sizing: border-box;";
 
   const rowGe = el("div", "riga-azioni");
@@ -130,18 +130,18 @@ export function montaGSA(box) {
   btnCalcolaCivico.onclick = async () => {
     const txt = inpIndirizzo.value.trim();
     if (!txt) {
-      statoCivico.textContent = "Inserisci un indirizzo valido (es. Via Po 14, Torino).";
+      statoCivico.textContent = "Inserisci un indirizzo valido (es. Via Po 14 Torino, Via Dante 10 Milano, Via del Corso 20 Roma).";
       statoCivico.style.color = "#ff7b86";
       return;
     }
     btnCalcolaCivico.disabled = true;
     statoCivico.style.color = "var(--hud-ciano)";
-    statoCivico.textContent = "1/2 Geocodifica indirizzo in corso…";
+    statoCivico.textContent = "1/2 Geocodifica indirizzo in corso (Nominatim Italia)…";
     esitoCivico.innerHTML = "";
 
     try {
       const valGe = inpGe.value.trim() ? parseFloat(inpGe.value.replace(",", ".")) : null;
-      statoCivico.textContent = "2/2 Interrogazione LiDAR BDTRE Regione Piemonte (ARPA)…";
+      statoCivico.textContent = "2/2 Acquisizione volumetria (LiDAR BDTRE / OpenStreetMap 3D)…";
       const res = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe });
 
       if (res.esito !== "OK") {
@@ -150,7 +150,7 @@ export function montaGSA(box) {
         return;
       }
 
-      statoCivico.textContent = "✓ Edificio individuato e analizzato con successo!";
+      statoCivico.textContent = `✓ Edificio individuato in ${res.regione}! (${res.provider})`;
       statoCivico.style.color = "#7ef2b5";
 
       function renderizzaCard(risposta) {
@@ -161,18 +161,21 @@ export function montaGSA(box) {
 
         const r1 = el("div", "", `Indirizzo: ${risposta.indirizzo_trovato}`);
         r1.style.fontWeight = "600";
-        const r2 = el("div", "hud-stat", `Coordinate: ${risposta.coordinate.lat.toFixed(5)}, ${risposta.coordinate.lon.toFixed(5)}`);
-        card.append(r1, r2);
+        const r2 = el("div", "hud-stat", `Regione: ${risposta.regione}${risposta.comune ? ` (${risposta.comune})` : ""} • Coordinate: ${risposta.coordinate.lat.toFixed(5)}, ${risposta.coordinate.lon.toFixed(5)}`);
+        const rProv = el("div", "hud-stat", `Fonte Dati: ${risposta.provider}`);
+        rProv.style.cssText = "color: var(--hud-ciano); font-size: 11px; margin-bottom: 6px;";
+        card.append(r1, r2, rProv);
 
-        // Se ci sono più corpi di fabbrica nel complesso
+        // Se ci sono più corpi di fabbrica nel complesso o tipologie selezionabili
         if (risposta.volumi_rilevati && risposta.volumi_rilevati.length > 1) {
           const rMulti = el("div");
           rMulti.style.cssText = "margin: 8px 0; padding: 6px; background: rgba(255,196,77,0.08); border: 1px dashed rgba(255,196,77,0.3); border-radius: 6px;";
-          rMulti.append(el("div", "hud-stat", `Complesso multi-palazzo (${risposta.volumi_rilevati.length} corpi). Seleziona il palazzo:`));
+          rMulti.append(el("div", "hud-stat", `Volumi / Opzioni rilevate (${risposta.volumi_rilevati.length}). Seleziona corpo o piani:`));
           const btnGroup = el("div");
           btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;";
           risposta.volumi_rilevati.forEach((v) => {
-            const b = el("button", "", `${v.tipo_presunto}: ${v.altezza_m.toFixed(1)} m`);
+            const label = v.piani ? `${v.tipo_presunto}: ~${v.altezza_m.toFixed(1)} m` : `${v.tipo_presunto}: ${v.altezza_m.toFixed(1)} m`;
+            const b = el("button", "", label);
             b.style.cssText = v.selezionato
               ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 3px 8px;"
               : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 3px 8px; cursor: pointer;";
