@@ -1099,6 +1099,16 @@ async function init() {
     messaggio,
   });
   montaAutomatismi();
+  // Telefono: il pannello laterale ha la sua X per chiuderlo
+  const pannelloLaterale = document.querySelector("aside");
+  if (pannelloLaterale && !pannelloLaterale.querySelector(".aside-chiudi")) {
+    const x = document.createElement("button");
+    x.className = "aside-chiudi";
+    x.textContent = "✕";
+    x.setAttribute("aria-label", "Chiudi il pannello");
+    x.onclick = () => pannelloLaterale.classList.add("chiuso");
+    pannelloLaterale.prepend(x);
+  }
   montaLegenda();
   montaPrimaPersona();
   if (TATTILE) montaManopole();

@@ -30,6 +30,8 @@ export const QUALITA = {
 };
 
 export function qualitaAutomatica(gl, navigatore = globalThis.navigator) {
+  // Telefono: qualita' media di partenza (il telefono riporta spesso poca memoria, ma regge la scena)
+  if ((navigatore?.maxTouchPoints ?? 0) > 0) return "medio";
   const core = navigatore?.hardwareConcurrency ?? 4;
   const memoria = navigatore?.deviceMemory ?? 4;
   const texture = gl?.capabilities?.maxTextureSize ?? 4096;

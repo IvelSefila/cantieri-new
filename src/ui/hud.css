@@ -267,3 +267,20 @@ body.pp-on .hud-hotbar, body.pp-on .hud-coord, body.pp-on .hud-top { display: no
   .hud-toasts { top: 108px; }
   #msg-pp { top: 108px !important; }
 }
+
+/* Telefono: pannelli dentro lo schermo, con la X per chiuderli */
+.aside-chiudi { display: none; }
+@media (max-width: 700px) {
+  aside { max-width: calc(100vw - 16px) !important; }
+  aside, aside * { box-sizing: border-box; max-width: 100%; }
+  aside input, aside select, aside textarea, aside button { min-width: 0; }
+  aside { padding-top: 46px !important; }
+  .aside-chiudi {
+    display: flex; position: absolute; top: 8px; right: 8px; z-index: 3;
+    width: 34px; height: 34px; align-items: center; justify-content: center;
+    border-radius: 50%; border: 1px solid rgba(255,196,77,.6); background: rgba(16,22,38,.95);
+    color: #f2f4f8; font: 700 15px system-ui, sans-serif; cursor: pointer;
+  }
+  .scheda-modale, #pannello-alloggi, #pannello-auto { padding-top: 44px !important; }
+  #pannello-alloggi .x-chiudi, #pannello-auto .x-chiudi { position: absolute; }
+}
