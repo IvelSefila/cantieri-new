@@ -54,11 +54,13 @@ function aggiornaPrimaPersona(on) {
 function montaPrimaPersona() {
   const stile = "padding:8px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(16,22,38,.9);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer";
   pulsantePP = document.createElement("button");
+  pulsantePP.id = "btn-pp";
   pulsantePP.textContent = "Entra in prima persona";
   pulsantePP.style.cssText = stile + ";position:fixed;left:16px;bottom:200px;z-index:70";
   pulsantePP.onclick = entraPrimaPersona;
 
   messaggioPP = document.createElement("div");
+  messaggioPP.id = "msg-pp";
   messaggioPP.textContent = "Esci dalla visuale in prima persona cliccando Esc";
   messaggioPP.style.cssText = "display:none;position:fixed;top:120px;left:50%;transform:translateX(-50%);z-index:80;padding:10px 18px;border-radius:12px;background:rgba(16,22,38,.92);color:#ffc44d;font:700 13px system-ui,sans-serif;border:1px solid rgba(255,196,77,.5)";
 
@@ -73,11 +75,25 @@ function montaPrimaPersona() {
   const vuoto = () => document.createElement("div");
   // Quattro tasti in croce: W sopra, A S D sotto
   tastiPP = document.createElement("div");
+  tastiPP.id = "tasti-pp";
   tastiPP.style.cssText = "display:none;position:fixed;left:16px;bottom:270px;z-index:80;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,52px);gap:6px;pointer-events:none";
   tastiPP.append(
     vuoto(), tasto(["w", "arrowup"], "W", "↑"), vuoto(),
     tasto(["a", "arrowleft"], "A", "←"), tasto(["s", "arrowdown"], "S", "↓"), tasto(["d", "arrowright"], "D", "→"),
   );
+  // Sul telefono i tasti a schermo camminano: tenere premuto simula il tasto della tastiera
+  tastiPP.addEventListener("pointerdown", (e) => {
+    const d = e.target.closest?.("[data-k]");
+    if (!d) return;
+    const k = d.dataset.k.split(" ")[0];
+    d.setPointerCapture?.(e.pointerId);
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: k }));
+  });
+  tastiPP.addEventListener("pointerup", (e) => {
+    const d = e.target.closest?.("[data-k]");
+    if (d) window.dispatchEvent(new KeyboardEvent("keyup", { key: d.dataset.k.split(" ")[0] }));
+  });
+  tastiPP.addEventListener("pointercancel", () => window.dispatchEvent(new KeyboardEvent("keyup", { key: "w" })));
   const accendi = (on) => (e) => {
     const k = e.key.toLowerCase();
     tastiPP?.querySelectorAll("[data-k]").forEach((d) => {
@@ -96,10 +112,12 @@ function montaPrimaPersona() {
 function montaLegenda() {
   const pulsante = document.createElement("button");
   pulsante.textContent = "?";
+  pulsante.id = "btn-legenda";
   pulsante.title = "Legenda dei comandi";
   pulsante.setAttribute("aria-label", "Legenda dei comandi");
   pulsante.style.cssText = "position:fixed;left:16px;bottom:150px;z-index:70;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,196,77,.6);background:rgba(16,22,38,.9);color:#f2f4f8;font:700 16px system-ui,sans-serif;cursor:pointer";
   const pannello = document.createElement("div");
+  pannello.id = "pannello-legenda";
   pannello.style.cssText = "position:fixed;left:64px;bottom:150px;z-index:70;width:330px;max-height:70vh;overflow:auto;padding:14px 16px;border-radius:14px;background:rgba(16,22,38,.95);color:#f2f4f8;font:13px/1.55 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4);display:none";
   const voce = (tasto, testo) => {
     const r = document.createElement("div");
@@ -165,8 +183,10 @@ function flussoArredo(mostraRisultato) {
   const alloggi = alloggiDelProgetto(stato.progetto);
   if (!alloggi.length) return messaggio("Nessuna stanza da arredare: disegna prima i muri.", "info");
   const velo = document.createElement("div");
+  velo.id = "velo-alloggi";
   velo.style.cssText = "position:fixed;inset:0;z-index:200;pointer-events:none"; // niente velo: la planimetria 3D resta visibile
   const box = document.createElement("div");
+  box.id = "pannello-alloggi";
   box.style.cssText = "pointer-events:auto;position:fixed;right:16px;top:110px;width:380px;max-height:78vh;overflow:auto;padding:14px;border-radius:16px;background:rgba(16,22,38,.94);color:#f2f4f8;font:13px/1.5 system-ui,sans-serif;border:1px solid rgba(255,196,77,.4)";
   const btn = "padding:9px 14px;border-radius:999px;border:1px solid rgba(255,196,77,.5);background:rgba(255,255,255,.06);color:#f2f4f8;font:600 12px system-ui,sans-serif;cursor:pointer;margin:4px";
   const chiudi = () => { velo.remove(); stato.viewer.setEvidenza(null); stato.viewer.ripristinaVistaCamera(); };

@@ -214,3 +214,29 @@ aside label, aside input, aside textarea, aside select { max-width: 100%; box-si
 .gsa-esito { margin-top: 10px; font-size: 12.5px; }
 .gsa-fonte { margin-top: 12px; font-size: 11px; color: var(--hud-muto); }
 .gsa-fonte a { color: var(--hud-ciano); }
+
+
+/* ---- Telefono (fino a 700 px): pannelli a tutta larghezza, comandi toccabili ---- */
+@media (max-width: 700px) {
+  aside { width: min(92vw, 380px) !important; right: 8px !important; }
+  .hud-top { left: 8px; right: 8px; }
+  .hud-toasts { left: 8px; right: 8px; width: auto; top: 64px; }
+  .hud-hotbar { left: 6px; right: 6px; bottom: 6px; transform: none; }
+  .hud-coord { left: auto !important; right: 8px; bottom: 110px; font-size: 11px; }
+  .hud-slot { min-width: 0; }
+  .hud-slot span, .hud-slot small { font-size: 10px; }
+  .scheda-modale { width: calc(100vw - 16px) !important; max-width: none !important; max-height: 82vh; overflow: auto; }
+  #pannello-alloggi, #pannello-legenda, #pannello-auto {
+    left: 8px !important; right: 8px !important; top: auto !important; bottom: 8px !important;
+    width: auto !important; max-width: none !important; max-height: 62vh !important;
+  }
+  #velo-alloggi { pointer-events: none; }
+  #pannello-alloggi, #pannello-auto, #pannello-legenda { pointer-events: auto !important; }
+  #btn-legenda { left: 8px !important; bottom: 110px !important; }
+  #btn-pp { left: 8px !important; bottom: 160px !important; }
+  #tasti-pp { left: 8px !important; bottom: 220px !important; }
+  #msg-pp { top: 64px !important; left: 8px !important; right: 8px !important; transform: none !important; }
+  #tasti-pp > div { touch-action: none; }
+  #tasti-pp [data-k] { pointer-events: auto; touch-action: none; user-select: none; }
+  main#vista { touch-action: none; }
+}
