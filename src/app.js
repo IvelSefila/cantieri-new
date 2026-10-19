@@ -18,6 +18,7 @@ import { montaHud } from "./ui/hud.js";
 import { rapportoAntincendio } from "./core/antincendio.js";
 import { apriScheda } from "./ui/scheda.js";
 import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
+import { calcolaGSA, ORIENTAMENTI } from "./core/gsa.js";
 
 let hud = null;
 
@@ -117,8 +118,69 @@ function aggiornaMisureVista() {
   stato.viewer.setMisure(costruisciMisure(stato.progetto).filter((m) => f[chiave[m.tipo]]));
 }
 
+// Scheda GSA: vani vetrati, orientamenti da indicare, parametri e dati mancanti
+function renderGSA() {
+  const box = document.getElementById("sez-gsa");
+  if (!box) return;
+  const fmt = (v) => v.toFixed(2).replace(".", ",");
+  const r = calcolaGSA(stato.progetto, {
+    orientamenti: stato.orientamenti ?? {},
+    Fsh: stato.gsaFsh ?? 1,
+    Ff: stato.gsaFf ?? 0.8,
+  });
+  box.innerHTML = "";
+  const riga = (t, classe = "") => {
+    const d = document.createElement("div");
+    d.className = classe;
+    d.textContent = t;
+    box.appendChild(d);
+    return d;
+  };
+  riga(`Vani vetrati: ${r.righe.length} • area vetro ${fmt(r.areaVetroTotale_m2)} m²`);
+  riga(`Asol totale: ${fmt(r.asolTotale_m2)} m²`, "ok");
+
+  // orientamento di ogni muro con vani vetrati
+  const muri = [...new Set(r.righe.map((x) => x.muro))];
+  if (muri.length) riga("Orientamento delle pareti:", "avviso");
+  for (const m of muri) {
+    const linea = document.createElement("div");
+    linea.className = "riga-azioni";
+    const etichetta = document.createElement("span");
+    etichetta.textContent = m;
+    const sel = document.createElement("select");
+    sel.appendChild(new Option("— da indicare", ""));
+    for (const o of ORIENTAMENTI) sel.appendChild(new Option(o, o));
+    sel.value = (stato.orientamenti ?? {})[m] ?? "";
+    sel.onchange = () => {
+      stato.orientamenti = { ...(stato.orientamenti ?? {}), [m]: sel.value || null };
+      renderGSA();
+    };
+    linea.append(etichetta, sel);
+    box.appendChild(linea);
+  }
+
+  // parametri
+  const par = document.createElement("div");
+  par.className = "riga-azioni";
+  par.innerHTML = `<label>Fsh <input id="gsa-fsh" type="number" step="0.05" min="0" max="1" value="${stato.gsaFsh ?? 1}" style="width:70px"></label>
+    <label>Ff <input id="gsa-ff" type="number" step="0.05" min="0" max="1" value="${stato.gsaFf ?? 0.8}" style="width:70px"></label>`;
+  box.appendChild(par);
+  par.querySelector("#gsa-fsh").onchange = (e) => { stato.gsaFsh = Number(e.target.value); renderGSA(); };
+  par.querySelector("#gsa-ff").onchange = (e) => { stato.gsaFf = Number(e.target.value); renderGSA(); };
+
+  // dettaglio per vano
+  for (const x of r.righe) {
+    riga(`${x.vano} · ${x.materiale} · ${fmt(x.area_m2)} m² · g ${String(x.g).replace(".", ",")} · Asol ${fmt(x.asol_m2)} m² · ${x.orientamento ?? "orientamento da indicare"}`);
+  }
+
+  // dati mancanti per completare il calcolo
+  riga("Dati mancanti per il calcolo completo:", "avviso");
+  for (const m of [...r.mancanti, ...r.datiMancanti]) riga(`• ${m}`);
+}
+
 function ricostruisci() {
   const p = stato.progetto;
+  renderGSA();
   aggiornaMisureVista();
   if (stato.vista2d) aggiornaVista2d();
   const check = verificaProgetto(p);

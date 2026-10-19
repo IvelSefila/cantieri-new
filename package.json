@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Motore planimetria -> modello 3D, puro browser, precisione al millimetro",
   "scripts": {
-    "test": "node --test tests/core.test.mjs tests/dxf.test.mjs tests/trace.test.mjs tests/project.test.mjs tests/view2d.test.mjs tests/geom2.test.mjs tests/materiali.test.mjs tests/elementi.test.mjs"
+    "test": "node --test tests/core.test.mjs tests/dxf.test.mjs tests/trace.test.mjs tests/project.test.mjs tests/view2d.test.mjs tests/geom2.test.mjs tests/materiali.test.mjs tests/elementi.test.mjs tests/gsa.test.mjs"
   },
   "license": "UNLICENSED"
 }

@@ -22,6 +22,7 @@ const SLOT = [
 const SCHEDE = [
   { id: "progetto", nome: "Progetto" },
   { id: "costruzione", nome: "Costruzione" },
+  { id: "gsa", nome: "GSA" },
   { id: "vista", nome: "Vista" },
 ];
 
