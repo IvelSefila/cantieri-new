@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Motore planimetria -> modello 3D, puro browser, precisione al millimetro",
   "scripts": {
-    "test": "node --test tests/core.test.mjs"
+    "test": "node --test tests/core.test.mjs tests/dxf.test.mjs"
   },
   "license": "UNLICENSED"
 }

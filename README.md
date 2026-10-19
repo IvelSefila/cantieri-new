@@ -40,11 +40,21 @@ tests/core.test.mjs      test del motore (Node)
 - `offset`: distanza del vano dal punto `a`, lungo il muro.
 - `type`: `finestra`, `porta`, `scorrevole`. `cdi`: id del catalogo, oppure assente/`null` per vano aperto.
 
+## Importazione DXF
+
+- Pulsante **Importa DXF**: legge LINE, LWPOLYLINE e POLYLINE (ASCII). Le unità vengono da `$INSUNITS`.
+- **Riferimento**: *asse del muro* (la linea è l'asse) oppure *filo esterno* (per il perimetro: il contorno viene spostato di t/2 verso l'interno, con angoli chiusi).
+- **Spessore**: uno per tutti i muri importati (intero pari, in mm).
+- Ogni arrotondamento a mm intero è contato e riportato; nessuna correzione silenziosa.
+- I vani non vengono importati dal DXF: si aggiungono nel modello JSON.
+
 ## Test
 
 ```bash
 npm test
 ```
+
+I test DXF usano file costruiti nel test, non disegni del progetto.
 
 I test verificano: precisione al mm (pieni + vani = lunghezza del muro), nessuna scatola che attraversa un vano, perimetro chiuso, validazione dei dati errati, avvisi di mazzetta, infissi dentro il vano, catalogo e misure.
 

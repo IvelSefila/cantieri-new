@@ -48,6 +48,20 @@
       <div class="sub">Prototipo. Tutto gira nel tuo browser: nessun dato viene inviato. Misure in millimetri interi.</div>
       <div><button id="scarica">Scarica planimetria (JSON)</button></div>
       <div style="margin-top:8px"><label>Carica planimetria JSON: <input id="carica" type="file" accept=".json,application/json"></label></div>
+      <div style="margin-top:10px; padding-top:8px; border-top:1px solid #e4e7eb;">
+        <div><label>Importa DXF: <input id="dxf" type="file" accept=".dxf"></label></div>
+        <div style="margin-top:6px;">
+          <label>Riferimento linee:
+            <select id="dxf-rif">
+              <option value="asse">asse del muro</option>
+              <option value="faccia_esterna">filo esterno (perimetro)</option>
+            </select>
+          </label>
+        </div>
+        <div style="margin-top:6px;">
+          <label>Spessore muri (mm, pari): <input id="dxf-t" type="number" value="250" min="2" step="2" style="width:90px"></label>
+        </div>
+      </div>
       <div id="nome-plan"></div>
       <div id="messaggi" data-tipo="info">Caricamento…</div>
       <div id="esito"></div>

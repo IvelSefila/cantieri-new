@@ -4,6 +4,8 @@ import { buildModel } from "./core/build.js";
 import { measurePlan } from "./core/measure.js";
 import { TIPO_PER_CATEGORIA } from "./core/cdi.js";
 import { createViewer } from "./view/scene.js";
+import { parseDxf } from "./io/dxf.js";
+import { dxfToPlan } from "./io/toPlan.js";
 
 const $ = (id) => document.getElementById(id);
 const stato = { plan: null, catalog: null, assegnazioni: {}, viewer: null };
@@ -110,6 +112,32 @@ async function init() {
       caricaPlan(plan, file.name);
     } catch (e) {
       messaggio(`File non leggibile come JSON: ${e.message}`, "errore");
+    }
+  });
+
+  $("dxf").addEventListener("change", async (ev) => {
+    const file = ev.target.files[0];
+    if (!file) return;
+    try {
+      const parsed = parseDxf(await file.text());
+      const spessore = Number($("dxf-t").value);
+      const { plan, check, report } = dxfToPlan(parsed, {
+        riferimento: $("dxf-rif").value,
+        spessoreDefault: spessore,
+        nome: file.name,
+      });
+      const righe = [
+        { tipo: "ok", testo: `DXF letto: ${report.entita} entità (${report.linee} linee, ${report.polilinee} polilinee), ${report.muri} muri.` },
+        { tipo: "info", testo: `Unità del file: ${report.unita ?? "non dichiarate"} • riferimento: ${$("dxf-rif").value}.` },
+      ];
+      if (report.arrotondamenti > 0) righe.push({ tipo: "avviso", testo: `${report.arrotondamenti} valori arrotondati a mm intero (scarto massimo ${report.scostamento_max_mm.toFixed(3)} mm).` });
+      for (const a of report.avvisi) righe.push({ tipo: "avviso", testo: a });
+      for (const e of check.errors) righe.push({ tipo: "errore", testo: `ERRORE: ${e}` });
+      scrivi(righe);
+      if (check.ok) caricaPlan(plan, file.name);
+      else messaggio("DXF non importato: correggi gli errori.", "errore");
+    } catch (e) {
+      messaggio(`DXF non leggibile: ${e.message}`, "errore");
     }
   });
 
