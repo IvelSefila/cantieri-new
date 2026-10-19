@@ -15,6 +15,8 @@ import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
 import { stanze } from "./core/rooms.js";
 import { planSvg } from "./view2d/plan.js";
 import { montaHud } from "./ui/hud.js";
+import { apriScheda } from "./ui/scheda.js";
+import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
 
 let hud = null;
 
@@ -87,7 +89,7 @@ function costruisciMisure(p) {
     const dx = (w.b[0] - w.a[0]) / L;
     const dy = (w.b[1] - w.a[1]) / L;
     const off = w.t / 2 + 250;
-    lista.push({ testo: `${fmt(L)} mm`, mm: [(w.a[0] + w.b[0]) / 2 - dy * off, (w.a[1] + w.b[1]) / 2 + dx * off], h: 1400 });
+    lista.push({ tipo: "muro", testo: `${fmt(L)} mm`, mm: [(w.a[0] + w.b[0]) / 2 - dy * off, (w.a[1] + w.b[1]) / 2 + dx * off], h: 1400 });
   }
   for (const o of p.openings) {
     const w = p.walls.find((x) => x.id === o.wall);
@@ -96,19 +98,22 @@ function costruisciMisure(p) {
     const dx = (w.b[0] - w.a[0]) / L;
     const dy = (w.b[1] - w.a[1]) / L;
     const s = o.offset + o.width / 2;
-    lista.push({ testo: `${o.id} · ${fmt(o.width)} mm`, mm: [w.a[0] + dx * s, w.a[1] + dy * s], h: o.sill + o.height / 2 });
+    lista.push({ tipo: "vano", testo: `${o.id} · ${fmt(o.width)} mm`, mm: [w.a[0] + dx * s, w.a[1] + dy * s], h: o.sill + o.height / 2 });
   }
   for (const s of stanze(p.walls)) {
     const n = s.contorno.length;
     const cx = s.contorno.reduce((a, q) => a + q[0], 0) / n;
     const cy = s.contorno.reduce((a, q) => a + q[1], 0) / n;
-    lista.push({ testo: `${(s.superficieMm2 / 1e6).toFixed(2).replace(".", ",")} m²`, mm: [cx, cy], h: 1000 });
+    lista.push({ tipo: "stanza", testo: `${(s.superficieMm2 / 1e6).toFixed(2).replace(".", ",")} m²`, mm: [cx, cy], h: 1000 });
   }
   return lista;
 }
 
 function aggiornaMisureVista() {
-  if (stato.misure && stato.viewer) stato.viewer.setMisure(costruisciMisure(stato.progetto));
+  if (!stato.misure || !stato.viewer) return;
+  const f = stato.filtriMisure ?? { muri: true, vani: true, stanze: true };
+  const chiave = { muro: "muri", vano: "vani", stanza: "stanze" };
+  stato.viewer.setMisure(costruisciMisure(stato.progetto).filter((m) => f[chiave[m.tipo]]));
 }
 
 function ricostruisci() {
@@ -220,8 +225,41 @@ function offsetSuMuro(p, muro) {
   return Math.round(((p[0] - muro.a[0]) * dx + (p[1] - muro.a[1]) * dy) / L);
 }
 
+// Vista: clic su pavimento o stanza evidenzia la stanza
+function gestisciVista(hit) {
+  if (hit.kind && hit.kind !== "pavimento") return;
+  if (!hit.mm) return;
+  const s = stanzaAPunto(hit.mm, stato.progetto);
+  stato.viewer.setEvidenza(s ? s.interno : null);
+  if (s) messaggio(`${s.id}: ${(s.superficieMm2 / 1e6).toFixed(2).replace(".", ",")} m²`, "info");
+}
+
+// Doppio clic: scheda dell'elemento (o della stanza), con le azioni possibili
+function gestisciDoppio(hit) {
+  const p = stato.progetto;
+  let tipo = null;
+  let id = null;
+  if (hit.kind && hit.kind.startsWith("muro")) { tipo = "muro"; id = hit.wall; }
+  else if (["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"].includes(hit.kind)) { tipo = "vano"; id = hit.id.split(":")[0]; }
+  else if (hit.kind === "arredo") { tipo = "arredo"; id = hit.id; }
+  else if (hit.kind === "pavimento") { tipo = "pavimento"; id = hit.id; }
+  let dati = tipo ? descrivi(p, tipo, id) : null;
+  if (!dati && hit.mm) {
+    const s = stanzaAPunto(hit.mm, p);
+    if (s) { tipo = "stanza"; id = s; dati = descrivi(p, "stanza", s); stato.viewer.setEvidenza(s.interno); }
+  }
+  if (!dati) return messaggio("Nessun elemento qui.", "info");
+  apriScheda({ titolo: dati.titolo, portante: dati.portante, righe: dati.righe, azioni: dati.azioni }, (az) => {
+    const nuovo = eseguiAzione(p, tipo, id, az);
+    if (!nuovo) return;
+    applica(nuovo);
+    stato.viewer.setEvidenza(null);
+    messaggio("Azione eseguita.", "ok");
+  });
+}
+
 function gestisciClic(hit) {
-  if (stato.modo !== "costruzione") return;
+  if (stato.modo !== "costruzione") { gestisciVista(hit); return; }
   // aggancio: vertici esistenti (entro 150 mm), angoli 0/45/90 dal punto in sospeso, poi griglia
   const agg = agganciaPunto(hit.mm, {
     griglia: stato.griglia,
@@ -355,7 +393,22 @@ function costruisciPannello() {
     stato.viewer?.setMisureVisibili(stato.misure);
     aggiornaMisureVista();
   };
-  $("sez-vista").append(etMisure, swMisure);
+  // filtri: quali tipi di misure mostrare, e dimensione delle etichette
+  const filtri = document.createElement("div");
+  filtri.style.cssText = "margin-top:10px;";
+  filtri.innerHTML = `<div>Mostra misure:</div>
+    <label><input type="checkbox" data-f="muri" checked> Muri</label>
+    <label><input type="checkbox" data-f="vani" checked> Vani</label>
+    <label><input type="checkbox" data-f="stanze" checked> Stanze</label>
+    <div style="margin-top:6px;">Dimensione etichette: <input id="misure-scala" type="range" min="60" max="200" value="100" style="width:140px"></div>`;
+  filtri.querySelectorAll("[data-f]").forEach((c) => {
+    c.onchange = () => {
+      stato.filtriMisure = { muri: true, vani: true, stanze: true, ...(stato.filtriMisure ?? {}), [c.dataset.f]: c.checked };
+      aggiornaMisureVista();
+    };
+  });
+  filtri.querySelector("#misure-scala").oninput = (e) => stato.viewer?.setMisureScala(Number(e.target.value) / 100);
+  $("sez-vista").append(etMisure, swMisure, filtri);
   const stileBox = document.createElement("div");
   stileBox.innerHTML = `<div>Stile di resa:</div><select id="stile">
         <option value="fotorealistico">1. Fotorealistico (PBR)</option>
@@ -430,6 +483,7 @@ async function init() {
     if (st) $("statistiche").textContent = `Qualità ${st.livello} · ${st.fps} fps · ${st.chiamate} gruppi · ${st.triangoli.toLocaleString("it-IT")} triangoli`;
   }, 1000);
   stato.viewer.setPickHandler(gestisciClic);
+  stato.viewer.setDoppioClicHandler(gestisciDoppio);
   stato.viewer.setHoverHandler((mm) => hud?.coordinate(mm));
   hud = montaHud({
     onScheda: (id) => {

@@ -135,3 +135,25 @@ aside select option { background: #0f1522; }
 .switch-2d.on .knob { transform: translateX(100%); }
 .switch-2d.on span:last-child { color: #0a0e18; }
 .hud-top .switch-2d { width: 120px; height: 34px; }
+
+/* Scheda di dettaglio (doppio clic) */
+.scheda-velo { position: fixed; inset: 0; background: rgba(4,7,14,0.45); backdrop-filter: blur(3px); z-index: 60; display: flex; align-items: center; justify-content: center; }
+.scheda-modale {
+  width: min(420px, 92vw); max-height: 86vh; overflow: auto; padding: 18px;
+  background: var(--hud-bg); border: 1px solid var(--hud-bordo); border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55); animation: hud-entra .3s cubic-bezier(.2,.8,.2,1);
+}
+.scheda-testa { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.scheda-titolo { font: 700 15px system-ui, sans-serif; color: var(--hud-oro); letter-spacing: .04em; }
+.scheda-chiudi { background: transparent; border: 0; color: var(--hud-muto); font-size: 16px; cursor: pointer; }
+.scheda-badge { display: inline-block; margin: 10px 0; padding: 4px 10px; border-radius: 999px; font: 700 11px system-ui, sans-serif; letter-spacing: .08em; }
+.scheda-badge.portante { background: rgba(255,95,109,.18); color: #ff8f99; border: 1px solid rgba(255,95,109,.5); }
+.scheda-badge.tramezzo { background: rgba(88,230,160,.14); color: #7ef2b5; border: 1px solid rgba(88,230,160,.4); }
+.scheda-righe { margin: 10px 0 14px; }
+.scheda-riga { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 13px; }
+.scheda-riga span { color: var(--hud-muto); }
+.scheda-riga b { font-weight: 600; text-align: right; }
+.scheda-azione { display: block; width: 100%; margin-top: 8px; padding: 10px; border-radius: 12px; cursor: pointer; font: 700 13px system-ui, sans-serif;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); color: var(--hud-testo); }
+.scheda-azione.pericolo { border-color: rgba(255,95,109,.5); color: #ff8f99; }
+.scheda-azione.pericolo:hover { background: rgba(255,95,109,.18); }

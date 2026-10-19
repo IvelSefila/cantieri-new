@@ -203,6 +203,7 @@ export function stanze(muri) {
     out.push({
       id: `stanza_${String(out.length + 1).padStart(3, "0")}`,
       contorno: pts,
+      interno,
       superficieMm2: Math.round(areaInterna),
       superficieAsseMm2: Math.round(area),
     });

@@ -15,7 +15,7 @@ export function creaSovrimpressione(container) {
     while (nodi.length < n) {
       const el = document.createElement("div");
       el.className = "misura";
-      el.style.cssText = "position:absolute; transform:translate(-50%,-50%); padding:2px 7px; border-radius:999px; font:600 11px/1.3 ui-monospace,Consolas,monospace; color:#e9eef7; background:rgba(10,14,24,0.78); border:1px solid rgba(255,196,77,0.5); white-space:nowrap; box-shadow:0 0 10px rgba(255,196,77,0.25);";
+      el.style.cssText = "position:absolute; transform:translate(-50%,-50%) scale(var(--misura-scala,1)); padding:2px 7px; border-radius:999px; font:600 11px/1.3 ui-monospace,Consolas,monospace; color:#e9eef7; background:rgba(10,14,24,0.78); border:1px solid rgba(255,196,77,0.5); white-space:nowrap; box-shadow:0 0 10px rgba(255,196,77,0.25);";
       strato.appendChild(el);
       nodi.push(el);
     }
@@ -23,6 +23,9 @@ export function creaSovrimpressione(container) {
   }
 
   return {
+    scala(v) {
+      strato.style.setProperty("--misura-scala", String(v));
+    },
     imposta(lista) {
       etichette = lista;
     },

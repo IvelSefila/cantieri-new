@@ -353,6 +353,41 @@ export function createViewer(container) {
       wall: hit ? hit.wall : null,
     });
   });
+  // Doppio clic: scheda dell'elemento colpito (o del punto sul piano)
+  let doppioHandler = null;
+  renderer.domElement.addEventListener("dblclick", (ev) => {
+    if (!doppioHandler) return;
+    puntatoreDa(ev);
+    const hit = colpito();
+    const piani = raycaster.intersectObject(piano, false);
+    const punto = hit ? hit.point : piani[0] ? piani[0].point : null;
+    doppioHandler({
+      mm: punto ? [Math.round(punto.x / MM_TO_M), Math.round(punto.z / MM_TO_M)] : null,
+      id: hit ? hit.id : null,
+      kind: hit ? hit.kind : null,
+      wall: hit ? hit.wall : null,
+    });
+  });
+  function setDoppioClicHandler(fn) { doppioHandler = fn; }
+
+  // Evidenziazione di una stanza: poligono interno in mm
+  let evidenza = null;
+  function setEvidenza(poly) {
+    if (evidenza) { scene.remove(evidenza); evidenza.geometry.dispose(); evidenza.material.dispose(); evidenza = null; }
+    if (poly && poly.length >= 3) {
+      const shape = new THREE.Shape(poly.map(([x, y]) => new THREE.Vector2(x * MM_TO_M, -y * MM_TO_M)));
+      evidenza = new THREE.Mesh(
+        new THREE.ShapeGeometry(shape),
+        new THREE.MeshBasicMaterial({ color: 0xffc44d, transparent: true, opacity: 0.4, depthWrite: false, side: THREE.DoubleSide })
+      );
+      evidenza.rotation.x = -Math.PI / 2;
+      evidenza.position.y = 0.012;
+      evidenza.renderOrder = 5;
+      scene.add(evidenza);
+    }
+    richiesta = true;
+  }
+
   renderer.domElement.addEventListener("pointermove", (ev) => {
     if (!hoverHandler) return;
     puntatoreDa(ev);
@@ -469,6 +504,7 @@ export function createViewer(container) {
 
   return {
     setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
+    setDoppioClicHandler, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
     statistiche, camera, controls, dispose: () => cancelAnimationFrame(frame),
   };
 }
