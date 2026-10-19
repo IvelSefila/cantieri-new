@@ -313,7 +313,7 @@ function costruisciPannello() {
         <option value="notte">9. Notte (luci calde)</option>
         <option value="neon">10. Neon (contorni luminosi)</option>
       </select>`;
-  $("sez-stile").appendChild(stileBox);
+  $("sez-vista").appendChild(stileBox);
 
   for (const b of box.querySelectorAll("[data-modo]")) {
     b.onclick = () => {

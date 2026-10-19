@@ -23,7 +23,6 @@ const SCHEDE = [
   { id: "progetto", nome: "Progetto" },
   { id: "costruzione", nome: "Costruzione" },
   { id: "vista", nome: "Vista" },
-  { id: "stile", nome: "Stile" },
 ];
 
 let ultimo = null;
