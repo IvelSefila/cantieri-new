@@ -331,3 +331,37 @@ test("estraiDenominazioneCondominioDaTesto: estrae condominio, palazzo e scala",
   const s3 = "Corso Francia 50 Torino";
   assert.equal(estraiDenominazioneCondominioDaTesto(s3), null);
 });
+
+test("clusterVolumiResidenziali: raggruppa palazzine dello stesso cortile ed esclude edifici isolati di lotti confinanti", async () => {
+  const { clusterVolumiResidenziali } = await import("../src/core/altimetria-civico.js");
+  const palazzine = [
+    { id: "A", lat: 44.641064, lon: 7.655214, distM: 24.8, altezza_volumetrica_m: 18 },
+    { id: "B", lat: 44.641332, lon: 7.655136, distM: 24.4, altezza_volumetrica_m: 18 },
+    { id: "C", lat: 44.641135, lon: 7.654898, distM: 42.4, altezza_volumetrica_m: 14 },
+    { id: "D_isolato", lat: 44.641730, lon: 7.655194, distM: 57.7, altezza_volumetrica_m: 13 },
+  ];
+
+  const cluster = clusterVolumiResidenziali(palazzine, { maxClusterDist: 38 });
+  assert.equal(cluster.length, 3);
+  assert.deepEqual(cluster.map(c => c.id), ["A", "B", "C"]);
+});
+
+test("estraiNomeDaSnippet: estrae condominio e residence da testo web", async () => {
+  const { estraiNomeDaSnippet } = await import("../src/core/altimetria-civico.js");
+  const t1 = "SAVIGLIANO: vendesi appartamento nel Condominio Orione con cantina e box auto.";
+  assert.equal(estraiNomeDaSnippet(t1), "Condominio Orione");
+
+  const t2 = "In vendita trilocale presso il Residence Parco Graneris a due passi dal centro.";
+  assert.equal(estraiNomeDaSnippet(t2), "Residence Parco Graneris");
+
+  const t3 = "Testo generico senza menzioni di stabili.";
+  assert.equal(estraiNomeDaSnippet(t3), null);
+});
+
+test("cercaDenominazioneCondominio: trova il nome da registro civici e precompila", async () => {
+  const { cercaDenominazioneCondominio, calcolaGsaDaCivico } = await import("../src/core/altimetria-civico.js");
+  const r = await cercaDenominazioneCondominio("Strada Suniglia 4 Savigliano");
+  assert.equal(r.trovato, true);
+  assert.equal(r.nome, "Condominio Orione");
+});
+
