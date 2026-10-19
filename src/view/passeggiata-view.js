@@ -88,13 +88,27 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
     trascino = null;
     dom.releasePointerCapture?.(e.pointerId);
   }
-  function puntatoreMosso(e) {
-    if (!trascino || !attiva) return;
-    stato.yaw -= (e.clientX - trascino.x) * SENSIBILITA_MOUSE;
-    stato.pitch = Math.max(-LIMITE_PITCH, Math.min(LIMITE_PITCH, stato.pitch - (e.clientY - trascino.y) * SENSIBILITA_MOUSE));
-    trascino = { x: e.clientX, y: e.clientY };
+  // Il mouse ruota lo sguardo: con il puntatore bloccato (lock) basta muoverlo, senza cliccare;
+  // senza lock resta il trascinamento col tasto premuto.
+  function ruota(dx, dy) {
+    stato.yaw -= dx * SENSIBILITA_MOUSE;
+    stato.pitch = Math.max(-LIMITE_PITCH, Math.min(LIMITE_PITCH, stato.pitch - dy * SENSIBILITA_MOUSE));
     applicaCamera();
     onRichiesta?.();
+  }
+  function puntatoreMosso(e) {
+    if (!attiva) return;
+    if (document.pointerLockElement === dom) { ruota(e.movementX, e.movementY); return; }
+    if (!trascino) return;
+    ruota(e.clientX - trascino.x, e.clientY - trascino.y);
+    trascino = { x: e.clientX, y: e.clientY };
+  }
+  // Puntatore bloccato: il blocco parte dal pulsante (gesto dell'utente). Se il browser lo rilascia (Esc), si esce dalla passeggiata.
+  let bloccato = false;
+  function cambioBlocco() {
+    if (!attiva) return;
+    if (document.pointerLockElement === dom) { bloccato = true; return; }
+    if (bloccato) { bloccato = false; onRichiestaEsci?.(); }
   }
 
   // porteInfisso: [{ op, wall, parti }] delle sole porte con infisso montato; costruisciAnta(d) restituisce il gruppo dell'anta
@@ -111,12 +125,16 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
     window.addEventListener("keyup", rilasciato);
     window.addEventListener("blur", perdeFocus);
     dom.addEventListener("pointerdown", puntatoreGiu);
-    dom.addEventListener("pointermove", puntatoreMosso);
+    document.addEventListener("pointermove", puntatoreMosso);
+    document.addEventListener("pointerlockchange", cambioBlocco);
     dom.addEventListener("pointerup", puntatoreSu);
     dom.addEventListener("pointercancel", puntatoreSu);
     applicaCamera();
     aggiornaAnte();
     onStato?.(true);
+    // richiesta dal gesto del pulsante: il browser puo' rifiutarla (promessa rifiutata), allora resta il trascinamento
+    const richiesta = dom.requestPointerLock?.();
+    richiesta?.catch?.(() => {});
   }
 
   function esci() {
@@ -125,11 +143,14 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
     controls.enabled = true;
     tasti.clear();
     trascino = null;
+    bloccato = false;
+    if (document.pointerLockElement === dom) document.exitPointerLock();
     window.removeEventListener("keydown", premuto, true);
     window.removeEventListener("keyup", rilasciato);
     window.removeEventListener("blur", perdeFocus);
     dom.removeEventListener("pointerdown", puntatoreGiu);
-    dom.removeEventListener("pointermove", puntatoreMosso);
+    document.removeEventListener("pointermove", puntatoreMosso);
+    document.removeEventListener("pointerlockchange", cambioBlocco);
     dom.removeEventListener("pointerup", puntatoreSu);
     dom.removeEventListener("pointercancel", puntatoreSu);
     if (ante) {
