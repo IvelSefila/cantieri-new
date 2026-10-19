@@ -27,6 +27,33 @@ function texturaDa(c, ripeti) {
   return t;
 }
 
+// Mappa delle normali dalla mappa dei rilievi (filtro Sobel): dona profondita' alle doghe e all'intonaco.
+export function normaleDaRilievo(c, forza = 2) {
+  const w = c.width, h = c.height;
+  const src = c.getContext("2d").getImageData(0, 0, w, h).data;
+  const out = document.createElement("canvas");
+  out.width = w;
+  out.height = h;
+  const ctx = out.getContext("2d");
+  const img = ctx.createImageData(w, h);
+  const H = (x, y) => src[(((y + h) % h) * w + ((x + w) % w)) * 4] / 255;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const dx = (H(x + 1, y - 1) + 2 * H(x + 1, y) + H(x + 1, y + 1)) - (H(x - 1, y - 1) + 2 * H(x - 1, y) + H(x - 1, y + 1));
+    const dy = (H(x - 1, y + 1) + 2 * H(x, y + 1) + H(x + 1, y + 1)) - (H(x - 1, y - 1) + 2 * H(x, y - 1) + H(x + 1, y - 1));
+    let nx = -dx * forza, ny = -dy * forza, nz = 1;
+    const l = Math.hypot(nx, ny, nz);
+    const i = (y * w + x) * 4;
+    img.data[i] = (nx / l * 0.5 + 0.5) * 255;
+    img.data[i + 1] = (ny / l * 0.5 + 0.5) * 255;
+    img.data[i + 2] = (nz / l * 0.5 + 0.5) * 255;
+    img.data[i + 3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+  const t = new THREE.CanvasTexture(out);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+}
+
 // Parquet a doghe: doghe di larghezza fissa, tonalita' diversa per ogni doga, venature.
 export function parquet(base = [200, 164, 118]) {
   const { c, ctx } = tela(1024, 1024);
@@ -54,7 +81,17 @@ export function parquet(base = [200, 164, 118]) {
   ctx.fillStyle = "rgba(60,40,20,0.35)";
   for (let y = 0; y < 1024; y += 128) ctx.fillRect(0, y, 1024, 2);
   for (let x = 0; x < 1024; x += doga) ctx.fillRect(x, 0, 2, 1024);
-  return texturaDa(c, [4, 4]);
+  // rilievo delle giunture: fessure scure leggermente incassate
+  const rilievo = tela(1024, 1024);
+  rilievo.ctx.fillStyle = "#808080";
+  rilievo.ctx.fillRect(0, 0, 1024, 1024);
+  rilievo.ctx.fillStyle = "#606060";
+  for (let y = 0; y < 1024; y += 128) rilievo.ctx.fillRect(0, y, 1024, 3);
+  for (let x = 0; x < 1024; x += doga) rilievo.ctx.fillRect(x, 0, 3, 1024);
+  const t = texturaDa(c, [4, 4]);
+  t.userData.normalMap = normaleDaRilievo(rilievo.c, 3);
+  t.userData.normalMap.repeat.set(4, 4);
+  return t;
 }
 
 // Intonaco chiaro con grana leggera.
@@ -70,7 +107,10 @@ export function intonaco(base = [246, 244, 239]) {
     img.data[i + 3] = 255;
   }
   ctx.putImageData(img, 0, 0);
-  return texturaDa(c, [2, 2]);
+  const t = texturaDa(c, [2, 2]);
+  t.userData.normalMap = normaleDaRilievo(c, 1.5);
+  t.userData.normalMap.repeat.set(2, 2);
+  return t;
 }
 
 // Marmo: fondo chiaro con venature grigie.

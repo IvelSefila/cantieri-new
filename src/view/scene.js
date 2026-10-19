@@ -11,6 +11,7 @@ import { parquet, intonaco, marmo } from "./materials.js";
 import { materialeRealistico, texturaRilievo } from "./realistico.js";
 import { creaSovrimpressione, proiettore } from "./misure.js";
 import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js";
+import { creaPost } from "./post.js";
 
 const MM_TO_M = 0.001;
 const TAGLIO_DOLLHOUSE_MM = 1300;
@@ -245,12 +246,14 @@ export function createViewer(container) {
   const colore = new THREE.Color();
   const asseY = new THREE.Vector3(0, 1, 0);
 
+  let post = null;
   function resize() {
     const w = container.clientWidth;
     const h = container.clientHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    post?.dimensiona(w, h);
     richiesta = true;
   }
 
@@ -261,7 +264,8 @@ export function createViewer(container) {
     const cambiata = inMoto || controls.update();
     if (!richiesta && !cambiata) return;
     richiesta = false;
-    renderer.render(scene, camera);
+    if (post) post.disegna();
+    else renderer.render(scene, camera);
     if (misureOn) aggiornaMisure();
     fpsMisura.n++;
     const ora = performance.now();
@@ -283,6 +287,8 @@ export function createViewer(container) {
     scene.environment = q.ambiente ? ambiente : null;
     scene.environmentIntensity = 0.55;
     scene.fog.near = q.nebbia ? 70 : 500;
+    post ??= creaPost(renderer, scene, camera);
+    post.imposta(livello);
     resize();
     if (dettagli) setDettagli(ultimiDettagli);
     richiesta = true;
