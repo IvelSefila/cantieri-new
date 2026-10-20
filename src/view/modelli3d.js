@@ -207,7 +207,9 @@ function materialiFoto(parte, opz) {
 function meshParte(p, opz, sostituto, assi) {
   // assi: "infisso" (s, z, n) oppure "arredo" (x, z, y)
   let mesh;
-  const mat = sostituto ? sostituto(p) : p.mat === "foto" ? materialiFoto(p, opz) : materiale(p.mat, { colore: p.colore, clip: opz.clip, alta: opz.alta });
+  let mat = sostituto ? sostituto(p) : p.mat === "foto" ? materialiFoto(p, opz) : materiale(p.mat, { colore: p.colore, clip: opz.clip, alta: opz.alta });
+  // esterno dal lato n negativo: la faccia con la foto giusta e' l'altra
+  if (p.facciaEsternaNeg && Array.isArray(mat)) mat = [mat[0], mat[1], mat[2], mat[3], mat[5], mat[4]];
   if (p.forma === "box") {
     const [a0, a1, b0, b1] = assi === "infisso" ? [p.s0, p.s1, p.n0, p.n1] : [p.x0, p.x1, p.y0, p.y1];
     mesh = new THREE.Mesh(BOX, mat);

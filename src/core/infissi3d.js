@@ -170,7 +170,8 @@ function porta(op, wallT, st, esterno) {
   // anta: foto del catalogo sulle due facce (porte d'ingresso), altrimenti pannello procedurale
   const ant = box("anta", st.texture ? "foto" : st.pannello === "rovere" ? "rovere" : st.pannello === "vetro_satinato" ? "vetro_satinato" : "laccato", p, W - p, z0 + 6, z1 - p, aA, aB);
   // porta con foto: la foto ha gia' la maniglia; si specchia se il cardine e' dal lato "a" (la maniglia va dall'altro lato)
-  if (st.texture) { ant.texture = st.texture; ant.specchio = (op.apertura?.cardine ?? "a") === "a"; }
+  // la foto va sulla faccia esterna: se l'esterno e' dal lato n negativo, le due facce si scambiano
+  if (st.texture) { ant.texture = st.texture; ant.specchio = (op.apertura?.cardine ?? "a") === "a"; ant.facciaEsternaNeg = esterno < 0; }
   out.push({ ...ant, colore: st.colore });
   // fresature della porta grafite / filo muro
   if (st.pannello === "grafite" || st.pannello === "filomuro") {
