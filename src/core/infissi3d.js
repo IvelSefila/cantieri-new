@@ -11,7 +11,7 @@ const box = (ruolo, mat, s0, s1, z0, z1, n0, n1) => ({ forma: "box", ruolo, mat,
 
 // Stile di resa: dal catalogo (item.resa3d) o, senza infisso, dal materiale del vano
 export function stileVano(op, item) {
-  if (item?.resa3d) return { ...item.resa3d, categoria: item.categoria, id: item.id };
+  if (item?.resa3d) return { ...item.resa3d, categoria: item.categoria, id: item.id, profondita_qfort_mm: item.profondita_qfort_mm, spessore_pannello_qfort_mm: item.spessore_pannello_qfort_mm };
   const m = materialeVano(op);
   if (op.type === "porta") return m === "vetro_fume"
     ? { pannello: "vetro_fume", scrigno: true, colore: "#2b2d31", maniglia: "incasso", materiale: "vetro", categoria: "porte_interne", generico: true }
@@ -58,7 +58,8 @@ function maniglia(out, tipo, s, z, nFaccia, verso) {
 function finestra(op, wallT, st, scorrevole, esterno) {
   const out = [];
   const W = op.width, H = op.height, z0 = op.sill, z1 = op.sill + op.height;
-  const prof = Math.min(st.profilo_mm ?? (st.materiale === "pvc" ? 80 : 75), wallT - 20);
+  // profondita' del profilo da catalogo QFORT se nota, altrimenti il valore generico
+  const prof = Math.min(st.profondita_qfort_mm ?? st.profilo_mm ?? (st.materiale === "pvc" ? 80 : 75), wallT - 20);
   const nA = -Math.floor(prof / 2), nB = Math.ceil(prof / 2);
   const tv = st.telaio_vista_mm ?? 60;
   const av = st.anta_vista_mm ?? 55;
@@ -140,9 +141,10 @@ function porta(op, wallT, st, esterno) {
   const nLo = -Math.floor(wallT / 2), nHi = Math.ceil(wallT / 2);
   const ingresso = st.categoria === "porte_ingresso";
   // spessore pannello da catalogo CDI (porte d'ingresso alluminio e PVC: 44 mm). Il profilo del telaio (p) e' 75-85 mm
-  const sp = Math.min(44, wallT - 20);
+  // spessore pannello da catalogo (44 mm per le porte d'ingresso QFORT) e profondita' del telaio QFORT se nota
+  const sp = Math.min(st.spessore_pannello_qfort_mm ?? 44, wallT - 20);
   const aA = -Math.floor(sp / 2), aB = Math.ceil(sp / 2);
-  const p = ingresso ? 80 : st.pannello === "filomuro" ? 12 : 50;
+  const p = ingresso ? (st.profondita_qfort_mm ?? 80) : st.pannello === "filomuro" ? 12 : 50;
   const matTelaio = ingresso ? "telaio_porta" : st.pannello === "rovere" ? "rovere" : "laccato";
   const col = { colore: ingresso ? "#2f3237" : st.colore };
   if (st.scrigno) {

@@ -28,7 +28,9 @@
         "telaio_vista_mm": 40,
         "anta_vista_mm": 0,
         "maniglia": "minimal"
-      }
+      },
+      "serie_qfort": "6Stars View (alluminio)",
+      "profondita_qfort_mm": 80
     },
     {
       "id": "alu-arrogance-c16",
@@ -56,7 +58,9 @@
         "telaio_vista_mm": 50,
         "anta_vista_mm": 35,
         "maniglia": "cortizo"
-      }
+      },
+      "serie_qfort": "Arrogance (alluminio)",
+      "profondita_qfort_mm": 65
     },
     {
       "id": "alu-6stars-termico",
@@ -83,7 +87,9 @@
         "telaio_vista_mm": 60,
         "anta_vista_mm": 55,
         "maniglia": "cortizo"
-      }
+      },
+      "serie_qfort": "6Stars (alluminio)",
+      "profondita_qfort_mm": 80
     },
     {
       "id": "alu-bicolore-luxury",
@@ -220,7 +226,9 @@
         "telaio_vista_mm": 70,
         "anta_vista_mm": 65,
         "maniglia": "standard"
-      }
+      },
+      "serie_qfort": "7Stars (PVC)",
+      "profondita_qfort_mm": 85
     },
     {
       "id": "pvc-termico",
@@ -247,7 +255,9 @@
         "telaio_vista_mm": 65,
         "anta_vista_mm": 60,
         "maniglia": "standard"
-      }
+      },
+      "serie_qfort": "6Stars (PVC)",
+      "profondita_qfort_mm": 82
     },
     {
       "id": "porta-athens",
@@ -409,7 +419,10 @@
         "maniglia": "pomolo",
         "texture": "assets/cdi/porta-sicurezza.webp",
         "colore": "#634547"
-      }
+      },
+      "serie_qfort": "6Stars (PVC, porta d'ingresso)",
+      "profondita_qfort_mm": 82,
+      "spessore_pannello_qfort_mm": 44
     },
     {
       "id": "porta-filomuro-bianca",
@@ -533,7 +546,9 @@
         "telaio_vista_mm": 55,
         "anta_vista_mm": 50,
         "maniglia": "cortizo"
-      }
+      },
+      "serie_qfort": "5Stars (alluminio)",
+      "profondita_qfort_mm": 70
     },
     {
       "id": "pvc-isolante-5",
@@ -552,7 +567,9 @@
         "telaio_vista_mm": 65,
         "anta_vista_mm": 60,
         "maniglia": "standard"
-      }
+      },
+      "serie_qfort": "5Stars (PVC)",
+      "profondita_qfort_mm": 70
     },
     {
       "id": "pvc-essenziale-4",
@@ -571,7 +588,9 @@
         "telaio_vista_mm": 60,
         "anta_vista_mm": 60,
         "maniglia": "standard"
-      }
+      },
+      "serie_qfort": "4Stars (PVC)",
+      "profondita_qfort_mm": 70
     },
     {
       "id": "scorrevole-alzante-pvc",
