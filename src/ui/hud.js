@@ -135,15 +135,19 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
     }
   }
 
-  // tasto destro in un punto qualsiasi: nessuno strumento selezionato nella barra
-  window.addEventListener("contextmenu", (e) => {
-    if (e.target.closest && e.target.closest("input, select, textarea")) return;
+  // nessuno strumento selezionato nella barra (tasto destro, Esc, clic sul vuoto)
+  function deselezionaStrumento() {
     for (const b of barra.querySelectorAll(".hud-slot")) b.classList.remove("attivo");
     onStrumento?.("nessuno");
+  }
+  window.addEventListener("contextmenu", (e) => {
+    if (e.target.closest && e.target.closest("input, select, textarea")) return;
+    deselezionaStrumento();
   });
 
   window.addEventListener("keydown", (e) => {
     if (e.target.closest && e.target.closest("input, select, textarea")) return;
+    if (e.key === "Escape") deselezionaStrumento();
     const s = SLOT.find((x) => x.tasto === e.key);
     if (s) selezionaStrumento(s.id);
     if (e.key === "Tab") { e.preventDefault(); aside?.classList.toggle("chiuso"); }
@@ -176,6 +180,7 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
     },
     evidenziaStrumento: (id) => { for (const b of barra.querySelectorAll(".hud-slot")) b.classList.toggle("attivo", b.dataset.strumento === id); },
     apriScheda,
+    deselezionaStrumento,
     impostaModalita,
   };
 }

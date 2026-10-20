@@ -1,38 +1,38 @@
 // Interfaccia: progetto modificabile (vuoto all'avvio), modalità vista e costruzione, import/export.
-import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261020br";
-import { buildModel } from "./core/build.js?v=v20261020br";
-import { measurePlan } from "./core/measure.js?v=v20261020br";
-import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261020br";
+import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261020bs";
+import { buildModel } from "./core/build.js?v=v20261020bs";
+import { measurePlan } from "./core/measure.js?v=v20261020bs";
+import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261020bs";
 import {
   progettoVuoto, aggiungiMuro, aggiungiVano, aggiungiPavimento, aggiungiArredo,
   ruotaArredo, spostaArredo, eliminaElemento, verificaProgetto, LIBRERIA_ARREDI, MATERIALI_PAVIMENTO,
-} from "./core/project.js?v=v20261020br";
-import { createViewer } from "./view/scene.js?v=v20261020br";
-import { parseDxf } from "./io/dxf.js?v=v20261020br";
-import { dxfToPlan } from "./io/toPlan.js?v=v20261020br";
-import { montaTracciamento } from "./trace/ui.js?v=v20261020br";
-import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020br";
-import { stanze } from "./core/rooms.js?v=v20261020br";
-import { planSvg } from "./view2d/plan.js?v=v20261020br";
-import { montaHud } from "./ui/hud.js?v=v20261020br";
-import { rapportoAntincendio } from "./core/antincendio.js?v=v20261020br";
-import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261020br";
-import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261020br";
-import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261020br";
+} from "./core/project.js?v=v20261020bs";
+import { createViewer } from "./view/scene.js?v=v20261020bs";
+import { parseDxf } from "./io/dxf.js?v=v20261020bs";
+import { dxfToPlan } from "./io/toPlan.js?v=v20261020bs";
+import { montaTracciamento } from "./trace/ui.js?v=v20261020bs";
+import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020bs";
+import { stanze } from "./core/rooms.js?v=v20261020bs";
+import { planSvg } from "./view2d/plan.js?v=v20261020bs";
+import { montaHud } from "./ui/hud.js?v=v20261020bs";
+import { rapportoAntincendio } from "./core/antincendio.js?v=v20261020bs";
+import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261020bs";
+import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261020bs";
+import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261020bs";
 
 // Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
 const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
-import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261020br";
-import { montaScheda } from "./ui/energia-ui.js?v=v20261020br";
-import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261020br";
-import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020br";
-import { partiArredo } from "./core/arredi.js?v=v20261020br";
-import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261020br";
-import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020br";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020br";
-import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020br";
-import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020br";
-import { impostaFunzioneStanza } from "./core/project.js?v=v20261020br";
+import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261020bs";
+import { montaScheda } from "./ui/energia-ui.js?v=v20261020bs";
+import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261020bs";
+import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020bs";
+import { partiArredo } from "./core/arredi.js?v=v20261020bs";
+import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261020bs";
+import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020bs";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bs";
+import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020bs";
+import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020bs";
+import { impostaFunzioneStanza } from "./core/project.js?v=v20261020bs";
 
 // Prima persona: pulsante sopra il ?, messaggio in alto, tasti WASD e frecce sovrimpressi che si illuminano
 let pulsantePP = null;
@@ -454,7 +454,7 @@ function montaAutomatismi() {
   barra.append(bArredo, bFiniture, bInfissi);
   document.body.append(barra, pannello, icona);
 }
-import { montaGSA } from "./ui/gsa-ui.js?v=v20261020br";
+import { montaGSA } from "./ui/gsa-ui.js?v=v20261020bs";
 
 let hud = null;
 
@@ -1229,7 +1229,15 @@ async function init() {
     if (st) $("statistiche").textContent = `Qualità ${st.livello} · ${st.fps ? `${st.fps} fps` : "ferma (disegna solo quando muovi la vista)"} · ${st.chiamate} gruppi · ${st.triangoli.toLocaleString("it-IT")} triangoli`;
   }, 1000);
   // con il secchiello attivo il clic riempie pavimento o muro; altrimenti vale il normale strumento
-  stato.viewer.setPickHandler((hit) => { if (stato.arredo?.riempi(hit)) return; gestisciClic(hit); });
+  stato.viewer.setPickHandler((hit) => {
+    if (stato.arredo?.riempi(hit)) return;
+    // clic sul vuoto: lo strumento della barra si deseleziona (non per Muro e Pavimento, che si disegnano sul vuoto)
+    if (!hit.kind && !stato.pendente && !["muro", "pavimento", "nessuno"].includes(stato.strumento)) {
+      hud?.deselezionaStrumento();
+      return;
+    }
+    gestisciClic(hit);
+  });
   stato.viewer.setDoppioClicHandler(gestisciDoppio);
   // Il menu del browser non si apre su tutta l'app: il tasto destro e' dell'editor 3D (campi di testo esclusi)
   document.addEventListener("contextmenu", (ev) => {

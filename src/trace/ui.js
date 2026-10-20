@@ -1,6 +1,6 @@
 // Interfaccia del tracciamento su immagine: canvas, clic, overlay, esporta e invia al 3D.
-import { nuovoStato, calibra, clicMuro, clicVano, annulla, annullaPunto, toPlan, mmToPx } from "./tracer.js?v=v20261020br";
-import { validatePlan } from "../core/model.js?v=v20261020br";
+import { nuovoStato, calibra, clicMuro, clicVano, annulla, annullaPunto, toPlan, mmToPx } from "./tracer.js?v=v20261020bs";
+import { validatePlan } from "../core/model.js?v=v20261020bs";
 
 export function montaTracciamento(root, { onPianta }) {
   let stato = nuovoStato({ spessore: 250, altezza: 2800, snapMm: 10 });

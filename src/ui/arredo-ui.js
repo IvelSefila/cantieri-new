@@ -1,9 +1,9 @@
 // Modalita' Arredo (stile Sweet Home 3D): catalogo di arredi 3D, posizionamento con fantasma verde/rosso, aggancio ai
 // muri, trascinamento, rotazione, duplica, elimina, dimensioni e finiture. Tutto in mm interi nel progetto.
-import { LIBRERIA_3D, CATEGORIE_ARREDO, partiArredo, dimensioniArredo, agganciaAlMuro, collisioniArredo } from "../core/arredi.js?v=v20261020br";
-import { aggiungiArredo, modificaArredo, duplicaArredo, eliminaElemento, impostaMaterialePavimento, impostaTintaMuro, MATERIALI_PAVIMENTO, TINTE_MURO } from "../core/project.js?v=v20261020br";
-import { gruppoArredo, miniatura } from "../view/modelli3d.js?v=v20261020br";
-import { suono } from "./dock-infissi.js?v=v20261020br";
+import { LIBRERIA_3D, CATEGORIE_ARREDO, partiArredo, dimensioniArredo, agganciaAlMuro, collisioniArredo } from "../core/arredi.js?v=v20261020bs";
+import { aggiungiArredo, modificaArredo, duplicaArredo, eliminaElemento, impostaMaterialePavimento, impostaTintaMuro, MATERIALI_PAVIMENTO, TINTE_MURO } from "../core/project.js?v=v20261020bs";
+import { gruppoArredo, miniatura } from "../view/modelli3d.js?v=v20261020bs";
+import { suono } from "./dock-infissi.js?v=v20261020bs";
 
 const GRIGLIA = 50;
 const passo = (v) => Math.round(v / GRIGLIA) * GRIGLIA;
