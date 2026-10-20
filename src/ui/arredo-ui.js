@@ -106,16 +106,28 @@ export function montaArredo(opz) {
       pav.append(b);
     }
     finiture.append(pav, el("div", "arr-titolo-fin", "Verniciatura muri"));
+    // Modalita' di tinteggiatura: prima si sceglie la modalita', poi il colore sotto
+    const TECNICHE = [
+      ["lavabile", "Pittura lavabile opaca"], ["satinata", "Pittura satinata"], ["smalto", "Smalto satinato"],
+      ["calce", "Pittura a calce"], ["silicati", "Pittura ai silicati"], ["minerale", "Pittura minerale traspirante"],
+      ["velatura", "Velatura a spugna"], ["spatolato", "Spatolato a stucco"], ["microcemento", "Effetto microcemento"],
+      ["stucco", "Stucco veneziano lucidato"],
+    ];
+    let tecnicaMuro = TECNICHE[0];
     const tin = el("div", "arr-chips");
-    for (const [k, v] of Object.entries(TINTE_MURO)) {
-      const b = el("button", "arr-chip", v.nome);
-      b.style.borderLeft = `10px solid ${v.hex}`;
-      b.onclick = () => impostaSecchio({ tipo: "tinta", chiave: k, nome: v.nome, colore: v.hex });
+    const tecnicaEtic = el("div", "arr-etic", `Modalità: ${tecnicaMuro[1]}`);
+    for (const [id, nome] of TECNICHE) {
+      const b = el("button", `arr-chip${id === tecnicaMuro[0] ? " attiva" : ""}`, nome);
+      b.onclick = () => {
+        tecnicaMuro = [id, nome];
+        tecnicaEtic.textContent = `Modalità: ${nome}`;
+        for (const x of tin.querySelectorAll(".arr-chip")) x.classList.toggle("attiva", x === b);
+      };
       tin.append(b);
     }
-    finiture.append(tin);
+    finiture.append(tin, tecnicaEtic);
     // Colori da interni: tinte pastello e terrose, non colori saturi
-    finiture.append(el("div", "arr-titolo-fin", "Colori da interni"));
+    finiture.append(el("div", "arr-titolo-fin", "Colore"));
     const pal = el("div", "arr-palette");
     const COLORI_INTERNI = [
       ["Bianco latte", "#F3EFE6"], ["Bianco caldo", "#F7F2E8"], ["Avorio", "#EDE3C8"], ["Sabbia", "#D9C7A7"],
@@ -131,9 +143,10 @@ export function montaArredo(opz) {
       b.title = nome;
       b.setAttribute("aria-label", nome);
       b.onclick = () => {
-        const chiave = `colore_${hex.slice(1).toLowerCase()}`;
-        TINTE_MURO[chiave] = { nome, hex };
-        impostaSecchio({ tipo: "tinta", chiave, nome, colore: hex });
+        const chiave = `colore_${hex.slice(1).toLowerCase()}_${tecnicaMuro[0]}`;
+        const nomeCompleto = `${tecnicaMuro[1]} · ${nome}`;
+        TINTE_MURO[chiave] = { nome: nomeCompleto, hex, tecnica: tecnicaMuro[0] };
+        impostaSecchio({ tipo: "tinta", chiave, nome: nomeCompleto, colore: hex });
       };
       pal.append(b);
     }
