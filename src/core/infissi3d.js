@@ -19,6 +19,13 @@ export function stileVano(op, item) {
   return { colore: "#f1efe9", materiale: "pvc", telaio_vista_mm: 60, anta_vista_mm: 55, maniglia: "standard", categoria: op.type === "scorrevole" ? "scorrevoli_panoramici" : "finestre_pvc", generico: true };
 }
 
+// Profondita' del telaio di una porta (mm): la stessa usata nel 3D e nella passeggiata (perno dell'anta)
+export function telaioPorta(op, item) {
+  const st = stileVano(op, item);
+  if (st.categoria === "porte_ingresso") return st.profondita_qfort_mm ?? 80;
+  return st.pannello === "filomuro" ? 12 : 50;
+}
+
 // Tipo di apertura: il tipo del vano (modello) prevale sul catalogo
 export function tipoApertura(op, item) {
   if (op.type === "porta") return "porta";

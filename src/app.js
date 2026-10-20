@@ -24,7 +24,7 @@ const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_
 import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js";
 import { montaScheda } from "./ui/energia-ui.js";
 import { renderAffidabilita } from "./ui/affidabilita-ui.js";
-import { partiInfisso } from "./core/infissi3d.js?v=v20261020o";
+import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020t";
 import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020o";
@@ -42,6 +42,13 @@ function entraPrimaPersona() {
   else {
     document.querySelector("aside")?.classList.add("chiuso");
     stato.arredo?.seleziona(null);
+    // profondita' del telaio di ogni porta: stessa del 3D, cosi' il perno dell'anta coincide col bordo dell'anta
+    for (const o of stato.progetto.openings) {
+      if (o.type !== "porta") continue;
+      const itemId = Object.prototype.hasOwnProperty.call(stato.assegnazioni, o.id) ? stato.assegnazioni[o.id] : (o.cdi ?? null);
+      const item = itemId ? stato.catalogo?.items.find((i) => i.id === itemId) : null;
+      o.telaio_mm = item ? telaioPorta(o, item) : 50;
+    }
     stato.viewer.avviaPasseggiata(stato.progetto);
     messaggio("Frecce o W A S D per camminare, trascina per guardare, Shift corre, Esc esce.", "info");
   }

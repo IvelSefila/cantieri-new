@@ -49,9 +49,11 @@ export function geometriaPorta(op, w) {
   const lato = ap.lato === "-" ? "-" : "+";
   const s0 = op.offset;
   const s1 = op.offset + op.width;
-  const cerniera = add(w.a, mul(u, cardine === "a" ? s0 : s1));
+  // il perno sta sul bordo interno del telaio (op.telaio_mm), come nel 3D: l'anta non si stacca dal telaio
+  const tel = op.telaio_mm ?? 0;
+  const cerniera = add(w.a, mul(u, cardine === "a" ? s0 + tel : s1 - tel));
   const centro = add(w.a, mul(u, s0 + op.width / 2));
-  return { id: op.id, wall: w.id, u, n, L, s0, s1, cardine, lato, cerniera, centro, larghezza: op.width, datiMancanti: !op.apertura };
+  return { id: op.id, wall: w.id, u, n, L, s0, s1, cardine, lato, cerniera, centro, larghezza: op.width - 2 * tel, datiMancanti: !op.apertura };
 }
 
 // Direzione dell'anta chiusa/aperta di angolo theta (rad): ruota dal muro verso il lato di apertura
