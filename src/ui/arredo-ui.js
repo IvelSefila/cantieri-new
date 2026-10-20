@@ -139,14 +139,8 @@ export function montaArredo(opz) {
     }
     finiture.append(pal);
     finiture.append(el("div", "arr-titolo-fin", "Altro colore"));
-    const altro = el("div", "arr-palette");
-    const ruota = el("button", "arr-ruota");
-    ruota.title = "Scegli un colore";
-    ruota.setAttribute("aria-label", "Cerchio cromatico");
-    altro.append(ruota);
-    finiture.append(altro);
+
     const pannello = el("div", "arr-picker");
-    pannello.style.display = "none";
     const tela = document.createElement("canvas");
     tela.width = 200; tela.height = 200; tela.className = "arr-tela";
     const luce = el("input", "arr-luce"); luce.type = "range"; luce.min = "10"; luce.max = "90"; luce.value = "50";
@@ -188,9 +182,8 @@ export function montaArredo(opz) {
       const chiave = `colore_${colore.slice(1).toLowerCase()}`;
       TINTE_MURO[chiave] = { nome: colore, hex: colore };
       impostaSecchio({ tipo: "tinta", chiave, nome: colore, colore });
-      pannello.style.display = "none";
     };
-    ruota.onclick = () => { disegnaRuotaColori(); pannello.style.display = pannello.style.display === "none" ? "block" : "none"; };
+    disegnaRuotaColori();
   }
   box.append(sottoBarra, filtri, griglia, ispettore, aiuto, finiture);
   // tasto destro nel pannello: toglie la selezione (arredo da posare o arredo selezionato)
