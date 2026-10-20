@@ -137,6 +137,13 @@ function montaVeloTocco() {
 }
 function montaManopole() {
   montaVeloTocco();
+  // Quando non c'e' piu' nessun dito sullo schermo, movimento e sguardo tornano a zero: nessun valore puo' restare acceso
+  window.addEventListener("touchend", (e) => {
+    if (e.touches.length === 0 && stato.viewer.passeggiataAttiva()) {
+      allineaTastiMovimento({ x: 0, y: 0 });
+      stato.viewer.setStickPasseggiata(null, { x: 0, y: 0 });
+    }
+  });
   manopole = document.createElement("div");
   manopole.style.cssText = "display:none;position:fixed;inset:0;pointer-events:none;z-index:75;touch-action:none";
   // La manopola sinistra non tocca mai lo sguardo: traduce il pallino in tasti W A S D (avanti, indietro, lati)
