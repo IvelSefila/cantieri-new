@@ -54,7 +54,6 @@ function aggiornaPrimaPersona(on) {
   if (messaggioPP) messaggioPP.style.display = on ? "block" : "none";
   if (tastiPP) tastiPP.style.display = on && !TATTILE ? "grid" : "none";
   if (manopole) manopole.style.display = on && TATTILE ? "block" : "none";
-  if (velo) velo.style.display = on && TATTILE ? "block" : "none";
   document.body.classList.toggle("pp-on", on && TATTILE); // in prima persona sul telefono sparisce la barra degli strumenti
   if (!on && manopole) { allineaTastiMovimento({ x: 0, y: 0 }); stato.viewer.setStickPasseggiata(null, { x: 0, y: 0 }); }
 }
@@ -111,7 +110,21 @@ function manopola(lato, onChange) {
   window.addEventListener("blur", fine);
   return base;
 }
+// In prima persona sul telefono il tocco fuori dalle manopole non arriva alla scena (sta in app.js, quindi sempre aggiornato)
+for (const tipo of ["pointerdown", "pointermove", "pointerup", "pointercancel"]) {
+  document.addEventListener(tipo, (e) => {
+    // Le manopole usano eventi di tocco propri: il puntatore del tocco non deve mai arrivare alla scena
+    if (!document.body.classList.contains("pp-on") || e.pointerType !== "touch") return;
+    e.stopPropagation();
+  }, true);
+}
 
+// In prima persona sul telefono nessun trascinamento deve muovere la pagina o la scena: solo le manopole
+document.addEventListener("touchmove", (e) => {
+  if (!document.body.classList.contains("pp-on")) return;
+  if (e.target.closest?.("[data-stick]")) return;
+  e.preventDefault();
+}, { passive: false });
 
 // Tasti di movimento tenuti dalla manopola sinistra
 let tastiManopola = new Set();
@@ -126,24 +139,7 @@ function allineaTastiMovimento(v) {
   for (const c of voglio) if (!tastiManopola.has(c)) window.dispatchEvent(new KeyboardEvent("keydown", tasto(c)));
   tastiManopola = voglio;
 }
-// Velo di tocco: in prima persona assorbe ogni tocco sulla scena. La scena non riceve nessun evento del dito.
-let velo = null;
-function montaVeloTocco() {
-  velo = document.createElement("div");
-  velo.id = "velo-tocco-pp";
-  velo.style.cssText = "display:none;position:fixed;inset:0;z-index:19;background:transparent;touch-action:none;-webkit-user-select:none;user-select:none";
-  velo.addEventListener("touchmove", (e) => e.preventDefault(), { passive: false });
-  document.body.append(velo);
-}
 function montaManopole() {
-  montaVeloTocco();
-  // Quando non c'e' piu' nessun dito sullo schermo, movimento e sguardo tornano a zero: nessun valore puo' restare acceso
-  window.addEventListener("touchend", (e) => {
-    if (e.touches.length === 0 && stato.viewer.passeggiataAttiva()) {
-      allineaTastiMovimento({ x: 0, y: 0 });
-      stato.viewer.setStickPasseggiata(null, { x: 0, y: 0 });
-    }
-  });
   manopole = document.createElement("div");
   manopole.style.cssText = "display:none;position:fixed;inset:0;pointer-events:none;z-index:75;touch-action:none";
   // La manopola sinistra non tocca mai lo sguardo: traduce il pallino in tasti W A S D (avanti, indietro, lati)
@@ -1214,22 +1210,7 @@ async function init() {
     },
     onVista2d: () => $("vista2d").click(),
   });
-  // In prima persona sul telefono il tocco fuori dalle manopole non muove la scena: solo le manopole
-for (const tipo of ["pointerdown", "pointermove", "pointerup", "pointercancel"]) {
-  document.addEventListener(tipo, (e) => {
-    if (!document.body.classList.contains("pp-on") || e.pointerType !== "touch") return;
-    if (e.target.closest?.("[data-stick]")) return;
-    e.stopPropagation();
-  }, true);
-}
-// Niente scorrimento o zoom della pagina in prima persona, tranne con le manopole
-document.addEventListener("touchmove", (e) => {
-  if (!document.body.classList.contains("pp-on")) return;
-  if (e.target.closest?.("[data-stick]")) return;
-  e.preventDefault();
-}, { passive: false });
-
-// Telefono: le schede stanno in un menu hamburger in alto
+  // Telefono: le schede stanno in un menu hamburger in alto
   const barraAlta = document.querySelector(".hud-top");
   const schede = barraAlta?.querySelector(".hud-tabs");
   if (barraAlta && schede && !barraAlta.querySelector(".hud-burger")) {
