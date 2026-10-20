@@ -1,8 +1,8 @@
 // Scheda GSA (Gestione della Sicurezza Antincendio, DM 2/9/2021): dati inseriti dall'utente, risultato solo
 // dopo il pulsante "Calcola GSA". Ogni obbligo mostra l'articolo o l'allegato del decreto.
-import { calcolaGSA, LIVELLO3, PLANIMETRIA_ELEMENTI, PIANO_CONTENUTI, GSA_FONTE } from "../core/gsa-incendio.js?v=v20261020bx";
-import { classificaRischio, verificaEsodo, CRITERI_ELEVATO, CRITERI_MEDIO, CRITERI_BASSO, RIDUZIONI, FONTE_1998, RIF_ESODO } from "../core/rischio-incendio.js?v=v20261020bx";
-import { calcolaGsaDaCivico, autocompletaIndirizzo } from "../core/altimetria-civico.js?v=v20261020bx";
+import { calcolaGSA, LIVELLO3, PLANIMETRIA_ELEMENTI, PIANO_CONTENUTI, GSA_FONTE } from "../core/gsa-incendio.js?v=v20261020by";
+import { classificaRischio, verificaEsodo, CRITERI_ELEVATO, CRITERI_MEDIO, CRITERI_BASSO, RIDUZIONI, FONTE_1998, RIF_ESODO } from "../core/rischio-incendio.js?v=v20261020by";
+import { calcolaGsaDaCivico, autocompletaIndirizzo } from "../core/altimetria-civico.js?v=v20261020by";
 
 function el(tag, cls, testo) {
   const e = document.createElement(tag);

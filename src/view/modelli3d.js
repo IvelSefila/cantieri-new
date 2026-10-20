@@ -4,8 +4,8 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { marmo, fotoFile } from "./materials.js?v=v20261020bx";
-import { LIBRERIA_3D, dimensioniArredo } from "../core/arredi.js?v=v20261020bx";
+import { marmo, fotoFile } from "./materials.js?v=v20261020by";
+import { LIBRERIA_3D, dimensioniArredo } from "../core/arredi.js?v=v20261020by";
 
 // Un glTF per url, caricato una sola volta e clonato per ogni arredo
 const GLB = new Map();
@@ -222,7 +222,8 @@ function materialiFotoFinestra(parte, opz) {
     t.offset.set(specchio ? f.u1 : f.u0, 1 - f.v1);
     return t;
   };
-  const base = { clippingPlanes: opz.clip, clipShadows: !!opz.clip, roughness: 0.35, metalness: 0.1, envMap: AMBIENTE, envMapIntensity: 0.6, transparent: true, alphaTest: 0.04 };
+  const base = { clippingPlanes: opz.clip, clipShadows: !!opz.clip, roughness: 0.35, metalness: 0.1, envMap: AMBIENTE, envMapIntensity: 0.6, transparent: true, alphaTest: 0.2 };
+  // alphaTest 0.2: nelle foto il vetro e' semitrasparente (alfa 8-13%) con i riflessi del fotografo; sotto la soglia si scarta e il vetro resta pulito
   const interno = new THREE.MeshStandardMaterial({ ...base, map: carica(false) });
   const esterno = new THREE.MeshStandardMaterial({ ...base, map: carica(true) });
   const lato = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false });
