@@ -1,7 +1,7 @@
 // Catalogo CDI per vano: quali modelli si possono montare in un vano e con quali avvisi.
 // I limiti dimensionali sono INDICATIVI (regole di buona pratica per sistemi a battente e scorrevoli): il vincolo vero
 // e' nella scheda tecnica CDI del sistema scelto. Il motore lo dichiara in ogni avviso.
-import { TIPO_PER_CATEGORIA } from "./cdi.js?v=v20261020bm";
+import { TIPO_PER_CATEGORIA } from "./cdi.js?v=v20261020bn";
 
 export const NOMI_CATEGORIA = {
   porte_ingresso: "Porte d'ingresso",

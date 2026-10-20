@@ -7,17 +7,17 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { parquet, intonaco, marmo, fotoSet } from "./materials.js?v=v20261020bm";
-import { MATERIALI_PAVIMENTO, MATERIALI_MURO, TINTE_MURO } from "../core/project.js?v=v20261020bm";
-import { materialeRealistico, texturaRilievo } from "./realistico.js?v=v20261020bm";
-import { creaSovrimpressione, proiettore } from "./misure.js?v=v20261020bm";
-import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js?v=v20261020bm";
-import { creaPost } from "./post.js?v=v20261020bm";
-import { creaPasseggiata } from "./passeggiata-view.js?v=v20261020bm";
+import { parquet, intonaco, marmo, fotoSet } from "./materials.js?v=v20261020bn";
+import { MATERIALI_PAVIMENTO, MATERIALI_MURO, TINTE_MURO } from "../core/project.js?v=v20261020bn";
+import { materialeRealistico, texturaRilievo } from "./realistico.js?v=v20261020bn";
+import { creaSovrimpressione, proiettore } from "./misure.js?v=v20261020bn";
+import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js?v=v20261020bn";
+import { creaPost } from "./post.js?v=v20261020bn";
+import { creaPasseggiata } from "./passeggiata-view.js?v=v20261020bn";
 
 // Parti dell'infisso che seguono l'anta quando la porta si apre (il resto e' telaio, fisso nel muro)
 const RUOLI_ANTA = new Set(["anta", "maniglia", "fresatura", "cilindro_serratura"]);
-import { onTexturaCaricata } from "./materials.js?v=v20261020bm";
+import { onTexturaCaricata } from "./materials.js?v=v20261020bn";
 
 const MM_TO_M = 0.001;
 const TAGLIO_DOLLHOUSE_MM = 1300;
@@ -345,8 +345,15 @@ export function createViewer(container) {
     return true;
   }
 
+  // veli del muro selezionato: pulsano, cosi' la selezione si vede bene
+  let veliPulsanti = [];
   function ciclo() {
     frame = requestAnimationFrame(ciclo);
+    if (veliPulsanti.length) {
+      const k = 0.5 + 0.5 * Math.sin(performance.now() / 220);
+      for (const m of veliPulsanti) m.material.opacity = 0.2 + 0.45 * k;
+      richiesta = true;
+    }
     const inMoto = passoVolo();
     const camminata = passeggiata.aggiorna();
     const spostata = muoviConTasti();
@@ -488,12 +495,15 @@ export function createViewer(container) {
       evMuro.traverse((o) => { o.geometry?.dispose(); o.material?.dispose(); });
       evMuro = null;
     }
+    veliPulsanti = [];
     if (wallId) {
       const gruppoEv = new THREE.Group();
       for (const b of ultime) {
         if (b.wall !== wallId || !b.kind.startsWith("muro")) continue;
-        const geo = new THREE.BoxGeometry(b.L * MM_TO_M, b.H * MM_TO_M, b.D * MM_TO_M);
-        const velo = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xffc44d, transparent: true, opacity: 0.35, depthWrite: false }));
+        // poco piu' grande del muro, cosi' il velo sta fuori dalle facce e si vede da entrambi i lati
+        const geo = new THREE.BoxGeometry((b.L + 40) * MM_TO_M, (b.H + 40) * MM_TO_M, (b.D + 80) * MM_TO_M);
+        const velo = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xffc44d, transparent: true, opacity: 0.45, depthWrite: false }));
+        veliPulsanti.push(velo);
         const contorno = new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: 0xffc44d, depthTest: false }));
         contorno.renderOrder = 10;
         for (const o of [velo, contorno]) {
