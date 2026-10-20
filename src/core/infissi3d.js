@@ -139,7 +139,8 @@ function porta(op, wallT, st, esterno) {
   const W = op.width, z0 = op.sill, z1 = op.sill + op.height;
   const nLo = -Math.floor(wallT / 2), nHi = Math.ceil(wallT / 2);
   const ingresso = st.categoria === "porte_ingresso";
-  const sp = ingresso ? Math.min(80, wallT - 20) : Math.min(44, wallT - 20);
+  // spessore pannello da catalogo CDI (porte d'ingresso alluminio e PVC: 44 mm). Il profilo del telaio (p) e' 75-85 mm
+  const sp = Math.min(44, wallT - 20);
   const aA = -Math.floor(sp / 2), aB = Math.ceil(sp / 2);
   const p = ingresso ? 80 : st.pannello === "filomuro" ? 12 : 50;
   const matTelaio = ingresso ? "telaio_porta" : st.pannello === "rovere" ? "rovere" : "laccato";
