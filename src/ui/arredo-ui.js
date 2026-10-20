@@ -1,7 +1,7 @@
 // Modalita' Arredo (stile Sweet Home 3D): catalogo di arredi 3D, posizionamento con fantasma verde/rosso, aggancio ai
 // muri, trascinamento, rotazione, duplica, elimina, dimensioni e finiture. Tutto in mm interi nel progetto.
 import { LIBRERIA_3D, CATEGORIE_ARREDO, partiArredo, dimensioniArredo, agganciaAlMuro, collisioniArredo } from "../core/arredi.js";
-import { aggiungiArredo, modificaArredo, duplicaArredo, eliminaElemento } from "../core/project.js";
+import { aggiungiArredo, modificaArredo, duplicaArredo, eliminaElemento, impostaMaterialePavimento, impostaTintaMuro, MATERIALI_PAVIMENTO, TINTE_MURO } from "../core/project.js";
 import { gruppoArredo, miniatura } from "../view/modelli3d.js?v=v20261020o";
 import { suono } from "./dock-infissi.js";
 
@@ -45,7 +45,57 @@ export function montaArredo(opz) {
     "Clic su un arredo del catalogo, poi clic nella stanza per posarlo. Vicino a un muro si appoggia da solo. " +
     "Trascina per spostare · Q/E ruota 15° · R ruota 90° · Ctrl+D duplica · Canc elimina · frecce sposta 10 mm (Maiusc 100 mm) · Esc annulla.");
   filtri.append(cerca, chips);
-  box.append(filtri, griglia, ispettore, aiuto);
+  // Due sottoschede: Arredi e Pavimenti e verniciatura
+  const sottoBarra = el("div", "arr-sottobarra");
+  const bArredi = el("button", "arr-sub attiva", "Arredi");
+  const bFiniture = el("button", "arr-sub", "Pavimenti e verniciatura");
+  sottoBarra.append(bArredi, bFiniture);
+  const finiture = el("div", "arr-finiture");
+  finiture.style.display = "none";
+  function mostra(sezione) {
+    const arredi = sezione === "arredi";
+    filtri.style.display = arredi ? "" : "none";
+    griglia.style.display = arredi ? "" : "none";
+    ispettore.style.display = arredi ? "" : "none";
+    aiuto.style.display = arredi ? "" : "none";
+    finiture.style.display = arredi ? "none" : "";
+    bArredi.classList.toggle("attiva", arredi);
+    bFiniture.classList.toggle("attiva", !arredi);
+  }
+  bArredi.onclick = () => mostra("arredi");
+  bFiniture.onclick = () => { disegnaFiniture(); mostra("finiture"); };
+  // Applica a tutti i pavimenti o a tutti i muri del progetto e ridisegna
+  function applicaATutti(fn) {
+    let q = opz.getProgetto();
+    q = fn(q);
+    if (q) opz.applica(q);
+  }
+  function disegnaFiniture() {
+    finiture.innerHTML = "";
+    finiture.append(el("div", "arr-titolo-fin", "Pavimenti"));
+    const pav = el("div", "arr-chips");
+    for (const [k, v] of Object.entries(MATERIALI_PAVIMENTO)) {
+      const b = el("button", "arr-chip", v.nome);
+      b.onclick = () => applicaATutti((q) => {
+        for (const f of q.floors) { const r = impostaMaterialePavimento(q, f.id, k); if (r.p) q = r.p; }
+        return q;
+      });
+      pav.append(b);
+    }
+    finiture.append(pav, el("div", "arr-titolo-fin", "Verniciatura muri"));
+    const tin = el("div", "arr-chips");
+    for (const [k, v] of Object.entries(TINTE_MURO)) {
+      const b = el("button", "arr-chip", v.nome);
+      b.style.borderLeft = `10px solid ${v.hex}`;
+      b.onclick = () => applicaATutti((q) => {
+        for (const w of q.walls) { const r = impostaTintaMuro(q, w.id, k); if (r.p) q = r.p; }
+        return q;
+      });
+      tin.append(b);
+    }
+    finiture.append(tin);
+  }
+  box.append(sottoBarra, filtri, griglia, ispettore, aiuto, finiture);
   // tasto destro nel pannello: toglie la selezione (arredo da posare o arredo selezionato)
   box.addEventListener("contextmenu", (ev) => {
     ev.preventDefault();
