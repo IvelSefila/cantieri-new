@@ -5,7 +5,7 @@
 // op: vano; wall: muro; camera: posizione attuale [x, y, z] (sceglie il lato del muro da cui guardare)
 // opzioni: fovDeg (campo verticale), aspetto (larghezza/altezza), xSchermo (dove deve cadere il centro del vano, 0..1),
 //          riempimento (frazione dell'altezza utile occupata dal vano)
-export function inquadraturaFrontale(op, wall, camera, { fovDeg = 42, aspetto = 16 / 9, xSchermo = 0.3, riempimento = 0.62 } = {}) {
+export function inquadraturaFrontale(op, wall, camera, { fovDeg = 42, aspetto = 16 / 9, xSchermo = 0.3, riempimento = 0.62, distanzaMin = 1600 } = {}) {
   const L = Math.hypot(wall.b[0] - wall.a[0], wall.b[1] - wall.a[1]);
   const ux = (wall.b[0] - wall.a[0]) / L, uy = (wall.b[1] - wall.a[1]) / L;
   const s = op.offset + op.width / 2;
@@ -17,7 +17,7 @@ export function inquadraturaFrontale(op, wall, camera, { fovDeg = 42, aspetto = 
   // distanza: il vano (con margine) deve stare nell'altezza utile e nella meta' sinistra dello schermo
   const hNec = (op.height * 1.15) / riempimento;
   const wNec = (op.width * 1.3) / (2 * xSchermo * aspetto);
-  const d = Math.max(1600, Math.max(hNec, wNec) / (2 * tanV));
+  const d = Math.max(distanzaMin, Math.max(hNec, wNec) / (2 * tanV));
   // a destra sullo schermo: la camera guarda verso -n, destra = (ny, -nx) in pianta
   const rx = ny, ry = -nx;
   const mezzaLarghezza = d * tanV * aspetto;

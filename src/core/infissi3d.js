@@ -5,7 +5,7 @@
 //             { forma: "cil", s, z0, z1, n, r, mat, ruolo }  (cilindro verticale)  oppure
 //             { forma: "cilN", s, z, n0, n1, r, mat, ruolo }  (cilindro lungo la normale: pomoli, rosette)
 // mat: chiave del materiale. Per le porte con foto: "foto" (la vista applica la foto del catalogo sulle facce +n e -n).
-import { TIPO_PER_CATEGORIA, materialeVano } from "./cdi.js?v=v20261020bo";
+import { TIPO_PER_CATEGORIA, materialeVano } from "./cdi.js?v=v20261020bp";
 
 const box = (ruolo, mat, s0, s1, z0, z1, n0, n1) => ({ forma: "box", ruolo, mat, s0, s1, z0, z1, n0, n1 });
 
