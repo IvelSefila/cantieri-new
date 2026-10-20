@@ -60,18 +60,19 @@ function aggiornaPrimaPersona(on) {
 
 // Manopola virtuale: cerchio con pallino; il valore va da -1 a 1 (y positivo = su)
 function manopola(lato, onChange) {
-  // Manopola relativa: il pallino parte sempre dal centro e segue lo spostamento del dito, come nei giochi
+  // Manopola relativa, con eventi di tocco diretti (il piu' affidabile sui telefoni):
+  // il pallino parte dal centro e segue lo spostamento del dito, come nei giochi
   const base = document.createElement("div");
   base.style.cssText = `position:absolute;bottom:20px;${lato}:16px;width:150px;height:150px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;pointer-events:auto`;
   const pallino = document.createElement("div");
   pallino.style.cssText = "position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none;transform:translate(0px,0px)";
   base.append(pallino);
-  const RAGGIO = 55; // spostamento massimo del pallino, in px
+  const RAGGIO = 55;
   const ZONA_MORTA = 0.12;
-  let id = null;
+  let tocco = null;
   let inizio = null;
-  const muovi = (e) => {
-    let dx = e.clientX - inizio.x, dy = e.clientY - inizio.y;
+  const muovi = (t) => {
+    let dx = t.clientX - inizio.x, dy = t.clientY - inizio.y;
     const d = Math.hypot(dx, dy);
     if (d > RAGGIO) { dx = (dx / d) * RAGGIO; dy = (dy / d) * RAGGIO; }
     pallino.style.transform = `translate(${dx}px,${dy}px)`;
@@ -79,23 +80,29 @@ function manopola(lato, onChange) {
     onChange({ x: zona(dx / RAGGIO), y: zona(-dy / RAGGIO) });
   };
   const fine = () => {
-    if (id === null) return;
-    id = null;
+    if (tocco === null) return;
+    tocco = null;
     inizio = null;
     pallino.style.transform = "translate(0px,0px)";
     onChange({ x: 0, y: 0 });
   };
-  base.addEventListener("pointerdown", (e) => {
+  base.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    id = e.pointerId;
-    inizio = { x: e.clientX, y: e.clientY };
     e.stopPropagation();
-  });
-  window.addEventListener("pointermove", (e) => { if (e.pointerId === id) muovi(e); });
-  window.addEventListener("pointerup", (e) => { if (e.pointerId === id) fine(); });
-  window.addEventListener("pointercancel", (e) => { if (e.pointerId === id) fine(); });
-  window.addEventListener("touchend", fine);
-  window.addEventListener("touchcancel", fine);
+    const t = e.changedTouches[0];
+    tocco = t.identifier;
+    inizio = { x: t.clientX, y: t.clientY };
+  }, { passive: false });
+  // Il movimento e la fine si ascoltano sulla finestra: il dito puo' uscire dalla manopola
+  window.addEventListener("touchmove", (e) => {
+    if (tocco === null) return;
+    for (const t of e.changedTouches) if (t.identifier === tocco) { muovi(t); e.preventDefault(); }
+  }, { passive: false });
+  const finisce = (e) => {
+    for (const t of e.changedTouches) if (t.identifier === tocco) fine();
+  };
+  window.addEventListener("touchend", finisce);
+  window.addEventListener("touchcancel", finisce);
   window.addEventListener("blur", fine);
   return base;
 }
