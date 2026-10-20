@@ -2,7 +2,7 @@
 // muri, trascinamento, rotazione, duplica, elimina, dimensioni e finiture. Tutto in mm interi nel progetto.
 import { LIBRERIA_3D, CATEGORIE_ARREDO, partiArredo, dimensioniArredo, agganciaAlMuro, collisioniArredo } from "../core/arredi.js";
 import { aggiungiArredo, modificaArredo, duplicaArredo, eliminaElemento } from "../core/project.js";
-import { gruppoArredo, miniatura } from "../view/modelli3d.js";
+import { gruppoArredo, miniatura } from "../view/modelli3d.js?v=v20261020o";
 import { suono } from "./dock-infissi.js";
 
 const GRIGLIA = 50;

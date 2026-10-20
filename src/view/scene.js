@@ -11,9 +11,9 @@ import { parquet, intonaco, marmo, fotoSet } from "./materials.js";
 import { MATERIALI_PAVIMENTO, MATERIALI_MURO, TINTE_MURO } from "../core/project.js";
 import { materialeRealistico, texturaRilievo } from "./realistico.js";
 import { creaSovrimpressione, proiettore } from "./misure.js";
-import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js";
+import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js?v=v20261020o";
 import { creaPost } from "./post.js";
-import { creaPasseggiata } from "./passeggiata-view.js";
+import { creaPasseggiata } from "./passeggiata-view.js?v=v20261020o";
 
 // Parti dell'infisso che seguono l'anta quando la porta si apre (il resto e' telaio, fisso nel muro)
 const RUOLI_ANTA = new Set(["anta", "maniglia", "fresatura", "cilindro_serratura"]);

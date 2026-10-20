@@ -7,7 +7,7 @@ import {
   progettoVuoto, aggiungiMuro, aggiungiVano, aggiungiPavimento, aggiungiArredo,
   ruotaArredo, spostaArredo, eliminaElemento, verificaProgetto, LIBRERIA_ARREDI, MATERIALI_PAVIMENTO,
 } from "./core/project.js";
-import { createViewer } from "./view/scene.js";
+import { createViewer } from "./view/scene.js?v=v20261020o";
 import { parseDxf } from "./io/dxf.js";
 import { dxfToPlan } from "./io/toPlan.js";
 import { montaTracciamento } from "./trace/ui.js";
@@ -24,10 +24,10 @@ const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_
 import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js";
 import { montaScheda } from "./ui/energia-ui.js";
 import { renderAffidabilita } from "./ui/affidabilita-ui.js";
-import { partiInfisso } from "./core/infissi3d.js";
+import { partiInfisso } from "./core/infissi3d.js?v=v20261020o";
 import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
-import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js";
+import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020o";
 import { montaArredo } from "./ui/arredo-ui.js";
 import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js";
 import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
