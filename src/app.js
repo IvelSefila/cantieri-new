@@ -51,7 +51,7 @@ const TATTILE = window.matchMedia("(pointer: coarse)").matches;
 let manopole = null;
 function aggiornaPrimaPersona(on) {
   if (pulsantePP) pulsantePP.textContent = on ? "Esci dalla prima persona" : "Entra in prima persona";
-  if (messaggioPP) messaggioPP.style.display = on ? "block" : "none";
+  if (messaggioPP) messaggioPP.style.display = on && !TATTILE ? "block" : "none";
   if (tastiPP) tastiPP.style.display = on && !TATTILE ? "grid" : "none";
   if (manopole) manopole.style.display = on && TATTILE ? "block" : "none";
   document.body.classList.toggle("pp-on", on && TATTILE); // in prima persona sul telefono sparisce la barra degli strumenti
