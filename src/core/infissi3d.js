@@ -190,16 +190,19 @@ function porta(op, wallT, st, esterno) {
     }
   }
   // cerniere sul lato opposto alla maniglia
-  for (const zz of [z0 + 250, z0 + 1050, z1 - p - 300]) out.push({ forma: "cil", ruolo: "cerniera", mat: "inox", s: p, z0: zz, z1: zz + 110, n: 0, r: ingresso ? 11 : 8 });
+  // cardine "b": cerniere e maniglia si specchiano (la maniglia resta dal lato opposto alle cerniere)
+  const cardineB = (op.apertura?.cardine ?? "a") === "b";
+  const sx = (v) => (cardineB ? W - v : v);
+  for (const zz of [z0 + 250, z0 + 1050, z1 - p - 300]) out.push({ forma: "cil", ruolo: "cerniera", mat: "inox", s: sx(p), z0: zz, z1: zz + 110, n: 0, r: ingresso ? 11 : 8 });
   // maniglie: esterno con maniglione/pomolo per le porte d'ingresso, leva all'interno
-  const sMan = W - p - (st.maniglia === "maniglione" ? 110 : 80);
+  const sMan = sx(W - p - (st.maniglia === "maniglione" ? 110 : 80));
   const ext = esterno || 1;
   if (st.texture) {
     // porta con foto: maniglie e cilindro gia' nel rendering, nessuna maniglia procedurale sopra
   } else if (ingresso) {
     maniglia(out, st.maniglia, sMan, z0 + 1050, ext > 0 ? aB : aA, ext);
-    maniglia(out, "minimal", W - p - 80, z0 + 1050, ext > 0 ? aA : aB, -ext);
-    out.push({ forma: "cilN", ruolo: "cilindro_serratura", mat: "inox", s: W - p - 80, z: z0 + 930, n0: aA - 6, n1: aB + 6, r: 14 });
+    maniglia(out, "minimal", sx(W - p - 80), z0 + 1050, ext > 0 ? aA : aB, -ext);
+    out.push({ forma: "cilN", ruolo: "cilindro_serratura", mat: "inox", s: sx(W - p - 80), z: z0 + 930, n0: aA - 6, n1: aB + 6, r: 14 });
   } else {
     maniglia(out, st.maniglia === "incasso" ? "incasso" : "minimal", sMan, z0 + 1050, aB, 1);
     maniglia(out, st.maniglia === "incasso" ? "incasso" : "minimal", sMan, z0 + 1050, aA, -1);
