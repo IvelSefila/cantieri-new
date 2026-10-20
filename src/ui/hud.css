@@ -331,3 +331,6 @@ body.pp-on #vista-touch-blocco { display: none; }
 @media (max-width: 700px) {
   #btn-pp, #btn-legenda, #icona-auto, .hud-coord { z-index: 15 !important; }
 }
+
+/* In prima persona sul telefono niente scorrimento o zoom della pagina */
+body.pp-on { touch-action: none; overscroll-behavior: none; overflow: hidden; }

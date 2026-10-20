@@ -63,6 +63,7 @@ function manopola(lato, onChange) {
   // Manopola relativa, con eventi di tocco diretti (il piu' affidabile sui telefoni):
   // il pallino parte dal centro e segue lo spostamento del dito, come nei giochi
   const base = document.createElement("div");
+  base.dataset.stick = lato;
   base.style.cssText = `position:absolute;bottom:20px;${lato}:16px;width:150px;height:150px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;pointer-events:auto`;
   const pallino = document.createElement("div");
   pallino.style.cssText = "position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none;transform:translate(0px,0px)";
@@ -106,6 +107,13 @@ function manopola(lato, onChange) {
   window.addEventListener("blur", fine);
   return base;
 }
+// In prima persona sul telefono nessun trascinamento deve muovere la pagina o la scena: solo le manopole
+document.addEventListener("touchmove", (e) => {
+  if (!document.body.classList.contains("pp-on")) return;
+  if (e.target.closest?.("[data-stick]")) return;
+  e.preventDefault();
+}, { passive: false });
+
 function montaManopole() {
   manopole = document.createElement("div");
   manopole.style.cssText = "display:none;position:fixed;inset:0;pointer-events:none;z-index:75;touch-action:none";
