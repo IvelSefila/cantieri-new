@@ -114,35 +114,37 @@ export function montaArredo(opz) {
       tin.append(b);
     }
     finiture.append(tin);
-    // Palette CMYK: 27 combinazioni di ciano, magenta e giallo (0, 40, 100%) piu' la scala del nero
-    finiture.append(el("div", "arr-titolo-fin", "Palette CMYK"));
+    // Colori da interni: tinte pastello e terrose, non colori saturi
+    finiture.append(el("div", "arr-titolo-fin", "Colori da interni"));
     const pal = el("div", "arr-palette");
-    const livelli = [0, 0.4, 1];
-    const cmyk = [];
-    for (const c of livelli) for (const m of livelli) for (const y of livelli) cmyk.push([c, m, y, 0]);
-    for (const k of [0.25, 0.5, 0.75, 1]) cmyk.push([0, 0, 0, k]);
-    for (const [c, m, y, k] of cmyk) {
-      if (c === 0 && m === 0 && y === 0 && k === 0) continue;
-      const r = Math.round(255 * (1 - c) * (1 - k)), g = Math.round(255 * (1 - m) * (1 - k)), bl = Math.round(255 * (1 - y) * (1 - k));
-      const hex = "#" + [r, g, bl].map((v) => v.toString(16).padStart(2, "0")).join("");
-      const nome = `C${Math.round(c * 100)} M${Math.round(m * 100)} Y${Math.round(y * 100)} K${Math.round(k * 100)}`;
+    const COLORI_INTERNI = [
+      ["Bianco latte", "#F3EFE6"], ["Bianco caldo", "#F7F2E8"], ["Avorio", "#EDE3C8"], ["Sabbia", "#D9C7A7"],
+      ["Ocra tenue", "#C9A66B"], ["Senape tenue", "#D1A94F"], ["Terracotta", "#B86B4B"], ["Terra di Siena", "#A9694A"],
+      ["Rosa cipria", "#D9B8AE"], ["Lavanda polvere", "#B9B2CC"], ["Salvia", "#A7B29A"], ["Verde oliva", "#7D7F5C"],
+      ["Verde bosco", "#4E5D4A"], ["Azzurro cielo", "#BFD3DD"], ["Blu ardesia", "#6E7F96"], ["Blu notte", "#2C3A4F"],
+      ["Grigio perla", "#C9CACB"], ["Grigio talpa", "#8A8A86"], ["Grigio grafite", "#5B6068"], ["Antracite", "#3A3D42"],
+      ["Tortora", "#B7A99A"], ["Caffè", "#6F5447"], ["Nero carbone", "#1F2226"],
+    ];
+    for (const [nome, hex] of COLORI_INTERNI) {
       const b = el("button", "arr-swatch");
       b.style.setProperty("background", hex, "important");
       b.title = nome;
       b.setAttribute("aria-label", nome);
       b.onclick = () => {
-        const chiave = `cmyk_${hex.slice(1)}`;
+        const chiave = `colore_${hex.slice(1).toLowerCase()}`;
         TINTE_MURO[chiave] = { nome, hex };
         impostaSecchio({ tipo: "tinta", chiave, nome, colore: hex });
       };
       pal.append(b);
     }
-    // ultimo elemento: cerchio cromatico con # o codice colore
+    finiture.append(pal);
+    finiture.append(el("div", "arr-titolo-fin", "Altro colore"));
+    const altro = el("div", "arr-palette");
     const ruota = el("button", "arr-ruota");
     ruota.title = "Scegli un colore";
     ruota.setAttribute("aria-label", "Cerchio cromatico");
-    pal.append(ruota);
-    finiture.append(pal);
+    altro.append(ruota);
+    finiture.append(altro);
     const pannello = el("div", "arr-picker");
     pannello.style.display = "none";
     const tela = document.createElement("canvas");
@@ -183,7 +185,7 @@ export function montaArredo(opz) {
     luce.oninput = () => { disegnaRuotaColori(); };
     codice.onchange = () => { if (/^#[0-9a-f]{6}$/i.test(codice.value.trim())) colore = codice.value.trim().toLowerCase(); };
     usa.onclick = () => {
-      const chiave = `cmyk_${colore.slice(1)}`;
+      const chiave = `colore_${colore.slice(1).toLowerCase()}`;
       TINTE_MURO[chiave] = { nome: colore, hex: colore };
       impostaSecchio({ tipo: "tinta", chiave, nome: colore, colore });
       pannello.style.display = "none";
