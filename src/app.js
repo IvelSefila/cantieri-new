@@ -14,7 +14,7 @@ import { montaTracciamento } from "./trace/ui.js";
 import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
 import { stanze } from "./core/rooms.js";
 import { planSvg } from "./view2d/plan.js";
-import { montaHud } from "./ui/hud.js?v=v20261020bh";
+import { montaHud } from "./ui/hud.js?v=v20261020bi";
 import { rapportoAntincendio } from "./core/antincendio.js";
 import { apriScheda } from "./ui/scheda.js";
 import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
@@ -29,7 +29,7 @@ import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020t";
 import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020o";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bh";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bi";
 import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js";
 import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
 import { impostaFunzioneStanza } from "./core/project.js";
@@ -897,16 +897,18 @@ function gestisciVista(hit) {
 
 // Doppio clic: scheda dell'elemento (o della stanza), con le azioni possibili
 function gestisciDoppio(hit) {
-  const p = stato.progetto;
+  let p = stato.progetto;
   const idVano = hit.vano ?? (hit.kind && PEZZI_VANO.includes(hit.kind) ? String(hit.id).split(":")[0] : null);
   if (idVano && p.openings.some((o) => o.id === idVano)) return apriVistaFrontale(idVano);
   let tipo = null;
   let id = null;
   if (hit.kind && hit.kind.startsWith("muro")) {
     tipo = "muro";
-    id = hit.wall;
-    // evidenzia il tratto di muro selezionato, cosi' si vede cosa e' stato scelto
-    stato.viewer.setEvidenzaMuro(muroAPunto(p, hit.mm) ?? id);
+    // spezza il muro agli incroci e evidenzia solo il tratto cliccato
+    const sp = spezzaMuro(p, hit.wall, hit.mm);
+    if (!sp.errore && sp.p !== p) { applica(sp.p); p = sp.p; }
+    id = sp.errore ? hit.wall : sp.id;
+    stato.viewer.setEvidenzaMuro(id);
   }
   else if (PEZZI_VANO.includes(hit.kind)) { tipo = "vano"; id = hit.id.split(":")[0]; }
   else if (hit.kind === "arredo") { tipo = "arredo"; id = hit.id; }
