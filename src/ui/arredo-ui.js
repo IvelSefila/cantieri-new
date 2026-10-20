@@ -81,7 +81,7 @@ export function montaArredo(opz) {
   document.addEventListener("keydown", (e) => { if (secchio && e.key === "Escape") impostaSecchio(null); });
   document.addEventListener("contextmenu", () => { if (secchio) impostaSecchio(null); });
   function riempi(hit) {
-    if (!secchio || !hit?.kind) return false;
+    if (!secchio || !hit) return false;
     const p = opz.getProgetto();
     let q = null;
     if (secchio.tipo === "pavimento" && (hit.kind === "pavimento" || !hit.kind)) {
@@ -102,7 +102,10 @@ export function montaArredo(opz) {
     const pav = el("div", "arr-chips");
     for (const [k, v] of Object.entries(MATERIALI_PAVIMENTO)) {
       const b = el("button", "arr-chip", v.nome);
-      b.onclick = () => impostaSecchio({ tipo: "pavimento", chiave: k, nome: v.nome, colore: v.colore ? `rgb(${v.colore.join(",")})` : "#c8a476" });
+      b.onclick = () => {
+        impostaSecchio({ tipo: "pavimento", chiave: k, nome: v.nome, colore: v.colore ? `rgb(${v.colore.join(",")})` : "#c8a476" });
+        for (const x of pav.querySelectorAll(".arr-chip")) x.classList.toggle("attiva", x === b);
+      };
       pav.append(b);
     }
     finiture.append(pav, el("div", "arr-titolo-fin", "Verniciatura muri"));
