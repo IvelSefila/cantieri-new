@@ -48,22 +48,33 @@ export function montaArredo(opz) {
   // Due sottoschede: Arredi e Pavimenti e verniciatura
   const sottoBarra = el("div", "arr-sottobarra");
   const bArredi = el("button", "arr-sub attiva", "Arredi");
-  const bFiniture = el("button", "arr-sub", "Pavimenti e verniciatura");
-  sottoBarra.append(bArredi, bFiniture);
+  const bPav = el("button", "arr-sub", "Pavimenti");
+  const bVern = el("button", "arr-sub", "Verniciature");
+  sottoBarra.append(bArredi, bPav, bVern);
+  // finestre distinte: Pavimenti (finPav) e Verniciature (finiture)
+  const finPav = el("div", "arr-finiture");
   const finiture = el("div", "arr-finiture");
+  finPav.style.display = "none";
   finiture.style.display = "none";
   function mostra(sezione) {
-    const arredi = sezione === "arredi";
-    filtri.style.display = arredi ? "" : "none";
-    griglia.style.display = arredi ? "" : "none";
-    ispettore.style.display = arredi ? "" : "none";
-    aiuto.style.display = arredi ? "" : "none";
-    finiture.style.display = arredi ? "none" : "";
-    bArredi.classList.toggle("attiva", arredi);
-    bFiniture.classList.toggle("attiva", !arredi);
+    filtri.style.display = sezione === "arredi" ? "" : "none";
+    griglia.style.display = sezione === "arredi" ? "" : "none";
+    ispettore.style.display = sezione === "arredi" ? "" : "none";
+    aiuto.style.display = sezione === "arredi" ? "" : "none";
+    finPav.style.display = sezione === "pavimenti" ? "" : "none";
+    finiture.style.display = sezione === "verniciature" ? "" : "none";
+    bArredi.classList.toggle("attiva", sezione === "arredi");
+    bPav.classList.toggle("attiva", sezione === "pavimenti");
+    bVern.classList.toggle("attiva", sezione === "verniciature");
   }
   bArredi.onclick = () => mostra("arredi");
-  bFiniture.onclick = () => { disegnaFiniture(); mostra("finiture"); };
+  bPav.onclick = () => { disegnaPavimenti(); mostra("pavimenti"); };
+  bVern.onclick = () => { disegnaFiniture(); mostra("verniciature"); };
+  // dalla barra in basso: Arredo apre Arredi, Pavimento apre Pavimenti
+  window.addEventListener("arredi:sezione", (e) => {
+    if (e.detail === "pavimenti") { disegnaPavimenti(); mostra("pavimenti"); }
+    else mostra("arredi");
+  });
   // Applica a tutti i pavimenti o a tutti i muri del progetto e ridisegna
   // Secchiello: scelto un materiale, il clic su un pavimento o su un muro lo riempie
   let secchio = null; // { tipo: "pavimento" | "tinta", chiave, nome, colore }
@@ -96,9 +107,9 @@ export function montaArredo(opz) {
     if (q) opz.applica(q);
     return true;
   }
-  function disegnaFiniture() {
-    finiture.innerHTML = "";
-    finiture.append(el("div", "arr-titolo-fin", "Pavimenti"));
+  function disegnaPavimenti() {
+    finPav.innerHTML = "";
+    finPav.append(el("div", "arr-titolo-fin", "Pavimenti"));
     const pav = el("div", "arr-chips");
     for (const [k, v] of Object.entries(MATERIALI_PAVIMENTO)) {
       const b = el("button", "arr-chip", v.nome);
@@ -108,7 +119,10 @@ export function montaArredo(opz) {
       };
       pav.append(b);
     }
-    finiture.append(pav, el("div", "arr-titolo-fin", "Verniciatura muri"));
+    finPav.append(pav);
+  }
+  function disegnaFiniture() {
+    finiture.innerHTML = "";
 
     // Colori da interni: tinte pastello e terrose, non colori saturi
     finiture.append(el("div", "arr-titolo-fin", "Colore"));
@@ -166,7 +180,7 @@ export function montaArredo(opz) {
       };
       tin.append(b);
     }
-    finiture.append(tin, tecnicaEtic);
+    finiture.append(el("div", "arr-titolo-fin", "Verniciatura muri"), tin, tecnicaEtic);
     let colore = "#808080";
     function hslHex(h, sat, l) {
       const k = (n) => (n + h / 30) % 12;
@@ -205,7 +219,7 @@ export function montaArredo(opz) {
     };
     disegnaRuotaColori();
   }
-  box.append(sottoBarra, filtri, griglia, ispettore, aiuto, finiture);
+  box.append(sottoBarra, filtri, griglia, ispettore, aiuto, finPav, finiture);
   // tasto destro nel pannello: toglie la selezione (arredo da posare o arredo selezionato)
   box.addEventListener("contextmenu", (ev) => {
     ev.preventDefault();

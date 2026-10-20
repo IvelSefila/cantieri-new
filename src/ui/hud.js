@@ -114,7 +114,10 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
     for (const b of barra.querySelectorAll(".hud-slot")) b.classList.toggle("attivo", b.dataset.strumento === id);
     onStrumento?.(id);
     // Arredo apre la scheda Arredi; gli altri strumenti restano nella scheda Costruzione
-    apriScheda(id === "arredo" ? "arredi" : "costruzione");
+    if (id === "arredo" || id === "pavimento") {
+      apriScheda("arredi");
+      window.dispatchEvent(new CustomEvent("arredi:sezione", { detail: id === "pavimento" ? "pavimenti" : "arredi" }));
+    } else apriScheda("costruzione");
   }
 
   function impostaModalita(id) {
