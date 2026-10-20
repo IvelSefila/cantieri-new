@@ -1,8 +1,8 @@
 // Costruzione del modello: planimetria -> scatole 3D in millimetri (coordinate del piano).
 // Nessuna dipendenza da Three.js: la stessa funzione gira nel browser e nei test Node.
-import { wallLengthMm, validatePlan } from "./model.js?v=v20261020bk";
-import { openingLocalBoxes, TIPO_PER_CATEGORIA } from "./cdi.js?v=v20261020bk";
-import { ingombroArredo, MATERIALI_PAVIMENTO, LIBRERIA_ARREDI } from "./project.js?v=v20261020bk";
+import { wallLengthMm, validatePlan } from "./model.js?v=v20261020bl";
+import { openingLocalBoxes, TIPO_PER_CATEGORIA } from "./cdi.js?v=v20261020bl";
+import { ingombroArredo, MATERIALI_PAVIMENTO, LIBRERIA_ARREDI } from "./project.js?v=v20261020bl";
 
 // Pavimenti e arredi del progetto (vuoto di default): scatole sottili o parallelepipedi in mm.
 function extrasProgetto(plan) {

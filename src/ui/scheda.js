@@ -1,8 +1,12 @@
 // Finestra di dettaglio di un elemento (doppio clic). Il contenuto e' testo, mai HTML del progetto.
 let aperta = null;
+let suChiusura = null;
 
 export function chiudiScheda() {
   if (aperta) { aperta.remove(); aperta = null; }
+  const f = suChiusura;
+  suChiusura = null;
+  f?.();
 }
 
 // dati: { titolo, portante?, righe: [[etichetta, valore]], azioni: [{id, etichetta, pericolo, conferma}] }
@@ -10,7 +14,7 @@ export function chiudiScheda() {
 export function apriScheda(dati, onAzione) {
   chiudiScheda();
   const velo = document.createElement("div");
-  velo.className = "scheda-velo";
+  velo.className = `scheda-velo${dati.destra ? " scheda-destra" : ""}`;
   velo.addEventListener("click", (e) => { if (e.target === velo) chiudiScheda(); });
 
   const box = document.createElement("div");
@@ -129,6 +133,7 @@ export function apriScheda(dati, onAzione) {
   velo.appendChild(box);
   document.body.appendChild(velo);
   aperta = velo;
+  suChiusura = dati.onChiudi ?? null;
   return velo;
 }
 

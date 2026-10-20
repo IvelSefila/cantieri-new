@@ -15,10 +15,10 @@ const SLOT = [
   { id: "muro", nome: "Muro", tasto: "1" },
   { id: "vano", nome: "Vano", tasto: "2" },
   { id: "pavimento", nome: "Pavimento", tasto: "3" },
+  { id: "verniciatura", nome: "Verniciatura", tasto: "" },
   { id: "arredo", nome: "Arredo", tasto: "4" },
   { id: "sposta", nome: "Sposta", tasto: "5" },
   { id: "elimina", nome: "Elimina", tasto: "6" },
-  { id: "verniciatura", nome: "Verniciatura", tasto: "" },
 ];
 
 const SCHEDE = [
