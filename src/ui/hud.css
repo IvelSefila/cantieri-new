@@ -326,3 +326,8 @@ body.pp-on #vista-touch-blocco { display: none; }
   #btn-pp, #btn-legenda, #icona-auto { z-index: 25 !important; }
   #pannello-alloggi, #pannello-auto, #pannello-legenda { z-index: 35 !important; }
 }
+
+/* Telefono: con il pannello laterale aperto, i pulsanti flottanti restano sotto di lui */
+@media (max-width: 700px) {
+  #btn-pp, #btn-legenda, #icona-auto, .hud-coord { z-index: 15 !important; }
+}
