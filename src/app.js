@@ -55,7 +55,7 @@ function aggiornaPrimaPersona(on) {
   if (tastiPP) tastiPP.style.display = on && !TATTILE ? "grid" : "none";
   if (manopole) manopole.style.display = on && TATTILE ? "block" : "none";
   document.body.classList.toggle("pp-on", on && TATTILE); // in prima persona sul telefono sparisce la barra degli strumenti
-  if (!on && manopole) stato.viewer.setStickPasseggiata({ x: 0, y: 0 }, { x: 0, y: 0 });
+  if (!on && manopole) { allineaTastiMovimento({ x: 0, y: 0 }); stato.viewer.setStickPasseggiata(null, { x: 0, y: 0 }); }
 }
 
 // Manopola virtuale: cerchio con pallino; il valore va da -1 a 1 (y positivo = su)
@@ -126,10 +126,24 @@ document.addEventListener("touchmove", (e) => {
   e.preventDefault();
 }, { passive: false });
 
+// Tasti di movimento tenuti dalla manopola sinistra
+let tastiManopola = new Set();
+function allineaTastiMovimento(v) {
+  const voglio = new Set();
+  if (v.y > 0.3) voglio.add("KeyW");
+  if (v.y < -0.3) voglio.add("KeyS");
+  if (v.x < -0.3) voglio.add("KeyA");
+  if (v.x > 0.3) voglio.add("KeyD");
+  const tasto = (c) => ({ code: c, key: c.slice(3).toLowerCase() });
+  for (const c of tastiManopola) if (!voglio.has(c)) window.dispatchEvent(new KeyboardEvent("keyup", tasto(c)));
+  for (const c of voglio) if (!tastiManopola.has(c)) window.dispatchEvent(new KeyboardEvent("keydown", tasto(c)));
+  tastiManopola = voglio;
+}
 function montaManopole() {
   manopole = document.createElement("div");
   manopole.style.cssText = "display:none;position:fixed;inset:0;pointer-events:none;z-index:75;touch-action:none";
-  const sinistra = manopola("left", (v) => stato.viewer.setStickPasseggiata(v, null));
+  // La manopola sinistra non tocca mai lo sguardo: traduce il pallino in tasti W A S D (avanti, indietro, lati)
+  const sinistra = manopola("left", (v) => allineaTastiMovimento(v));
   const destra = manopola("right", (v) => stato.viewer.setStickPasseggiata(null, v));
   sinistra.style.pointerEvents = "auto";
   destra.style.pointerEvents = "auto";
