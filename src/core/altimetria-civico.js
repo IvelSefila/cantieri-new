@@ -265,25 +265,21 @@ export function parseOsmXmlBuildings(xml, centerLat, centerLon) {
         modoProd = "Volume di servizio / Box (3m)";
       } else {
         if (areaM2 >= 400) {
-          piani = 5;
           altezzaM = 16.5;
-          if (!tipoPresunto) tipoPresunto = `Complesso multipiano (${areaM2} m²)`;
-          modoProd = `Impronta OSM ${areaM2} m² (stima 5 piani)`;
+          if (!tipoPresunto) tipoPresunto = `Complesso (${areaM2} m², ${altezzaM.toFixed(1)} m)`;
+          modoProd = `Impronta OSM ${areaM2} m² (${altezzaM.toFixed(1)} m)`;
         } else if (areaM2 >= 180) {
-          piani = 4;
           altezzaM = 13.4;
-          if (!tipoPresunto) tipoPresunto = `Palazzina residenziale (${areaM2} m²)`;
-          modoProd = `Impronta OSM ${areaM2} m² (stima 4 piani)`;
+          if (!tipoPresunto) tipoPresunto = `Palazzina (${areaM2} m², ${altezzaM.toFixed(1)} m)`;
+          modoProd = `Impronta OSM ${areaM2} m² (${altezzaM.toFixed(1)} m)`;
         } else if (areaM2 >= 90) {
-          piani = 3;
           altezzaM = 10.4;
-          if (!tipoPresunto) tipoPresunto = `Palazzina di paese (${areaM2} m²)`;
-          modoProd = `Impronta OSM ${areaM2} m² (stima 3 piani)`;
+          if (!tipoPresunto) tipoPresunto = `Edificio (${areaM2} m², ${altezzaM.toFixed(1)} m)`;
+          modoProd = `Impronta OSM ${areaM2} m² (${altezzaM.toFixed(1)} m)`;
         } else {
-          piani = 2;
           altezzaM = 7.3;
-          if (!tipoPresunto) tipoPresunto = areaM2 > 0 ? `Edificio basso (${areaM2} m²)` : "Edificio basso / Villetta";
-          modoProd = areaM2 > 0 ? `Impronta OSM ${areaM2} m² (stima 2 piani)` : "Stima volumetrica OSM (2 piani)";
+          if (!tipoPresunto) tipoPresunto = areaM2 > 0 ? `Edificio basso (${areaM2} m², ${altezzaM.toFixed(1)} m)` : "Edificio basso (7.3 m)";
+          modoProd = areaM2 > 0 ? `Impronta OSM ${areaM2} m² (${altezzaM.toFixed(1)} m)` : "Stima volumetrica OSM (7.3 m)";
         }
       }
     }
@@ -348,7 +344,7 @@ export function parseOverpassElements(elements) {
         tipo_osm: tags.building || "residential",
         tipo_presunto: nomeEdificio,
         altezza_volumetrica_m: altezzaM || ((piani || 3) * 3.05 + 1.20),
-        piani: piani || (altezzaM ? Math.max(1, Math.round((altezzaM - 1.20) / 3.05)) : null),
+        piani: piani || null,
         ente_prod: "OpenStreetMap 3D / Catasto Volumetrico",
         modo_prod: tags.height ? "Tag OSM height" : "Tag OSM building:levels (DM 5/7/1975)",
       });
@@ -1113,13 +1109,12 @@ export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggio
   palazzineSelezionate.forEach((v) => {
     countPalazzine++;
     const h = v.altezza_volumetrica_m;
-    const pianiStimati = Math.max(2, Math.round((h - 1.2) / 3.05));
     if (h >= 10.0) {
-      v.tipo_presunto = `Palazzina ${String.fromCharCode(64 + countPalazzine)} (${h.toFixed(1)} m, ~${pianiStimati} piani)`;
+      v.tipo_presunto = `Palazzina ${String.fromCharCode(64 + countPalazzine)} (${h.toFixed(1)} m)`;
     } else {
-      v.tipo_presunto = `Edificio residenziale ${String.fromCharCode(64 + countPalazzine)} (${h.toFixed(1)} m, ${pianiStimati} piani)`;
+      v.tipo_presunto = `Edificio residenziale ${String.fromCharCode(64 + countPalazzine)} (${h.toFixed(1)} m)`;
     }
-    v.piani = pianiStimati;
+    v.piani = null; // Fa fede la metratura reale misurata con LiDAR; rimossa stima forzata dei piani
   });
 
   const accVicini = accessori.filter((v) => !v.distM || v.distM <= 45);

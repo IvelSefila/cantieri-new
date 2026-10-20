@@ -284,7 +284,7 @@ export function montaGSA(box) {
           const btnGroup = el("div");
           btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px;";
           risposta.volumi_rilevati.forEach((v) => {
-            const labelBtn = `${v.tipo_presunto || 'Palazzina'} (${v.altezza_m.toFixed(1)} m${v.piani ? `, ${v.piani}p` : ''})`;
+            const labelBtn = v.tipo_presunto || `${v.altezza_m.toFixed(1)} m`;
             const b = el("button", "", labelBtn);
             b.style.cssText = v.selezionato
               ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 4px 8px; border-radius: 4px;"
