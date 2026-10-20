@@ -263,7 +263,11 @@
       "sill": 0,
       "type": "porta",
       "cdi": "porta-athens",
-      "nota": "cardine 5.70, anta 90 cm"
+      "nota": "cardine 5.70, anta 90 cm",
+      "apertura": {
+        "cardine": "b",
+        "lato": "+"
+      }
     },
     {
       "id": "blindata_b",
