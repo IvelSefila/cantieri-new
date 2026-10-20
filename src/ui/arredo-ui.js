@@ -69,7 +69,7 @@ export function montaArredo(opz) {
   let secchio = null; // { tipo: "pavimento" | "tinta", chiave, nome, colore }
   const cursore = el("div", "arr-secchio");
   cursore.style.display = "none";
-  cursore.innerHTML = '<svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 9h14l-1.5 11h-11z" fill="currentColor"/><path d="M5 9c0-3 14-3 14 0" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16.5 7.5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  cursore.innerHTML = '<svg viewBox="0 0 24 24" width="40" height="40"><path d="M6 9h12l-1.6 11H7.6z" fill="currentColor" stroke="#1b2236" stroke-width="1"/><rect x="4.5" y="7" width="15" height="2.6" rx="1" fill="#1b2236"/><path d="M7 7a5 5 0 0 1 10 0" fill="none" stroke="#1b2236" stroke-width="1.4"/><path d="M17.6 16.5c0 1.2-.8 2-1.8 2s-1.8-.8-1.8-2c0-1.3 1.8-3.4 1.8-3.4s1.8 2.1 1.8 3.4z" fill="currentColor" stroke="#1b2236" stroke-width=".6"/></svg>';
   document.body.append(cursore);
   function impostaSecchio(nuovo) {
     secchio = nuovo;
@@ -122,11 +122,12 @@ export function montaArredo(opz) {
     for (const c of livelli) for (const m of livelli) for (const y of livelli) cmyk.push([c, m, y, 0]);
     for (const k of [0.25, 0.5, 0.75, 1]) cmyk.push([0, 0, 0, k]);
     for (const [c, m, y, k] of cmyk) {
+      if (c === 0 && m === 0 && y === 0 && k === 0) continue;
       const r = Math.round(255 * (1 - c) * (1 - k)), g = Math.round(255 * (1 - m) * (1 - k)), bl = Math.round(255 * (1 - y) * (1 - k));
       const hex = "#" + [r, g, bl].map((v) => v.toString(16).padStart(2, "0")).join("");
       const nome = `C${Math.round(c * 100)} M${Math.round(m * 100)} Y${Math.round(y * 100)} K${Math.round(k * 100)}`;
       const b = el("button", "arr-swatch");
-      b.style.background = hex;
+      b.style.setProperty("background", hex, "important");
       b.title = nome;
       b.setAttribute("aria-label", nome);
       b.onclick = () => {
@@ -136,7 +137,58 @@ export function montaArredo(opz) {
       };
       pal.append(b);
     }
+    // ultimo elemento: cerchio cromatico con # o codice colore
+    const ruota = el("button", "arr-ruota");
+    ruota.title = "Scegli un colore";
+    ruota.setAttribute("aria-label", "Cerchio cromatico");
+    pal.append(ruota);
     finiture.append(pal);
+    const pannello = el("div", "arr-picker");
+    pannello.style.display = "none";
+    const tela = document.createElement("canvas");
+    tela.width = 200; tela.height = 200; tela.className = "arr-tela";
+    const luce = el("input", "arr-luce"); luce.type = "range"; luce.min = "10"; luce.max = "90"; luce.value = "50";
+    const codice = el("input", "arr-codice"); codice.type = "text"; codice.placeholder = "#RRGGBB";
+    const usa = el("button", "arr-usa", "Usa questo colore");
+    pannello.append(tela, el("div", "arr-etic", "Luminosità"), luce, codice, usa);
+    finiture.append(pannello);
+    let colore = "#808080";
+    function hslHex(h, sat, l) {
+      const k = (n) => (n + h / 30) % 12;
+      const a = sat * Math.min(l, 1 - l);
+      const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+      return "#" + [f(0), f(8), f(4)].map((v) => Math.round(v * 255).toString(16).padStart(2, "0")).join("");
+    }
+    function disegnaRuotaColori() {
+      const ctx = tela.getContext("2d");
+      const cx = 100, cy = 100;
+      const grad = ctx.createConicGradient(0, cx, cy);
+      for (let i = 0; i <= 12; i++) grad.addColorStop(i / 12, `hsl(${i * 30}, 100%, ${luce.value}%)`);
+      ctx.clearRect(0, 0, 200, 200);
+      ctx.beginPath(); ctx.arc(cx, cy, 98, 0, Math.PI * 2); ctx.fillStyle = grad; ctx.fill();
+      const centro = ctx.createRadialGradient(cx, cy, 0, cx, cy, 98);
+      centro.addColorStop(0, "rgba(255,255,255,0.9)"); centro.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = centro; ctx.beginPath(); ctx.arc(cx, cy, 98, 0, Math.PI * 2); ctx.fill();
+    }
+    tela.onclick = (ev) => {
+      const r = tela.getBoundingClientRect();
+      const x = (ev.clientX - r.left) * (200 / r.width) - 100, y = (ev.clientY - r.top) * (200 / r.height) - 100;
+      const dist = Math.hypot(x, y);
+      if (dist > 98) return;
+      const h = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+      const sat = Math.min(1, dist / 98);
+      colore = hslHex(h, sat, luce.value / 100);
+      codice.value = colore;
+    };
+    luce.oninput = () => { disegnaRuotaColori(); };
+    codice.onchange = () => { if (/^#[0-9a-f]{6}$/i.test(codice.value.trim())) colore = codice.value.trim().toLowerCase(); };
+    usa.onclick = () => {
+      const chiave = `cmyk_${colore.slice(1)}`;
+      TINTE_MURO[chiave] = { nome: colore, hex: colore };
+      impostaSecchio({ tipo: "tinta", chiave, nome: colore, colore });
+      pannello.style.display = "none";
+    };
+    ruota.onclick = () => { disegnaRuotaColori(); pannello.style.display = pannello.style.display === "none" ? "block" : "none"; };
   }
   box.append(sottoBarra, filtri, griglia, ispettore, aiuto, finiture);
   // tasto destro nel pannello: toglie la selezione (arredo da posare o arredo selezionato)
