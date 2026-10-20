@@ -65,10 +65,36 @@ export function montaArredo(opz) {
   bArredi.onclick = () => mostra("arredi");
   bFiniture.onclick = () => { disegnaFiniture(); mostra("finiture"); };
   // Applica a tutti i pavimenti o a tutti i muri del progetto e ridisegna
-  function applicaATutti(fn) {
-    let q = opz.getProgetto();
-    q = fn(q);
+  // Secchiello: scelto un materiale, il clic su un pavimento o su un muro lo riempie
+  let secchio = null; // { tipo: "pavimento" | "tinta", chiave, nome, colore }
+  const cursore = el("div", "arr-secchio");
+  cursore.style.display = "none";
+  cursore.innerHTML = '<svg viewBox="0 0 24 24" width="34" height="34"><path d="M5 9h14l-1.5 11h-11z" fill="currentColor"/><path d="M5 9c0-3 14-3 14 0" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16.5 7.5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  document.body.append(cursore);
+  function impostaSecchio(nuovo) {
+    secchio = nuovo;
+    cursore.style.display = nuovo ? "block" : "none";
+    cursore.style.color = nuovo?.colore ?? "#ffc44d";
+    if (nuovo) messaggio(`Secchiello: ${nuovo.nome}. Clic su ${nuovo.tipo === "pavimento" ? "un pavimento" : "un muro"} per riempirlo. Tasto destro o Esc per uscire.`, "info");
+  }
+  document.addEventListener("pointermove", (e) => { if (secchio) { cursore.style.left = `${e.clientX + 6}px`; cursore.style.top = `${e.clientY - 26}px`; } });
+  document.addEventListener("keydown", (e) => { if (secchio && e.key === "Escape") impostaSecchio(null); });
+  document.addEventListener("contextmenu", () => { if (secchio) impostaSecchio(null); });
+  function riempi(hit) {
+    if (!secchio || !hit?.kind) return false;
+    const p = opz.getProgetto();
+    let q = null;
+    if (secchio.tipo === "pavimento" && hit.kind === "pavimento") {
+      const r = impostaMaterialePavimento(p, hit.id, secchio.chiave);
+      q = r.p ?? null;
+    } else if (secchio.tipo === "tinta" && hit.kind === "muro") {
+      const r = impostaTintaMuro(p, String(hit.id).split(":")[0], secchio.chiave);
+      q = r.p ?? null;
+    } else {
+      return false;
+    }
     if (q) opz.applica(q);
+    return true;
   }
   function disegnaFiniture() {
     finiture.innerHTML = "";
@@ -76,10 +102,7 @@ export function montaArredo(opz) {
     const pav = el("div", "arr-chips");
     for (const [k, v] of Object.entries(MATERIALI_PAVIMENTO)) {
       const b = el("button", "arr-chip", v.nome);
-      b.onclick = () => applicaATutti((q) => {
-        for (const f of q.floors) { const r = impostaMaterialePavimento(q, f.id, k); if (r.p) q = r.p; }
-        return q;
-      });
+      b.onclick = () => impostaSecchio({ tipo: "pavimento", chiave: k, nome: v.nome, colore: v.colore ? `rgb(${v.colore.join(",")})` : "#c8a476" });
       pav.append(b);
     }
     finiture.append(pav, el("div", "arr-titolo-fin", "Verniciatura muri"));
@@ -87,10 +110,7 @@ export function montaArredo(opz) {
     for (const [k, v] of Object.entries(TINTE_MURO)) {
       const b = el("button", "arr-chip", v.nome);
       b.style.borderLeft = `10px solid ${v.hex}`;
-      b.onclick = () => applicaATutti((q) => {
-        for (const w of q.walls) { const r = impostaTintaMuro(q, w.id, k); if (r.p) q = r.p; }
-        return q;
-      });
+      b.onclick = () => impostaSecchio({ tipo: "tinta", chiave: k, nome: v.nome, colore: v.hex });
       tin.append(b);
     }
     finiture.append(tin);
@@ -311,6 +331,7 @@ export function montaArredo(opz) {
   disegnaIspettore();
 
   return {
+    riempi,
     attiva(v) {
       attiva = v;
       if (!v) { fineposa(); seleziona(null); }

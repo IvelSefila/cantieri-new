@@ -14,7 +14,7 @@ import { montaTracciamento } from "./trace/ui.js";
 import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
 import { stanze } from "./core/rooms.js";
 import { planSvg } from "./view2d/plan.js";
-import { montaHud } from "./ui/hud.js?v=v20261020ar";
+import { montaHud } from "./ui/hud.js?v=v20261020as";
 import { rapportoAntincendio } from "./core/antincendio.js";
 import { apriScheda } from "./ui/scheda.js";
 import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
@@ -28,7 +28,7 @@ import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020t";
 import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020o";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020ar";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261020as";
 import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js";
 import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
 import { impostaFunzioneStanza } from "./core/project.js";
@@ -1190,7 +1190,8 @@ async function init() {
     const st = stato.viewer?.statistiche();
     if (st) $("statistiche").textContent = `Qualità ${st.livello} · ${st.fps ? `${st.fps} fps` : "ferma (disegna solo quando muovi la vista)"} · ${st.chiamate} gruppi · ${st.triangoli.toLocaleString("it-IT")} triangoli`;
   }, 1000);
-  stato.viewer.setPickHandler(gestisciClic);
+  // con il secchiello attivo il clic riempie pavimento o muro; altrimenti vale il normale strumento
+  stato.viewer.setPickHandler((hit) => { if (stato.arredo?.riempi(hit)) return; gestisciClic(hit); });
   stato.viewer.setDoppioClicHandler(gestisciDoppio);
   // Il menu del browser non si apre su tutta l'app: il tasto destro e' dell'editor 3D (campi di testo esclusi)
   document.addEventListener("contextmenu", (ev) => {
