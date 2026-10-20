@@ -250,11 +250,13 @@ export function spezzaMuro(p, wallId, mm) {
     return { p, id: w.id };
   }
   const bordi = [0, ...uniche, 1];
+  // punti di taglio in mm interi (il modello li richiede interi); lo stesso punto e' condiviso dai due tratti
+  const punto = (t) => (t <= 0 ? w.a : t >= 1 ? w.b : [Math.round(w.a[0] + d[0] * t), Math.round(w.a[1] + d[1] * t)]);
   const tratti = [];
   for (let i = 0; i < bordi.length - 1; i++) {
     const t0 = bordi[i], t1 = bordi[i + 1];
     const id = i === 0 ? w.id : `${w.id}_${i}`;
-    tratti.push({ id, t0, t1, muro: { ...w, id, a: [w.a[0] + d[0] * t0, w.a[1] + d[1] * t0], b: [w.a[0] + d[0] * t1, w.a[1] + d[1] * t1] } });
+    tratti.push({ id, t0, t1, muro: { ...w, id, a: punto(t0), b: punto(t1) } });
   }
   const walls = p.walls.flatMap((x) => (x.id === w.id ? tratti.map((tr) => tr.muro) : [x]));
   const openings = p.openings.map((o) => {
