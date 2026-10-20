@@ -185,6 +185,12 @@ export function montaArredo(opz) {
 
     let colore = "#808080";
     let tinta = { h: 0, s: 0 }; // ultimo punto scelto sul cerchio
+    // il campo # prende il colore scelto, con testo leggibile sopra
+    function mostraColore() {
+      const r = parseInt(colore.slice(1, 3), 16), g = parseInt(colore.slice(3, 5), 16), b = parseInt(colore.slice(5, 7), 16);
+      codice.style.background = colore;
+      codice.style.color = (r * 0.299 + g * 0.587 + b * 0.114) > 150 ? "#111" : "#f5f5f5";
+    }
     function hslHex(h, sat, l) {
       const k = (n) => (n + h / 30) % 12;
       const a = sat * Math.min(l, 1 - l);
@@ -212,18 +218,21 @@ export function montaArredo(opz) {
       tinta = { h, s: sat };
       colore = hslHex(h, sat, luce.value / 100);
       codice.value = colore;
+      mostraColore();
       if (secchio?.tipo === "tinta") impostaSecchio({ ...secchio, colore, chiave: `colore_${colore.slice(1).toLowerCase()}`, nome: colore });
     };
     luce.oninput = () => {
       disegnaRuotaColori();
       colore = hslHex(tinta.h, tinta.s, luce.value / 100);
       codice.value = colore;
+      mostraColore();
     };
     codice.onchange = () => {
       const v = codice.value.trim();
       if (!/^#[0-9a-f]{6}$/i.test(v)) return;
       colore = v.toLowerCase();
       codice.value = colore;
+      mostraColore();
       if (secchio?.tipo === "tinta") impostaSecchio({ ...secchio, colore, chiave: `colore_${colore.slice(1)}`, nome: colore });
     };
     usa.onclick = () => {
