@@ -84,9 +84,9 @@ export function montaArredo(opz) {
     if (!secchio || !hit?.kind) return false;
     const p = opz.getProgetto();
     let q = null;
-    if (secchio.tipo === "pavimento" && hit.kind === "pavimento") {
-      const r = impostaMaterialePavimento(p, hit.id, secchio.chiave);
-      q = r.p ?? null;
+    if (secchio.tipo === "pavimento" && (hit.kind === "pavimento" || !hit.kind)) {
+      // pavimento di una stanza: il riquadro della stanza sotto il clic
+      q = opz.pavimentoAlPunto?.(hit.mm, secchio.chiave) ?? null;
     } else if (secchio.tipo === "tinta" && hit.kind === "muro") {
       const r = impostaTintaMuro(p, String(hit.id).split(":")[0], secchio.chiave);
       q = r.p ?? null;

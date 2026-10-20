@@ -14,10 +14,11 @@ import { montaTracciamento } from "./trace/ui.js";
 import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
 import { stanze } from "./core/rooms.js";
 import { planSvg } from "./view2d/plan.js";
-import { montaHud } from "./ui/hud.js?v=v20261020ax";
+import { montaHud } from "./ui/hud.js?v=v20261020ay";
 import { rapportoAntincendio } from "./core/antincendio.js";
 import { apriScheda } from "./ui/scheda.js";
 import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
+import { impostaPavimentoStanza } from "./core/project.js";
 
 // Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
 const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
@@ -28,7 +29,7 @@ import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020t";
 import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020o";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020ax";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261020ay";
 import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js";
 import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
 import { impostaFunzioneStanza } from "./core/project.js";
@@ -1152,6 +1153,11 @@ async function init() {
     contenitore: $("vista"),
     getProgetto: () => stato.progetto,
     applica: (nuovo) => applica(nuovo),
+    pavimentoAlPunto: (mm, materiale) => {
+      const s = mm ? stanzaAPunto(mm, stato.progetto) : null;
+      if (!s) return null;
+      return impostaPavimentoStanza(stato.progetto, s.interno, materiale).p ?? null;
+    },
     messaggio,
   });
   montaAutomatismi();
