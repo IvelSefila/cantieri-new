@@ -184,6 +184,7 @@ export function montaArredo(opz) {
     finiture.append(pannello);
 
     let colore = "#808080";
+    let tinta = { h: 0, s: 0 }; // ultimo punto scelto sul cerchio
     function hslHex(h, sat, l) {
       const k = (n) => (n + h / 30) % 12;
       const a = sat * Math.min(l, 1 - l);
@@ -208,11 +209,23 @@ export function montaArredo(opz) {
       if (dist > 98) return;
       const h = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
       const sat = Math.min(1, dist / 98);
+      tinta = { h, s: sat };
       colore = hslHex(h, sat, luce.value / 100);
       codice.value = colore;
+      if (secchio?.tipo === "tinta") impostaSecchio({ ...secchio, colore, chiave: `colore_${colore.slice(1).toLowerCase()}`, nome: colore });
     };
-    luce.oninput = () => { disegnaRuotaColori(); };
-    codice.onchange = () => { if (/^#[0-9a-f]{6}$/i.test(codice.value.trim())) colore = codice.value.trim().toLowerCase(); };
+    luce.oninput = () => {
+      disegnaRuotaColori();
+      colore = hslHex(tinta.h, tinta.s, luce.value / 100);
+      codice.value = colore;
+    };
+    codice.onchange = () => {
+      const v = codice.value.trim();
+      if (!/^#[0-9a-f]{6}$/i.test(v)) return;
+      colore = v.toLowerCase();
+      codice.value = colore;
+      if (secchio?.tipo === "tinta") impostaSecchio({ ...secchio, colore, chiave: `colore_${colore.slice(1)}`, nome: colore });
+    };
     usa.onclick = () => {
       const tec = tecnicaMuro ?? TECNICHE[0];
       const chiave = `colore_${colore.slice(1).toLowerCase()}_${tec[0]}`;
