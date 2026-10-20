@@ -54,6 +54,7 @@ function aggiornaPrimaPersona(on) {
   if (messaggioPP) messaggioPP.style.display = on ? "block" : "none";
   if (tastiPP) tastiPP.style.display = on && !TATTILE ? "grid" : "none";
   if (manopole) manopole.style.display = on && TATTILE ? "block" : "none";
+  if (velo) velo.style.display = on && TATTILE ? "block" : "none";
   document.body.classList.toggle("pp-on", on && TATTILE); // in prima persona sul telefono sparisce la barra degli strumenti
   if (!on && manopole) { allineaTastiMovimento({ x: 0, y: 0 }); stato.viewer.setStickPasseggiata(null, { x: 0, y: 0 }); }
 }
@@ -125,7 +126,17 @@ function allineaTastiMovimento(v) {
   for (const c of voglio) if (!tastiManopola.has(c)) window.dispatchEvent(new KeyboardEvent("keydown", tasto(c)));
   tastiManopola = voglio;
 }
+// Velo di tocco: in prima persona assorbe ogni tocco sulla scena. La scena non riceve nessun evento del dito.
+let velo = null;
+function montaVeloTocco() {
+  velo = document.createElement("div");
+  velo.id = "velo-tocco-pp";
+  velo.style.cssText = "display:none;position:fixed;inset:0;z-index:19;background:transparent;touch-action:none;-webkit-user-select:none;user-select:none";
+  velo.addEventListener("touchmove", (e) => e.preventDefault(), { passive: false });
+  document.body.append(velo);
+}
 function montaManopole() {
+  montaVeloTocco();
   manopole = document.createElement("div");
   manopole.style.cssText = "display:none;position:fixed;inset:0;pointer-events:none;z-index:75;touch-action:none";
   // La manopola sinistra non tocca mai lo sguardo: traduce il pallino in tasti W A S D (avanti, indietro, lati)
