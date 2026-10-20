@@ -14,11 +14,11 @@ import { montaTracciamento } from "./trace/ui.js";
 import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
 import { stanze } from "./core/rooms.js";
 import { planSvg } from "./view2d/plan.js";
-import { montaHud } from "./ui/hud.js?v=v20261020bf";
+import { montaHud } from "./ui/hud.js?v=v20261020bg";
 import { rapportoAntincendio } from "./core/antincendio.js";
 import { apriScheda } from "./ui/scheda.js";
 import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
-import { impostaPavimentoStanza } from "./core/project.js";
+import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js";
 
 // Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
 const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
@@ -29,7 +29,7 @@ import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020t";
 import { partiArredo } from "./core/arredi.js";
 import { inquadraturaFrontale } from "./core/inquadratura.js";
 import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020o";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bf";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bg";
 import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js";
 import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
 import { impostaFunzioneStanza } from "./core/project.js";
@@ -902,7 +902,12 @@ function gestisciDoppio(hit) {
   if (idVano && p.openings.some((o) => o.id === idVano)) return apriVistaFrontale(idVano);
   let tipo = null;
   let id = null;
-  if (hit.kind && hit.kind.startsWith("muro")) { tipo = "muro"; id = hit.wall; }
+  if (hit.kind && hit.kind.startsWith("muro")) {
+    tipo = "muro";
+    id = hit.wall;
+    // evidenzia il tratto di muro selezionato, cosi' si vede cosa e' stato scelto
+    stato.viewer.setEvidenzaMuro(muroAPunto(p, hit.mm) ?? id);
+  }
   else if (PEZZI_VANO.includes(hit.kind)) { tipo = "vano"; id = hit.id.split(":")[0]; }
   else if (hit.kind === "arredo") { tipo = "arredo"; id = hit.id; }
   else if (hit.kind === "pavimento") { tipo = "pavimento"; id = hit.id; }
@@ -1153,6 +1158,14 @@ async function init() {
     contenitore: $("vista"),
     getProgetto: () => stato.progetto,
     applica: (nuovo) => applica(nuovo),
+    tintaMuroAlPunto: (mm, tinta) => {
+      const id = muroAPunto(stato.progetto, mm);
+      if (!id) return null;
+      const r = spezzaMuro(stato.progetto, id, mm);
+      if (r.errore) return null;
+      const t = impostaTintaMuro(r.p, r.id, tinta);
+      return t.p ?? null;
+    },
     pavimentoAlPunto: (mm, materiale) => {
       const s = mm ? stanzaAPunto(mm, stato.progetto) : null;
       if (!s) return null;

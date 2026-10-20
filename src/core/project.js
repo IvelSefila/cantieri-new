@@ -225,3 +225,71 @@ export function verificaProgetto(p) {
   }
   return { ok: errori.length === 0, errors: errori, warnings: base.warnings };
 }
+
+// Spezza un muro agli incroci con gli altri muri (T o crocevia): ogni tratto diventa un muro a se'.
+// Le aperture passano al tratto che le contiene. Restituisce { p, id } con l'id del tratto sotto mm.
+export function spezzaMuro(p, wallId, mm) {
+  const w = p.walls.find((x) => x.id === wallId);
+  if (!w) return { errore: "muro inesistente" };
+  const d = [w.b[0] - w.a[0], w.b[1] - w.a[1]];
+  const L2 = d[0] * d[0] + d[1] * d[1];
+  const cuts = [];
+  const param = (q) => ((q[0] - w.a[0]) * d[0] + (q[1] - w.a[1]) * d[1]) / L2;
+  for (const o of p.walls) {
+    if (o.id === w.id) continue;
+    for (const q of [o.a, o.b]) {
+      const t = param(q);
+      const lon = Math.abs((q[0] - w.a[0]) * d[1] - (q[1] - w.a[1]) * d[0]) / Math.sqrt(L2);
+      if (lon < 5 && t > 0.001 && t < 0.999) cuts.push(t);
+    }
+  }
+  const uniche = [...new Set(cuts.map((t) => Math.round(t * 1e6) / 1e6))].sort((x, y) => x - y);
+  if (!uniche.length) {
+    return { p, id: w.id };
+  }
+  const bordi = [0, ...uniche, 1];
+  const tratti = [];
+  for (let i = 0; i < bordi.length - 1; i++) {
+    const t0 = bordi[i], t1 = bordi[i + 1];
+    const id = i === 0 ? w.id : `${w.id}_${i}`;
+    tratti.push({ id, t0, t1, muro: { ...w, id, a: [w.a[0] + d[0] * t0, w.a[1] + d[1] * t0], b: [w.a[0] + d[0] * t1, w.a[1] + d[1] * t1] } });
+  }
+  const walls = p.walls.flatMap((x) => (x.id === w.id ? tratti.map((tr) => tr.muro) : [x]));
+  const openings = p.openings.map((o) => {
+    if (o.wall !== w.id) return o;
+    const pos = o.offset; // offset in mm lungo il muro
+    const lunghezza = Math.sqrt(L2);
+    const tr = tratti.find((x) => pos / lunghezza >= x.t0 - 1e-9 && pos / lunghezza <= x.t1 + 1e-9) ?? tratti[0];
+    const inizio = tr.t0 * lunghezza;
+    return { ...o, wall: tr.id, offset: Math.round(pos - inizio) };
+  });
+  const nuovo = { ...p, walls, openings };
+  // tratto piu' vicino al punto cliccato
+  const q = mm ?? [0, 0];
+  let migliore = tratti[0];
+  let dmin = Infinity;
+  for (const tr of tratti) {
+    const a = tr.muro.a, b = tr.muro.b;
+    const ab = [b[0] - a[0], b[1] - a[1]];
+    const l2 = ab[0] * ab[0] + ab[1] * ab[1] || 1;
+    const t = Math.max(0, Math.min(1, ((q[0] - a[0]) * ab[0] + (q[1] - a[1]) * ab[1]) / l2));
+    const dist = Math.hypot(q[0] - (a[0] + ab[0] * t), q[1] - (a[1] + ab[1] * t));
+    if (dist < dmin) { dmin = dist; migliore = tr; }
+  }
+  return { p: nuovo, id: migliore.id };
+}
+
+// Muro (o tratto) piu' vicino a un punto in mm, senza spezzare nulla
+export function muroAPunto(p, mm) {
+  if (!mm) return null;
+  let migliore = null;
+  let dmin = Infinity;
+  for (const w of p.walls) {
+    const ab = [w.b[0] - w.a[0], w.b[1] - w.a[1]];
+    const l2 = ab[0] * ab[0] + ab[1] * ab[1] || 1;
+    const t = Math.max(0, Math.min(1, ((mm[0] - w.a[0]) * ab[0] + (mm[1] - w.a[1]) * ab[1]) / l2));
+    const dist = Math.hypot(mm[0] - (w.a[0] + ab[0] * t), mm[1] - (w.a[1] + ab[1] * t));
+    if (dist < dmin) { dmin = dist; migliore = w.id; }
+  }
+  return migliore;
+}
