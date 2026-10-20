@@ -1,12 +1,12 @@
 // Automatismi: finiture, arredo per funzione della stanza, finestre secondo DM 5/7/1975 e orientamento.
 // Funzioni pure sul progetto. Ogni risultato dice cosa ha aggiunto, quale norma lo richiede e cosa resta da verificare.
-import { stanze } from "./rooms.js?v=v20261020bn";
-import { orientamentoDaGeometria, latoEsterno } from "./gsa.js?v=v20261020bn";
-import { aggiungiVano, impostaPavimentoStanza, impostaFinituraMuro, MATERIALI_PAVIMENTO } from "./project.js?v=v20261020bn";
-import { FUNZIONI, funzioneStanza } from "./funzioni-stanze.js?v=v20261020bn";
-import { dentroPoligono } from "./elementi.js?v=v20261020bn";
-export { arredaTutto } from "./arredo-intelligente.js?v=v20261020bn";
-export { funzioneStanza, FUNZIONI } from "./funzioni-stanze.js?v=v20261020bn";
+import { stanze } from "./rooms.js?v=v20261020bo";
+import { orientamentoDaGeometria, latoEsterno } from "./gsa.js?v=v20261020bo";
+import { aggiungiVano, impostaPavimentoStanza, impostaFinituraMuro, MATERIALI_PAVIMENTO } from "./project.js?v=v20261020bo";
+import { FUNZIONI, funzioneStanza } from "./funzioni-stanze.js?v=v20261020bo";
+import { dentroPoligono } from "./elementi.js?v=v20261020bo";
+export { arredaTutto } from "./arredo-intelligente.js?v=v20261020bo";
+export { funzioneStanza, FUNZIONI } from "./funzioni-stanze.js?v=v20261020bo";
 
 // Norme richiamate nei risultati (DM 5/7/1975, file in sources/dm_1975_05_07.txt)
 const NORMA = {

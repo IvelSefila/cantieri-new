@@ -3,7 +3,7 @@
 // Ogni default è ESPLICITO in DEFAULT_ENERGIA con la sua fonte o la nota "da confermare".
 // Il calcolo non nasconde i parametri: vengono restituiti nel risultato.
 // Nessuna dipendenza esterna: stesse funzioni nel browser e nei test Node.
-import { CLIMA_ROMA, INCLINATO_S36_KWH_M2, UNI10349_ROMA } from "./clima.js?v=v20261020bn";
+import { CLIMA_ROMA, INCLINATO_S36_KWH_M2, UNI10349_ROMA } from "./clima.js?v=v20261020bo";
 
 export const DEFAULT_ENERGIA = {
   theta_int: 20,          // C, temperatura interna di progetto (UNI EN 12831)

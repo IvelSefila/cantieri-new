@@ -2,13 +2,13 @@
 // raffrescamento, H'T, fotovoltaico, solare termico) con l'affidabilità di ogni risultato e i dati mancanti.
 // Nessuna rete: il PDF viene letto nel browser con pdf.js (vendor/pdfjs), i dati restano in memoria della pagina.
 import { DEFAULT_ENERGIA, dispersioneTrasmissione, dispersioneVentilazione, caricoInvernale, fabbisognoRiscaldamento,
-  caricoEstivo, eerCondizionatore, copPompaCalore, fotovoltaico, solareTermico, PROSPETTO4_2008 } from "../core/energia.js?v=v20261020bn";
-import { UNI10349_ROMA } from "../core/clima.js?v=v20261020bn";
-import { parseDatiEnergetici } from "../core/pdfdati.js?v=v20261020bn";
-import { DEFAULT_GSA } from "../core/gsa.js?v=v20261020bn";
-import { verificaHT } from "../core/limiti.js?v=v20261020bn";
-import { bilancioMensile, flussoSolareMensile_W } from "../core/mensile.js?v=v20261020bn";
-import { NOTA_PONTI_10, STATI } from "../core/precisione.js?v=v20261020bn";
+  caricoEstivo, eerCondizionatore, copPompaCalore, fotovoltaico, solareTermico, PROSPETTO4_2008 } from "../core/energia.js?v=v20261020bo";
+import { UNI10349_ROMA } from "../core/clima.js?v=v20261020bo";
+import { parseDatiEnergetici } from "../core/pdfdati.js?v=v20261020bo";
+import { DEFAULT_GSA } from "../core/gsa.js?v=v20261020bo";
+import { verificaHT } from "../core/limiti.js?v=v20261020bo";
+import { bilancioMensile, flussoSolareMensile_W } from "../core/mensile.js?v=v20261020bo";
+import { NOTA_PONTI_10, STATI } from "../core/precisione.js?v=v20261020bo";
 
 // Stagione di riscaldamento per zona (giorni per mese), UNI/TS 11300-1:2008 prospetto 3 / DPR 412/93
 export const STAGIONE_ZONA = {
