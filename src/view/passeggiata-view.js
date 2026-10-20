@@ -83,8 +83,6 @@ export function creaPasseggiata({ scene, camera, dom, controls, onStato, onRichi
 
   function puntatoreGiu(e) {
     if (!attiva) return;
-    // Sul telefono lo sguardo lo danno solo le manopole: il tocco sulla scena non ruota nulla
-    if (e.pointerType === "touch") return;
     trascino = { x: e.clientX, y: e.clientY };
     dom.setPointerCapture?.(e.pointerId);
   }

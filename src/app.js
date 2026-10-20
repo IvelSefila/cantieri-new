@@ -64,11 +64,11 @@ function manopola(lato, onChange) {
   // il pallino parte dal centro e segue lo spostamento del dito, come nei giochi
   const base = document.createElement("div");
   base.dataset.stick = lato;
-  base.style.cssText = `position:absolute;bottom:20px;${lato}:16px;width:150px;height:150px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;pointer-events:auto`;
+  base.style.cssText = `position:absolute;bottom:20px;${lato}:16px;width:112px;height:112px;border-radius:50%;background:rgba(16,22,38,.45);border:2px solid rgba(255,196,77,.5);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;pointer-events:auto`;
   const pallino = document.createElement("div");
-  pallino.style.cssText = "position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none;transform:translate(0px,0px)";
+  pallino.style.cssText = "position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,196,77,.75);pointer-events:none;transform:translate(0px,0px)";
   base.append(pallino);
-  const RAGGIO = 55;
+  const RAGGIO = 38;
   const ZONA_MORTA = 0.12;
   let tocco = null;
   let inizio = null;
@@ -110,21 +110,7 @@ function manopola(lato, onChange) {
   window.addEventListener("blur", fine);
   return base;
 }
-// In prima persona sul telefono il tocco fuori dalle manopole non arriva alla scena (sta in app.js, quindi sempre aggiornato)
-for (const tipo of ["pointerdown", "pointermove", "pointerup", "pointercancel"]) {
-  document.addEventListener(tipo, (e) => {
-    // Le manopole usano eventi di tocco propri: il puntatore del tocco non deve mai arrivare alla scena
-    if (!document.body.classList.contains("pp-on") || e.pointerType !== "touch") return;
-    e.stopPropagation();
-  }, true);
-}
 
-// In prima persona sul telefono nessun trascinamento deve muovere la pagina o la scena: solo le manopole
-document.addEventListener("touchmove", (e) => {
-  if (!document.body.classList.contains("pp-on")) return;
-  if (e.target.closest?.("[data-stick]")) return;
-  e.preventDefault();
-}, { passive: false });
 
 // Tasti di movimento tenuti dalla manopola sinistra
 let tastiManopola = new Set();

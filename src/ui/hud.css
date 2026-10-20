@@ -318,8 +318,6 @@ body.pp-on .hud-hotbar, body.pp-on .hud-coord, body.pp-on .hud-top { display: no
 }
 
 /* Telefono in prima persona: il tocco sulla scena non deve muoverla, lo fanno solo le manopole */
-body.pp-on main#vista, body.pp-on main#vista canvas { pointer-events: none !important; touch-action: none !important; }
-body.pp-on #vista-touch-blocco { display: none; }
 
 /* Telefono: i pulsanti flottanti stanno sotto il menu in alto e sotto i pannelli aperti */
 @media (max-width: 700px) {
@@ -333,4 +331,6 @@ body.pp-on #vista-touch-blocco { display: none; }
 }
 
 /* In prima persona sul telefono niente scorrimento o zoom della pagina */
-body.pp-on { touch-action: none; overscroll-behavior: none; overflow: hidden; }
+
+/* Prima persona sul telefono: il tocco sulla scena guarda intorno, le manopole restano sopra */
+body.pp-on main#vista canvas { touch-action: none; }
