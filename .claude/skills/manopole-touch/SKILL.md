@@ -32,3 +32,9 @@ description: Usare quando si lavora sui comandi touch di Cantieri new sul telefo
 - `src/view/scene.js`: `setStickPasseggiata`
 - `src/view/passeggiata-view.js`: `setStick`, `aggiorna` (uso di `stick.move` e `stick.look`), trascinamento del mouse
 - `src/ui/hud.css`: regole `@media (max-width: 700px)` e `body.pp-on`
+
+## Stato verificato (2026-10-20)
+- Codice attuale: `cdbd28c` (sinistra solo W A S D) con manopole piccole (`1fa24a8`, versione `v20261020l`).
+- Sul telefono l'utente ha riportato che ora funziona. Non so quale modifica l'abbia risolto: nell'ultimo passo non ho cambiato codice, e nel test sintetico la manopola sinistra non cambia ne' `pitch` ne' `yaw`. Quindi la causa non e' confermata.
+- Il rilascio forzato dei valori (`touchend` che azzera movimento e sguardo, commit `4fbf393`) non e' nel codice attuale: e' stato tolto riportando i sorgenti a `cdbd28c`.
+- Per la prossima volta: se la visuale gira sul telefono, prima raccogliere i valori reali (tasti attivi, `stick.move`, `stick.look`, `pitch`, `yaw`) con un riquadro di debug sul telefono, poi correggere.
