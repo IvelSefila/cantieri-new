@@ -3,7 +3,7 @@
 // Ogni dato ha uno stato: verificato | dichiarato | stimato | non_disponibile | non_applicabile.
 // Un dato decisivo mancante, un conflitto tra fonti o un intervallo che tocca una soglia produce INDETERMINATO
 // con motivo e azione richiesta: mai un "no" implicito.
-import { REGOLE_DM246 as R } from "./regole-dm246.js?v=v20261020bw";
+import { REGOLE_DM246 as R } from "./regole-dm246.js?v=v20261020bx";
 
 export const STATI_DATO = ["verificato", "dichiarato", "stimato", "non_disponibile", "non_applicabile"];
 export const SI_NO_VERIFICA = ["si", "no", "da_verificare"];

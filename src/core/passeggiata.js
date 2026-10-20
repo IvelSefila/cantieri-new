@@ -6,7 +6,7 @@
 //   lato:    "+" = l'anta si apre verso la normale +n del muro; "-" verso -n
 // Se manca, la porta usa cardine "a" e lato "+" e la differenza viene segnalata nel report del modello.
 
-import { ingombroArredo } from "./project.js?v=v20261020bw";
+import { ingombroArredo } from "./project.js?v=v20261020bx";
 
 export const ALTEZZA_OCCHI_MM = 1600;
 export const RAGGIO_CORPO_MM = 250;

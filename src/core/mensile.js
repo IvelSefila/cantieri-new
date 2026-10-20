@@ -13,7 +13,7 @@
 //   - la durata reale della stagione (ore attive per mese): la UNI/TS 11300-1 vigente la ricava dal bilancio;
 //     qui si usano le ore inserite oppure la stagione di legge della zona climatica;
 //   - lo scambio verso il terreno (UNI EN ISO 13370) e l'extraflusso verso la volta celeste.
-import { UNI10349_ROMA, GIORNI_MESE, irradianzaMedia_W_m2 } from "./clima.js?v=v20261020bw";
+import { UNI10349_ROMA, GIORNI_MESE, irradianzaMedia_W_m2 } from "./clima.js?v=v20261020bx";
 
 export function fattoreUtilizzazioneRiscaldamento(gamma, a) {
   if (gamma <= 0) return 1;

@@ -1,7 +1,7 @@
 // Scheda "Affidabilità": per ogni motore mostra lo stato (esatto, esatto sui dati, stima, mancano dati),
 // cosa è approssimato e perché, cosa serve per il 100 % e quali documenti servono.
-import { STATI, NOTA_PONTI_10, valutaMotori, riepilogo } from "../core/precisione.js?v=v20261020bw";
-import { NORME, DATA_VERIFICA } from "../core/registro-norme.js?v=v20261020bw";
+import { STATI, NOTA_PONTI_10, valutaMotori, riepilogo } from "../core/precisione.js?v=v20261020bx";
+import { NORME, DATA_VERIFICA } from "../core/registro-norme.js?v=v20261020bx";
 
 function el(tag, cls, testo) {
   const e = document.createElement(tag);
