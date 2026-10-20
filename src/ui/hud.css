@@ -343,3 +343,6 @@ body.pp-on { touch-action: none; overscroll-behavior: none; overflow: hidden; }
 .arr-sub.attiva { background: #ffd66b; color: #111; border-color: #ffd66b; }
 .arr-titolo-fin { margin: 14px 0 6px; font: 700 12px system-ui, sans-serif; color: #ffc44d; letter-spacing: .04em; text-transform: uppercase; }
 .arr-secchio { position: fixed; z-index: 90; pointer-events: none; filter: drop-shadow(0 0 6px rgba(255,196,77,.6)); }
+.arr-palette { display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; margin-top: 4px; }
+.arr-swatch { width: 100%; aspect-ratio: 1; border-radius: 6px; border: 1px solid rgba(255,255,255,.25); cursor: pointer; padding: 0; }
+.arr-swatch:hover { border-color: #ffc44d; box-shadow: 0 0 10px rgba(255,196,77,.5); }

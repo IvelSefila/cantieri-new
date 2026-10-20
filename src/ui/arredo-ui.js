@@ -114,6 +114,29 @@ export function montaArredo(opz) {
       tin.append(b);
     }
     finiture.append(tin);
+    // Palette CMYK: 27 combinazioni di ciano, magenta e giallo (0, 40, 100%) piu' la scala del nero
+    finiture.append(el("div", "arr-titolo-fin", "Palette CMYK"));
+    const pal = el("div", "arr-palette");
+    const livelli = [0, 0.4, 1];
+    const cmyk = [];
+    for (const c of livelli) for (const m of livelli) for (const y of livelli) cmyk.push([c, m, y, 0]);
+    for (const k of [0.25, 0.5, 0.75, 1]) cmyk.push([0, 0, 0, k]);
+    for (const [c, m, y, k] of cmyk) {
+      const r = Math.round(255 * (1 - c) * (1 - k)), g = Math.round(255 * (1 - m) * (1 - k)), bl = Math.round(255 * (1 - y) * (1 - k));
+      const hex = "#" + [r, g, bl].map((v) => v.toString(16).padStart(2, "0")).join("");
+      const nome = `C${Math.round(c * 100)} M${Math.round(m * 100)} Y${Math.round(y * 100)} K${Math.round(k * 100)}`;
+      const b = el("button", "arr-swatch");
+      b.style.background = hex;
+      b.title = nome;
+      b.setAttribute("aria-label", nome);
+      b.onclick = () => {
+        const chiave = `cmyk_${hex.slice(1)}`;
+        TINTE_MURO[chiave] = { nome, hex };
+        impostaSecchio({ tipo: "tinta", chiave, nome, colore: hex });
+      };
+      pal.append(b);
+    }
+    finiture.append(pal);
   }
   box.append(sottoBarra, filtri, griglia, ispettore, aiuto, finiture);
   // tasto destro nel pannello: toglie la selezione (arredo da posare o arredo selezionato)
