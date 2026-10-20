@@ -191,15 +191,12 @@ export function materiale(chiave, { colore, clip = null, alta = false } = {}) {
 
 // Materiali di una scatola con la foto del catalogo sulle facce +n e -n (anta delle porte d'ingresso)
 function materialiFoto(parte, opz) {
-  const specchio = !!parte.specchio;
-  const k = `foto|${parte.texture}|${opz.clip ? "c" : ""}|${specchio ? "s" : ""}`;
+  const k = `foto|${parte.texture}|${opz.clip ? "c" : ""}`;
   if (CACHE.has(k)) return CACHE.get(k);
-  const fronte = foto(parte.texture).clone();
+  const fronte = foto(parte.texture);
   const retro = fronte.clone();
   retro.wrapS = THREE.RepeatWrapping;
-  // specchio: la foto e' girata orizzontalmente, cosi' la maniglia sta dal lato giusto
-  fronte.repeat.x = specchio ? -1 : 1;
-  retro.repeat.x = specchio ? 1 : -1;
+  retro.repeat.x = -1;
   const lato = materiale("laccato", { colore: parte.colore, clip: opz.clip });
   const base = { clippingPlanes: opz.clip, clipShadows: !!opz.clip, roughness: 0.45, metalness: 0.15, envMap: AMBIENTE, envMapIntensity: 0.5 };
   const arr = [lato, lato, lato, lato, new THREE.MeshStandardMaterial({ ...base, map: fronte }), new THREE.MeshStandardMaterial({ ...base, map: retro })];
@@ -215,6 +212,8 @@ function meshParte(p, opz, sostituto, assi) {
     const [a0, a1, b0, b1] = assi === "infisso" ? [p.s0, p.s1, p.n0, p.n1] : [p.x0, p.x1, p.y0, p.y1];
     mesh = new THREE.Mesh(BOX, mat);
     mesh.scale.set(Math.max(1, a1 - a0) * MM, Math.max(1, p.z1 - p.z0) * MM, Math.max(1, b1 - b0) * MM);
+    // anta specchiata: scala negativa sull'asse dell'anta, la foto e la maniglia si girano insieme
+    if (p.specchio) mesh.scale.x *= -1;
     mesh.position.set(((a0 + a1) / 2) * MM, ((p.z0 + p.z1) / 2) * MM, ((b0 + b1) / 2) * MM);
   } else if (p.forma === "cil") {
     const [a, b] = assi === "infisso" ? [p.s, p.n] : [p.x, p.y];
