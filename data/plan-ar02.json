@@ -280,8 +280,8 @@
       "cdi": "porta-monza",
       "nota": "cardine 5.70, anta 90 cm",
       "apertura": {
-        "cardine": "a",
-        "lato": "+"
+        "cardine": "b",
+        "lato": "-"
       }
     },
     {
