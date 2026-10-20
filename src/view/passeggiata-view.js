@@ -3,7 +3,7 @@
 // Comandi: W A S D o frecce su/giu' per camminare (A/D di lato), frecce sinistra/destra per girare,
 // trascinamento del mouse per guardare, Shift per correre, Esc per uscire.
 import * as THREE from "three";
-import { ALTEZZA_OCCHI_MM, statoPasseggiata, aggiornaPasseggiata, vettoreSguardo, geometriaPorta, direzioneAnta } from "../core/passeggiata.js?v=v20261020o";
+import { ALTEZZA_OCCHI_MM, statoPasseggiata, aggiornaPasseggiata, vettoreSguardo, geometriaPorta, direzioneAnta } from "../core/passeggiata.js?v=v20261020bk";
 
 const MM = 0.001;
 const LIMITE_PITCH = 1.2;

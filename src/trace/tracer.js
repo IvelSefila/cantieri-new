@@ -1,5 +1,5 @@
 // Stato del tracciamento: funzioni pure che restituiscono un nuovo stato (nessun DOM).
-import { makeCalibration, pxToMm, muroPiuVicino, vanoDaClic } from "./geometry.js";
+import { makeCalibration, pxToMm, muroPiuVicino, vanoDaClic } from "./geometry.js?v=v20261020bk";
 
 export function nuovoStato(opzioni = {}) {
   return {

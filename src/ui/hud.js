@@ -8,6 +8,7 @@ const ICONE = {
   arredo: '<svg viewBox="0 0 24 24"><path d="M4 11h16v5H4z"/><path d="M6 16v3M18 16v3M4 11V8h16v3"/></svg>',
   sposta: '<svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg>',
   elimina: '<svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/></svg>',
+  verniciatura: '<svg viewBox="0 0 24 24"><path d="M6 9h12l-1.6 11H7.6z"/><path d="M4.5 7h15v2.4h-15z"/><path d="M7 7a5 5 0 0 1 10 0"/></svg>',
 };
 
 const SLOT = [

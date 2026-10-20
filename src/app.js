@@ -1,38 +1,38 @@
 // Interfaccia: progetto modificabile (vuoto all'avvio), modalità vista e costruzione, import/export.
-import { validatePlan, wallLengthMm } from "./core/model.js";
-import { buildModel } from "./core/build.js";
-import { measurePlan } from "./core/measure.js";
-import { TIPO_PER_CATEGORIA } from "./core/cdi.js";
+import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261020bk";
+import { buildModel } from "./core/build.js?v=v20261020bk";
+import { measurePlan } from "./core/measure.js?v=v20261020bk";
+import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261020bk";
 import {
   progettoVuoto, aggiungiMuro, aggiungiVano, aggiungiPavimento, aggiungiArredo,
   ruotaArredo, spostaArredo, eliminaElemento, verificaProgetto, LIBRERIA_ARREDI, MATERIALI_PAVIMENTO,
-} from "./core/project.js";
-import { createViewer } from "./view/scene.js?v=v20261020o";
-import { parseDxf } from "./io/dxf.js";
-import { dxfToPlan } from "./io/toPlan.js";
-import { montaTracciamento } from "./trace/ui.js";
-import { agganciaPunto, puntiNotevoli } from "./core/snap.js";
-import { stanze } from "./core/rooms.js";
-import { planSvg } from "./view2d/plan.js";
-import { montaHud } from "./ui/hud.js?v=v20261020bj";
-import { rapportoAntincendio } from "./core/antincendio.js";
-import { apriScheda } from "./ui/scheda.js";
-import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js";
-import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js";
+} from "./core/project.js?v=v20261020bk";
+import { createViewer } from "./view/scene.js?v=v20261020bk";
+import { parseDxf } from "./io/dxf.js?v=v20261020bk";
+import { dxfToPlan } from "./io/toPlan.js?v=v20261020bk";
+import { montaTracciamento } from "./trace/ui.js?v=v20261020bk";
+import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020bk";
+import { stanze } from "./core/rooms.js?v=v20261020bk";
+import { planSvg } from "./view2d/plan.js?v=v20261020bk";
+import { montaHud } from "./ui/hud.js?v=v20261020bk";
+import { rapportoAntincendio } from "./core/antincendio.js?v=v20261020bk";
+import { apriScheda } from "./ui/scheda.js?v=v20261020bk";
+import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261020bk";
+import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261020bk";
 
 // Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
 const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
-import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js";
-import { montaScheda } from "./ui/energia-ui.js";
-import { renderAffidabilita } from "./ui/affidabilita-ui.js";
-import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020t";
-import { partiArredo } from "./core/arredi.js";
-import { inquadraturaFrontale } from "./core/inquadratura.js";
-import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020o";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bj";
-import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js";
-import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js";
-import { impostaFunzioneStanza } from "./core/project.js";
+import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261020bk";
+import { montaScheda } from "./ui/energia-ui.js?v=v20261020bk";
+import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261020bk";
+import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020bk";
+import { partiArredo } from "./core/arredi.js?v=v20261020bk";
+import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261020bk";
+import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020bk";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bk";
+import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020bk";
+import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020bk";
+import { impostaFunzioneStanza } from "./core/project.js?v=v20261020bk";
 
 // Prima persona: pulsante sopra il ?, messaggio in alto, tasti WASD e frecce sovrimpressi che si illuminano
 let pulsantePP = null;
@@ -454,7 +454,7 @@ function montaAutomatismi() {
   barra.append(bArredo, bFiniture, bInfissi);
   document.body.append(barra, pannello, icona);
 }
-import { montaGSA } from "./ui/gsa-ui.js";
+import { montaGSA } from "./ui/gsa-ui.js?v=v20261020bk";
 
 let hud = null;
 
