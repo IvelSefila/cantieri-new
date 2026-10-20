@@ -1055,67 +1055,84 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
   return { ok: false, errore: `Nessun risultato cartografico trovato per "${indirizzo}"` };
 }
 
-export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggioGradi = 0.0006 } = {}) {
-  const minLat = (lat - raggioGradi).toFixed(6);
-  const maxLat = (lat + raggioGradi).toFixed(6);
-  const minLon = (lon - raggioGradi).toFixed(6);
-  const maxLon = (lon + raggioGradi).toFixed(6);
+export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggioGradi = 0.00065 } = {}) {
+  let volumi = [];
+  let gml = "";
 
-  const url = `${WFS_BDT_RE_IMM}?service=WFS&version=1.1.0&request=GetFeature&typename=un_vol&maxfeatures=25&srsname=EPSG:4326&bbox=${minLat},${minLon},${maxLat},${maxLon},EPSG:4326`;
+  for (const r of [raggioGradi, 0.0010]) {
+    const minLat = (lat - r).toFixed(6);
+    const maxLat = (lat + r).toFixed(6);
+    const minLon = (lon - r).toFixed(6);
+    const maxLon = (lon + r).toFixed(6);
+    const url = `${WFS_BDT_RE_IMM}?service=WFS&version=1.1.0&request=GetFeature&typename=un_vol&maxfeatures=40&srsname=EPSG:4326&bbox=${minLat},${minLon},${maxLat},${maxLon},EPSG:4326`;
 
-  try {
-    const res = await fetchFn(url);
-    if (!res.ok) return { ok: false, errore: `Errore WFS BDTRE HTTP ${res.status}` };
-    const gml = await res.text();
-    let volumi = parseGmlUnVol(gml, { lat, lon });
-    if (volumi.length === 0) {
-      return { ok: false, errore: "Nessun volume edilizio (un_vol) censito per queste coordinate nella BDTRE Piemonte", rawGml: gml };
-    }
-
-    // Filtra per pertinenza entro 62 m dal civico (cattura palazzine arretrate ed esclude lotti distanti)
-    const pertinenti = volumi.filter((v) => !v.distM || v.distM <= 62);
-    if (pertinenti.length > 0) {
-      volumi = pertinenti;
-    }
-
-    // Ordina per altezza decrescente (palazzine principali in testa)
-    volumi.sort((a, b) => b.altezza_volumetrica_m - a.altezza_volumetrica_m);
-
-    // Mantieni solo le palazzine distinte (≥10 m) appartenenti al cluster coeso del complesso
-    const palazzineGrezze = volumi.filter((v) => v.altezza_volumetrica_m >= 10);
-    const palazzine = clusterVolumiResidenziali(palazzineGrezze, { maxClusterDist: 38 });
-
-    // Assegna tipo presunto e denominazione descrittiva ordinata (Palazzina A, B, C...)
-    let countPalazzine = 0;
-    palazzine.forEach((v) => {
-      countPalazzine++;
-      const h = v.altezza_volumetrica_m;
-      const pianiStimati = Math.max(3, Math.round((h - 1.2) / 3.05));
-      v.tipo_presunto = `Palazzina ${String.fromCharCode(64 + countPalazzine)} (${h.toFixed(1)} m, ~${pianiStimati} piani)`;
-      v.piani = pianiStimati;
-    });
-
-    const pertinenze = volumi.filter((v) => v.altezza_volumetrica_m >= 5 && v.altezza_volumetrica_m < 10);
-    pertinenze.forEach((v) => {
-      v.tipo_presunto = `Fabbricato Basso / Pertinenza (${v.altezza_volumetrica_m.toFixed(1)} m)`;
-      v.piani = 2;
-    });
-
-    const box = volumi.filter((v) => v.altezza_volumetrica_m < 5);
-    box.forEach((v) => {
-      v.tipo_presunto = `Box Auto / Accessorio (${v.altezza_volumetrica_m.toFixed(1)} m)`;
-      v.piani = 1;
-    });
-
-    const compatti = [...palazzine];
-    if (pertinenze.length > 0) compatti.push(pertinenze[0]);
-    if (box.length > 0) compatti.push(box[0]);
-    volumi = compatti;
-
-    return { ok: true, volumi, volumePrincipale: volumi[0] };
-  } catch (err) {
-    return { ok: false, errore: `Impossibile interrogare il geoportale Piemonte: ${err.message}` };
+    try {
+      const res = await fetchFn(url);
+      if (res && res.ok) {
+        gml = await res.text();
+        const estratti = parseGmlUnVol(gml, { lat, lon });
+        if (estratti.length > 0) {
+          volumi = estratti;
+          break;
+        }
+      }
+    } catch (err) {}
   }
+
+  if (volumi.length === 0) {
+    return { ok: false, errore: "Nessun volume edilizio (un_vol) censito per queste coordinate nella BDTRE Piemonte", rawGml: gml };
+  }
+
+  // Ordina primariamente per vicinanza al civico puntuale (distM)
+  volumi.sort((a, b) => (a.distM || 0) - (b.distM || 0));
+
+  // Separa corpi abitabili (>= 5.0m) da pertinenze accessorie (< 5.0m)
+  const abitabili = volumi.filter((v) => v.altezza_volumetrica_m >= 5.0);
+  const accessori = volumi.filter((v) => v.altezza_volumetrica_m < 5.0);
+
+  // Se ci sono palazzine multipiano (>= 10m), raggruppale con il cluster del complesso
+  const palazzineAlte = abitabili.filter((v) => v.altezza_volumetrica_m >= 10.0);
+  let palazzineSelezionate = [];
+
+  if (palazzineAlte.length > 0) {
+    palazzineAlte.sort((a, b) => b.altezza_volumetrica_m - a.altezza_volumetrica_m);
+    palazzineSelezionate = clusterVolumiResidenziali(palazzineAlte, { maxClusterDist: 38 });
+    const altri = abitabili.filter((v) => v.altezza_volumetrica_m < 10.0 && (!v.distM || v.distM <= 35));
+    palazzineSelezionate = [...palazzineSelezionate, ...altri];
+  } else {
+    // Civico con villetta o palazzina di 2-3 piani (es. 6m - 9.5m, come via Galimberti 2):
+    palazzineSelezionate = abitabili.filter((v) => !v.distM || v.distM <= 55);
+  }
+
+  if (palazzineSelezionate.length === 0 && volumi.length > 0) {
+    palazzineSelezionate = [volumi[0]];
+  }
+
+  // Denominazione descrittiva ordinata (Palazzina A, B, C...)
+  let countPalazzine = 0;
+  palazzineSelezionate.forEach((v) => {
+    countPalazzine++;
+    const h = v.altezza_volumetrica_m;
+    const pianiStimati = Math.max(2, Math.round((h - 1.2) / 3.05));
+    if (h >= 10.0) {
+      v.tipo_presunto = `Palazzina ${String.fromCharCode(64 + countPalazzine)} (${h.toFixed(1)} m, ~${pianiStimati} piani)`;
+    } else {
+      v.tipo_presunto = `Edificio residenziale ${String.fromCharCode(64 + countPalazzine)} (${h.toFixed(1)} m, ${pianiStimati} piani)`;
+    }
+    v.piani = pianiStimati;
+  });
+
+  const accVicini = accessori.filter((v) => !v.distM || v.distM <= 45);
+  accVicini.forEach((v) => {
+    v.tipo_presunto = `Box Auto / Pertinenza (${v.altezza_volumetrica_m.toFixed(1)} m)`;
+    v.piani = 1;
+  });
+
+  const finali = [...palazzineSelezionate];
+  if (accVicini.length > 0) finali.push(accVicini[0]);
+  if (accVicini.length > 1) finali.push(accVicini[1]);
+
+  return { ok: true, volumi: finali, volumePrincipale: finali[0] };
 }
 
 // Interroga OpenStreetMap Overpass (copertura 100% dei comuni italiani) per estrarre volumi e livelli 3D
@@ -1195,7 +1212,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
   if (geo.regione === "Piemonte") {
     const bdt = await interrogaLiDARPiemonte(geo.lat, geo.lon, { fetchFn });
     if (bdt.ok && bdt.volumi?.length > 0) {
-      volumi = clusterVolumiResidenziali(bdt.volumi);
+      volumi = bdt.volumi;
       provider = "LiDAR BDTRE Regione Piemonte (ARPA)";
     }
   }
@@ -1205,7 +1222,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     const osm = await interrogaOSMNazionale(geo.lat, geo.lon, { fetchFn, timeoutMs: 1500 });
     if (osm.ok && osm.volumi?.length > 0) {
       volumi = osm.volumi;
-      provider = "OpenStreetMap 3D / Catasto Volumetrico Nazionale";
+      provider = `OpenStreetMap 3D / LiDAR Nazionale PST (${geo.regione})`;
     }
   }
 

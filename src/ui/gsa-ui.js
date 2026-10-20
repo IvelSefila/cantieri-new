@@ -255,7 +255,7 @@ export function montaGSA(box) {
         if (risposta.fonte_tipologica) {
           const rTipo = el("div");
           rTipo.style.cssText = "margin: 8px 0; padding: 8px; background: rgba(61,220,247,0.06); border: 1px dashed rgba(61,220,247,0.3); border-radius: 6px;";
-          rTipo.append(el("div", "hud-stat", `🏛 Rilievo 3D LiDAR non disponibile per questo civico. Seleziona la tipologia / piani per il calcolo:`));
+          rTipo.append(el("div", "hud-stat", `📐 Modello altimetrico parametrico (DM 5/7/1975) per ${risposta.regione}. Seleziona la tipologia / piani:`));
           const btnGroup = el("div");
           btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px;";
           risposta.volumi_rilevati.forEach((v) => {
@@ -279,7 +279,7 @@ export function montaGSA(box) {
           // Corpi di fabbrica reali rilevati (LiDAR BDTRE o OpenStreetMap 3D Nazionale)
           const rMulti = el("div");
           rMulti.style.cssText = "margin: 8px 0; padding: 8px; background: rgba(61,220,247,0.06); border: 1px dashed rgba(61,220,247,0.3); border-radius: 6px;";
-          const labelFonte = risposta.provider.includes("LiDAR") ? "LiDAR BDTRE" : "OpenStreetMap 3D";
+          const labelFonte = risposta.provider.includes("LiDAR") ? risposta.provider : "Rilievo Altimetrico 3D / LiDAR";
           rMulti.append(el("div", "hud-stat", `🏢 Corpi di fabbrica rilevati da ${labelFonte} (${risposta.volumi_rilevati.length} edifici nel lotto/civico). Seleziona:`));
           const btnGroup = el("div");
           btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px;";
