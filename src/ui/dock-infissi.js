@@ -1,8 +1,8 @@
 // Pannello "Infissi CDI" a destra della vista frontale di un vano: schede del catalogo filtrate per tipo di vano,
 // compatibilita', scheda tecnica e montaggio con un clic. Stile da videogioco: vetro, animazioni, suoni leggeri.
-import { modelliPerVano, NOMI_CATEGORIA } from "../core/catalogo.js?v=v20261020bt";
-import { partiInfisso } from "../core/infissi3d.js?v=v20261020bt";
-import { gruppoInfisso, miniatura } from "../view/modelli3d.js?v=v20261020bt";
+import { modelliPerVano, NOMI_CATEGORIA } from "../core/catalogo.js?v=v20261020bu";
+import { partiInfisso } from "../core/infissi3d.js?v=v20261020bu";
+import { gruppoInfisso, miniatura } from "../view/modelli3d.js?v=v20261020bu";
 
 let audio = null;
 let muto = false;

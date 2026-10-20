@@ -1,5 +1,5 @@
 // Misure in aritmetica intera: mm e mm^2. La conversione in m2 avviene solo in uscita.
-import { wallLengthMm } from "./model.js?v=v20261020bt";
+import { wallLengthMm } from "./model.js?v=v20261020bu";
 
 // Superficie di una parete finita, due facce, al netto dei vani. Tutto in mm^2 interi.
 export function measurePlan(plan) {
