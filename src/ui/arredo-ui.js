@@ -73,6 +73,7 @@ export function montaArredo(opz) {
   // dalla barra in basso: Arredo apre Arredi, Pavimento apre Pavimenti
   window.addEventListener("arredi:sezione", (e) => {
     if (e.detail === "pavimenti") { disegnaPavimenti(); mostra("pavimenti"); }
+    else if (e.detail === "verniciature") { disegnaFiniture(); mostra("verniciature"); }
     else mostra("arredi");
   });
   // Applica a tutti i pavimenti o a tutti i muri del progetto e ridisegna
@@ -124,6 +125,37 @@ export function montaArredo(opz) {
   function disegnaFiniture() {
     finiture.innerHTML = "";
 
+    // Verniciatura muri: modalita' di tinteggiatura, sotto il colore
+    // Modalita' di tinteggiatura: prima si sceglie la modalita', poi il colore sotto
+    const TECNICHE = [
+      ["lavabile", "Pittura lavabile opaca"], ["satinata", "Pittura satinata"], ["smalto", "Smalto satinato"],
+      ["calce", "Pittura a calce"], ["silicati", "Pittura ai silicati"], ["minerale", "Pittura minerale traspirante"],
+      ["velatura", "Velatura a spugna"], ["spatolato", "Spatolato a stucco"], ["microcemento", "Effetto microcemento"],
+      ["stucco", "Stucco veneziano lucidato"],
+    ];
+    let tecnicaMuro = null; // nessuna modalita' preselezionata
+    const tin = el("div", "arr-chips");
+    const tecnicaEtic = el("div", "arr-etic", "Scegli la modalità di tinteggiatura");
+    for (const [id, nome] of TECNICHE) {
+      const b = el("button", "arr-chip", nome);
+      b.onclick = () => {
+        tecnicaMuro = [id, nome];
+        tecnicaEtic.textContent = `Modalità: ${nome}`;
+        for (const x of tin.querySelectorAll(".arr-chip")) x.classList.toggle("attiva", x === b);
+      };
+      tin.append(b);
+    }
+    finiture.append(el("div", "arr-titolo-fin", "Verniciatura muri"), tin, tecnicaEtic);
+    finiture.append(el("div", "arr-titolo-fin", "Altro colore"));
+
+    const pannello = el("div", "arr-picker");
+    const tela = document.createElement("canvas");
+    tela.width = 200; tela.height = 200; tela.className = "arr-tela";
+    const luce = el("input", "arr-luce"); luce.type = "range"; luce.min = "10"; luce.max = "90"; luce.value = "50";
+    const codice = el("input", "arr-codice"); codice.type = "text"; codice.placeholder = "#RRGGBB";
+    const usa = el("button", "arr-usa", "Usa questo colore");
+    pannello.append(tela, el("div", "arr-etic", "Luminosità"), luce, codice, usa);
+    finiture.append(pannello);
     // Colori da interni: tinte pastello e terrose, non colori saturi
     finiture.append(el("div", "arr-titolo-fin", "Colore"));
     const pal = el("div", "arr-palette");
@@ -150,37 +182,7 @@ export function montaArredo(opz) {
       pal.append(b);
     }
     finiture.append(pal);
-    finiture.append(el("div", "arr-titolo-fin", "Altro colore"));
 
-    const pannello = el("div", "arr-picker");
-    const tela = document.createElement("canvas");
-    tela.width = 200; tela.height = 200; tela.className = "arr-tela";
-    const luce = el("input", "arr-luce"); luce.type = "range"; luce.min = "10"; luce.max = "90"; luce.value = "50";
-    const codice = el("input", "arr-codice"); codice.type = "text"; codice.placeholder = "#RRGGBB";
-    const usa = el("button", "arr-usa", "Usa questo colore");
-    pannello.append(tela, el("div", "arr-etic", "Luminosità"), luce, codice, usa);
-    finiture.append(pannello);
-    // Verniciatura muri: modalita' di tinteggiatura, sotto il colore
-    // Modalita' di tinteggiatura: prima si sceglie la modalita', poi il colore sotto
-    const TECNICHE = [
-      ["lavabile", "Pittura lavabile opaca"], ["satinata", "Pittura satinata"], ["smalto", "Smalto satinato"],
-      ["calce", "Pittura a calce"], ["silicati", "Pittura ai silicati"], ["minerale", "Pittura minerale traspirante"],
-      ["velatura", "Velatura a spugna"], ["spatolato", "Spatolato a stucco"], ["microcemento", "Effetto microcemento"],
-      ["stucco", "Stucco veneziano lucidato"],
-    ];
-    let tecnicaMuro = null; // nessuna modalita' preselezionata
-    const tin = el("div", "arr-chips");
-    const tecnicaEtic = el("div", "arr-etic", "Scegli la modalità di tinteggiatura");
-    for (const [id, nome] of TECNICHE) {
-      const b = el("button", "arr-chip", nome);
-      b.onclick = () => {
-        tecnicaMuro = [id, nome];
-        tecnicaEtic.textContent = `Modalità: ${nome}`;
-        for (const x of tin.querySelectorAll(".arr-chip")) x.classList.toggle("attiva", x === b);
-      };
-      tin.append(b);
-    }
-    finiture.append(el("div", "arr-titolo-fin", "Verniciatura muri"), tin, tecnicaEtic);
     let colore = "#808080";
     function hslHex(h, sat, l) {
       const k = (n) => (n + h / 30) % 12;

@@ -17,6 +17,7 @@ const SLOT = [
   { id: "arredo", nome: "Arredo", tasto: "4" },
   { id: "sposta", nome: "Sposta", tasto: "5" },
   { id: "elimina", nome: "Elimina", tasto: "6" },
+  { id: "verniciatura", nome: "Verniciatura", tasto: "" },
 ];
 
 const SCHEDE = [
@@ -114,9 +115,10 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
     for (const b of barra.querySelectorAll(".hud-slot")) b.classList.toggle("attivo", b.dataset.strumento === id);
     onStrumento?.(id);
     // Arredo apre la scheda Arredi; gli altri strumenti restano nella scheda Costruzione
-    if (id === "arredo" || id === "pavimento") {
+    if (id === "arredo" || id === "pavimento" || id === "verniciatura") {
       apriScheda("arredi");
-      window.dispatchEvent(new CustomEvent("arredi:sezione", { detail: id === "pavimento" ? "pavimenti" : "arredi" }));
+      const sezione = { pavimento: "pavimenti", verniciatura: "verniciature" }[id] ?? "arredi";
+      window.dispatchEvent(new CustomEvent("arredi:sezione", { detail: sezione }));
     } else apriScheda("costruzione");
   }
 
