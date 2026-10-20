@@ -109,26 +109,7 @@ export function montaArredo(opz) {
       pav.append(b);
     }
     finiture.append(pav, el("div", "arr-titolo-fin", "Verniciatura muri"));
-    // Modalita' di tinteggiatura: prima si sceglie la modalita', poi il colore sotto
-    const TECNICHE = [
-      ["lavabile", "Pittura lavabile opaca"], ["satinata", "Pittura satinata"], ["smalto", "Smalto satinato"],
-      ["calce", "Pittura a calce"], ["silicati", "Pittura ai silicati"], ["minerale", "Pittura minerale traspirante"],
-      ["velatura", "Velatura a spugna"], ["spatolato", "Spatolato a stucco"], ["microcemento", "Effetto microcemento"],
-      ["stucco", "Stucco veneziano lucidato"],
-    ];
-    let tecnicaMuro = TECNICHE[0];
-    const tin = el("div", "arr-chips");
-    const tecnicaEtic = el("div", "arr-etic", `Modalità: ${tecnicaMuro[1]}`);
-    for (const [id, nome] of TECNICHE) {
-      const b = el("button", `arr-chip${id === tecnicaMuro[0] ? " attiva" : ""}`, nome);
-      b.onclick = () => {
-        tecnicaMuro = [id, nome];
-        tecnicaEtic.textContent = `Modalità: ${nome}`;
-        for (const x of tin.querySelectorAll(".arr-chip")) x.classList.toggle("attiva", x === b);
-      };
-      tin.append(b);
-    }
-    finiture.append(tin, tecnicaEtic);
+
     // Colori da interni: tinte pastello e terrose, non colori saturi
     finiture.append(el("div", "arr-titolo-fin", "Colore"));
     const pal = el("div", "arr-palette");
@@ -146,9 +127,10 @@ export function montaArredo(opz) {
       b.title = nome;
       b.setAttribute("aria-label", nome);
       b.onclick = () => {
-        const chiave = `colore_${hex.slice(1).toLowerCase()}_${tecnicaMuro[0]}`;
-        const nomeCompleto = `${tecnicaMuro[1]} · ${nome}`;
-        TINTE_MURO[chiave] = { nome: nomeCompleto, hex, tecnica: tecnicaMuro[0] };
+        const tec = tecnicaMuro ?? TECNICHE[0];
+        const chiave = `colore_${hex.slice(1).toLowerCase()}_${tec[0]}`;
+        const nomeCompleto = `${tec[1]} · ${nome}`;
+        TINTE_MURO[chiave] = { nome: nomeCompleto, hex, tecnica: tec[0] };
         impostaSecchio({ tipo: "tinta", chiave, nome: nomeCompleto, colore: hex });
       };
       pal.append(b);
@@ -164,6 +146,27 @@ export function montaArredo(opz) {
     const usa = el("button", "arr-usa", "Usa questo colore");
     pannello.append(tela, el("div", "arr-etic", "Luminosità"), luce, codice, usa);
     finiture.append(pannello);
+    // Verniciatura muri: modalita' di tinteggiatura, sotto il colore
+    // Modalita' di tinteggiatura: prima si sceglie la modalita', poi il colore sotto
+    const TECNICHE = [
+      ["lavabile", "Pittura lavabile opaca"], ["satinata", "Pittura satinata"], ["smalto", "Smalto satinato"],
+      ["calce", "Pittura a calce"], ["silicati", "Pittura ai silicati"], ["minerale", "Pittura minerale traspirante"],
+      ["velatura", "Velatura a spugna"], ["spatolato", "Spatolato a stucco"], ["microcemento", "Effetto microcemento"],
+      ["stucco", "Stucco veneziano lucidato"],
+    ];
+    let tecnicaMuro = null; // nessuna modalita' preselezionata
+    const tin = el("div", "arr-chips");
+    const tecnicaEtic = el("div", "arr-etic", "Scegli la modalità di tinteggiatura");
+    for (const [id, nome] of TECNICHE) {
+      const b = el("button", "arr-chip", nome);
+      b.onclick = () => {
+        tecnicaMuro = [id, nome];
+        tecnicaEtic.textContent = `Modalità: ${nome}`;
+        for (const x of tin.querySelectorAll(".arr-chip")) x.classList.toggle("attiva", x === b);
+      };
+      tin.append(b);
+    }
+    finiture.append(tin, tecnicaEtic);
     let colore = "#808080";
     function hslHex(h, sat, l) {
       const k = (n) => (n + h / 30) % 12;
@@ -195,7 +198,8 @@ export function montaArredo(opz) {
     luce.oninput = () => { disegnaRuotaColori(); };
     codice.onchange = () => { if (/^#[0-9a-f]{6}$/i.test(codice.value.trim())) colore = codice.value.trim().toLowerCase(); };
     usa.onclick = () => {
-      const chiave = `colore_${colore.slice(1).toLowerCase()}`;
+      const tec = tecnicaMuro ?? TECNICHE[0];
+      const chiave = `colore_${colore.slice(1).toLowerCase()}_${tec[0]}`;
       TINTE_MURO[chiave] = { nome: colore, hex: colore };
       impostaSecchio({ tipo: "tinta", chiave, nome: colore, colore });
     };
