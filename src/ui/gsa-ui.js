@@ -116,6 +116,7 @@ export function montaGSA(box) {
 
   let timerAuto = null;
   inpIndirizzo.oninput = () => {
+    inpIndirizzo._selectedSugg = null;
     clearTimeout(timerAuto);
     const q = inpIndirizzo.value.trim();
     if (q.length < 3) {
@@ -155,6 +156,7 @@ export function montaGSA(box) {
           item.onmousedown = (e) => {
             e.preventDefault();
             inpIndirizzo.value = sugg.display_name;
+            inpIndirizzo._selectedSugg = sugg;
             listaSuggerimenti.style.display = "none";
             btnCalcolaCivico.click();
           };
@@ -210,15 +212,21 @@ export function montaGSA(box) {
       statoCivico.style.color = "#ff7b86";
       return;
     }
+    const suggPrecalcolato = (inpIndirizzo._selectedSugg && inpIndirizzo._selectedSugg.display_name === txt)
+      ? { ...inpIndirizzo._selectedSugg, ok: true }
+      : null;
+
     btnCalcolaCivico.disabled = true;
     statoCivico.style.color = "var(--hud-ciano)";
-    statoCivico.textContent = "1/2 Ricerca cartografica indirizzo in corso (OpenStreetMap / Photon)…";
+    statoCivico.textContent = suggPrecalcolato
+      ? "1/2 Posizione certificata, acquisizione volumetria in corso…"
+      : "1/2 Ricerca cartografica indirizzo in corso (Photon / OSM)…";
     esitoCivico.innerHTML = "";
 
     try {
       const valGe = inpGe.value.trim() ? parseFloat(inpGe.value.replace(",", ".")) : null;
       statoCivico.textContent = "2/2 Acquisizione volumetria (LiDAR BDTRE / OpenStreetMap 3D)…";
-      const res = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe });
+      const res = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe, geo_precalcolata: suggPrecalcolato });
 
       if (res.esito !== "OK") {
         statoCivico.textContent = `Errore: ${res.errore}`;
@@ -243,20 +251,48 @@ export function montaGSA(box) {
 
         card.append(r1, r2, rProv);
 
-        // Se ci sono più corpi di fabbrica nel complesso o tipologie selezionabili
-        if (risposta.volumi_rilevati && risposta.volumi_rilevati.length > 1) {
-          const rMulti = el("div");
-          rMulti.style.cssText = "margin: 8px 0; padding: 6px; background: rgba(255,196,77,0.08); border: 1px dashed rgba(255,196,77,0.3); border-radius: 6px;";
-          rMulti.append(el("div", "hud-stat", `Complesso multi-corpo rilevato (${risposta.volumi_rilevati.length} volumi). Seleziona la palazzina da valutare:`));
+        // Se è una stima tipologica (assenza LiDAR), offre la scelta del modello o piani
+        if (risposta.fonte_tipologica) {
+          const rTipo = el("div");
+          rTipo.style.cssText = "margin: 8px 0; padding: 8px; background: rgba(61,220,247,0.06); border: 1px dashed rgba(61,220,247,0.3); border-radius: 6px;";
+          rTipo.append(el("div", "hud-stat", `🏛 Rilievo 3D LiDAR non disponibile per questo civico. Seleziona la tipologia / piani per il calcolo:`));
           const btnGroup = el("div");
-          btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;";
+          btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px;";
           risposta.volumi_rilevati.forEach((v) => {
             const b = el("button", "", v.tipo_presunto || `${v.altezza_m.toFixed(1)} m`);
             b.style.cssText = v.selezionato
               ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 4px 8px; border-radius: 4px;"
               : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 8px; cursor: pointer; border-radius: 4px;";
             b.onclick = async () => {
-              const rRicalcolo = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe, indice_volume: v.indice });
+              const rRicalcolo = await calcolaGsaDaCivico(txt, {
+                quota_google_earth_m: valGe,
+                indice_volume: v.indice,
+                geo_precalcolata: risposta.geo_dati || { ...risposta.coordinate, regione: risposta.regione, comune: risposta.comune, provincia: risposta.provincia, display_name: risposta.indirizzo_trovato, ok: true }
+              });
+              renderizzaCard(rRicalcolo);
+            };
+            btnGroup.append(b);
+          });
+          rTipo.append(btnGroup);
+          card.append(rTipo);
+        } else if (risposta.volumi_rilevati && risposta.volumi_rilevati.length > 1) {
+          // Complesso reale multi-corpo rilevato da LiDAR (es. Strada Suniglia 4)
+          const rMulti = el("div");
+          rMulti.style.cssText = "margin: 8px 0; padding: 8px; background: rgba(255,196,77,0.08); border: 1px dashed rgba(255,196,77,0.3); border-radius: 6px;";
+          rMulti.append(el("div", "hud-stat", `🏢 Complesso multi-corpo rilevato da LiDAR BDTRE (${risposta.volumi_rilevati.length} corpi di fabbrica distinti). Seleziona la palazzina:`));
+          const btnGroup = el("div");
+          btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px;";
+          risposta.volumi_rilevati.forEach((v) => {
+            const b = el("button", "", v.tipo_presunto || `${v.altezza_m.toFixed(1)} m`);
+            b.style.cssText = v.selezionato
+              ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 4px 8px; border-radius: 4px;"
+              : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 8px; cursor: pointer; border-radius: 4px;";
+            b.onclick = async () => {
+              const rRicalcolo = await calcolaGsaDaCivico(txt, {
+                quota_google_earth_m: valGe,
+                indice_volume: v.indice,
+                geo_precalcolata: risposta.geo_dati || { ...risposta.coordinate, regione: risposta.regione, comune: risposta.comune, provincia: risposta.provincia, display_name: risposta.indirizzo_trovato, ok: true }
+              });
               renderizzaCard(rRicalcolo);
             };
             btnGroup.append(b);

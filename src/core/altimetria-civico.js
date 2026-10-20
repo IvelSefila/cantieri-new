@@ -12,26 +12,55 @@ const PHOTON_URL = "https://photon.komoot.io/api/";
 const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
 
 // Registro canonico delle 20 Regioni d'Italia (con varianti bilingue / dialettali)
+export const CITTA_ITALIANE_ALIAS = {
+  "turin": "Torino",
+  "milan": "Milano",
+  "rome": "Roma",
+  "naples": "Napoli",
+  "florence": "Firenze",
+  "genoa": "Genova",
+  "venice": "Venezia",
+  "padua": "Padova",
+  "mantua": "Mantova",
+  "syracuse": "Siracusa",
+};
+
+export function normalizzaComune(comune) {
+  if (!comune || typeof comune !== "string") return "";
+  const low = comune.trim().toLowerCase();
+  return CITTA_ITALIANE_ALIAS[low] || comune.trim();
+}
+
 export const REGIONI_ITALIANE = {
   "abruzzo": "Abruzzo",
   "basilicata": "Basilicata",
+  "lucania": "Basilicata",
   "calabria": "Calabria",
   "campania": "Campania",
   "emilia-romagna": "Emilia-Romagna",
   "friuli-venezia giulia": "Friuli-Venezia Giulia",
+  "friuli": "Friuli-Venezia Giulia",
   "lazio": "Lazio",
+  "latium": "Lazio",
   "liguria": "Liguria",
   "lombardia": "Lombardia",
+  "lombardy": "Lombardia",
   "marche": "Marche",
+  "marches": "Marche",
   "molise": "Molise",
   "piemonte": "Piemonte",
+  "piedmont": "Piemonte",
   "puglia": "Puglia",
+  "apulia": "Puglia",
   "sardegna": "Sardegna",
+  "sardinia": "Sardegna",
   "sardigna": "Sardegna",
   "sardinia": "Sardegna",
   "sicilia": "Sicilia",
   "sicily": "Sicilia",
+  "sicily": "Sicilia",
   "toscana": "Toscana",
+  "tuscany": "Toscana",
   "trentino-alto adige": "Trentino-Alto Adige",
   "trentino-alto adige/südtirol": "Trentino-Alto Adige",
   "trentino-südtirol": "Trentino-Alto Adige",
@@ -51,7 +80,7 @@ export function normalizzaRegione(str) {
   for (const [chiave, canonica] of Object.entries(REGIONI_ITALIANE)) {
     if (pulita.includes(chiave)) return canonica;
   }
-  return str.trim();
+  return "Italia";
 }
 
 // Estrae i volumi edilizi (un_vol) dal GML restituito dal WFS BDTRE Piemonte
@@ -242,22 +271,25 @@ export function stimaAltezzaAntincendiDaPiani(numeroPiani, { altezzaPianoM = 3.0
 
 // Formatta un indirizzo italiano in modo canonico stile e-commerce / Amazon
 export function formattaIndirizzoItaliano({ via = "", civico = "", comune = "", cap = "", provincia = "" } = {}) {
+  const normComune = normalizzaComune(comune);
+  const normProv = normalizzaComune(provincia);
   const parti = [];
   if (via) {
     parti.push(civico ? `${via}, ${civico}` : via);
   }
-  let loc = [cap, comune].filter(Boolean).join(" ");
-  if (provincia && provincia.toLowerCase() !== comune.toLowerCase()) {
-    loc = loc ? `${loc} (${provincia})` : `(${provincia})`;
+  let loc = [cap, normComune].filter(Boolean).join(" ");
+  if (normProv && normProv.toLowerCase() !== normComune.toLowerCase()) {
+    loc = loc ? `${loc} (${normProv})` : `(${normProv})`;
   }
   if (loc) {
     parti.push(loc);
   }
-  return parti.join(", ") || via || comune || "";
+  return parti.join(", ") || via || normComune || "";
 }
 
-const STOPWORDS_INDIRIZZO = new Set([
-  "via", "viale", "corso", "strada", "piazza", "piazzale", "largo", "vicolo", "borgo", "stradello", "contrada",
+const ODONIMI_PREFIX_RE = /^(via|viale|corso|c\.so|strada|str\.|piazza|p\.za|piazzale|p\.le|largo|vicolo|borgo|stradello|contrada)\b[\s,.]*/i;
+
+const PREPOSIZIONI_ARTICOLI = new Set([
   "di", "del", "della", "dello", "dei", "degli", "delle", "da", "in", "con", "su", "per", "tra", "fra",
   "il", "la", "le", "lo", "i", "gli", "un", "una", "uno", "al", "allo", "alla", "ai", "agli", "alle",
   "n", "n.", "num", "num.", "civico", "civ"
@@ -265,16 +297,18 @@ const STOPWORDS_INDIRIZZO = new Set([
 
 export function estraiKeywordSignificative(testo) {
   if (!testo || typeof testo !== "string") return [];
-  return testo
+  const senzaPrefisso = testo.trim().replace(ODONIMI_PREFIX_RE, "");
+  const parole = senzaPrefisso
     .toLowerCase()
     .replace(/[^a-z0-9à-ú\s]/g, " ")
     .split(/\s+/)
-    .filter((w) => w.length > 2 && !STOPWORDS_INDIRIZZO.has(w) && !/^\d+$/.test(w));
+    .filter((w) => w.length >= 2 && !PREPOSIZIONI_ARTICOLI.has(w) && !/^\d+$/.test(w));
+  return parole.length > 0 ? parole : [testo.trim().toLowerCase()];
 }
 
-export function eIndirizzoPertinente(nomeRisultato, keywords) {
+export function eIndirizzoPertinente(testoCompletoRisultato, keywords) {
   if (!keywords || keywords.length === 0) return true;
-  const nom = (nomeRisultato || "").toLowerCase();
+  const nom = (testoCompletoRisultato || "").toLowerCase();
   return keywords.some((k) => nom.includes(k));
 }
 
@@ -326,15 +360,15 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
   }
 
   const kw = estraiKeywordSignificative(testo);
-  const { streetPart, streetNaked, cityPart, varianti } = scomponiIndirizzo(testo);
+  const { cityPart } = scomponiIndirizzo(testo);
+  const targetCity = cityPart ? normalizzaComune(cityPart).toLowerCase() : "";
   const risultati = [];
   const visti = new Set();
 
   function aggiungi(cand) {
     if (!cand || typeof cand.lat !== "number" || typeof cand.lon !== "number") return;
-    const road = cand.via || cand.display_name || "";
-    // Filtro pertinenza: scarta se la via trovata non contiene i termini cercati (es. 'Via Mellea' per 'suniglia')
-    if (kw.length > 0 && !eIndirizzoPertinente(road, kw)) {
+    const testoCompleto = `${cand.via || ""} ${cand.civico || ""} ${cand.comune || ""} ${cand.provincia || ""} ${cand.display_name || ""}`;
+    if (kw.length > 0 && !eIndirizzoPertinente(testoCompleto, kw)) {
       return;
     }
     const k = `${cand.lat.toFixed(5)}_${cand.lon.toFixed(5)}`;
@@ -343,25 +377,40 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
     risultati.push(cand);
   }
 
-  // 1. Prova prima con Photon se risponde (timeout brevissimo per non bloccare)
+  // 1. Prova con Photon (rapido e senza rate limit 1 req/sec)
   try {
     const pUrl = `${PHOTON_URL}?q=${encodeURIComponent(testo)}&limit=${limit * 2}`;
     const res = await Promise.race([
       fetchFn(pUrl),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 800))
+      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 3000))
     ]);
     if (res && res.ok) {
       const data = await res.json();
-      for (const feat of (data.features || [])) {
+      const rawFeats = (data.features || []).slice();
+      if (targetCity) {
+        rawFeats.sort((a, b) => {
+          const score = (f) => {
+            const prop = f.properties || {};
+            const c = normalizzaComune(prop.city || prop.town || prop.district || prop.locality || "").toLowerCase();
+            const prov = normalizzaComune(prop.county || "").toLowerCase();
+            let s = 0;
+            if (c === targetCity) s += 100;
+            else if (c.includes(targetCity)) s += 50;
+            else if (prov === targetCity) s += 20;
+            if (prop.housenumber) s += 5;
+            return s;
+          };
+          return score(b) - score(a);
+        });
+      }
+      for (const feat of rawFeats) {
         const p = feat.properties || {};
-        if (p.countrycode && p.countrycode !== "IT") continue;
+        if (p.countrycode && p.countrycode !== "IT" && p.country && !/italia|italy/i.test(p.country)) continue;
 
         const via = p.street || p.name || "";
-        if (kw.length > 0 && !eIndirizzoPertinente(via, kw)) continue;
-
         const civico = p.housenumber || "";
-        const comune = p.city || p.town || p.district || p.locality || "";
-        const provincia = p.county || "";
+        const comune = normalizzaComune(p.city || p.town || p.district || p.locality || "");
+        const provincia = normalizzaComune(p.county || "");
         const cap = p.postcode || "";
         const regione = normalizzaRegione(p.state || "");
         const display = formattaIndirizzoItaliano({ via, civico, comune, cap, provincia });
@@ -383,60 +432,46 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
     }
   } catch (e) {}
 
-  // 2. Nominatim con interrogazioni strutturate (tolleranza odonimi via/strada/corso)
-  if (risultati.length < limit) {
-    const candUrls = [];
-    if (cityPart) {
-      candUrls.push(`${NOMINATIM_URL}?street=${encodeURIComponent(streetNaked)}&city=${encodeURIComponent(cityPart)}&format=json&addressdetails=1&countrycodes=it&limit=${limit}`);
-      candUrls.push(`${NOMINATIM_URL}?street=${encodeURIComponent(streetPart)}&city=${encodeURIComponent(cityPart)}&format=json&addressdetails=1&countrycodes=it&limit=${limit}`);
-    }
-    for (const v of varianti) {
-      candUrls.push(`${NOMINATIM_URL}?street=${encodeURIComponent(v)}&format=json&addressdetails=1&countrycodes=it&limit=${limit}`);
-    }
-    candUrls.push(`${NOMINATIM_URL}?q=${encodeURIComponent(testo)}&format=json&addressdetails=1&countrycodes=it&limit=${limit}`);
-
-    for (const url of candUrls) {
-      try {
-        const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; autocomplete)" } });
-        if (res && res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data)) {
-            for (const d of data) {
-              const addr = d.address || {};
-              const road = addr.road || addr.pedestrian || addr.footway || d.name || "";
-              const displayRaw = d.display_name || "";
-              if (kw.length > 0 && !eIndirizzoPertinente(road || displayRaw, kw)) {
-                continue;
-              }
-
-              const via = road || streetPart;
-              const civico = addr.house_number || "";
-              const comune = addr.city || addr.town || addr.village || addr.municipality || "";
-              const provincia = addr.county || "";
-              const cap = addr.postcode || "";
-              const regione = normalizzaRegione(addr.state || "");
-              const display = formattaIndirizzoItaliano({ via, civico, comune, cap, provincia }) || displayRaw;
-
-              aggiungi({
-                display_name: display,
-                via,
-                civico,
-                comune,
-                provincia,
-                cap,
-                regione,
-                lat: parseFloat(d.lat),
-                lon: parseFloat(d.lon),
-                provider: "Nominatim OSM",
-              });
-              if (risultati.length >= limit) break;
-            }
-          }
-        }
-      } catch (e) {}
-      if (risultati.length >= limit) break;
-    }
+  // 2. Se Photon ha trovato risultati, restituisci subito per non saturare Nominatim
+  if (risultati.length > 0) {
+    return risultati.slice(0, limit);
   }
+
+  // 3. Fallback singolo su Nominatim solo se Photon non ha risposto
+  try {
+    const url = `${NOMINATIM_URL}?q=${encodeURIComponent(testo)}&format=json&addressdetails=1&countrycodes=it&limit=${limit}`;
+    const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; autocomplete)" } });
+    if (res && res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        for (const d of data) {
+          const addr = d.address || {};
+          const road = addr.road || addr.pedestrian || addr.footway || d.name || "";
+          const via = road;
+          const civico = addr.house_number || "";
+          const comune = normalizzaComune(addr.city || addr.town || addr.village || addr.municipality || "");
+          const provincia = normalizzaComune(addr.county || "");
+          const cap = addr.postcode || "";
+          const regione = normalizzaRegione(addr.state || "");
+          const display = formattaIndirizzoItaliano({ via, civico, comune, cap, provincia }) || d.display_name || "";
+
+          aggiungi({
+            display_name: display,
+            via,
+            civico,
+            comune,
+            provincia,
+            cap,
+            regione,
+            lat: parseFloat(d.lat),
+            lon: parseFloat(d.lon),
+            provider: "Nominatim OSM",
+          });
+          if (risultati.length >= limit) break;
+        }
+      }
+    }
+  } catch (e) {}
 
   return risultati.slice(0, limit);
 }
@@ -519,28 +554,47 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
   }
 
   const kw = estraiKeywordSignificative(indirizzo);
-  const { streetPart, streetNaked, cityPart, varianti } = scomponiIndirizzo(indirizzo);
+  const { streetPart, streetNaked, cityPart } = scomponiIndirizzo(indirizzo);
 
-  // 1. Prova prima con Photon se attivo
+  // 1. Prova prima con Photon (risposta rapida e tolleranza odonimi)
   try {
     const pUrl = `${PHOTON_URL}?q=${encodeURIComponent(indirizzo)}&limit=5`;
     const res = await Promise.race([
       fetchFn(pUrl),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 800))
+      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 3500))
     ]);
     if (res && res.ok) {
       const data = await res.json();
-      for (const feat of (data.features || [])) {
+      const rawFeats = (data.features || []).slice();
+      const targetCityGeo = cityPart ? normalizzaComune(cityPart).toLowerCase() : "";
+      if (targetCityGeo) {
+        rawFeats.sort((a, b) => {
+          const score = (f) => {
+            const prop = f.properties || {};
+            const c = normalizzaComune(prop.city || prop.town || prop.district || prop.locality || "").toLowerCase();
+            const prov = normalizzaComune(prop.county || "").toLowerCase();
+            let s = 0;
+            if (c === targetCityGeo) s += 100;
+            else if (c.includes(targetCityGeo)) s += 50;
+            else if (prov === targetCityGeo) s += 20;
+            if (prop.housenumber) s += 5;
+            return s;
+          };
+          return score(b) - score(a);
+        });
+      }
+      for (const feat of rawFeats) {
         const p = feat.properties || {};
-        if (p.countrycode && p.countrycode !== "IT") continue;
+        if (p.countrycode && p.countrycode !== "IT" && p.country && !/italia|italy/i.test(p.country)) continue;
 
         const via = p.street || p.name || "";
-        if (kw.length > 0 && !eIndirizzoPertinente(via, kw)) continue;
-
         const civico = p.housenumber || "";
-        const comune = p.city || p.town || p.district || p.locality || "";
-        const provincia = p.county || "";
+        const comune = normalizzaComune(p.city || p.town || p.district || p.locality || "");
+        const provincia = normalizzaComune(p.county || "");
         const cap = p.postcode || "";
+        const testoCompleto = `${via} ${civico} ${comune} ${provincia} ${p.state || ""} ${p.name || ""}`;
+        if (kw.length > 0 && !eIndirizzoPertinente(testoCompleto, kw)) continue;
+
         let regione = normalizzaRegione(p.state || "");
         if (regione === "Italia" && /(piemonte|torino|cuneo|alessandria|novara|asti|biella|vercelli|verbania)/i.test(`${p.state || ""} ${provincia} ${comune}`)) {
           regione = "Piemonte";
@@ -564,72 +618,71 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
     }
   } catch (e) {}
 
-  // 2. Fallback su Nominatim con ricerche strutturate e libere
+  // 2. Fallback su Nominatim con query libera prioritaria (senza query street a vuoto su tutta Italia)
   try {
-    const candUrls = [];
-    if (cityPart) {
-      candUrls.push(`${NOMINATIM_URL}?street=${encodeURIComponent(streetNaked)}&city=${encodeURIComponent(cityPart)}&format=json&addressdetails=1&countrycodes=it&limit=5`);
-      candUrls.push(`${NOMINATIM_URL}?street=${encodeURIComponent(streetPart)}&city=${encodeURIComponent(cityPart)}&format=json&addressdetails=1&countrycodes=it&limit=5`);
-    }
-    for (const v of varianti) {
-      candUrls.push(`${NOMINATIM_URL}?street=${encodeURIComponent(v)}&format=json&addressdetails=1&countrycodes=it&limit=5`);
-    }
-    candUrls.push(`${NOMINATIM_URL}?q=${encodeURIComponent(indirizzo)}&format=json&addressdetails=1&countrycodes=it&limit=5`);
+    const candUrls = [
+      `${NOMINATIM_URL}?q=${encodeURIComponent(indirizzo)}&format=json&addressdetails=1&countrycodes=it&limit=5`
+    ];
 
     const pulito = pulisciIndirizzoPerGeocodifica(indirizzo);
     if (pulito && pulito.toLowerCase() !== indirizzo.trim().toLowerCase()) {
       candUrls.push(`${NOMINATIM_URL}?q=${encodeURIComponent(pulito)}&format=json&addressdetails=1&countrycodes=it&limit=5`);
     }
 
+    if (cityPart) {
+      candUrls.push(`${NOMINATIM_URL}?street=${encodeURIComponent(streetPart)}&city=${encodeURIComponent(cityPart)}&format=json&addressdetails=1&countrycodes=it&limit=5`);
+      if (streetNaked && streetNaked !== streetPart) {
+        candUrls.push(`${NOMINATIM_URL}?street=${encodeURIComponent(streetNaked)}&city=${encodeURIComponent(cityPart)}&format=json&addressdetails=1&countrycodes=it&limit=5`);
+      }
+    }
+
     for (const url of candUrls) {
       try {
         const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; antincendio-gsa)" } });
         if (!res || !res.ok) continue;
-        const dati = await res.json();
-        if (!Array.isArray(dati) || dati.length === 0) continue;
-
-        for (const primo of dati) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          const primo = data[0];
           const addr = primo.address || {};
           const road = addr.road || addr.pedestrian || addr.footway || primo.name || "";
           const displayRaw = primo.display_name || "";
+          const testoCompleto = `${road} ${displayRaw}`;
 
           // Filtro pertinenza obbligatorio
-          if (kw.length > 0 && !eIndirizzoPertinente(road || displayRaw, kw)) {
+          if (kw.length > 0 && !eIndirizzoPertinente(testoCompleto, kw)) {
             continue;
           }
 
-          const regioneGrezza = addr.state || addr.region || "";
-          let regione = normalizzaRegione(regioneGrezza);
-          if (regione === "Italia" && /(piemonte|torino|cuneo|alessandria|novara|asti|biella|vercelli|verbania)/i.test(displayRaw || indirizzo)) {
-            regione = "Piemonte";
-          }
-
-          const comune = addr.city || addr.town || addr.village || addr.municipality || addr.hamlet || "";
-          const provincia = addr.county || addr["ISO3166-2-lvl6"] || "";
           const via = road || streetPart;
           const civico = addr.house_number || "";
+          const comune = normalizzaComune(addr.city || addr.town || addr.village || addr.municipality || "");
+          const provincia = normalizzaComune(addr.county || "");
+          const cap = addr.postcode || "";
+          let regione = normalizzaRegione(addr.state || "");
+          if (regione === "Italia" && /(piemonte|torino|cuneo|alessandria|novara|asti|biella|vercelli|verbania)/i.test(`${addr.state || ""} ${provincia} ${comune}`)) {
+            regione = "Piemonte";
+          }
+          const display = formattaIndirizzoItaliano({ via, civico, comune, cap, provincia }) || displayRaw;
 
           return {
             ok: true,
             lat: parseFloat(primo.lat),
             lon: parseFloat(primo.lon),
-            display_name: formattaIndirizzoItaliano({ via, civico, comune, cap: addr.postcode, provincia }) || displayRaw,
+            display_name: display,
             via,
             civico,
-            regione,
             comune,
             provincia,
+            regione,
             provider: "Nominatim OSM",
             raw_address: addr,
           };
         }
       } catch (e) {}
     }
+  } catch (e) {}
 
-    return { ok: false, errore: `Nessun risultato cartografico trovato per '${indirizzo}' in Italia` };
-  } catch (err) {
-    return { ok: false, errore: `Impossibile contattare il servizio geocodifica: ${err.message}` };
-  }
+  return { ok: false, errore: `Impossibile geocodificare l'indirizzo: '${indirizzo}'` };
 }
 
 // Interroga il servizio WFS BDTRE della Regione Piemonte per un punto lat/lon
@@ -740,29 +793,33 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     attivita = [],
     piano_accessibile_vvf = true,
     vani_tecnici_esclusi = true,
+    geo_precalcolata = null,
     fetchFn = fetch,
   } = opzioni;
 
-  // 1. Geocodifica nazionale
-  const geo = await geocodificaIndirizzo(indirizzo, { fetchFn });
+  // 1. Geocodifica nazionale (o riutilizzo istantaneo se già precalcolata/selezionata)
+  const geo = geo_precalcolata && geo_precalcolata.ok
+    ? geo_precalcolata
+    : await geocodificaIndirizzo(indirizzo, { fetchFn });
   if (!geo.ok) return { esito: "ERRORE", errore: geo.errore };
 
   let volumi = [];
   let provider = "";
   let volumeScelto = null;
+  let fonteTipologica = false;
 
   // 2. Routing regionale: se in Piemonte, interroga prima la BDTRE WFS ARPA Piemonte
   if (geo.regione === "Piemonte") {
     const bdt = await interrogaLiDARPiemonte(geo.lat, geo.lon, { fetchFn });
     if (bdt.ok && bdt.volumi?.length > 0) {
-      volumi = bdt.volumi;
+      volumi = clusterVolumiResidenziali(bdt.volumi);
       provider = "LiDAR BDTRE Regione Piemonte (ARPA)";
     }
   }
 
   // 3. Se non in Piemonte o se BDTRE non ha restituito volumi per il punto, interroga OpenStreetMap 3D
   if (volumi.length === 0) {
-    const osm = await interrogaOSMNazionale(geo.lat, geo.lon, { fetchFn, timeoutMs: 2500 });
+    const osm = await interrogaOSMNazionale(geo.lat, geo.lon, { fetchFn, timeoutMs: 1500 });
     if (osm.ok && osm.volumi?.length > 0) {
       volumi = osm.volumi;
       provider = "OpenStreetMap 3D / Catasto Volumetrico";
@@ -773,6 +830,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
   if (volumi.length === 0) {
     volumi = generaVolumiArchetipoItaliano();
     provider = `Stima Tipologica Edilizia (${geo.regione})`;
+    fonteTipologica = true;
   }
 
   // Se l'utente ha forzato un numero di piani specifico
@@ -850,6 +908,8 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     esito: "OK",
     indirizzo_inserito: indirizzo,
     indirizzo_trovato: geo.display_name,
+    fonte_tipologica: fonteTipologica,
+    geo_dati: geo,
     nome_condominio: nomeCondominio,
     fonte_condominio: fonteCondominio,
     nome_palazzo: infoCondominio?.palazzo || null,
