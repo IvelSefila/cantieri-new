@@ -52,8 +52,8 @@ export function montaArredo(opz) {
   const bVern = el("button", "arr-sub", "Verniciature");
   sottoBarra.append(bArredi, bPav, bVern);
   // finestre distinte: Pavimenti (finPav) e Verniciature (finiture)
-  const finPav = el("div", "arr-finiture");
-  const finiture = el("div", "arr-finiture");
+  const finPav = el("div", "arr-finiture arr-sezione");
+  const finiture = el("div", "arr-finiture arr-sezione");
   finPav.style.display = "none";
   finiture.style.display = "none";
   function mostra(sezione) {
@@ -146,16 +146,6 @@ export function montaArredo(opz) {
       tin.append(b);
     }
     finiture.append(el("div", "arr-titolo-fin", "Verniciatura muri"), tin, tecnicaEtic);
-    finiture.append(el("div", "arr-titolo-fin", "Altro colore"));
-
-    const pannello = el("div", "arr-picker");
-    const tela = document.createElement("canvas");
-    tela.width = 200; tela.height = 200; tela.className = "arr-tela";
-    const luce = el("input", "arr-luce"); luce.type = "range"; luce.min = "10"; luce.max = "90"; luce.value = "50";
-    const codice = el("input", "arr-codice"); codice.type = "text"; codice.placeholder = "#RRGGBB";
-    const usa = el("button", "arr-usa", "Usa questo colore");
-    pannello.append(tela, el("div", "arr-etic", "Luminosità"), luce, codice, usa);
-    finiture.append(pannello);
     // Colori da interni: tinte pastello e terrose, non colori saturi
     finiture.append(el("div", "arr-titolo-fin", "Colore"));
     const pal = el("div", "arr-palette");
@@ -182,6 +172,16 @@ export function montaArredo(opz) {
       pal.append(b);
     }
     finiture.append(pal);
+    finiture.append(el("div", "arr-titolo-fin", "Altro colore"));
+
+    const pannello = el("div", "arr-picker");
+    const tela = document.createElement("canvas");
+    tela.width = 200; tela.height = 200; tela.className = "arr-tela";
+    const luce = el("input", "arr-luce"); luce.type = "range"; luce.min = "10"; luce.max = "90"; luce.value = "50";
+    const codice = el("input", "arr-codice"); codice.type = "text"; codice.placeholder = "#RRGGBB";
+    const usa = el("button", "arr-usa", "Usa questo colore");
+    pannello.append(tela, el("div", "arr-etic", "Luminosità"), luce, codice, usa);
+    finiture.append(pannello);
 
     let colore = "#808080";
     function hslHex(h, sat, l) {

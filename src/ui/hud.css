@@ -353,3 +353,4 @@ body.pp-on { touch-action: none; overscroll-behavior: none; overflow: hidden; }
 .arr-codice { width: 200px; font: 600 13px ui-monospace, Consolas, monospace; }
 .arr-usa { padding: 8px 14px; border-radius: 999px; border: 1px solid #ffc44d; background: #ffd66b; color: #111; font: 700 12px system-ui, sans-serif; cursor: pointer; }
 .arr-etic { font: 600 11px system-ui, sans-serif; color: #aab3c5; }
+.arr-finiture.arr-sezione { display: block; }
