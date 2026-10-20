@@ -95,12 +95,15 @@ function manopola(lato, onChange) {
     inizio = { x: t.clientX, y: t.clientY };
   }, { passive: false });
   // Il movimento e la fine si ascoltano sulla finestra: il dito puo' uscire dalla manopola
+  // Il dito di questa manopola si cerca tra tutti i tocchi ancora sullo schermo: cosi' nessun rilascio resta perso
   window.addEventListener("touchmove", (e) => {
     if (tocco === null) return;
-    for (const t of e.changedTouches) if (t.identifier === tocco) { muovi(t); e.preventDefault(); }
+    for (const t of e.touches) if (t.identifier === tocco) { muovi(t); e.preventDefault(); }
   }, { passive: false });
   const finisce = (e) => {
-    for (const t of e.changedTouches) if (t.identifier === tocco) fine();
+    if (tocco === null) return;
+    const ancora = [...e.touches].some((t) => t.identifier === tocco);
+    if (!ancora) fine();
   };
   window.addEventListener("touchend", finisce);
   window.addEventListener("touchcancel", finisce);
