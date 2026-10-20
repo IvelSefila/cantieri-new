@@ -52,7 +52,11 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
     b.className = "hud-tab";
     b.dataset.scheda = s.id;
     b.textContent = s.nome;
-    b.onclick = () => apriScheda(s.id);
+    // ricliccando la scheda gia' aperta il pannello si chiude
+    b.onclick = () => {
+      if (b.classList.contains("attiva") && aside && !aside.classList.contains("chiuso")) aside.classList.add("chiuso");
+      else apriScheda(s.id);
+    };
     tabs.appendChild(b);
   }
   top.appendChild(tabs);
