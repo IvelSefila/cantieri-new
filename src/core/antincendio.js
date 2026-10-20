@@ -3,9 +3,9 @@
 // e le destinazioni vanno inserite dal professionista, con il riferimento della tabella ufficiale.
 // Definizione usata (DM 3 agosto 2015, Allegato I): superficie in pianta entro il perimetro interno
 // delle pareti che delimitano l'ambito; per ambiti multipiano si sommano le superfici di tutti i piani.
-import { stanze } from "./rooms.js?v=v20261020bs";
-import { validatePlan } from "./model.js?v=v20261020bs";
-import { voceDensita } from "./normativa.js?v=v20261020bs";
+import { stanze } from "./rooms.js?v=v20261020bt";
+import { validatePlan } from "./model.js?v=v20261020bt";
+import { voceDensita } from "./normativa.js?v=v20261020bt";
 
 export const RIFERIMENTO = "DM 3 agosto 2015 (Codice di prevenzione incendi), Allegato I, Tabella S.4-12 (densità di affollamento) (testo coordinato vigente)";
 

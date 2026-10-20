@@ -1,7 +1,7 @@
 // Dati e azioni degli elementi del progetto (funzioni pure, testabili).
-import { wallLengthMm } from "./model.js?v=v20261020bs";
-import { stanze } from "./rooms.js?v=v20261020bs";
-import { ingombroArredo, LIBRERIA_ARREDI, MATERIALI_MURO, MATERIALI_PAVIMENTO, TINTE_MURO, impostaMaterialePavimento, impostaFinituraMuro, impostaTintaMuro, impostaPavimentoStanza, impostaFunzioneStanza } from "./project.js?v=v20261020bs";
+import { wallLengthMm } from "./model.js?v=v20261020bt";
+import { stanze } from "./rooms.js?v=v20261020bt";
+import { ingombroArredo, LIBRERIA_ARREDI, MATERIALI_MURO, MATERIALI_PAVIMENTO, TINTE_MURO, impostaMaterialePavimento, impostaFinituraMuro, impostaTintaMuro, impostaPavimentoStanza, impostaFunzioneStanza } from "./project.js?v=v20261020bt";
 
 // Opzioni di finitura nella scheda: l'azione e' "finitura:<id>"
 function opzioniFinitura(elenco, attiva) {

@@ -4,8 +4,8 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { marmo, fotoFile } from "./materials.js?v=v20261020bs";
-import { LIBRERIA_3D, dimensioniArredo } from "../core/arredi.js?v=v20261020bs";
+import { marmo, fotoFile } from "./materials.js?v=v20261020bt";
+import { LIBRERIA_3D, dimensioniArredo } from "../core/arredi.js?v=v20261020bt";
 
 // Un glTF per url, caricato una sola volta e clonato per ogni arredo
 const GLB = new Map();

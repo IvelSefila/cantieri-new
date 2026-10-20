@@ -1,38 +1,38 @@
 // Interfaccia: progetto modificabile (vuoto all'avvio), modalità vista e costruzione, import/export.
-import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261020bs";
-import { buildModel } from "./core/build.js?v=v20261020bs";
-import { measurePlan } from "./core/measure.js?v=v20261020bs";
-import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261020bs";
+import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261020bt";
+import { buildModel } from "./core/build.js?v=v20261020bt";
+import { measurePlan } from "./core/measure.js?v=v20261020bt";
+import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261020bt";
 import {
   progettoVuoto, aggiungiMuro, aggiungiVano, aggiungiPavimento, aggiungiArredo,
   ruotaArredo, spostaArredo, eliminaElemento, verificaProgetto, LIBRERIA_ARREDI, MATERIALI_PAVIMENTO,
-} from "./core/project.js?v=v20261020bs";
-import { createViewer } from "./view/scene.js?v=v20261020bs";
-import { parseDxf } from "./io/dxf.js?v=v20261020bs";
-import { dxfToPlan } from "./io/toPlan.js?v=v20261020bs";
-import { montaTracciamento } from "./trace/ui.js?v=v20261020bs";
-import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020bs";
-import { stanze } from "./core/rooms.js?v=v20261020bs";
-import { planSvg } from "./view2d/plan.js?v=v20261020bs";
-import { montaHud } from "./ui/hud.js?v=v20261020bs";
-import { rapportoAntincendio } from "./core/antincendio.js?v=v20261020bs";
-import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261020bs";
-import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261020bs";
-import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261020bs";
+} from "./core/project.js?v=v20261020bt";
+import { createViewer } from "./view/scene.js?v=v20261020bt";
+import { parseDxf } from "./io/dxf.js?v=v20261020bt";
+import { dxfToPlan } from "./io/toPlan.js?v=v20261020bt";
+import { montaTracciamento } from "./trace/ui.js?v=v20261020bt";
+import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020bt";
+import { stanze } from "./core/rooms.js?v=v20261020bt";
+import { planSvg } from "./view2d/plan.js?v=v20261020bt";
+import { montaHud } from "./ui/hud.js?v=v20261020bt";
+import { rapportoAntincendio } from "./core/antincendio.js?v=v20261020bt";
+import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261020bt";
+import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261020bt";
+import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261020bt";
 
 // Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
 const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
-import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261020bs";
-import { montaScheda } from "./ui/energia-ui.js?v=v20261020bs";
-import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261020bs";
-import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020bs";
-import { partiArredo } from "./core/arredi.js?v=v20261020bs";
-import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261020bs";
-import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020bs";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bs";
-import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020bs";
-import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020bs";
-import { impostaFunzioneStanza } from "./core/project.js?v=v20261020bs";
+import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261020bt";
+import { montaScheda } from "./ui/energia-ui.js?v=v20261020bt";
+import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261020bt";
+import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020bt";
+import { partiArredo } from "./core/arredi.js?v=v20261020bt";
+import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261020bt";
+import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020bt";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bt";
+import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020bt";
+import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020bt";
+import { impostaFunzioneStanza } from "./core/project.js?v=v20261020bt";
 
 // Prima persona: pulsante sopra il ?, messaggio in alto, tasti WASD e frecce sovrimpressi che si illuminano
 let pulsantePP = null;
@@ -454,7 +454,7 @@ function montaAutomatismi() {
   barra.append(bArredo, bFiniture, bInfissi);
   document.body.append(barra, pannello, icona);
 }
-import { montaGSA } from "./ui/gsa-ui.js?v=v20261020bs";
+import { montaGSA } from "./ui/gsa-ui.js?v=v20261020bt";
 
 let hud = null;
 
@@ -976,7 +976,9 @@ function gestisciClic(hit) {
         const larg = stato.larghezzaVano;
         let off = offsetSuMuro(hit.mm, muro) - Math.round(larg / 2);
         off = Math.max(0, Math.min(off, Math.round(L) - larg));
-        const r = aggiungiVano(pr, muro.id, off, larg, stato.altezza, stato.sbalzo, stato.tipoVano);
+        // una finestra nasce gia' con l'infisso CDI predefinito (PVC 6Stars), non come semplice foro
+        const cdiPredefinito = stato.tipoVano === "finestra" ? "pvc-termico" : null;
+        const r = aggiungiVano(pr, muro.id, off, larg, stato.altezza, stato.sbalzo, stato.tipoVano, cdiPredefinito);
         if (r.errore) return errore(r.errore);
         applica(r.p);
         break;

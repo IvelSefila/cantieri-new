@@ -1,5 +1,5 @@
 // Funzione delle stanze: scelta dell'utente o suggerita dalla geometria; arredo base per funzione.
-import { stanze } from "./rooms.js?v=v20261020bs";
+import { stanze } from "./rooms.js?v=v20261020bt";
 
 export const FUNZIONI = {
   soggiorno: "Soggiorno",
