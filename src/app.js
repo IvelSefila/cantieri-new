@@ -113,8 +113,8 @@ function manopola(lato, onChange) {
 // In prima persona sul telefono il tocco fuori dalle manopole non arriva alla scena (sta in app.js, quindi sempre aggiornato)
 for (const tipo of ["pointerdown", "pointermove", "pointerup", "pointercancel"]) {
   document.addEventListener(tipo, (e) => {
+    // Le manopole usano eventi di tocco propri: il puntatore del tocco non deve mai arrivare alla scena
     if (!document.body.classList.contains("pp-on") || e.pointerType !== "touch") return;
-    if (e.target.closest?.("[data-stick]")) return;
     e.stopPropagation();
   }, true);
 }
