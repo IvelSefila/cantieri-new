@@ -357,3 +357,7 @@ body.pp-on { touch-action: none; overscroll-behavior: none; overflow: hidden; }
 /* scheda del muro: a destra e senza velo scuro, cosi' il muro resta visibile a sinistra */
 .scheda-velo.scheda-destra { justify-content: flex-end; padding-right: 24px; background: transparent; backdrop-filter: none; pointer-events: none; }
 .scheda-velo.scheda-destra .scheda-modale { pointer-events: auto; }
+/* scheda del muro su schermo largo: stretta a destra, il muro resta visibile a sinistra */
+@media (min-width: 701px) {
+  .scheda-velo.scheda-destra .scheda-modale { width: min(440px, 44vw) !important; max-width: 44vw !important; max-height: 88vh; overflow: auto; }
+}

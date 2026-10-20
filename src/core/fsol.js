@@ -4,7 +4,7 @@
 //   piano orizzontale.
 // Dati: UNI 10349:2016 di Roma (src/core/clima.js). Per una località diversa da Roma il numeratore cambia:
 // servono i dati UNI 10349 di quel comune.
-import { UNI10349_ROMA, irradianzaMedia_W_m2, irradianzaMediaAnnuaOrizzontale_W_m2 } from "./clima.js?v=v20261020bl";
+import { UNI10349_ROMA, irradianzaMedia_W_m2, irradianzaMediaAnnuaOrizzontale_W_m2 } from "./clima.js?v=v20261020bm";
 
 const LUGLIO = 6;
 

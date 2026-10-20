@@ -1,7 +1,7 @@
 // Alloggi: gruppi di stanze collegate da porte, escluse le parti comuni (corridoio, pianerottolo, ascensore).
 // Parte comune = stanza che, togliendola, separa il resto in due o piu' gruppi abbastanza grandi (un corridoio
 // che porta a piu' alloggi). Stanza senza porte = vano chiuso (ascensore o tecnico): non e' un alloggio.
-import { stanze } from "./rooms.js?v=v20261020bl";
+import { stanze } from "./rooms.js?v=v20261020bm";
 
 function pointInPoly([x, y], poly) {
   let dentro = false;
