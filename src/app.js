@@ -1137,13 +1137,13 @@ function costruisciPannello() {
 
 // Esempio AR-02: solo muri e vani (senza pavimenti e arredi).
 async function apriEsempio() {
-  const p = await fetch("data/plan-ar02.json?v=v20261020ah").then((r) => r.json());
+  const p = await fetch("data/plan-ar02.json?v=v20261020ai").then((r) => r.json());
   caricaProgetto({ ...p, floors: [], furniture: [] }, "esempio", { origine: "esempio" });
 }
 
 async function init() {
   stato.viewer = createViewer($("vista"));
-  stato.catalogo = await fetch("data/cdi-catalog.json?v=v20261020ah").then((r) => r.json());
+  stato.catalogo = await fetch("data/cdi-catalog.json?v=v20261020ai").then((r) => r.json());
   costruisciPannello();
   montaGSA($("sez-gsa-incendio"));
   stato.arredo = montaArredo({
