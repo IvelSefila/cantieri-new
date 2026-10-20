@@ -1196,7 +1196,22 @@ async function init() {
     },
     onVista2d: () => $("vista2d").click(),
   });
-  // Telefono: le schede stanno in un menu hamburger in alto
+  // In prima persona sul telefono il tocco fuori dalle manopole non muove la scena: solo le manopole
+for (const tipo of ["pointerdown", "pointermove", "pointerup", "pointercancel"]) {
+  document.addEventListener(tipo, (e) => {
+    if (!document.body.classList.contains("pp-on") || e.pointerType !== "touch") return;
+    if (e.target.closest?.("[data-stick]")) return;
+    e.stopPropagation();
+  }, true);
+}
+// Niente scorrimento o zoom della pagina in prima persona, tranne con le manopole
+document.addEventListener("touchmove", (e) => {
+  if (!document.body.classList.contains("pp-on")) return;
+  if (e.target.closest?.("[data-stick]")) return;
+  e.preventDefault();
+}, { passive: false });
+
+// Telefono: le schede stanno in un menu hamburger in alto
   const barraAlta = document.querySelector(".hud-top");
   const schede = barraAlta?.querySelector(".hud-tabs");
   if (barraAlta && schede && !barraAlta.querySelector(".hud-burger")) {

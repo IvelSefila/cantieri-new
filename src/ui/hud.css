@@ -334,3 +334,5 @@ body.pp-on .hud-hotbar, body.pp-on .hud-coord, body.pp-on .hud-top { display: no
 
 /* Prima persona sul telefono: il tocco sulla scena guarda intorno, le manopole restano sopra */
 body.pp-on main#vista canvas { touch-action: none; }
+body.pp-on main#vista, body.pp-on main#vista canvas { pointer-events: none !important; touch-action: none !important; }
+body.pp-on { touch-action: none; overscroll-behavior: none; overflow: hidden; }
