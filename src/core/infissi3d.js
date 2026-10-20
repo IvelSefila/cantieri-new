@@ -149,7 +149,8 @@ function porta(op, wallT, st, esterno) {
   const ingresso = st.categoria === "porte_ingresso";
   // spessore pannello da catalogo CDI (porte d'ingresso alluminio e PVC: 44 mm). Il profilo del telaio (p) e' 75-85 mm
   // spessore pannello da catalogo (44 mm per le porte d'ingresso QFORT) e profondita' del telaio QFORT se nota
-  const sp = Math.min(st.spessore_pannello_qfort_mm ?? 44, wallT - 20);
+  // porte d'ingresso: anta spessa quanto il profilo QFORT (75-85 mm); interne: 44 mm
+  const sp = Math.min(ingresso ? (st.profondita_qfort_mm ?? 80) : 44, wallT - 20);
   const aA = -Math.floor(sp / 2), aB = Math.ceil(sp / 2);
   const p = ingresso ? (st.profondita_qfort_mm ?? 80) : st.pannello === "filomuro" ? 12 : 50;
   const matTelaio = ingresso ? "telaio_porta" : st.pannello === "rovere" ? "rovere" : "laccato";
