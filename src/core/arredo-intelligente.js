@@ -1,11 +1,11 @@
 // Arredo intelligente: ogni pezzo sceglie la parete giusta in base alla sua funzione e all'orientamento.
 // Le regole sono dati (REGOLE_ARREDO) e vanno lette con skill arredo-planimetria (.claude/skills/arredo-planimetria).
-import { stanze } from "./rooms.js?v=v20261020by";
-import { orientamentoDaGeometria, latoEsterno } from "./gsa.js?v=v20261020by";
-import { aggiungiArredo } from "./project.js?v=v20261020by";
-import { collisioniArredo, LIBRERIA_3D } from "./arredi.js?v=v20261020by";
-import { dentroPoligono } from "./elementi.js?v=v20261020by";
-import { funzioneStanza, ARREDO_PER_FUNZIONE_ELENCO } from "./funzioni-stanze.js?v=v20261020by";
+import { stanze } from "./rooms.js?v=v20261020bz";
+import { orientamentoDaGeometria, latoEsterno } from "./gsa.js?v=v20261020bz";
+import { aggiungiArredo } from "./project.js?v=v20261020bz";
+import { collisioniArredo, LIBRERIA_3D } from "./arredi.js?v=v20261020bz";
+import { dentroPoligono } from "./elementi.js?v=v20261020bz";
+import { funzioneStanza, ARREDO_PER_FUNZIONE_ELENCO } from "./funzioni-stanze.js?v=v20261020bz";
 
 // Regole per tipo di pezzo. parete: dove sta il pezzo (testata = la schiena contro il muro).
 //  - preferenze: orientamenti (N, NE, E, SE, S, SO, O, NO) in ordine di preferenza per la parete

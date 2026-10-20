@@ -201,7 +201,7 @@
         "maniglia": "incasso"
       },
       "foto3d": {
-        "file": "assets/cdi/scorrevole-panorama.webp",
+        "file": "assets/cdi/scorrevole-panorama-vetro.webp",
         "u0": 0.0733,
         "v0": 0.077,
         "u1": 0.9289,
@@ -680,7 +680,7 @@
         "maniglia": "alzante"
       },
       "foto3d": {
-        "file": "assets/cdi/scorrevole-paysage-7stars.webp",
+        "file": "assets/cdi/scorrevole-paysage-7stars-vetro.webp",
         "u0": 0.08,
         "v0": 0.0933,
         "u1": 0.9078,
@@ -705,7 +705,7 @@
         "maniglia": "alzante"
       },
       "foto3d": {
-        "file": "assets/cdi/scorrevole-smartslide.webp",
+        "file": "assets/cdi/scorrevole-smartslide-vetro.webp",
         "u0": 0.0811,
         "v0": 0.1358,
         "u1": 0.91,
@@ -731,7 +731,7 @@
         "libro": true
       },
       "foto3d": {
-        "file": "assets/cdi/scorrevole-bifold.webp",
+        "file": "assets/cdi/scorrevole-bifold-vetro.webp",
         "u0": 0.07,
         "v0": 0.0915,
         "u1": 0.9233,
@@ -756,7 +756,7 @@
         "maniglia": "standard"
       },
       "foto3d": {
-        "file": "assets/cdi/scorrevole-traslante.webp",
+        "file": "assets/cdi/scorrevole-traslante-vetro.webp",
         "u0": 0.0778,
         "v0": 0.0922,
         "u1": 0.9089,

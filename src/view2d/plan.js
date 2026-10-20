@@ -1,8 +1,8 @@
 // Vista 2D in SVG generata dalla stessa sorgente del 3D (progetto in mm). Funzione pura: restituisce una stringa SVG.
 // Quote in mm: lunghezza di ogni muro e larghezza di ogni vano. Le superfici delle stanze vengono da core/rooms.js.
-import { stanze } from "../core/rooms.js?v=v20261020by";
-import { wallLengthMm } from "../core/model.js?v=v20261020by";
-import { ingombroArredo, MATERIALI_PAVIMENTO } from "../core/project.js?v=v20261020by";
+import { stanze } from "../core/rooms.js?v=v20261020bz";
+import { wallLengthMm } from "../core/model.js?v=v20261020bz";
+import { ingombroArredo, MATERIALI_PAVIMENTO } from "../core/project.js?v=v20261020bz";
 
 export function escHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
