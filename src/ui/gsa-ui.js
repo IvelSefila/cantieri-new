@@ -276,14 +276,16 @@ export function montaGSA(box) {
           rTipo.append(btnGroup);
           card.append(rTipo);
         } else if (risposta.volumi_rilevati && risposta.volumi_rilevati.length > 1) {
-          // Complesso reale multi-corpo rilevato da LiDAR (es. Strada Suniglia 4)
+          // Corpi di fabbrica reali rilevati (LiDAR BDTRE o OpenStreetMap 3D Nazionale)
           const rMulti = el("div");
-          rMulti.style.cssText = "margin: 8px 0; padding: 8px; background: rgba(255,196,77,0.08); border: 1px dashed rgba(255,196,77,0.3); border-radius: 6px;";
-          rMulti.append(el("div", "hud-stat", `🏢 Complesso multi-corpo rilevato da LiDAR BDTRE (${risposta.volumi_rilevati.length} corpi di fabbrica distinti). Seleziona la palazzina:`));
+          rMulti.style.cssText = "margin: 8px 0; padding: 8px; background: rgba(61,220,247,0.06); border: 1px dashed rgba(61,220,247,0.3); border-radius: 6px;";
+          const labelFonte = risposta.provider.includes("LiDAR") ? "LiDAR BDTRE" : "OpenStreetMap 3D";
+          rMulti.append(el("div", "hud-stat", `🏢 Corpi di fabbrica rilevati da ${labelFonte} (${risposta.volumi_rilevati.length} edifici nel lotto/civico). Seleziona:`));
           const btnGroup = el("div");
           btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px;";
           risposta.volumi_rilevati.forEach((v) => {
-            const b = el("button", "", v.tipo_presunto || `${v.altezza_m.toFixed(1)} m`);
+            const labelBtn = `${v.tipo_presunto || 'Palazzina'} (${v.altezza_m.toFixed(1)} m${v.piani ? `, ${v.piani}p` : ''})`;
+            const b = el("button", "", labelBtn);
             b.style.cssText = v.selezionato
               ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 4px 8px; border-radius: 4px;"
               : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 8px; cursor: pointer; border-radius: 4px;";
@@ -301,7 +303,26 @@ export function montaGSA(box) {
           card.append(rMulti);
         }
 
-        const r3 = el("div", "", `Altezza volumetrica corpo selezionato: ${risposta.edificio_lidar.altezza_volumetrica_m.toFixed(1)} m (${risposta.edificio_lidar.ente})`);
+        // Barra rapida simulazione piani / override
+        const rSimPiani = el("div");
+        rSimPiani.style.cssText = "margin: 6px 0 8px 0; font-size: 11px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap;";
+        rSimPiani.append(el("span", "hud-stat", "Simula piani:"));
+        [2, 3, 4, 5, 6, 8, 10, 15].forEach((pNum) => {
+          const pb = el("button", "", `${pNum}p`);
+          pb.style.cssText = "background: rgba(255,255,255,0.06); color: var(--hud-testo); border: 1px solid rgba(255,255,255,0.12); padding: 2px 6px; font-size: 10px; border-radius: 3px; cursor: pointer;";
+          pb.onclick = async () => {
+            const rOverride = await calcolaGsaDaCivico(txt, {
+              quota_google_earth_m: valGe,
+              numero_piani_override: pNum,
+              geo_precalcolata: risposta.geo_dati || { ...risposta.coordinate, regione: risposta.regione, comune: risposta.comune, provincia: risposta.provincia, display_name: risposta.indirizzo_trovato, ok: true }
+            });
+            renderizzaCard(rOverride);
+          };
+          rSimPiani.append(pb);
+        });
+        card.append(rSimPiani);
+
+        const r3 = el("div", "", `Altezza volumetrica corpo selezionato: ${risposta.edificio_lidar.altezza_volumetrica_m.toFixed(1)} m (${risposta.edificio_lidar.metodo || risposta.edificio_lidar.ente})`);
         r3.style.color = "var(--hud-ciano)";
 
         const alt = gsa.altezza;

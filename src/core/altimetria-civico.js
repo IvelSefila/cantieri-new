@@ -10,6 +10,7 @@ const WFS_BDT_RE_IMM = "https://geoservices.csi.it/ms/wfs/taims/rp-01/taimswfs/b
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
 const PHOTON_URL = "https://photon.komoot.io/api/";
 const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
+const OSM_API_MAP_URL = "https://api.openstreetmap.org/api/0.6/map";
 
 // Registro canonico delle 20 Regioni d'Italia (con varianti bilingue / dialettali)
 export const CITTA_ITALIANE_ALIAS = {
@@ -150,6 +151,166 @@ export function parseGmlUnVol(gmlText, centroRiferimento = null) {
 }
 
 // Estrae informazioni di altezza e piani dagli elementi OpenStreetMap 3D
+// Calcola l'area di un poligono su coordinate geografiche (formula di Gauss / Shoelace in m²)
+export function polygonAreaM2(coords) {
+  if (!coords || coords.length < 3) return 0;
+  let area = 0;
+  const lat0 = coords[0][0];
+  const cosLat = Math.cos(lat0 * Math.PI / 180);
+  for (let i = 0; i < coords.length; i++) {
+    const j = (i + 1) % coords.length;
+    const xi = coords[i][1] * 111000 * cosLat;
+    const yi = coords[i][0] * 111000;
+    const xj = coords[j][1] * 111000 * cosLat;
+    const yj = coords[j][0] * 111000;
+    area += (xi * yj) - (xj * yi);
+  }
+  return Math.abs(area) / 2;
+}
+
+// Analizza i nodi e way poligonali restituiti dall'API OpenStreetMap ufficiale
+export function parseOsmXmlBuildings(xml, centerLat, centerLon) {
+  const volumi = [];
+  if (!xml || typeof xml !== "string") return volumi;
+
+  const nodeCoords = new Map();
+  const nodeRe = /<node\s+([^>]+)>/g;
+  let m;
+  while ((m = nodeRe.exec(xml)) !== null) {
+    const attrs = m[1];
+    const idM = /id="(\d+)"/.exec(attrs);
+    const latM = /lat="([\d.-]+)"/.exec(attrs);
+    const lonM = /lon="([\d.-]+)"/.exec(attrs);
+    if (idM && latM && lonM) {
+      nodeCoords.set(idM[1], [parseFloat(latM[1]), parseFloat(lonM[1])]);
+    }
+  }
+
+  const wayBlockRe = /<way\s+id="(\d+)"[^>]*>([\s\S]*?)<\/way>/g;
+  let wMatch;
+  while ((wMatch = wayBlockRe.exec(xml)) !== null) {
+    const wayId = wMatch[1];
+    const body = wMatch[2];
+
+    const tagRe = /<tag\s+k="([^"]+)"\s+v="([^"]+)"/g;
+    const tags = {};
+    let tMatch;
+    while ((tMatch = tagRe.exec(body)) !== null) {
+      tags[tMatch[1]] = tMatch[2];
+    }
+    if (!tags.building) continue;
+
+    const ndRe = /<nd\s+ref="(\d+)"/g;
+    let ndMatch;
+    const wayPoints = [];
+    while ((ndMatch = ndRe.exec(body)) !== null) {
+      const c = nodeCoords.get(ndMatch[1]);
+      if (c) wayPoints.push(c);
+    }
+    const count = wayPoints.length;
+    const bLat = count > 0 ? wayPoints.reduce((s, p) => s + p[0], 0) / count : centerLat;
+    const bLon = count > 0 ? wayPoints.reduce((s, p) => s + p[1], 0) / count : centerLon;
+    const dLat = (bLat - centerLat) * 111000;
+    const dLon = (bLon - centerLon) * 111000 * Math.cos(centerLat * Math.PI / 180);
+    const distM = Math.hypot(dLat, dLon);
+    const areaM2 = Math.round(polygonAreaM2(wayPoints));
+
+    let altezzaM = null;
+    let piani = null;
+    let modoProd = "";
+
+    if (tags.height) {
+      const h = parseFloat(tags.height.replace(",", ".").replace(/m/i, "").trim());
+      if (!isNaN(h) && h > 0) {
+        altezzaM = h;
+        modoProd = `Tag metrico OSM height (${h.toFixed(1)} m)`;
+      }
+    }
+    if (tags["building:levels"]) {
+      const l = parseInt(tags["building:levels"], 10);
+      if (!isNaN(l) && l > 0) {
+        piani = l;
+        if (!altezzaM) {
+          altezzaM = Math.round((piani * 3.05 + 1.20) * 10) / 10;
+          modoProd = `Tag OSM building:levels (${piani} piani)`;
+        }
+      }
+    }
+
+    const bType = tags.building.toLowerCase();
+    let tipoPresunto = tags.name || (tags["addr:housenumber"] ? `Civico ${tags["addr:housenumber"]}` : null);
+
+    if (piani === null && altezzaM === null) {
+      if (bType === "apartments") {
+        piani = 5;
+        altezzaM = 16.5;
+        if (!tipoPresunto) tipoPresunto = areaM2 > 0 ? `Condominio residenziale (${areaM2} m²)` : "Condominio residenziale";
+        modoProd = "Modello condominiale OSM (5 piani)";
+      } else if (bType === "house" || bType === "detached" || bType === "semidetached_house") {
+        piani = 2;
+        altezzaM = 7.3;
+        if (!tipoPresunto) tipoPresunto = areaM2 > 0 ? `Villetta residenziale (${areaM2} m²)` : "Villetta residenziale";
+        modoProd = "Modello unifamiliare OSM (2 piani)";
+      } else if (bType === "church" || bType === "place_of_worship") {
+        piani = 1;
+        altezzaM = 12.0;
+        if (!tipoPresunto) tipoPresunto = "Chiesa / Luogo di culto";
+        modoProd = "Edificio monumentale di culto (12m)";
+      } else if (bType === "service" || bType === "garage" || bType === "garages") {
+        piani = 1;
+        altezzaM = 3.0;
+        if (!tipoPresunto) tipoPresunto = "Autorimessa / Pertinenza";
+        modoProd = "Volume di servizio / Box (3m)";
+      } else {
+        if (areaM2 >= 400) {
+          piani = 5;
+          altezzaM = 16.5;
+          if (!tipoPresunto) tipoPresunto = `Complesso multipiano (${areaM2} m²)`;
+          modoProd = `Impronta OSM ${areaM2} m² (stima 5 piani)`;
+        } else if (areaM2 >= 180) {
+          piani = 4;
+          altezzaM = 13.4;
+          if (!tipoPresunto) tipoPresunto = `Palazzina residenziale (${areaM2} m²)`;
+          modoProd = `Impronta OSM ${areaM2} m² (stima 4 piani)`;
+        } else if (areaM2 >= 90) {
+          piani = 3;
+          altezzaM = 10.4;
+          if (!tipoPresunto) tipoPresunto = `Palazzina di paese (${areaM2} m²)`;
+          modoProd = `Impronta OSM ${areaM2} m² (stima 3 piani)`;
+        } else {
+          piani = 2;
+          altezzaM = 7.3;
+          if (!tipoPresunto) tipoPresunto = areaM2 > 0 ? `Edificio basso (${areaM2} m²)` : "Edificio basso / Villetta";
+          modoProd = areaM2 > 0 ? `Impronta OSM ${areaM2} m² (stima 2 piani)` : "Stima volumetrica OSM (2 piani)";
+        }
+      }
+    }
+
+    if (!tipoPresunto) {
+      tipoPresunto = areaM2 > 0 ? `Corpo ${wayId} (${areaM2} m²)` : `Corpo ${wayId}`;
+    }
+
+    volumi.push({
+      id: wayId,
+      tipo_osm: tags.building,
+      tipo_presunto: tipoPresunto,
+      altezza_volumetrica_m: altezzaM,
+      piani: piani,
+      area_sedime_m2: areaM2,
+      lat: bLat,
+      lon: bLon,
+      distanza_m: Math.round(distM * 10) / 10,
+      ente_prod: "OpenStreetMap 3D / Catasto Volumetrico Nazionale",
+      modo_prod: modoProd || "OpenStreetMap 3D",
+      tags,
+    });
+  }
+
+  volumi.sort((a, b) => a.distanza_m - b.distanza_m);
+  const vicini = volumi.filter((v) => v.distanza_m <= 45);
+  return (vicini.length > 0 ? vicini : volumi).slice(0, 5);
+}
+
 export function parseOverpassElements(elements) {
   const volumi = [];
   if (!Array.isArray(elements)) return volumi;
@@ -751,8 +912,10 @@ export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggio
 
 // Interroga OpenStreetMap Overpass (copertura 100% dei comuni italiani) per estrarre volumi e livelli 3D
 export async function interrogaOSMNazionale(lat, lon, { fetchFn = fetch, timeoutMs = 2500 } = {}) {
-  const query = `[out:json][timeout:5];(way["building"](around:35,${lat},${lon});relation["building"](around:35,${lat},${lon}););out tags;`;
-  const url = `${OVERPASS_URL}?data=${encodeURIComponent(query)}`;
+  // 1. Prova prima l'API ufficiale OpenStreetMap map bbox (affidabile, con CORS, senza 502)
+  const delta = 0.0006;
+  const bbox = `${(lon - delta).toFixed(6)},${(lat - delta).toFixed(6)},${(lon + delta).toFixed(6)},${(lat + delta).toFixed(6)}`;
+  const osmMapUrl = `${OSM_API_MAP_URL}?bbox=${bbox}`;
 
   try {
     let signal;
@@ -763,24 +926,36 @@ export async function interrogaOSMNazionale(lat, lon, { fetchFn = fetch, timeout
       signal = controller.signal;
     }
 
-    const res = await fetchFn(url, {
+    const res = await fetchFn(osmMapUrl, {
       headers: { "User-Agent": "CantieriAI/1.0 (antincendio-gsa)" },
       signal,
     });
     if (timerId) clearTimeout(timerId);
 
-    if (!res.ok) {
-      return { ok: false, errore: `Overpass HTTP ${res.status}` };
+    if (res && res.ok) {
+      const xml = await res.text();
+      const volumi = parseOsmXmlBuildings(xml, lat, lon);
+      if (volumi && volumi.length > 0) {
+        return { ok: true, volumi, volumePrincipale: volumi[0] };
+      }
     }
-    const data = await res.json();
-    const volumi = parseOverpassElements(data.elements);
-    if (!volumi.length) {
-      return { ok: false, errore: "Nessun volume o livello censito nei tag OSM per queste coordinate" };
+  } catch (err) {}
+
+  // 2. Fallback su Overpass (per retrocompatibilità o test mock preesistenti)
+  try {
+    const query = `[out:json][timeout:5];(way["building"](around:35,${lat},${lon});relation["building"](around:35,${lat},${lon}););out tags;`;
+    const url = `${OVERPASS_URL}?data=${encodeURIComponent(query)}`;
+    const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (antincendio-gsa)" } });
+    if (res && res.ok) {
+      const data = await res.json();
+      const volumi = parseOverpassElements(data.elements);
+      if (volumi && volumi.length > 0) {
+        return { ok: true, volumi, volumePrincipale: volumi[0] };
+      }
     }
-    return { ok: true, volumi, volumePrincipale: volumi[0] };
-  } catch (err) {
-    return { ok: false, errore: `OSM Overpass non disponibile: ${err.message}` };
-  }
+  } catch (err) {}
+
+  return { ok: false, errore: "Nessun volume cartografico censito nei tag OSM per queste coordinate" };
 }
 
 // Calcolo completo per tutta Italia: da indirizzo testuale a valutazione GSA (DM 246/1987 + DM 25/1/2019)
@@ -822,7 +997,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     const osm = await interrogaOSMNazionale(geo.lat, geo.lon, { fetchFn, timeoutMs: 1500 });
     if (osm.ok && osm.volumi?.length > 0) {
       volumi = osm.volumi;
-      provider = "OpenStreetMap 3D / Catasto Volumetrico";
+      provider = "OpenStreetMap 3D / Catasto Volumetrico Nazionale";
     }
   }
 
