@@ -46,6 +46,12 @@ export function montaArredo(opz) {
     "Trascina per spostare · Q/E ruota 15° · R ruota 90° · Ctrl+D duplica · Canc elimina · frecce sposta 10 mm (Maiusc 100 mm) · Esc annulla.");
   filtri.append(cerca, chips);
   box.append(filtri, griglia, ispettore, aiuto);
+  // tasto destro nel pannello: toglie la selezione (arredo da posare o arredo selezionato)
+  box.addEventListener("contextmenu", (ev) => {
+    ev.preventDefault();
+    if (piazzando) fineposa();
+    if (selezionato) seleziona(null);
+  });
 
   function disegnaChips() {
     chips.innerHTML = "";

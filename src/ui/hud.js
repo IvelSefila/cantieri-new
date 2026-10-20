@@ -24,7 +24,7 @@ const SCHEDE = [
   { id: "costruzione", nome: "Costruzione" },
   { id: "gsa", nome: "GSA antincendio" },
   { id: "asol", nome: "Asol,est" },
-  { id: "arredi", nome: "Arredi" },
+  { id: "arredi", nome: "Arrediture" },
   { id: "energia", nome: "Energia" },
   { id: "affidabilita", nome: "Affidabilità" },
   { id: "vista", nome: "Vista" },
