@@ -30,6 +30,8 @@ aside {
   transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .25s;
 }
 aside.chiuso { transform: translateX(-120%); opacity: 0; pointer-events: none; }
+/* le schermate dei menu stanno davanti a "Entra in prima persona" e al "?" */
+aside { z-index: 72; }
 aside { font-family: system-ui, "Segoe UI", Roboto, sans-serif; }
 aside h1 { color: var(--hud-oro); letter-spacing: .04em; text-transform: uppercase; font-size: 15px; }
 aside .sub, aside .riga.info { color: var(--hud-muto) !important; }
