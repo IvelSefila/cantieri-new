@@ -419,3 +419,96 @@ test("geocodificaIndirizzo: tolleranza odonimi (via suniglia 4 -> Strada Sunigli
   assert.equal(geo.lat, 44.6412359);
   assert.equal(geo.lon, 7.6554138);
 });
+
+
+test("estraiCivicoEsplicito: estrae correttamente il numero civico e tollera date e CAP", async () => {
+  const { estraiCivicoEsplicito } = await import("../src/core/altimetria-civico.js");
+  assert.equal(estraiCivicoEsplicito("via duccio galimberti 2 savigliano"), "2");
+  assert.equal(estraiCivicoEsplicito("via duccio galimberti 2, 12038 savigliano"), "2");
+  assert.equal(estraiCivicoEsplicito("via 4 novembre 12 milano"), "12");
+  assert.equal(estraiCivicoEsplicito("corso 25 aprile 3 torino"), "3");
+  assert.equal(estraiCivicoEsplicito("strada suniglia 4"), "4");
+  assert.equal(estraiCivicoEsplicito("via roma 15/a milano"), "15/a");
+  assert.equal(estraiCivicoEsplicito("via duccio galimberti savigliano"), "");
+  assert.equal(estraiCivicoEsplicito("12038 savigliano"), "");
+});
+
+test("geocodificaIndirizzo: risolve con successo tramite ArcGIS World Geocoder", async () => {
+  const { geocodificaIndirizzo } = await import("../src/core/altimetria-civico.js");
+  const mockArcGis = async (url) => {
+    if (url.includes("arcgis")) {
+      return {
+        ok: true,
+        json: async () => ({
+          candidates: [
+            {
+              address: "Via Duccio Galimberti 2, 12038, Savigliano, Cuneo",
+              location: { x: 7.665569, y: 44.646902 },
+              score: 100,
+              attributes: {
+                StPreType: "Via",
+                StName: "Duccio Galimberti",
+                AddNum: "2",
+                City: "Savigliano",
+                Subregion: "Cuneo",
+                Postal: "12038",
+                Region: "Piemonte",
+              },
+            },
+          ],
+        }),
+      };
+    }
+    throw new Error(`URL inatteso: ${url}`);
+  };
+
+  const res = await geocodificaIndirizzo("via duccio galimberti 2 savigliano", { fetchFn: mockArcGis });
+  assert.equal(res.ok, true);
+  assert.equal(res.via, "Via Duccio Galimberti");
+  assert.equal(res.civico, "2");
+  assert.equal(res.comune, "Savigliano");
+  assert.equal(res.regione, "Piemonte");
+  assert.equal(res.lat, 44.646902);
+  assert.equal(res.lon, 7.665569);
+  assert.equal(res.provider, "ArcGIS World Geocoder");
+  assert.equal(res.display_name, "Via Duccio Galimberti, 2, 12038 Savigliano (Cuneo)");
+});
+
+test("geocodificaIndirizzo & autocompletaIndirizzo: conservano il civico digitato anche in fallback senza housenumber", async () => {
+  const { geocodificaIndirizzo, autocompletaIndirizzo } = await import("../src/core/altimetria-civico.js");
+  const mockPhotonNoHousenumber = async (url) => {
+    if (url.includes("photon")) {
+      return {
+        ok: true,
+        json: async () => ({
+          type: "FeatureCollection",
+          features: [
+            {
+              properties: {
+                street: "Via Duccio Galimberti",
+                city: "Savigliano",
+                county: "Cuneo",
+                state: "Piemonte",
+                postcode: "12038",
+                countrycode: "IT",
+              },
+              geometry: { coordinates: [7.66428, 44.64389] },
+            },
+          ],
+        }),
+      };
+    }
+    throw new Error(`URL inatteso: ${url}`);
+  };
+
+  const geo = await geocodificaIndirizzo("via duccio galimberti 2 savigliano", { fetchFn: mockPhotonNoHousenumber });
+  assert.equal(geo.ok, true);
+  assert.equal(geo.via, "Via Duccio Galimberti");
+  assert.equal(geo.civico, "2");
+  assert.equal(geo.display_name, "Via Duccio Galimberti, 2, 12038 Savigliano (Cuneo)");
+
+  const suggs = await autocompletaIndirizzo("via duccio galimberti 2 savigliano", { fetchFn: mockPhotonNoHousenumber });
+  assert.equal(suggs.length, 1);
+  assert.equal(suggs[0].civico, "2");
+  assert.equal(suggs[0].display_name, "Via Duccio Galimberti, 2, 12038 Savigliano (Cuneo)");
+});
