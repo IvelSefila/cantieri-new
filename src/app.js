@@ -107,6 +107,15 @@ function manopola(lato, onChange) {
   window.addEventListener("blur", fine);
   return base;
 }
+// In prima persona sul telefono il tocco fuori dalle manopole non arriva alla scena (sta in app.js, quindi sempre aggiornato)
+for (const tipo of ["pointerdown", "pointermove", "pointerup", "pointercancel"]) {
+  document.addEventListener(tipo, (e) => {
+    if (!document.body.classList.contains("pp-on") || e.pointerType !== "touch") return;
+    if (e.target.closest?.("[data-stick]")) return;
+    e.stopPropagation();
+  }, true);
+}
+
 // In prima persona sul telefono nessun trascinamento deve muovere la pagina o la scena: solo le manopole
 document.addEventListener("touchmove", (e) => {
   if (!document.body.classList.contains("pp-on")) return;
