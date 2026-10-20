@@ -168,7 +168,8 @@ function porta(op, wallT, st, esterno) {
   }
   // anta: foto del catalogo sulle due facce (porte d'ingresso), altrimenti pannello procedurale
   const ant = box("anta", st.texture ? "foto" : st.pannello === "rovere" ? "rovere" : st.pannello === "vetro_satinato" ? "vetro_satinato" : "laccato", p, W - p, z0 + 6, z1 - p, aA, aB);
-  if (st.texture) ant.texture = st.texture;
+  // porta con foto: la foto ha gia' la maniglia; si specchia se il cardine e' dal lato "a" (la maniglia va dall'altro lato)
+  if (st.texture) { ant.texture = st.texture; ant.specchio = (op.apertura?.cardine ?? "a") === "a"; }
   out.push({ ...ant, colore: st.colore });
   // fresature della porta grafite / filo muro
   if (st.pannello === "grafite" || st.pannello === "filomuro") {
@@ -182,7 +183,9 @@ function porta(op, wallT, st, esterno) {
   // maniglie: esterno con maniglione/pomolo per le porte d'ingresso, leva all'interno
   const sMan = W - p - (st.maniglia === "maniglione" ? 110 : 80);
   const ext = esterno || 1;
-  if (ingresso) {
+  if (st.texture) {
+    // porta con foto: maniglie e cilindro gia' nel rendering, nessuna maniglia procedurale sopra
+  } else if (ingresso) {
     maniglia(out, st.maniglia, sMan, z0 + 1050, ext > 0 ? aB : aA, ext);
     maniglia(out, "minimal", W - p - 80, z0 + 1050, ext > 0 ? aA : aB, -ext);
     out.push({ forma: "cilN", ruolo: "cilindro_serratura", mat: "inox", s: W - p - 80, z: z0 + 930, n0: aA - 6, n1: aB + 6, r: 14 });

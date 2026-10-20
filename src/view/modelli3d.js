@@ -191,12 +191,15 @@ export function materiale(chiave, { colore, clip = null, alta = false } = {}) {
 
 // Materiali di una scatola con la foto del catalogo sulle facce +n e -n (anta delle porte d'ingresso)
 function materialiFoto(parte, opz) {
-  const k = `foto|${parte.texture}|${opz.clip ? "c" : ""}`;
+  const specchio = !!parte.specchio;
+  const k = `foto|${parte.texture}|${opz.clip ? "c" : ""}|${specchio ? "s" : ""}`;
   if (CACHE.has(k)) return CACHE.get(k);
-  const fronte = foto(parte.texture);
+  const fronte = foto(parte.texture).clone();
   const retro = fronte.clone();
   retro.wrapS = THREE.RepeatWrapping;
-  retro.repeat.x = -1;
+  // specchio: la foto e' girata orizzontalmente, cosi' la maniglia sta dal lato giusto
+  fronte.repeat.x = specchio ? -1 : 1;
+  retro.repeat.x = specchio ? 1 : -1;
   const lato = materiale("laccato", { colore: parte.colore, clip: opz.clip });
   const base = { clippingPlanes: opz.clip, clipShadows: !!opz.clip, roughness: 0.45, metalness: 0.15, envMap: AMBIENTE, envMapIntensity: 0.5 };
   const arr = [lato, lato, lato, lato, new THREE.MeshStandardMaterial({ ...base, map: fronte }), new THREE.MeshStandardMaterial({ ...base, map: retro })];
