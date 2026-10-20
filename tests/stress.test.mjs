@@ -294,7 +294,9 @@ test("infissi 3D: ogni tipo genera parti finite, dentro il vano (150 casi)", asy
     const sill = tipo === "porta" ? 0 : intra(r, 0, 900);
     const op = { id: "v" + i, wall: "w", offset: 0, width: W, height: H, sill, type: tipo };
     const parti = partiInfisso(op, 300, item);
-    assert.ok(parti.length > 3, `${item.id}: poche parti`);
+    // le finestre con foto CDI sono un pannello fotografico (piu' davanzali): basta una parte con la foto
+    const conFoto = parti.some((x) => x.mat === "fotofinestra");
+    assert.ok(conFoto || parti.length > 3, `${item.id}: poche parti`);
     for (const p of parti) {
       const vals = p.forma === "box" ? [p.s0, p.s1, p.z0, p.z1, p.n0, p.n1]
         : p.forma === "cil" ? [p.s, p.z0, p.z1, p.n, p.r]

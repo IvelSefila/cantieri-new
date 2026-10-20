@@ -3,11 +3,11 @@
 //   A_vetro = larghezza x altezza (mm2 -> m2), g = trasmittanza solare del vetro,
 //   Fsh = fattore di ombreggiatura (1 = nessuna ombra), Ff = frazione vetrata (1 - telaio/area).
 // I valori non dichiarati usano un default ESPLICITO e vengono elencati come "dati mancanti".
-import { materialeVano } from "./cdi.js?v=v20261020bv";
-import { wallLengthMm } from "./model.js?v=v20261020bv";
-import { fsolEst } from "./fsol.js?v=v20261020bv";
-import { stanze } from "./rooms.js?v=v20261020bv";
-import { dentroPoligono } from "./elementi.js?v=v20261020bv";
+import { materialeVano } from "./cdi.js?v=v20261020bw";
+import { wallLengthMm } from "./model.js?v=v20261020bw";
+import { fsolEst } from "./fsol.js?v=v20261020bw";
+import { stanze } from "./rooms.js?v=v20261020bw";
+import { dentroPoligono } from "./elementi.js?v=v20261020bw";
 
 export const DEFAULT_GSA = { g: { vetro: 0.6, vetro_fume: 0.35 }, Fsh: 1, Ff: 0.8 };
 export const ORIENTAMENTI = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"];
