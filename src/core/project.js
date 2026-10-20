@@ -240,7 +240,9 @@ export function spezzaMuro(p, wallId, mm) {
     for (const q of [o.a, o.b]) {
       const t = param(q);
       const lon = Math.abs((q[0] - w.a[0]) * d[1] - (q[1] - w.a[1]) * d[0]) / Math.sqrt(L2);
-      if (lon < 5 && t > 0.001 && t < 0.999) cuts.push(t);
+      // i muri divisori finiscono a meta' spessore dal muro portante: la tolleranza e' la somma delle meta' dei due spessori
+      const tolleranza = (w.t + o.t) / 2 + 30;
+      if (lon <= tolleranza && t > 0.001 && t < 0.999) cuts.push(t);
     }
   }
   const uniche = [...new Set(cuts.map((t) => Math.round(t * 1e6) / 1e6))].sort((x, y) => x - y);
