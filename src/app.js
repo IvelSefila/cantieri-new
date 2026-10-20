@@ -1,38 +1,38 @@
 // Interfaccia: progetto modificabile (vuoto all'avvio), modalità vista e costruzione, import/export.
-import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261020bp";
-import { buildModel } from "./core/build.js?v=v20261020bp";
-import { measurePlan } from "./core/measure.js?v=v20261020bp";
-import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261020bp";
+import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261020bq";
+import { buildModel } from "./core/build.js?v=v20261020bq";
+import { measurePlan } from "./core/measure.js?v=v20261020bq";
+import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261020bq";
 import {
   progettoVuoto, aggiungiMuro, aggiungiVano, aggiungiPavimento, aggiungiArredo,
   ruotaArredo, spostaArredo, eliminaElemento, verificaProgetto, LIBRERIA_ARREDI, MATERIALI_PAVIMENTO,
-} from "./core/project.js?v=v20261020bp";
-import { createViewer } from "./view/scene.js?v=v20261020bp";
-import { parseDxf } from "./io/dxf.js?v=v20261020bp";
-import { dxfToPlan } from "./io/toPlan.js?v=v20261020bp";
-import { montaTracciamento } from "./trace/ui.js?v=v20261020bp";
-import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020bp";
-import { stanze } from "./core/rooms.js?v=v20261020bp";
-import { planSvg } from "./view2d/plan.js?v=v20261020bp";
-import { montaHud } from "./ui/hud.js?v=v20261020bp";
-import { rapportoAntincendio } from "./core/antincendio.js?v=v20261020bp";
-import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261020bp";
-import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261020bp";
-import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261020bp";
+} from "./core/project.js?v=v20261020bq";
+import { createViewer } from "./view/scene.js?v=v20261020bq";
+import { parseDxf } from "./io/dxf.js?v=v20261020bq";
+import { dxfToPlan } from "./io/toPlan.js?v=v20261020bq";
+import { montaTracciamento } from "./trace/ui.js?v=v20261020bq";
+import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020bq";
+import { stanze } from "./core/rooms.js?v=v20261020bq";
+import { planSvg } from "./view2d/plan.js?v=v20261020bq";
+import { montaHud } from "./ui/hud.js?v=v20261020bq";
+import { rapportoAntincendio } from "./core/antincendio.js?v=v20261020bq";
+import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261020bq";
+import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261020bq";
+import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261020bq";
 
 // Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
 const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
-import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261020bp";
-import { montaScheda } from "./ui/energia-ui.js?v=v20261020bp";
-import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261020bp";
-import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020bp";
-import { partiArredo } from "./core/arredi.js?v=v20261020bp";
-import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261020bp";
-import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020bp";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bp";
-import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020bp";
-import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020bp";
-import { impostaFunzioneStanza } from "./core/project.js?v=v20261020bp";
+import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261020bq";
+import { montaScheda } from "./ui/energia-ui.js?v=v20261020bq";
+import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261020bq";
+import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020bq";
+import { partiArredo } from "./core/arredi.js?v=v20261020bq";
+import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261020bq";
+import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020bq";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bq";
+import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020bq";
+import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020bq";
+import { impostaFunzioneStanza } from "./core/project.js?v=v20261020bq";
 
 // Prima persona: pulsante sopra il ?, messaggio in alto, tasti WASD e frecce sovrimpressi che si illuminano
 let pulsantePP = null;
@@ -454,7 +454,7 @@ function montaAutomatismi() {
   barra.append(bArredo, bFiniture, bInfissi);
   document.body.append(barra, pannello, icona);
 }
-import { montaGSA } from "./ui/gsa-ui.js?v=v20261020bp";
+import { montaGSA } from "./ui/gsa-ui.js?v=v20261020bq";
 
 let hud = null;
 
@@ -1244,11 +1244,24 @@ async function init() {
       if (id === "stile") aside.classList.remove("chiuso");
     },
     onStrumento: (id) => {
-      stato.strumento = id;
+      // Finestra: e' lo strumento Vano con misure da finestra (1200 x 1400, davanzale 900); Vano torna alla porta
+      if (id === "finestra" || id === "vano") {
+        const finestra = id === "finestra";
+        stato.tipoVano = finestra ? "finestra" : "porta";
+        stato.larghezzaVano = finestra ? 1200 : 900;
+        stato.altezza = finestra ? 1400 : 2100;
+        stato.sbalzo = finestra ? 900 : 0;
+        $("tipo-vano").value = stato.tipoVano;
+        $("larg-vano").value = stato.larghezzaVano;
+        $("altezza").value = stato.altezza;
+        $("sbalzo").value = stato.sbalzo;
+      }
+      stato.strumento = id === "finestra" ? "vano" : id;
       stato.pendente = null;
       stato.arredoSelezionato = null;
-      $("strumento").value = id;
+      $("strumento").value = stato.strumento;
       hud.evidenziaStrumento(id);
+      if (id === "finestra") messaggio("Finestra: clic su un muro per aprire una finestra 1200 x 1400, davanzale 900 mm.", "info");
     },
     onModo: (m) => {
       if (m === "costruzione") document.querySelector("[data-modo=costruzione]").click();

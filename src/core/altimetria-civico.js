@@ -4,7 +4,7 @@
 //   su modello parametrico edilizio italiano (DM 5/7/1975) e fusione con Google Earth 3D o pratiche edilizie.
 // Valutazione normativa 100% pura nel browser secondo civile-abitazione.js (DM 246/1987 + DM 25/1/2019).
 
-import { valutaCivileAbitazione } from "./civile-abitazione.js?v=v20261020bp";
+import { valutaCivileAbitazione } from "./civile-abitazione.js?v=v20261020bq";
 
 const WFS_BDT_RE_IMM = "https://geoservices.csi.it/ms/wfs/taims/rp-01/taimswfs/bdtre_imm";
 const ARCGIS_FIND_URL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates";

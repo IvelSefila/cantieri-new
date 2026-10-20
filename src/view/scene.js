@@ -7,17 +7,17 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { parquet, intonaco, marmo, fotoSet } from "./materials.js?v=v20261020bp";
-import { MATERIALI_PAVIMENTO, MATERIALI_MURO, TINTE_MURO } from "../core/project.js?v=v20261020bp";
-import { materialeRealistico, texturaRilievo } from "./realistico.js?v=v20261020bp";
-import { creaSovrimpressione, proiettore } from "./misure.js?v=v20261020bp";
-import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js?v=v20261020bp";
-import { creaPost } from "./post.js?v=v20261020bp";
-import { creaPasseggiata } from "./passeggiata-view.js?v=v20261020bp";
+import { parquet, intonaco, marmo, fotoSet } from "./materials.js?v=v20261020bq";
+import { MATERIALI_PAVIMENTO, MATERIALI_MURO, TINTE_MURO } from "../core/project.js?v=v20261020bq";
+import { materialeRealistico, texturaRilievo } from "./realistico.js?v=v20261020bq";
+import { creaSovrimpressione, proiettore } from "./misure.js?v=v20261020bq";
+import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js?v=v20261020bq";
+import { creaPost } from "./post.js?v=v20261020bq";
+import { creaPasseggiata } from "./passeggiata-view.js?v=v20261020bq";
 
 // Parti dell'infisso che seguono l'anta quando la porta si apre (il resto e' telaio, fisso nel muro)
 const RUOLI_ANTA = new Set(["anta", "maniglia", "fresatura", "cilindro_serratura"]);
-import { onTexturaCaricata } from "./materials.js?v=v20261020bp";
+import { onTexturaCaricata } from "./materials.js?v=v20261020bq";
 
 const MM_TO_M = 0.001;
 const TAGLIO_DOLLHOUSE_MM = 1300;
