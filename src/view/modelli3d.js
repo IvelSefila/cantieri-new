@@ -194,7 +194,10 @@ function materialiFoto(parte, opz) {
   const k = `foto|${parte.texture}|${opz.clip ? "c" : ""}`;
   if (CACHE.has(k)) return CACHE.get(k);
   const fronte = foto(parte.texture);
-  const retro = fronte.clone();
+  // retro: una texture caricata a parte (un clone fatto prima del caricamento resta senza immagine)
+  const retro = caricatore.load(parte.texture);
+  retro.colorSpace = THREE.SRGBColorSpace;
+  retro.anisotropy = 8;
   retro.wrapS = THREE.RepeatWrapping;
   retro.repeat.x = -1;
   const lato = materiale("laccato", { colore: parte.colore, clip: opz.clip });
