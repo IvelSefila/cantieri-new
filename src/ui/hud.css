@@ -320,3 +320,9 @@ body.pp-on .hud-hotbar, body.pp-on .hud-coord, body.pp-on .hud-top { display: no
 /* Telefono in prima persona: il tocco sulla scena non deve muoverla, lo fanno solo le manopole */
 body.pp-on main#vista, body.pp-on main#vista canvas { pointer-events: none !important; touch-action: none !important; }
 body.pp-on #vista-touch-blocco { display: none; }
+
+/* Telefono: i pulsanti flottanti stanno sotto il menu in alto e sotto i pannelli aperti */
+@media (max-width: 700px) {
+  #btn-pp, #btn-legenda, #icona-auto { z-index: 25 !important; }
+  #pannello-alloggi, #pannello-auto, #pannello-legenda { z-index: 35 !important; }
+}
