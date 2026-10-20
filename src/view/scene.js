@@ -448,6 +448,8 @@ export function createViewer(container) {
     if (dist > 5) return;
     puntatoreDa(ev);
     const hit = colpito();
+    // il tasto destro su un punto vuoto non annulla la selezione in corso
+    if (ev.button === 2 && !hit) return;
     const piani = raycaster.intersectObject(piano, false);
     const punto = hit ? hit.point : piani[0] ? piani[0].point : null;
     if (!punto) return;
