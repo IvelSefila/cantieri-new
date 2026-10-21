@@ -30,3 +30,20 @@ recupero dei controlli del form dopo errore. Evidenze private in
 Questa correzione riguarda il blocco e il controllo della complessità.
 Non riconosce automaticamente i due fili della parete come un unico asse,
 né interpreta porte/blocchi INSERT: il risultato geometrico va verificato.
+
+## Aggiornamento interfaccia e scala
+
+Riprodotto nella scheda browser già aperta: prima del cambio URL era ancora
+caricata una vecchia interfaccia. Nuovi identificativi dei moduli forzano il
+caricamento della revisione corrente; il server aggiornato risponde no-store
+e non usa 304 condizionali per HTML e src. La nuova policy richiede il riavvio
+del server già in esecuzione; il riavvio automatico è stato rifiutato dagli
+strumenti, quindi non viene dichiarato eseguito.
+
+Con unità automatiche, floorplan.dxf ora segnala subito ingombro 796×564 mm
+incompatibile con lo spessore richiesto, prima del calcolo delle stanze.
+Lo stato è collocato sotto il selettore file; gli avvisi lunghi sono raccolti
+in dettagli apribili. Nella scheda dell'utente la prova con pollici espliciti
+ha generato e salvato il modello. Le unità restano un'ipotesi da verificare.
+Prove aggiornate: 307 test Node, 5 test server e prova DXF browser sulla
+porta reale 8765, con recupero da errore e annullamento.

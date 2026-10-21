@@ -36,6 +36,16 @@ class ServerTest(unittest.TestCase):
         with urlopen(self.base, timeout=2) as r:
             self.assertIn(b"Cantieri", r.read())
 
+    def test_codice_non_riusa_cache_condizionale(self):
+        for path in ['/', '/src/ui/planimetrie.js?v=v20261021a']:
+            with urlopen(self.base+path,timeout=2) as r:
+                modified=r.headers['Last-Modified']
+                self.assertIn('no-store',r.headers['Cache-Control'])
+            req=Request(self.base+path,headers={'If-Modified-Since':modified})
+            with urlopen(req,timeout=2) as r:
+                self.assertEqual(r.status,200)
+                self.assertTrue(r.read())
+
     def test_host_origin_e_file_privati(self):
         self.status("/", 403, headers={"Host":"example.invalid"})
         self.status("/api/bdtre?lat=45&lon=7&r=0.001", 403, headers={"Origin":"https://example.invalid"})

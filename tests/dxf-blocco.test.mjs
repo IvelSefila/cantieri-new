@@ -20,6 +20,9 @@ test('unità manuali prevalgono su header e sono dichiarate nel rapporto',()=>{
  const p=parseDxf('0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n',{unitaOriginali:1});
  assert.equal(p.perMm,25.4);assert.ok(p.report.avvisi.some(x=>x.includes('header: 4')));
 });
+test('scala minuscola rispetto allo spessore viene segnalata prima delle stanze',()=>{
+ assert.throws(()=>dxfToPlan(parsed([{tipo:'LINE',layer:'A-WALL',punti:[[0,0],[796,0]]}])),/Scala DXF da verificare/);
+});
 test('intersezioni quasi coincidenti non moltiplicano i frammenti',()=>{
  const muri=Array.from({length:35},(_,i)=>({id:String(i),a:[0,i],b:[100000,100001-i],t:100}));
  const out=spezzaMuri(muri);

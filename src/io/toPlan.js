@@ -114,6 +114,12 @@ export function dxfToPlan(parsed, opzioni = {}) {
     walls,
     openings: [],
   };
+  if(walls.length){
+    const points=walls.flatMap(w=>[w.a,w.b]);
+    const extent=i=>Math.max(...points.map(p=>p[i]))-Math.min(...points.map(p=>p[i]));
+    const span=Math.max(extent(0),extent(1));
+    if(span<spessoreDefault*4)throw Error(`Scala DXF da verificare: ingombro ${extent(0)} × ${extent(1)} mm con muri spessi ${spessoreDefault} mm. Seleziona le unità originali DXF e ricarica il file; l'header potrebbe essere errato.`);
+  }
   const check = validatePlan(plan);
   return { plan, check, report: { ...parsed.report, ...rep, avvisi:[...parsed.report.avvisi,...rep.avvisi], muri: walls.length } };
 }

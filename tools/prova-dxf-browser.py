@@ -1,5 +1,5 @@
 """Prova DXF reale locale e reattività durante parsing/annullamento."""
-import json,sys,threading,http.server
+import json,sys,threading,http.server,os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 from serve import CantieriHandler
@@ -14,7 +14,7 @@ try:
   b=p.chromium.launch(channel='msedge',headless=True)
   page=b.new_page(viewport={'width':1440,'height':1000});errors=[]
   page.on('pageerror',lambda e:errors.append(str(e)))
-  page.goto(f'http://127.0.0.1:{server.server_port}/',wait_until='networkidle')
+  page.goto(os.environ.get('CANTIERI_TEST_BASE',f'http://127.0.0.1:{server.server_port}/'),wait_until='networkidle')
   page.locator('button.hud-tab[data-scheda="planimetrie"]').click()
   # Ipotesi esplicita di prova: questo file dichiara mm ma ha ingombro 796×564.
   # Non deduciamo né imponiamo questa unità nell'importatore.
@@ -24,7 +24,7 @@ try:
   page.wait_for_function('()=>!document.querySelector("#pl-file").disabled',timeout=60000)
   report['stato']=page.locator('#pl-stato').inner_text()
   assert 'modello generato' in report['stato'],report['stato']
-  assert 'Filtro layer muri' in report['stato']
+  assert 'Filtro layer muri' in page.locator('#pl-dettagli').text_content()
   page.screenshot(path=str(out/'modello.png'))
   report['worker']=page.evaluate('''async()=>{
    const {importaDxfLocale}=await import('/src/io/dxf-locale.js');

@@ -27,6 +27,22 @@ def url_bdtre(query):
     return BDTRE + "?" + urlencode({"service":"WFS","version":"1.1.0","request":"GetFeature","typename":"un_vol","maxfeatures":40,"srsname":"EPSG:4326","bbox":bbox})
 
 class CantieriHandler(SimpleHTTPRequestHandler):
+    def end_headers(self):
+        # Codice locale aggiornato spesso: nessuna copia obsoleta fra import JS.
+        target = urlsplit(self.path).path
+        if target in {"/", "/index.html"} or target.startswith("/src/"):
+            self.send_header("Cache-Control", "no-store, max-age=0")
+        super().end_headers()
+
+    def send_head(self):
+        target = urlsplit(self.path).path
+        if target in {"/", "/index.html"} or target.startswith("/src/"):
+            # Impedisce 304 basati soltanto sulla data per il codice applicativo.
+            for name in ("If-Modified-Since", "If-None-Match"):
+                if name in self.headers:
+                    del self.headers[name]
+        return super().send_head()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 

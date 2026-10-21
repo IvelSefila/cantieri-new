@@ -1,6 +1,6 @@
-import { apriArchivio } from '../io/archivio-planimetrie.js?v=v20261021a';
-import { leggiPlanimetria } from '../io/planimetrie.js?v=v20261021a';
-import { montaTracciamento } from '../trace/ui.js?v=v20261021a';
+import { apriArchivio } from '../io/archivio-planimetrie.js?v=v20261021c';
+import { leggiPlanimetria } from '../io/planimetrie.js?v=v20261021c';
+import { montaTracciamento } from '../trace/ui.js?v=v20261021c';
 
 const el=(tag,testo)=>{const e=document.createElement(tag);if(testo)e.textContent=testo;return e;};
 export function montaPlanimetrie(root,{getSessione,onApri}) {
@@ -10,6 +10,8 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
   const file=el('input'); file.type='file';file.id='pl-file';file.accept='.json,.dxf,.pdf,.png,.jpg,.jpeg,.webp';
   const label=el('label','Inserisci dal tuo PC: JSON, DXF, PDF, PNG, JPG o WebP');label.append(file);
   const stato=el('div','Le planimetrie e i documenti originali restano nel browser di questo PC.');stato.id='pl-stato';stato.setAttribute('role','status');
+  const dettagli=el('details');dettagli.id='pl-dettagli';dettagli.hidden=true;
+  const dettaglioTesto=el('p');dettagli.append(el('summary','Dettagli e avvisi di importazione'),dettaglioTesto);
   let importazione=null;
   const annulla=el('button','Annulla importazione');annulla.id='pl-annulla';annulla.hidden=true;
   annulla.onclick=()=>importazione?.abort();
@@ -23,7 +25,8 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
   const layerMuri=el('input');layerMuri.type='checkbox';layerMuri.id='pl-dxf-layer-muri';layerMuri.checked=true;
   const filtro=el('label','DXF: usa solo layer WALL / MURI se presenti (esclude quote e arredi) ');filtro.append(layerMuri);controlli.append(filtro);
   const elenco=el('div');elenco.id='pl-elenco';
-  root.append(el('h2','Dal PC'),label,controlli,annulla,el('h2','Progetto corrente'),titolo,salva,stato,el('h2','In memoria su questo browser'),elenco,el('h2','Esempi'));
+  stato.style.cssText='padding:10px;border:1px solid #64748b;border-radius:8px;margin:8px 0;overflow-wrap:anywhere';
+  root.append(el('h2','Dal PC'),label,stato,annulla,dettagli,controlli,el('h2','Progetto corrente'),titolo,salva,el('h2','In memoria su questo browser'),elenco,el('h2','Esempi'));
   const dialog=el('dialog');dialog.id='pl-editor';
   const chiudi=el('button','Chiudi tavola');chiudi.id='pl-chiudi';chiudi.onclick=()=>dialog.close();
   const trc=document.getElementById('trc-root');trc.classList.remove('avanzato');trc.open=true;
@@ -67,6 +70,7 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
     const token=++generazione;impostaOccupato(true);
     try {
       stato.textContent=`Lettura locale di ${f.name}…`;
+      dettagli.hidden=true;dettagli.open=false;
       importazione=new AbortController();annulla.hidden=!f.name.toLowerCase().endsWith('.dxf');
       const letto=await leggiPlanimetria(f,{riferimento:rif.value,spessoreDefault:Number(spessore.value),unitaOriginali:unita.value,soloLayerMuri:layerMuri.checked,signal:importazione.signal});
       if(token!==generazione)return;
@@ -74,7 +78,8 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
         onApri(letto.progetto,f.name,{origine:letto.formato,dxfReport:letto.report});
         attiva={titolo:f.name,origine:letto.formato};
         const messaggioArchivio=await salvaImportazione({...attiva,progetto:getSessione()});
-        stato.textContent=`${f.name}: modello generato nel browser. ${letto.report ? `${letto.report.arrotondamenti} arrotondamenti, scarto massimo ${letto.report.scostamento_max_mm.toFixed(3)} mm. ${letto.report.avvisi.join('; ')}` : 'Misure lette dal JSON in mm.'}`;
+        stato.textContent=`${f.name}: modello generato nel browser. ${letto.report ? `${letto.report.muri} segmenti muro. ${letto.report.avvisi.length} avvisi: apri i dettagli.` : 'Misure lette dal JSON in mm.'}`;
+        if(letto.report){dettaglioTesto.textContent=`${letto.report.arrotondamenti} arrotondamenti, scarto massimo ${letto.report.scostamento_max_mm.toFixed(3)} mm. ${letto.report.avvisi.join('; ')}`;dettagli.hidden=false;}
         stato.textContent+=messaggioArchivio;
       } else {
         // Prima decodifica e visualizza; un documento illeggibile non entra nell'archivio.

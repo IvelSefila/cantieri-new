@@ -1,7 +1,7 @@
-import {parseDxf} from './dxf.js?v=v20261021a';
-import {dxfToPlan} from './toPlan.js?v=v20261021a';
-import {preparaProgetto} from '../core/sessione.js?v=v20261021a';
-import {stanze} from '../core/rooms.js?v=v20261021a';
+import {parseDxf} from './dxf.js?v=v20261021c';
+import {dxfToPlan} from './toPlan.js?v=v20261021c';
+import {preparaProgetto} from '../core/sessione.js?v=v20261021c';
+import {stanze} from '../core/rooms.js?v=v20261021c';
 self.onmessage=async({data:{file,opzioni}})=>{
   try {
     const result=dxfToPlan(parseDxf(await file.text(),opzioni),{...opzioni,nome:file.name});
