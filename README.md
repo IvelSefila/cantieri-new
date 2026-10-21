@@ -1,6 +1,6 @@
 # Cantieri — motore planimetria → modello 3D (prototipo)
 
-Motore puro browser: carichi una planimetria in JSON o DXF (misure in **millimetri interi**), il motore valida il piano, costruisce i muri con i vani e monta gli infissi del catalogo CDI generati a codice. Sullo stesso progetto calcola superfici, antincendio, GSA / Asol,est, H'T, fabbisogni energetici, fotovoltaico e solare termico.
+Motore puro browser: dalla scheda **Planimetrie** carichi JSON, DXF, PDF, PNG, JPG o WebP e riapri i progetti salvati sul browser. JSON e DXF producono direttamente il modello; PDF e immagini richiedono conferma della scala e selezione o tracciamento dei muri. Il motore valida il piano in **millimetri interi**, costruisce i muri con i vani e monta gli infissi del catalogo CDI generati a codice. Sullo stesso progetto calcola superfici, antincendio, GSA / Asol,est, H'T, fabbisogni energetici, fotovoltaico e solare termico.
 
 **Ogni risultato dichiara quanto è affidabile** (esatto, esatto sui dati inseriti, stima, mancano dati), perché, cosa serve per arrivare al 100 % e quali documenti mancano: scheda **Affidabilità** del sito e [docs/AFFIDABILITA.md](docs/AFFIDABILITA.md).
 
@@ -9,15 +9,15 @@ Motore puro browser: carichi una planimetria in JSON o DXF (misure in **millimet
 ## Principi
 
 - **Precisione al millimetro**: il modello dati accetta solo interi in mm. Nessun arrotondamento nascosto; dove un valore non è intero (muri obliqui) il motore lo segnala.
-- **Nessun server, nessun dato inviato**: tutto gira nel browser.
-- **Leggero**: nessun framework; un solo import (Three.js, versione fissata 0.160.0).
+- **Geometria e documenti locali**: modello, JSON, DXF e PDF sono elaborati nel browser. La ricerca di un indirizzo invia il testo ai geocoder esterni; la cartografia richiede i servizi geografici indicati sotto.
+- **Leggero**: nessun framework; Three.js 0.160.0 e PDF.js 5.4.624 inclusi localmente. Nessun servizio esterno per convertire le tavole.
 - **Separazione**: `src/core` è puro JavaScript senza Three.js; `src/view` è solo la resa.
 
 ## Struttura
 
 ```
 data/plan-ar02.json      planimetria di esempio (AR-02, piano tipo) in mm
-data/cdi-catalog.json    19 modelli CDI (solo dati tecnici, senza prezzi né immagini)
+data/cdi-catalog.json    27 modelli CDI
 src/core/model.js        formato del piano e validazione (interi, vani, mazzette)
 src/core/build.js        piano -> scatole 3D in mm (muri tra i vani, infissi)
 src/core/cdi.js          infissi procedurali: telaio, vetro, anta, maniglia
@@ -32,6 +32,7 @@ src/core/clima.js        dati climatici di Roma (UNI 10349:2016; PVGIS solo per 
 src/core/pdfdati.js      lettura dei dati da una relazione ex Legge 10 in PDF
 src/core/precisione.js   affidabilità di ogni motore, cosa serve per il 100 %, documenti
 src/core/registro-norme.js  norme usate, stato della verifica e fonti
+src/core/sessione.js     import/export e parametri tecnici del progetto
 src/view/scene.js        vista Three.js
 src/app.js               interfaccia
 tests/                   test del motore (Node), stress test e back-test su relazioni reali
@@ -74,19 +75,42 @@ tools/genera-affidabilita.mjs  rigenera docs/AFFIDABILITA.md
 - Ogni arrotondamento a mm intero è contato e riportato; nessuna correzione silenziosa.
 - I vani non vengono importati dal DXF: si aggiungono nel modello JSON.
 
-## Tracciamento su immagine
+## Planimetrie in memoria e PDF
 
-1. Carica un'immagine (PNG/JPG). Imposta la **distanza di calibrazione** in mm, poi clicca **1. Calibra**: primo clic sull'origine, secondo clic su un punto di distanza nota.
-2. **2. Muro**: due clic per ogni segmento. **3. Vano**: due clic sullo stesso muro (tipo, altezza, davanzale nei campi accanto).
-3. **Invia al 3D** o **Esporta JSON**.
-- Le coordinate sono interi in mm. Lo **zoom** non cambia la scala, ma permette di cliccare con più precisione.
-- **Precisione reale = risoluzione dell'immagine**: con 20 mm per pixel nessun clic può essere più preciso di 20 mm. Per il millimetro serve una rasterizzazione ad alta risoluzione.
+1. Apri **Planimetrie** nel menu e scegli un file dal PC, una voce **In memoria su questo browser** oppure un esempio. I modelli importati e i documenti PDF/immagine originali vengono conservati in IndexedDB. Puoi anche salvare una copia del progetto corrente con un nome.
+2. Nel **PDF vettoriale** scegli la pagina; conferma la scala stampata con **Applica scala PDF**, oppure calibra una quota nota. Seleziona solo gli **assi dei muri**, escludendo quote e arredi. Curve e riempimenti non diventano muri. Un PDF con le due facce del muro non equivale a un disegno dei suoi assi: serve il tracciamento delle mezzerie.
+3. In una **scansione PDF o immagine**, ingrandisci con Zoom, imposta la distanza reale e clicca **1. Calibra**, poi i due estremi della quota nota.
+4. Inserisci una **seconda quota reale** e clicca **Verifica seconda quota**, poi i suoi estremi. Dopo la calibrazione manuale deve avere una direzione diversa dalla prima. Una misura incompatibile blocca la generazione.
+5. PDF vettoriale: **Genera 3D dai segmenti selezionati**. Scansione/immagine: **2. Muro**, clic sui vertici; **3. Vano** aggiunge aperture, quindi **Invia al 3D**. Imposta spessori e altezze reali nei campi: non vengono dedotti dalle linee PDF.
+
+**Misure:** nei test le lunghezze JSON/DXF/PDF vettoriali coincidono con le quote note. Scansioni, clic, deformazioni del foglio e griglia limitano la precisione: memorizzare mm interi non rende millimetrica una fotografia. Il programma mostra la risoluzione di selezione e salva nel JSON scala, quota di controllo e arrotondamenti. Il controllo di una quota non certifica ogni misura della tavola.
+
+L'archivio appartiene al browser e all'origine del sito (indirizzo e porta): un altro profilo/porta non vede la stessa raccolta. La cancellazione dei dati del sito rimuove l'archivio. **Scarica progetto (JSON)** conserva una copia esportabile del modello. PDF e immagini: limite 50 MB; immagini fino a 20 megapixel. I PDF protetti da password non vengono sbloccati dall'app.
+
+Procedura, risultati misurati e limiti: [docs/PLANIMETRIE.md](docs/PLANIMETRIE.md).
 
 ## Test
 
 ```bash
 npm test
 ```
+
+La suite include automaticamente tutti i file `tests/*.test.mjs`. Le prove reali, separate dalla suite offline:
+
+```bash
+python -m unittest discover -s tests -p test_server.py
+python tools/prova-planimetrie.py
+python tools/prova-browser.py --live
+node tools/prova-civici-live.mjs
+```
+
+Le prove browser richiedono Playwright per Python e Microsoft Edge. Il campione contiene 23 indirizzi nelle 20 regioni: dimostra i risultati dei singoli casi, non la copertura di tutti i civici italiani. Evidenze e limiti: [docs/COLLAUDO_2026-10-20.md](docs/COLLAUDO_2026-10-20.md).
+
+## Salvataggio e recupero
+
+Il progetto viene salvato nel localStorage del browser e recuperato alla riapertura dalla stessa origine. Il JSON esportato conserva geometria, assegnazioni CDI, orientamento, parametri solari, energetici e scheda ambiti. Le origini diverse (es. porte locali diverse e GitHub Pages) hanno salvataggi distinti. Scaricare il JSON per trasferire o archiviare il lavoro; il recupero locale dipende dalla disponibilità dello spazio del browser.
+
+Un'importazione non valida viene rifiutata prima di sostituire il progetto corrente. Nuovo progetto azzera anche i parametri tecnici della sessione precedente.
 
 I test DXF e di tracciamento usano dati costruiti nel test, non disegni del progetto.
 
@@ -102,6 +126,8 @@ Stress test (`tests/stress.test.mjs`): migliaia di casi generati con seme fisso 
 
 ## Limiti del prototipo
 
+Il [collaudo generale del 20 ottobre 2026](docs/DEBUG_GENERALE_2026-10-20.md) documenta le correzioni e le prove aggiornate. Per ripetere le regressioni browser: `npm run test:debug`. Nei DXF senza unità dichiarate, scegliere esplicitamente l'unità dal selettore di importazione prima di generare il modello.
+
 L'elenco completo, motore per motore, è in [docs/AFFIDABILITA.md](docs/AFFIDABILITA.md). In breve:
 
 - Infissi e porte sono generati a codice con dimensioni standard del tipo; non sono modelli fotografici CDI.
@@ -116,8 +142,13 @@ L'elenco completo, motore per motore, è in [docs/AFFIDABILITA.md](docs/AFFIDABI
 - **Semplice**: controlli essenziali (progetto, costruzione, vista, stile). **Architetto**: aggiunge importazione DXF, tracciamento, elenco vani e statistiche di resa.
 - **Qualità di resa**: automatica (sceglie in base a core, memoria e GPU), oppure basso / medio / alto. La scena si ridisegna solo quando cambia qualcosa.
 
-## Nessuna connessione esterna
+## Altimetria da civico e connessioni esterne
 
 - Three.js è incluso nel sito (`vendor/three`), non viene caricato da internet.
-- La pagina dichiara una politica di sicurezza (Content Security Policy) che consente solo file del sito: nessun server, nessun dato in uscita, nessun accesso alla rete locale.
-- Verificato con tutte le richieste esterne bloccate: la pagina funziona e disegna il modello.
+- JSON, DXF, PDF e geometria non richiedono servizi esterni per il percorso locale.
+- L'autocomplete dopo tre caratteri e la ricerca civici interrogano ArcGIS, Photon o Nominatim. Le coordinate vengono usate per interrogare cartografia OSM e, in Piemonte, BDTRE. La CSP elenca gli host ammessi.
+- **OSM non è LiDAR**: il risultato distingue tag height, livelli dichiarati e stime da tipologia/impronta. Una stima tipologica senza quota non determina automaticamente la classe antincendio. Il civico restituito da un provider non certifica da solo l'associazione al corpo edilizio.
+- **Il progetto non integra un servizio LiDAR nazionale PST**. Una risposta OSM non dimostra copertura LiDAR. Le prove correnti confermano quote con metadati DSM-DTM/LAS BDTRE per i campioni piemontesi, non una copertura nazionale di misure.
+- Il browser ha incontrato un blocco CORS sul WFS BDTRE diretto. Per il percorso locale completo avviare `npm start` (oppure `python tools/serve.py --port 8765`) e aprire [Cantieri locale](http://127.0.0.1:8765). Il server Python usa solo libreria standard, ascolta su loopback e offre un proxy limitato al WFS BDTRE con coordinate/raggio verificati. Non è un proxy generico.
+- Su GitHub Pages il server Python non viene eseguito: il WFS diretto può restare bloccato e il sito ripiega sulla cartografia disponibile, dichiarandone la fonte. Nessuna nuova versione è pubblicata automaticamente da questi comandi.
+- L'altezza volumetrica non misura la quota dell'apertura più alta dell'ultimo piano abitabile. La sua trasformazione rimane una stima provvisoria; il riferimento accessibile ai soccorsi deve essere verificato esplicitamente. I calcoli non attestano la conformità di una pratica.

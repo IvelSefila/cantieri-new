@@ -61,6 +61,18 @@ export function spezzaMuri(muri) {
       const punti = [];
       for (const v of tratti) {
         if (v === w) continue;
+        // Anche un incrocio tra gli interni dei segmenti crea un nodo del grafo.
+        const u = [w.b[0] - w.a[0], w.b[1] - w.a[1]];
+        const d = [v.b[0] - v.a[0], v.b[1] - v.a[1]];
+        const den = u[0] * d[1] - u[1] * d[0];
+        if (den !== 0) {
+          const q = [v.a[0] - w.a[0], v.a[1] - w.a[1]];
+          const t = (q[0] * d[1] - q[1] * d[0]) / den;
+          const s = (q[0] * u[1] - q[1] * u[0]) / den;
+          if (t > 1e-9 && t < 1 - 1e-9 && s >= 0 && s <= 1) {
+            punti.push([w.a[0] + t * u[0], w.a[1] + t * u[1]]);
+          }
+        }
         for (const p of [v.a, v.b]) {
           const interno = !(p[0] === w.a[0] && p[1] === w.a[1]) && !(p[0] === w.b[0] && p[1] === w.b[1]);
           if (interno && suSegmento(p, w.a, w.b)) punti.push(p);
@@ -94,7 +106,7 @@ function costruisciGrafo(tratti) {
     if (w.a[0] === w.b[0] && w.a[1] === w.b[1]) continue;
     const ka = aggiungi(w.a);
     const kb = aggiungi(w.b);
-    if (ka === kb) continue;
+    if (ka === kb || adj.get(ka).some(x => x.verso === kb)) continue;
     adj.get(ka).push({ verso: kb, t: w.t, wall: w.id });
     adj.get(kb).push({ verso: ka, t: w.t, wall: w.id });
     archi.push([ka, kb]);

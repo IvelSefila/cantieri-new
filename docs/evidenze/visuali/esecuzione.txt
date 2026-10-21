@@ -1,0 +1,108 @@
+PASS menu app fotorealistico
+PASS menu app solido
+PASS menu app argilla
+PASS menu app vetro
+PASS menu app ultra-glass
+PASS menu app blueprint
+PASS menu app notte
+PASS menu app neon
+PASS menu app dollhouse
+PASS menu app iso-dollhouse
+PASS menu app vetro-dollhouse
+PASS prima persona sospende dollhouse e sincronizza menu
+PASS uscita prima persona ripristina dollhouse e menu
+PASS basso fotorealistico modello davanti alla nebbia
+PASS basso fotorealistico centrato sul progetto importato
+PASS basso solido modello davanti alla nebbia
+PASS basso solido centrato sul progetto importato
+PASS basso argilla modello davanti alla nebbia
+PASS basso argilla centrato sul progetto importato
+PASS basso dollhouse modello davanti alla nebbia
+PASS basso dollhouse centrato sul progetto importato
+PASS basso dollhouse muri tagliati
+PASS basso iso-dollhouse modello davanti alla nebbia
+PASS basso iso-dollhouse centrato sul progetto importato
+PASS basso iso-dollhouse muri tagliati
+PASS basso vetro modello davanti alla nebbia
+PASS basso vetro centrato sul progetto importato
+PASS basso vetro muri trasparenti senza foto opache
+PASS basso vetro-dollhouse modello davanti alla nebbia
+PASS basso vetro-dollhouse centrato sul progetto importato
+PASS basso vetro-dollhouse muri trasparenti senza foto opache
+PASS basso vetro-dollhouse muri tagliati
+PASS basso ultra-glass modello davanti alla nebbia
+PASS basso ultra-glass centrato sul progetto importato
+PASS basso ultra-glass muri trasparenti senza foto opache
+PASS basso blueprint modello davanti alla nebbia
+PASS basso blueprint centrato sul progetto importato
+PASS basso notte modello davanti alla nebbia
+PASS basso notte centrato sul progetto importato
+PASS basso notte luci calde reali
+PASS basso neon modello davanti alla nebbia
+PASS basso neon centrato sul progetto importato
+PASS qualita dopo isometrica basso
+PASS medio fotorealistico modello davanti alla nebbia
+PASS medio fotorealistico centrato sul progetto importato
+PASS medio solido modello davanti alla nebbia
+PASS medio solido centrato sul progetto importato
+PASS medio argilla modello davanti alla nebbia
+PASS medio argilla centrato sul progetto importato
+PASS medio dollhouse modello davanti alla nebbia
+PASS medio dollhouse centrato sul progetto importato
+PASS medio dollhouse muri tagliati
+PASS medio iso-dollhouse modello davanti alla nebbia
+PASS medio iso-dollhouse centrato sul progetto importato
+PASS medio iso-dollhouse muri tagliati
+PASS medio vetro modello davanti alla nebbia
+PASS medio vetro centrato sul progetto importato
+PASS medio vetro muri trasparenti senza foto opache
+PASS medio vetro-dollhouse modello davanti alla nebbia
+PASS medio vetro-dollhouse centrato sul progetto importato
+PASS medio vetro-dollhouse muri trasparenti senza foto opache
+PASS medio vetro-dollhouse muri tagliati
+PASS medio ultra-glass modello davanti alla nebbia
+PASS medio ultra-glass centrato sul progetto importato
+PASS medio ultra-glass muri trasparenti senza foto opache
+PASS medio blueprint modello davanti alla nebbia
+PASS medio blueprint centrato sul progetto importato
+PASS medio notte modello davanti alla nebbia
+PASS medio notte centrato sul progetto importato
+PASS medio notte luci calde reali
+PASS medio neon modello davanti alla nebbia
+PASS medio neon centrato sul progetto importato
+PASS qualita dopo isometrica medio
+PASS alto fotorealistico modello davanti alla nebbia
+PASS alto fotorealistico centrato sul progetto importato
+PASS alto solido modello davanti alla nebbia
+PASS alto solido centrato sul progetto importato
+PASS alto argilla modello davanti alla nebbia
+PASS alto argilla centrato sul progetto importato
+PASS alto dollhouse modello davanti alla nebbia
+PASS alto dollhouse centrato sul progetto importato
+PASS alto dollhouse muri tagliati
+PASS alto iso-dollhouse modello davanti alla nebbia
+PASS alto iso-dollhouse centrato sul progetto importato
+PASS alto iso-dollhouse muri tagliati
+PASS alto vetro modello davanti alla nebbia
+PASS alto vetro centrato sul progetto importato
+PASS alto vetro muri trasparenti senza foto opache
+PASS alto vetro-dollhouse modello davanti alla nebbia
+PASS alto vetro-dollhouse centrato sul progetto importato
+PASS alto vetro-dollhouse muri trasparenti senza foto opache
+PASS alto vetro-dollhouse muri tagliati
+PASS alto ultra-glass modello davanti alla nebbia
+PASS alto ultra-glass centrato sul progetto importato
+PASS alto ultra-glass muri trasparenti senza foto opache
+PASS alto blueprint modello davanti alla nebbia
+PASS alto blueprint centrato sul progetto importato
+PASS alto notte modello davanti alla nebbia
+PASS alto notte centrato sul progetto importato
+PASS alto notte luci calde reali
+PASS alto neon modello davanti alla nebbia
+PASS alto neon centrato sul progetto importato
+PASS qualita dopo isometrica alto
+PASS stile cancella offset e orientamento della vista tecnica
+PASS arredo glTF rispetta argilla
+PASS arredo glTF rispetta taglio dollhouse
+PASS WASD orbitale muove in metri senza salto chilometrico
+PASS nessun errore JavaScript

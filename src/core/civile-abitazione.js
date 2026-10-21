@@ -187,6 +187,9 @@ export function valutaCivileAbitazione(input = {}) {
   if (alt.esito === "INDETERMINATO") {
     return { ...base, esito: "INDETERMINATO", motivo: alt.motivo, soglia_mm: alt.soglia_mm, dati_mancanti: alt.mancanti.length ? alt.mancanti : [alt.azione].filter(Boolean), azione: alt.azione, lp_finale: null };
   }
+  if (alt.avvisi.some(a => a.bloccante)) {
+    return { ...base, esito: "INDETERMINATO", motivo: "riferimento_non_verificato", dati_mancanti: alt.avvisi.filter(a => a.bloccante).map(a => a.testo), azione: "Verificare il piano esterno di riferimento prima della classificazione", lp_finale: null };
+  }
   const lo = alt.h_min_mm;
   const cls = classificaTipo(lo);
   if (cls.fuori_campo) return { ...base, esito: "FUORI_CAMPO", tipo: null, lp_finale: null, dati_mancanti: [], avvisi: [...alt.avvisi], nota: "h sotto 12 m: DM 246/1987 non applicabile (verificare altre attivita' soggette)." };

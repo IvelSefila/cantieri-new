@@ -1,0 +1,521 @@
+{
+  "prove": [
+    {
+      "nome": "nuova voce Planimetrie accessibile",
+      "passa": true
+    },
+    {
+      "nome": "rettangolo json",
+      "passa": true,
+      "lunghezze_mm": [
+        6000.0,
+        4000.0,
+        6000.0,
+        4000.0
+      ],
+      "attese_mm": [
+        6000,
+        4000,
+        6000,
+        4000
+      ],
+      "scarto_massimo_mm": 0.0,
+      "tolleranza_mm": 0
+    },
+    {
+      "nome": "rettangolo json — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "rettangolo json — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 4
+    },
+    {
+      "nome": "rettangolo dxf",
+      "passa": true,
+      "lunghezze_mm": [
+        6000.0,
+        4000.0,
+        6000.0,
+        4000.0
+      ],
+      "attese_mm": [
+        6000,
+        4000,
+        6000,
+        4000
+      ],
+      "scarto_massimo_mm": 0.0,
+      "tolleranza_mm": 0
+    },
+    {
+      "nome": "rettangolo dxf — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "rettangolo dxf — rapporto unità e arrotondamenti esportato",
+      "passa": true
+    },
+    {
+      "nome": "rettangolo dxf — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 4
+    },
+    {
+      "nome": "elle json",
+      "passa": true,
+      "lunghezze_mm": [
+        8000.0,
+        3000.0,
+        4000.0,
+        3000.0,
+        4000.0,
+        6000.0
+      ],
+      "attese_mm": [
+        8000,
+        3000,
+        4000,
+        3000,
+        4000,
+        6000
+      ],
+      "scarto_massimo_mm": 0.0,
+      "tolleranza_mm": 0
+    },
+    {
+      "nome": "elle json — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "elle json — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 6
+    },
+    {
+      "nome": "elle dxf",
+      "passa": true,
+      "lunghezze_mm": [
+        8000.0,
+        3000.0,
+        4000.0,
+        3000.0,
+        4000.0,
+        6000.0
+      ],
+      "attese_mm": [
+        8000,
+        3000,
+        4000,
+        3000,
+        4000,
+        6000
+      ],
+      "scarto_massimo_mm": 0.0,
+      "tolleranza_mm": 0
+    },
+    {
+      "nome": "elle dxf — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "elle dxf — rapporto unità e arrotondamenti esportato",
+      "passa": true
+    },
+    {
+      "nome": "elle dxf — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 6
+    },
+    {
+      "nome": "DXF filo esterno",
+      "passa": true,
+      "lunghezze_mm": [
+        5800.0,
+        3800.0,
+        5800.0,
+        3800.0
+      ],
+      "attese_mm": [
+        5800,
+        3800,
+        5800,
+        3800
+      ],
+      "scarto_massimo_mm": 0.0,
+      "tolleranza_mm": 0
+    },
+    {
+      "nome": "DXF filo esterno — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "DXF filo esterno — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 4
+    },
+    {
+      "nome": "DXF esterno conserva ingombro 6000 x 4000 mm",
+      "passa": true
+    },
+    {
+      "nome": "raccolta persiste dopo refresh",
+      "passa": true
+    },
+    {
+      "nome": "modello riaperto",
+      "passa": true,
+      "lunghezze_mm": [
+        6000.0,
+        4000.0,
+        6000.0,
+        4000.0
+      ],
+      "attese_mm": [
+        6000,
+        4000,
+        6000,
+        4000
+      ],
+      "scarto_massimo_mm": 0.0,
+      "tolleranza_mm": 0
+    },
+    {
+      "nome": "modello riaperto — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "modello riaperto — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 4
+    },
+    {
+      "nome": "PDF due pagine interamente locale",
+      "passa": true
+    },
+    {
+      "nome": "scala errata blocca generazione",
+      "passa": true
+    },
+    {
+      "nome": "PDF vettoriale rettangolo — seconda quota",
+      "passa": true
+    },
+    {
+      "nome": "PDF vettoriale rettangolo",
+      "passa": true,
+      "lunghezze_mm": [
+        6000.0,
+        4000.0,
+        6000.0,
+        4000.0
+      ],
+      "attese_mm": [
+        6000,
+        4000,
+        6000,
+        4000
+      ],
+      "scarto_massimo_mm": 0.0,
+      "tolleranza_mm": 0
+    },
+    {
+      "nome": "PDF vettoriale rettangolo — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "PDF vettoriale rettangolo — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 3.637978807091713e-12,
+      "muri": 4
+    },
+    {
+      "nome": "cambio pagina richiede nuova verifica",
+      "passa": true
+    },
+    {
+      "nome": "ritorno alle pagine conserva segmenti vettoriali",
+      "passa": true
+    },
+    {
+      "nome": "PDF vettoriale ruotato elle — seconda quota",
+      "passa": true
+    },
+    {
+      "nome": "PDF vettoriale ruotato elle",
+      "passa": true,
+      "lunghezze_mm": [
+        8000.0,
+        3000.0,
+        4000.0,
+        3000.0,
+        4000.0,
+        6000.0
+      ],
+      "attese_mm": [
+        8000,
+        3000,
+        4000,
+        3000,
+        4000,
+        6000
+      ],
+      "scarto_massimo_mm": 0.0,
+      "tolleranza_mm": 0
+    },
+    {
+      "nome": "PDF vettoriale ruotato elle — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "PDF vettoriale ruotato elle — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 9.094947017729282e-13,
+      "muri": 6
+    },
+    {
+      "nome": "PDF scansione riconosciuto senza vettori",
+      "passa": true
+    },
+    {
+      "nome": "scansione.pdf — quota verificata",
+      "passa": true
+    },
+    {
+      "nome": "scansione.pdf",
+      "passa": true,
+      "lunghezze_mm": [
+        8000.0,
+        3992.0,
+        8000.0,
+        3992.0
+      ],
+      "attese_mm": [
+        8000,
+        4000,
+        8000,
+        4000
+      ],
+      "scarto_massimo_mm": 8.0,
+      "tolleranza_mm": 10
+    },
+    {
+      "nome": "scansione.pdf — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "scansione.pdf — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 4
+    },
+    {
+      "nome": "scansione.png — quota verificata",
+      "passa": true
+    },
+    {
+      "nome": "scansione.png",
+      "passa": true,
+      "lunghezze_mm": [
+        8000.0,
+        3998.0,
+        8000.0,
+        3998.0
+      ],
+      "attese_mm": [
+        8000,
+        4000,
+        8000,
+        4000
+      ],
+      "scarto_massimo_mm": 2.0,
+      "tolleranza_mm": 10
+    },
+    {
+      "nome": "scansione.png — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "scansione.png — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 4
+    },
+    {
+      "nome": "scansione.jpg — quota verificata",
+      "passa": true
+    },
+    {
+      "nome": "scansione.jpg",
+      "passa": true,
+      "lunghezze_mm": [
+        8000.0,
+        3998.0,
+        8000.0,
+        3998.0
+      ],
+      "attese_mm": [
+        8000,
+        4000,
+        8000,
+        4000
+      ],
+      "scarto_massimo_mm": 2.0,
+      "tolleranza_mm": 10
+    },
+    {
+      "nome": "scansione.jpg — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "scansione.jpg — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 4
+    },
+    {
+      "nome": "scansione.webp — quota verificata",
+      "passa": true
+    },
+    {
+      "nome": "scansione.webp",
+      "passa": true,
+      "lunghezze_mm": [
+        8000.0,
+        3998.0,
+        8000.0,
+        3998.0
+      ],
+      "attese_mm": [
+        8000,
+        4000,
+        8000,
+        4000
+      ],
+      "scarto_massimo_mm": 2.0,
+      "tolleranza_mm": 10
+    },
+    {
+      "nome": "scansione.webp — scena 3D presente",
+      "passa": true
+    },
+    {
+      "nome": "scansione.webp — misure mesh 3D",
+      "passa": true,
+      "scarto_mm": 4.547473508864641e-13,
+      "muri": 4
+    },
+    {
+      "nome": "PDF corrotto rifiutato senza salvare né sostituire modello",
+      "passa": true
+    },
+    {
+      "nome": "salvataggio manuale nella raccolta",
+      "passa": true
+    },
+    {
+      "nome": "recupero non nasconde origine raster stimata",
+      "passa": true
+    },
+    {
+      "nome": "menu mobile senza overflow",
+      "passa": true
+    },
+    {
+      "nome": "nessun upload HTTP dei documenti",
+      "passa": true
+    },
+    {
+      "nome": "nessuna dipendenza da richieste esterne",
+      "passa": true
+    },
+    {
+      "nome": "nessun errore JavaScript",
+      "passa": true
+    }
+  ],
+  "errori_js": [],
+  "richieste_esterne": [],
+  "mutazioni_http": [],
+  "fonti_sha256": {
+    "src\\app.js": "775d0e08cd749a374fc9c6d915f8217bd1f3166a74cc0e4190a877c068fad31b",
+    "src\\core\\alloggi.js": "b7db6b5807395a29fea53701294fe4bef05b28a92147c7216cb171219e32d82b",
+    "src\\core\\altimetria-civico.js": "e1ee627e27ecc59d54999d2c7198fd36908fe8b372fdec78903cdd9b5fdb3de9",
+    "src\\core\\antincendio.js": "8a1931695df8439f05ef1ced4f8b98cf5f9357929d3fb98a3c4d022d7fbb3a18",
+    "src\\core\\arredi.js": "3ea2e6af0fb51649c3bcea290966f8fc284f66a75b68f36d8358ceae3f75d49f",
+    "src\\core\\arredo-intelligente.js": "3dea76fd96d9c8426b02a5c38bfbea22a58d1475ba84057079ec899991912762",
+    "src\\core\\automatismi.js": "ffe591bcfed0146a841733bb44fba277228ba1fc2a4f837ffc0b0504496d1f9f",
+    "src\\core\\build.js": "d415bdc0a3443902f48d0537870668471dfb8a55acd4a83b743205d070e4ee6f",
+    "src\\core\\catalogo.js": "4778dbb9db14c97c84f6e2cb763fae7ecbb4b326901bbc2544eece13b90539d5",
+    "src\\core\\cdi.js": "412587ef0ede34e42d134b4adfc24be0a7cd0f6ee5af040942e68e47124e763a",
+    "src\\core\\civile-abitazione.js": "0634fbc7d9d5ccc9370c68dd400aa32afa23c3d341f09779a666914dfbe2386f",
+    "src\\core\\clima.js": "038d40a52fe3f89fe557ea35355d679701cfe180121b8c08e0e2101048974a89",
+    "src\\core\\elementi.js": "63cfb3161bc06da8e5b7d2c4cdc813ff234edbde7a11fb5474a546064df47a4c",
+    "src\\core\\energia.js": "719afb5c9b15dbc90759bff98810f50ace26749ffef99ff0bb9aa69ed5cf34b6",
+    "src\\core\\fsol.js": "a99dfd54f423d7783d74df93063a5ca9c6641af84b88de49c3a4a66246be84d6",
+    "src\\core\\funzioni-stanze.js": "0ed0261888d879964f726daedb1ebb98e0089fa81d27d692f24d4b416f21db14",
+    "src\\core\\gsa-incendio.js": "2393d96692b80b9d961ba2de2f200bf9e1ee785a713c628a5df4547c3d473b93",
+    "src\\core\\gsa.js": "cb5b0c2bcca859c05d4e3a1352b9a7bfbd79bd9686563899c0e886e0b9f50623",
+    "src\\core\\infissi3d.js": "74c4e8fa5ec94605b49bb53b33ef60567e54718c70e473deb60ba1c8feeda8f7",
+    "src\\core\\inquadratura.js": "cf2c9e9755fa7326e92a7feb534b1b006574c2410ddb49e6987d5b7ddc6a7304",
+    "src\\core\\limiti.js": "ebc298e84302646050b8554b7e9df75272ac7db816f34cf87567dc1b311ae3ee",
+    "src\\core\\measure.js": "f1f58e1b75256a9f0939debff25333488b9ccff85bab7effe26b52ec00f92d05",
+    "src\\core\\mensile.js": "31e6cdfb780ceaffb042c59304e3c5ea158843e6015fde5041da390def37574c",
+    "src\\core\\model.js": "3088ea64ec6bfe6e70168faf288b4724d19418fa181bc43483c9b8b613855b4b",
+    "src\\core\\normativa.js": "87d1bef973b78ed88f10d9411155be7f917c65f84c867a76c55109b94d7a4ea2",
+    "src\\core\\passeggiata.js": "e63ffd4d579321592a06b08798865fd3c5fc98bff25097fb774f059556c33061",
+    "src\\core\\pdfdati.js": "cbe94e6d79085a9d9ae319b255aa8c64b69f2ef73424ec9ef7ef5035a1cec7dd",
+    "src\\core\\precisione.js": "e0156fe8d5c26eea929ca545c13b510849196fa0e95d4faa2bd27585dcc93143",
+    "src\\core\\project.js": "c0fffb32c6c258dd19b1ff3f5d2d15b48003a588e81bcb728857e69d8aa229b4",
+    "src\\core\\registro-norme.js": "3cdab7106418c8fa8801c43ab2ee8b2b1fa864d3992ed313efbca01060c32c74",
+    "src\\core\\regole-dm246.js": "3b5714b4060fa507d23186b73a4d9e5b87ec3e4cc1dc8fa3df2c93d656f1d854",
+    "src\\core\\rischio-incendio.js": "a75e5f0bd3811a2031c02a5de0c0f2bee3e0f2373862ab3a738c25333bec2952",
+    "src\\core\\rooms.js": "bb9046dc1a964c4868540301f14a850d3048768bcf391ee0651cc735c6dab729",
+    "src\\core\\scheda-gsa.js": "ae52737975ffff034b2e03680a860d7badf104b149fd4127378bf3d656b786a2",
+    "src\\core\\sessione.js": "649c84606151885ea55e7593eec09afee572e539b6d260a2c76a4645a0bb6a84",
+    "src\\core\\snap.js": "38543ddae0c78ed24ef37e3e9d708610b82d62faf9722155ff892de74ff7db7c",
+    "src\\io\\archivio-planimetrie.js": "1b95d0f0a090da971418df53e3330b1da26f4433ac08b4d940991f6c9dbc1d24",
+    "src\\io\\dxf.js": "5365e496a7f29e34cde08e5d38b84eb0e98ecd041d428129ac2c21d2da7755dc",
+    "src\\io\\pdf-plan.js": "8e295ae2096e9dd8b0bf4368ba5bbd404804c231f5fd6485f320d4c36a5d926d",
+    "src\\io\\planimetrie.js": "4fd5ff0efad463b68fc9d65395ff9618b269b6036468ebf17d289b9985757175",
+    "src\\io\\toPlan.js": "c0f08e284f73a554833b483a83707d005e3586ef9bada3bd04f66b942e6ef94c",
+    "src\\trace\\geometry.js": "4df3014fc6db9297b1e5d68f7364576017cfa82e13c5ea54b049f179d43c14c5",
+    "src\\trace\\tracer.js": "957eacec4eda3e7bac81559d72dcd16f6d0964fc8ecc7aff2ca7a4a5ccc8ae8b",
+    "src\\trace\\ui.js": "f94269d0fd4aebe4d73c5a2054a52eab7bfbf2a945d29f1d71422ca3ad88fb4a",
+    "src\\ui\\affidabilita-ui.js": "1dc99b84ddd4cbd2ecae61f640fcee2d3eed0634ad22695cd0410defedc7d444",
+    "src\\ui\\arredo-ui.js": "d3fc7947af30b9744d1f0440383d8f3e24644658d80a52ee44f33329d1d8c957",
+    "src\\ui\\dock-infissi.js": "891e7b2c363a520f24e01207a05e66337e648c63a37b1cfe592b7751a9bcffe5",
+    "src\\ui\\energia-ui.js": "1b7608b7f5420c5ed701335df0ffeb36adef8274d9871eda99854b14df6ec85e",
+    "src\\ui\\gsa-ui.js": "1535cd79e8b96f0cb5a775ca83fb20daeac6a8b7243c12fc2322012cb4971aed",
+    "src\\ui\\hud.js": "44d6de30d735157c6eee476d591e7c9325271cd25c09355126a62b8f7ede948d",
+    "src\\ui\\planimetrie.js": "f1333ba97208d7d175c3ed1cfa27293eb3b663d0a3893ece42655a6f4b8e4ae9",
+    "src\\ui\\scheda.js": "b5136495884b92ad07ff75201f75b96c9626f91a474c991bdffc2f007344dd04",
+    "src\\view\\materials.js": "cbffca48cd6401a242cdae18067889da2e53de759ca1253dcb9c788aa1a7c8ee",
+    "src\\view\\misure.js": "683c5c56662ef029b4bca99a1439b753699268dc15146b07d476e712f8ef63be",
+    "src\\view\\modelli3d.js": "28b652e29bec1b6cba1273f20cb540f98b43b5b58b4fc171f420dc165fa2b486",
+    "src\\view\\passeggiata-view.js": "22aae6e4d083cdbe77282da2ace0419903a6afc02bcf8a9e69d1e9b138072c2e",
+    "src\\view\\post.js": "1446deba49e648e742dd26c6c7d8ac43acddaf81da27475d70b13371ddef8ee9",
+    "src\\view\\realistico.js": "d78c47c99612c735aca157278b4cf58ff93f57b870e3d3f28d2286993ccbed0d",
+    "src\\view\\scene.js": "7f40bccc4e40b960d57720d570875f7d2c1355776a8f9b8ee3d26ecd6be5b771",
+    "src\\view2d\\plan.js": "45c8afd81394e36a0642e0e9998b8555579568412bcd0437c4e98ed5e66e943c",
+    "index.html": "760bb6670f5dbb79611ff7cfd34ae4ff0bf6706fc2155794c1d83beefff863d4",
+    "tests\\fixtures\\planimetrie\\elle.dxf": "2d6ea6b189f5a0682cb341d13df05c5316e85da9f540108596f1b00cbacd5deb",
+    "tests\\fixtures\\planimetrie\\elle.json": "0cbc315b2590bd35a0128559035a2bb28f7646af7d702600f0993e2ef4312174",
+    "tests\\fixtures\\planimetrie\\invalido.pdf": "45619d1e5c2e86288d9fc0f75079d3e3bd583493925793c08863b7b9aff26e37",
+    "tests\\fixtures\\planimetrie\\manifest.json": "dbca9ddf7800e19e82586d438e9861def5b4bfa458a7030c46c46bf50a8fa286",
+    "tests\\fixtures\\planimetrie\\rettangolo.dxf": "5126c0b55f849b01652b192bba56b04c0b23a0ed105e04c87085f1e4c4896756",
+    "tests\\fixtures\\planimetrie\\rettangolo.json": "963cbbc1c6eb53dbabc8fcbc37f775312d2684822efa4e10e06bc6620efaaa5c",
+    "tests\\fixtures\\planimetrie\\scansione.jpg": "4bbf426afe6a9a340d3deffa47ee32aa670d8d947c5b7bab42a8c8dd05e3718b",
+    "tests\\fixtures\\planimetrie\\scansione.pdf": "521cdcdce8f6b6917d2ecd6132fc025d5e69c000adeadecd938a80626a811e0c",
+    "tests\\fixtures\\planimetrie\\scansione.png": "5366fd416c54f3158ff98e2ae8dd2d35d6f9fd13270149cfe82e54c3c0c0ca3c",
+    "tests\\fixtures\\planimetrie\\scansione.webp": "e8923de21de238db8fc71e0c02b63cb7a60a1d92e85d2d48b5fd8a305edd1496",
+    "tests\\fixtures\\planimetrie\\vettoriale.pdf": "a0a9adbdac81a4f69ce6341d04ee1ba0731f9d3d9c67154d31d3d500b4004a63"
+  }
+}

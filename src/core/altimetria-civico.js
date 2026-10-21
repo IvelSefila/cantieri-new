@@ -79,14 +79,29 @@ export const REGIONI_ITALIANE = {
 
 export function normalizzaRegione(str) {
   if (!str || typeof str !== "string") return "Italia";
-  const pulita = str.trim().toLowerCase();
+  const pulisci = s => s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[-–—\s]+/g, " ");
+  const pulita = pulisci(str);
   for (const [chiave, canonica] of Object.entries(REGIONI_ITALIANE)) {
-    if (pulita.includes(chiave)) return canonica;
+    if (pulita.includes(pulisci(chiave))) return canonica;
   }
   return "Italia";
 }
 
 // Estrae i volumi edilizi (un_vol) dal GML restituito dal WFS BDTRE Piemonte
+function distanzaImprontaM(coords, lat, lon) {
+  if (coords.length < 3) return null;
+  const points = coords.map(([a, b]) => [(b - lon) * 111320 * Math.cos(lat * Math.PI / 180), (a - lat) * 111320]);
+  let inside = false, distance = Infinity;
+  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+    const [x, y] = points[i], [a, b] = points[j];
+    if ((y > 0) !== (b > 0) && 0 < (a - x) * (-y) / (b - y) + x) inside = !inside;
+    const dx = a - x, dy = b - y;
+    const t = Math.max(0, Math.min(1, -(x * dx + y * dy) / (dx * dx + dy * dy || 1)));
+    distance = Math.min(distance, Math.hypot(x + t * dx, y + t * dy));
+  }
+  return inside ? 0 : distance;
+}
+
 export function parseGmlUnVol(gmlText, centroRiferimento = null) {
   const volumi = [];
   if (!gmlText) return volumi;
@@ -111,6 +126,7 @@ export function parseGmlUnVol(gmlText, centroRiferimento = null) {
       let vLat = centroRiferimento ? centroRiferimento.lat : null;
       let vLon = centroRiferimento ? centroRiferimento.lon : null;
       const coordStr = coordsM ? coordsM[1] : (posM ? posM[1] : "");
+      const impronta = [];
       if (coordStr) {
         const parts = coordStr.trim().split(/[\s,]+/);
         let sLat = 0, sLon = 0, cnt = 0;
@@ -121,6 +137,7 @@ export function parseGmlUnVol(gmlText, centroRiferimento = null) {
             sLat += p1;
             sLon += p2;
             cnt++;
+            impronta.push([p1, p2]);
           }
         }
         if (cnt > 0) {
@@ -134,14 +151,17 @@ export function parseGmlUnVol(gmlText, centroRiferimento = null) {
         const dLat = (vLat - centroRiferimento.lat) * 111320;
         const dLon = (vLon - centroRiferimento.lon) * 111320 * Math.cos(centroRiferimento.lat * Math.PI / 180);
         distM = Math.round(Math.sqrt(dLat * dLat + dLon * dLon) * 10) / 10;
+        const distanzaImpronta = distanzaImprontaM(impronta, centroRiferimento.lat, centroRiferimento.lon);
+        if (distanzaImpronta !== null) distM = Math.round(distanzaImpronta * 10) / 10;
       }
 
       volumi.push({
         altezza_volumetrica_m: altezzaM,
         quota_estradosso_m: isNaN(estradossoM) ? null : estradossoM,
         piano_origine: porM ? porM[1].trim() : null,
-        ente_prod: enteM ? enteM[1].trim() : "ARPA PIEMONTE",
-        modo_prod: modoM ? modoM[1].trim() : "LiDAR DSM-DTM",
+        ente_prod: enteM ? enteM[1].trim() : "BDTRE Piemonte",
+        modo_prod: modoM ? modoM[1].trim() : "Quota volumetrica BDTRE; metodo non dichiarato",
+        fonte_altezza: modoM && /lidar|dsm|dtm|las/i.test(modoM[1]) ? "lidar" : "bdtre",
         lat: vLat,
         lon: vLon,
         distM,
@@ -214,7 +234,7 @@ export function parseOsmXmlBuildings(xml, centerLat, centerLon) {
     const bLon = count > 0 ? wayPoints.reduce((s, p) => s + p[1], 0) / count : centerLon;
     const dLat = (bLat - centerLat) * 111000;
     const dLon = (bLon - centerLon) * 111000 * Math.cos(centerLat * Math.PI / 180);
-    const distM = Math.hypot(dLat, dLon);
+    const distM = distanzaImprontaM(wayPoints, centerLat, centerLon) ?? Math.hypot(dLat, dLon);
     const areaM2 = Math.round(polygonAreaM2(wayPoints));
 
     let altezzaM = null;
@@ -298,7 +318,8 @@ export function parseOsmXmlBuildings(xml, centerLat, centerLon) {
       lat: bLat,
       lon: bLon,
       distanza_m: Math.round(distM * 10) / 10,
-      ente_prod: "OpenStreetMap 3D / Catasto Volumetrico Nazionale",
+      ente_prod: "OpenStreetMap",
+      fonte_altezza: tags.height ? "osm_height" : tags["building:levels"] ? "osm_levels" : "tipologica",
       modo_prod: modoProd || "OpenStreetMap 3D",
       tags,
     });
@@ -345,7 +366,8 @@ export function parseOverpassElements(elements) {
         tipo_presunto: nomeEdificio,
         altezza_volumetrica_m: altezzaM || ((piani || 3) * 3.05 + 1.20),
         piani: piani || null,
-        ente_prod: "OpenStreetMap 3D / Catasto Volumetrico",
+        ente_prod: "OpenStreetMap",
+        fonte_altezza: tags.height ? "osm_height" : "osm_levels",
         modo_prod: tags.height ? "Tag OSM height" : "Tag OSM building:levels (DM 5/7/1975)",
       });
     }
@@ -393,7 +415,7 @@ export function generaVolumiArchetipoItaliano() {
 // a partire dall'altezza volumetrica totale dell'edificio (da LiDAR o 3D mesh).
 // Regola prudenziale: davanzale = altezza totale - parapetto/sotto-tetto (1.40 m ± 0.40 m).
 export function stimaAltezzaAntincendiDaEdificio(altezzaVolumetricaM, { fonte = "LiDAR BDTRE Piemonte (ARPA)" } = {}) {
-  if (typeof altezzaVolumetricaM !== "number" || isNaN(altezzaVolumetricaM) || altezzaVolumetricaM <= 0) {
+  if (!Number.isFinite(altezzaVolumetricaM) || altezzaVolumetricaM <= 0) {
     return null;
   }
   const minM = Math.max(0, altezzaVolumetricaM - 1.80);
@@ -411,7 +433,7 @@ export function stimaAltezzaAntincendiDaEdificio(altezzaVolumetricaM, { fonte = 
 // Secondo il DM 5 luglio 1975 (altezza netta 2.70 m + solaio ~0.35 m = 3.05 m per piano):
 // Quota davanzale ultimo piano calpestabile: h = (N - 1) * 3.05 m + 1.00 m (± 0.35 m)
 export function stimaAltezzaAntincendiDaPiani(numeroPiani, { altezzaPianoM = 3.05, fonte = "Piani Edificio (DM 5/7/1975)" } = {}) {
-  if (typeof numeroPiani !== "number" || isNaN(numeroPiani) || numeroPiani <= 0) {
+  if (!Number.isInteger(numeroPiani) || numeroPiani <= 0) {
     return null;
   }
   const hCentroM = (numeroPiani - 1) * altezzaPianoM + 1.00;
@@ -467,8 +489,37 @@ export function estraiKeywordSignificative(testo) {
 
 export function eIndirizzoPertinente(testoCompletoRisultato, keywords) {
   if (!keywords || keywords.length === 0) return true;
-  const nom = (testoCompletoRisultato || "").toLowerCase();
-  return keywords.some((k) => nom.includes(k));
+  const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ");
+  const nom = norm(testoCompletoRisultato);
+  return keywords.every(k => nom.includes(norm(k)));
+}
+
+function comuneCoerente(testo, comune) {
+  const atteso = scomponiIndirizzo(testo.replace(/\b\d{5}\b/g, "").replace(/\s+/g, " ")).cityPart;
+  if (!atteso || !comune) return true;
+  const norm = s => normalizzaComune(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+  return norm(atteso) === norm(comune);
+}
+
+// Deadline anche durante il corpo; abort e timer vengono sempre rilasciati.
+async function richiestaDati(fetchFn, url, options = {}, timeoutMs = 5000) {
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  options.signal?.addEventListener("abort", abort, { once: true });
+  if (options.signal?.aborted) controller.abort();
+  let timer;
+  const cleanup = () => { clearTimeout(timer); options.signal?.removeEventListener("abort", abort); };
+  const deadline = new Promise((_, reject) => {
+    timer = setTimeout(() => { controller.abort(); reject(new Error("Servizio non disponibile entro il tempo massimo")); }, timeoutMs);
+  });
+  try {
+    const response = await Promise.race([fetchFn(url, { ...options, signal: controller.signal }), deadline]);
+    if (!response?.ok) { cleanup(); return response; }
+    // Leggi il corpo qui: il timeout non termina alla sola ricezione degli header.
+    const data = await Promise.race([response.text ? response.text() : response.json(), deadline]);
+    cleanup();
+    return { ok: true, status: response.status, text: async () => typeof data === "string" ? data : JSON.stringify(data), json: async () => typeof data === "string" ? JSON.parse(data) : data };
+  } catch (e) { cleanup(); throw e; }
 }
 
 const MESI_ODONIMI = new Set([
@@ -552,7 +603,7 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
   const visti = new Set();
 
   function aggiungi(cand) {
-    if (!cand || typeof cand.lat !== "number" || typeof cand.lon !== "number") return;
+    if (!cand || !Number.isFinite(cand.lat) || !Number.isFinite(cand.lon) || !comuneCoerente(testo, cand.comune)) return;
     const testoCompleto = `${cand.via || ""} ${cand.civico || ""} ${cand.comune || ""} ${cand.provincia || ""} ${cand.display_name || ""}`;
     if (kw.length > 0 && !eIndirizzoPertinente(testoCompleto, kw)) {
       return;
@@ -566,10 +617,7 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
   // 1. Prova prima con ArcGIS World Geocoder (accesso puntuale a tutti i numeri civici italiani)
   try {
     const arcUrl = `${ARCGIS_FIND_URL}?f=json&SingleLine=${encodeURIComponent(testo)}&sourceCountry=ITA&outFields=*&maxLocations=${limit * 2}`;
-    const resArc = await Promise.race([
-      fetchFn(arcUrl),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 3000))
-    ]);
+    const resArc = await richiestaDati(fetchFn, arcUrl, {}, 3000);
     if (resArc && resArc.ok) {
       const dataArc = await resArc.json();
       const candidates = Array.isArray(dataArc.candidates) ? dataArc.candidates : [];
@@ -603,6 +651,8 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
           lat: c.location.y,
           lon: c.location.x,
           provider: "ArcGIS World Geocoder",
+          precisione: attr.Addr_type || "non_dichiarata",
+          civico_verificato: !!attr.AddNum,
         });
         if (risultati.length >= limit) break;
       }
@@ -613,10 +663,7 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
   if (targetCity && !risultati.some(r => r.comune?.toLowerCase().includes(targetCity) || r.provincia?.toLowerCase().includes(targetCity))) {
     try {
       const sUrl = `${ARCGIS_SUGGEST_URL}?f=json&text=${encodeURIComponent(testo)}&countryCode=ITA&maxSuggestions=${limit}`;
-      const resSug = await Promise.race([
-        fetchFn(sUrl),
-        new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 2500))
-      ]);
+      const resSug = await richiestaDati(fetchFn, sUrl, {}, 2500);
       if (resSug && resSug.ok) {
         const dataSug = await resSug.json();
         const suggestions = Array.isArray(dataSug.suggestions) ? dataSug.suggestions : [];
@@ -624,7 +671,7 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
           if (!s.magicKey) continue;
           try {
             const fUrl = `${ARCGIS_FIND_URL}?f=json&magicKey=${encodeURIComponent(s.magicKey)}&outFields=*&maxLocations=1`;
-            const fRes = await fetchFn(fUrl);
+            const fRes = await richiestaDati(fetchFn, fUrl);
             if (fRes && fRes.ok) {
               const fData = await fRes.json();
               const cand = fData.candidates?.[0];
@@ -656,6 +703,8 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
                   lat: cand.location.y,
                   lon: cand.location.x,
                   provider: "ArcGIS World Geocoder",
+          precisione: attr.Addr_type || "non_dichiarata",
+          civico_verificato: !!attr.AddNum,
                 });
                 if (risultati.length >= limit) break;
               }
@@ -681,10 +730,7 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
   // 2. Prova con Photon OSM (rapido e senza rate-limit bloccante)
   try {
     const pUrl = `${PHOTON_URL}?q=${encodeURIComponent(testo)}&limit=${limit * 2}`;
-    const res = await Promise.race([
-      fetchFn(pUrl),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 3000))
-    ]);
+    const res = await richiestaDati(fetchFn, pUrl, {}, 3000);
     if (res && res.ok) {
       const data = await res.json();
       const rawFeats = (data.features || []).slice();
@@ -730,6 +776,8 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
           lat: feat.geometry.coordinates[1],
           lon: feat.geometry.coordinates[0],
           provider: "Photon OSM",
+          precisione: p.housenumber ? "civico_osm" : "via",
+          civico_verificato: !!p.housenumber,
         });
         if (risultati.length >= limit) break;
       }
@@ -743,7 +791,7 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
   // 3. Fallback su Nominatim OSM
   try {
     const url = `${NOMINATIM_URL}?q=${encodeURIComponent(testo)}&format=json&addressdetails=1&countrycodes=it&limit=${limit}`;
-    const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; autocomplete)" } });
+    const res = await richiestaDati(fetchFn, url);
     if (res && res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
@@ -772,6 +820,8 @@ export async function autocompletaIndirizzo(testo, { fetchFn = fetch, limit = 5 
             lat: parseFloat(d.lat),
             lon: parseFloat(d.lon),
             provider: "Nominatim OSM",
+            precisione: addr.house_number ? "civico_osm" : "via",
+            civico_verificato: !!addr.house_number,
           });
           if (risultati.length >= limit) break;
         }
@@ -870,16 +920,14 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
   // 1. Prova prima con ArcGIS World Geocoder (altissima precisione sui numeri civici reali d'Italia)
   try {
     const arcUrl = `${ARCGIS_FIND_URL}?f=json&SingleLine=${encodeURIComponent(indirizzo)}&sourceCountry=ITA&outFields=*&maxLocations=5`;
-    const res = await Promise.race([
-      fetchFn(arcUrl),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 3500))
-    ]);
+    const res = await richiestaDati(fetchFn, arcUrl, {}, 3500);
     if (res && res.ok) {
       const data = await res.json();
       const candidates = Array.isArray(data.candidates) ? data.candidates : [];
       for (const cand of candidates) {
         if (!cand.score || cand.score < 75) continue;
         const attr = cand.attributes || {};
+        if (attr.AddNum && userCivico && String(attr.AddNum).toLowerCase() !== userCivico.toLowerCase()) continue;
         let via = attr.StPreType && attr.StName
           ? `${attr.StPreType.trim()} ${attr.StName.trim()}`.replace(/\s+/g, " ").trim()
           : (attr.StName || attr.ShortLabel || cand.address.split(",")[0] || "").trim();
@@ -888,6 +936,7 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
           via = via.slice(0, -(civico.length + 1)).trim();
         }
         const comune = normalizzaComune(attr.City || "");
+        if (!comuneCoerente(indirizzo, comune)) continue;
         const provincia = normalizzaComune(attr.Subregion || "");
         const cap = attr.Postal || "";
         let regione = normalizzaRegione(attr.Region || "");
@@ -911,6 +960,10 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
           cap,
           regione,
           provider: "ArcGIS World Geocoder",
+          precisione: attr.Addr_type || "non_dichiarata",
+          civico_verificato: !!attr.AddNum,
+          precisione: attr.Addr_type || "non_dichiarata",
+          civico_verificato: !!attr.AddNum,
           raw_address: attr,
         };
       }
@@ -920,10 +973,7 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
   // 2. Fallback su Photon OSM (con preservazione rigorosa del civico)
   try {
     const pUrl = `${PHOTON_URL}?q=${encodeURIComponent(indirizzo)}&limit=5`;
-    const res = await Promise.race([
-      fetchFn(pUrl),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 3500))
-    ]);
+    const res = await richiestaDati(fetchFn, pUrl, {}, 3500);
     if (res && res.ok) {
       const data = await res.json();
       const rawFeats = (data.features || []).slice();
@@ -954,6 +1004,7 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
           via = via.slice(0, -(civico.length + 1)).trim();
         }
         const comune = normalizzaComune(p.city || p.town || p.district || p.locality || "");
+        if (!comuneCoerente(indirizzo, comune)) continue;
         const provincia = normalizzaComune(p.county || "");
         const cap = p.postcode || "";
         const testoCompleto = `${via} ${civico} ${comune} ${provincia} ${p.state || ""} ${p.name || ""}`;
@@ -977,6 +1028,10 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
           cap,
           regione,
           provider: "Photon OSM",
+          precisione: p.housenumber ? "civico_osm" : "via",
+          civico_verificato: !!p.housenumber,
+          precisione: p.housenumber ? "civico_osm" : "via",
+          civico_verificato: !!p.housenumber,
           raw_address: p,
         };
       }
@@ -1003,7 +1058,7 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
 
     for (const url of candUrls) {
       try {
-        const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (cantieri-new; geocoding)" } });
+        const res = await richiestaDati(fetchFn, url);
         if (res && res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
@@ -1016,6 +1071,7 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
                 via = via.slice(0, -(civico.length + 1)).trim();
               }
               const comune = normalizzaComune(addr.city || addr.town || addr.village || addr.municipality || "");
+              if (!comuneCoerente(indirizzo, comune)) continue;
               const provincia = normalizzaComune(addr.county || "");
               const cap = addr.postcode || "";
               let regione = normalizzaRegione(addr.state || "");
@@ -1039,6 +1095,10 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
                 cap,
                 regione,
                 provider: "Nominatim OSM",
+            precisione: addr.house_number ? "civico_osm" : "via",
+            civico_verificato: !!addr.house_number,
+                precisione: addr.house_number ? "civico_osm" : "via",
+                civico_verificato: !!addr.house_number,
                 raw_address: addr,
               };
             }
@@ -1051,7 +1111,7 @@ export async function geocodificaIndirizzo(indirizzo, { fetchFn = fetch } = {}) 
   return { ok: false, errore: `Nessun risultato cartografico trovato per "${indirizzo}"` };
 }
 
-export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggioGradi = 0.00065 } = {}) {
+export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggioGradi = 0.00065, timeoutMs = 5000 } = {}) {
   let volumi = [];
   let gml = "";
 
@@ -1061,9 +1121,11 @@ export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggio
     const minLon = (lon - r).toFixed(6);
     const maxLon = (lon + r).toFixed(6);
     const url = `${WFS_BDT_RE_IMM}?service=WFS&version=1.1.0&request=GetFeature&typename=un_vol&maxfeatures=40&srsname=EPSG:4326&bbox=${minLat},${minLon},${maxLat},${maxLon},EPSG:4326`;
+    const locale = globalThis.location && ["localhost", "127.0.0.1"].includes(globalThis.location.hostname);
+    const urls = locale ? [`/api/bdtre?lat=${lat}&lon=${lon}&r=${r}`, url] : [url];
 
-    try {
-      const res = await fetchFn(url);
+    for (const endpoint of urls) try {
+      const res = await richiestaDati(fetchFn, endpoint, {}, timeoutMs);
       if (res && res.ok) {
         gml = await res.text();
         const estratti = parseGmlUnVol(gml, { lat, lon });
@@ -1073,6 +1135,7 @@ export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggio
         }
       }
     } catch (err) {}
+    if (volumi.length) break;
   }
 
   if (volumi.length === 0) {
@@ -1094,7 +1157,7 @@ export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggio
     palazzineAlte.sort((a, b) => b.altezza_volumetrica_m - a.altezza_volumetrica_m);
     palazzineSelezionate = clusterVolumiResidenziali(palazzineAlte, { maxClusterDist: 38 });
     const altri = abitabili.filter((v) => v.altezza_volumetrica_m < 10.0 && (!v.distM || v.distM <= 35));
-    palazzineSelezionate = [...palazzineSelezionate, ...altri];
+    palazzineSelezionate = [...palazzineSelezionate, ...altri].sort((a, b) => (a.distM ?? Infinity) - (b.distM ?? Infinity));
   } else {
     // Civico con villetta o palazzina di 2-3 piani (es. 6m - 9.5m, come via Galimberti 2):
     palazzineSelezionate = abitabili.filter((v) => !v.distM || v.distM <= 55);
@@ -1130,7 +1193,7 @@ export async function interrogaLiDARPiemonte(lat, lon, { fetchFn = fetch, raggio
   return { ok: true, volumi: finali, volumePrincipale: finali[0] };
 }
 
-// Interroga OpenStreetMap Overpass (copertura 100% dei comuni italiani) per estrarre volumi e livelli 3D
+// Interroga cartografia OSM: copertura, aggiornamento e quote dipendono dai contributi disponibili.
 export async function interrogaOSMNazionale(lat, lon, { fetchFn = fetch, timeoutMs = 2500 } = {}) {
   // 1. Prova prima l'API ufficiale OpenStreetMap map bbox (affidabile, con CORS, senza 502)
   const delta = 0.0006;
@@ -1138,19 +1201,7 @@ export async function interrogaOSMNazionale(lat, lon, { fetchFn = fetch, timeout
   const osmMapUrl = `${OSM_API_MAP_URL}?bbox=${bbox}`;
 
   try {
-    let signal;
-    let timerId;
-    if (typeof AbortController !== "undefined") {
-      const controller = new AbortController();
-      timerId = setTimeout(() => controller.abort(), timeoutMs);
-      signal = controller.signal;
-    }
-
-    const res = await fetchFn(osmMapUrl, {
-      headers: { "User-Agent": "CantieriAI/1.0 (antincendio-gsa)" },
-      signal,
-    });
-    if (timerId) clearTimeout(timerId);
+    const res = await richiestaDati(fetchFn, osmMapUrl, {}, timeoutMs);
 
     if (res && res.ok) {
       const xml = await res.text();
@@ -1165,7 +1216,7 @@ export async function interrogaOSMNazionale(lat, lon, { fetchFn = fetch, timeout
   try {
     const query = `[out:json][timeout:5];(way["building"](around:35,${lat},${lon});relation["building"](around:35,${lat},${lon}););out tags;`;
     const url = `${OVERPASS_URL}?data=${encodeURIComponent(query)}`;
-    const res = await fetchFn(url, { headers: { "User-Agent": "CantieriAI/1.0 (antincendio-gsa)" } });
+    const res = await richiestaDati(fetchFn, url, {}, timeoutMs);
     if (res && res.ok) {
       const data = await res.json();
       const volumi = parseOverpassElements(data.elements);
@@ -1186,9 +1237,10 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     indice_volume = 0,
     numero_piani_override = null,
     attivita = [],
-    piano_accessibile_vvf = true,
-    vani_tecnici_esclusi = true,
+    piano_accessibile_vvf = false,
+    vani_tecnici_esclusi = false,
     geo_precalcolata = null,
+    cartografia_precalcolata = null,
     fetchFn = fetch,
   } = opzioni;
 
@@ -1197,18 +1249,25 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     ? geo_precalcolata
     : await geocodificaIndirizzo(indirizzo, { fetchFn });
   if (!geo.ok) return { esito: "ERRORE", errore: geo.errore };
+  if (!Number.isFinite(geo.lat) || !Number.isFinite(geo.lon) || Math.abs(geo.lat) > 90 || Math.abs(geo.lon) > 180) return { esito: "ERRORE", errore: "Coordinate geografiche non valide" };
+  if (numero_piani_override !== null && (!Number.isInteger(numero_piani_override) || numero_piani_override < 1 || numero_piani_override > 200)) return { esito: "ERRORE", errore: "Numero di piani non valido" };
 
   let volumi = [];
   let provider = "";
   let volumeScelto = null;
   let fonteTipologica = false;
+  if (cartografia_precalcolata && Array.isArray(cartografia_precalcolata.volumi) && cartografia_precalcolata.volumi.length && cartografia_precalcolata.volumi.every(v => Number.isFinite(v.altezza_volumetrica_m) && v.altezza_volumetrica_m > 0)) {
+    volumi = structuredClone(cartografia_precalcolata.volumi);
+    provider = String(cartografia_precalcolata.provider || "Cartografia precedente");
+    fonteTipologica = cartografia_precalcolata.fonte_tipologica === true;
+  }
 
   // 2. Routing regionale: se in Piemonte, interroga prima la BDTRE WFS ARPA Piemonte
-  if (geo.regione === "Piemonte") {
+  if (volumi.length === 0 && geo.regione === "Piemonte") {
     const bdt = await interrogaLiDARPiemonte(geo.lat, geo.lon, { fetchFn });
     if (bdt.ok && bdt.volumi?.length > 0) {
       volumi = bdt.volumi;
-      provider = "LiDAR BDTRE Regione Piemonte (ARPA)";
+      provider = "BDTRE Regione Piemonte";
     }
   }
 
@@ -1217,7 +1276,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     const osm = await interrogaOSMNazionale(geo.lat, geo.lon, { fetchFn, timeoutMs: 1500 });
     if (osm.ok && osm.volumi?.length > 0) {
       volumi = osm.volumi;
-      provider = `OpenStreetMap 3D / LiDAR Nazionale PST (${geo.regione})`;
+      provider = `OpenStreetMap (${geo.regione})`;
     }
   }
 
@@ -1228,6 +1287,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     fonteTipologica = true;
   }
 
+  const cartografia = { volumi, provider, fonte_tipologica: fonteTipologica };
   // Se l'utente ha forzato un numero di piani specifico
   if (typeof numero_piani_override === "number" && numero_piani_override > 0) {
     const stimaOverride = stimaAltezzaAntincendiDaPiani(numero_piani_override);
@@ -1239,15 +1299,20 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
       modo_prod: `${numero_piani_override} piani (DM 5/7/1975)`,
     };
   } else {
-    const idx = typeof indice_volume === "number" && indice_volume >= 0 && indice_volume < volumi.length ? indice_volume : 0;
+    const idx = Number.isInteger(indice_volume) && indice_volume >= 0 && indice_volume < volumi.length ? indice_volume : 0;
     volumeScelto = volumi[idx];
   }
+  fonteTipologica = fonteTipologica || volumeScelto.fonte_altezza === "tipologica";
+  if (numero_piani_override) provider = "Simulazione esplicita dei piani";
+  else if (volumeScelto.fonte_altezza === "lidar") provider = "LiDAR BDTRE Regione Piemonte (ARPA)";
 
   // 5. Preparazione fonti per la fusione conservativa
   const fonti = [];
 
   // Se il volume proviene da LiDAR o tag metrico height, usiamo l'altezza esatta
-  if (volumeScelto.altezza_volumetrica_m && (!volumeScelto.piani || volumeScelto.modo_prod?.includes("LiDAR") || volumeScelto.modo_prod?.includes("height"))) {
+  if (fonteTipologica && !numero_piani_override) {
+    // L'impronta non misura l'altezza. Attendi quota dichiarata o simulazione esplicita.
+  } else if (volumeScelto.altezza_volumetrica_m && (!volumeScelto.piani || volumeScelto.modo_prod?.includes("LiDAR") || volumeScelto.modo_prod?.includes("height"))) {
     const stimaH = stimaAltezzaAntincendiDaEdificio(volumeScelto.altezza_volumetrica_m, {
       fonte: provider,
     });
@@ -1265,7 +1330,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
   }
 
   // Fonte secondaria opzionale: Google Earth 3D (tolleranza tipica ± 0.50 m)
-  if (typeof quota_google_earth_m === "number" && !isNaN(quota_google_earth_m) && quota_google_earth_m > 0) {
+  if (Number.isFinite(quota_google_earth_m) && quota_google_earth_m > 0) {
     fonti.push({
       fonte: "Google Earth 3D",
       min_mm: Math.round((quota_google_earth_m - 0.50) * 1000),
@@ -1275,7 +1340,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
   }
 
   // Fonte terziaria opzionale: Pratica edilizia (valore certo)
-  if (typeof quota_pratica_m === "number" && !isNaN(quota_pratica_m) && quota_pratica_m > 0) {
+  if (Number.isFinite(quota_pratica_m) && quota_pratica_m > 0) {
     fonti.push({
       fonte: "Pratica Edilizia SUE",
       h_mm: Math.round(quota_pratica_m * 1000),
@@ -1305,6 +1370,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     indirizzo_trovato: geo.display_name,
     fonte_tipologica: fonteTipologica,
     geo_dati: geo,
+    cartografia,
     nome_condominio: nomeCondominio,
     fonte_condominio: fonteCondominio,
     nome_palazzo: infoCondominio?.palazzo || null,
@@ -1314,6 +1380,9 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
     comune: geo.comune,
     provincia: geo.provincia,
     provider,
+    misura_lidar: volumeScelto.fonte_altezza === "lidar" && !numero_piani_override,
+    precisione_indirizzo: geo.precisione || "non_dichiarata",
+    civico_verificato: geo.civico_verificato === true,
     coordinate: { lat: geo.lat, lon: geo.lon },
     edificio_selezionato: {
       altezza_volumetrica_m: volumeScelto.altezza_volumetrica_m,
@@ -1344,7 +1413,7 @@ export async function calcolaGsaDaCivico(indirizzo, opzioni = {}) {
         quota_estradosso_m: v.quota_estradosso_m || null,
         lat: v.lat || geo.lat,
         lon: v.lon || geo.lon,
-        distanza_m: v.distM || null,
+        distanza_m: v.distM ?? v.distanza_m ?? null,
         tipo_presunto: desc,
         selezionato: i === idxSelezionato,
       };

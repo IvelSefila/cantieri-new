@@ -1,0 +1,15 @@
+{
+  "schema":1,"unit":"mm","name":"Bilocale dimostrativo 6 x 4 m (assi dei muri)","altezza_muri":2800,
+  "fonte":"Esempio geometrico sintetico quotato sugli assi, non rilievo catastale",
+  "walls":[
+    {"id":"n","a":[0,0],"b":[6000,0],"t":200},
+    {"id":"e","a":[6000,0],"b":[6000,4000],"t":200},
+    {"id":"s","a":[6000,4000],"b":[0,4000],"t":200},
+    {"id":"o","a":[0,4000],"b":[0,0],"t":200},
+    {"id":"div","a":[3500,0],"b":[3500,4000],"t":120}
+  ],
+  "openings":[
+    {"id":"ingresso","wall":"s","offset":4500,"width":900,"height":2100,"sill":0,"type":"porta"},
+    {"id":"interna","wall":"div","offset":2000,"width":800,"height":2100,"sill":0,"type":"porta"}
+  ],"floors":[],"furniture":[]
+}

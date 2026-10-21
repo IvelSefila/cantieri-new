@@ -60,6 +60,7 @@ function toWorld(local, wall, ux, uy, L) {
     kind: local.kind,
     id: local.id,
     wall: wall.id,
+    vano: local.vano ?? null,
     finitura: wall.finitura ?? "intonaco_bianco",
     tinta: wall.tinta ?? "naturale",
     cx: ax + ux * sc + nx * nc,
@@ -110,7 +111,7 @@ export function buildModel(plan, catalog, assignment = {}, arredi = []) {
         if (TIPO_PER_CATEGORIA[item.categoria] !== op.type) warnings.push(`vano ${op.id}: infisso ${item.id} non compatibile con tipo ${op.type}`);
       }
       // i telai e le ante sono calcolati da zero del vano: si traslano all'offset reale lungo il muro
-      if (item) local.push(...openingLocalBoxes(op, wall.t, item).map((b) => ({ ...b, s0: b.s0 + op.offset, s1: b.s1 + op.offset })));
+      if (item) local.push(...openingLocalBoxes(op, wall.t, item).map((b) => ({ ...b, vano:op.id, s0: b.s0 + op.offset, s1: b.s1 + op.offset })));
     }
     for (const lb of local) boxes.push(toWorld(lb, wall, ux, uy, L));
   }

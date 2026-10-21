@@ -158,10 +158,12 @@ export function calcolaEnergiaScheda(v, righeGSA = []) {
 
 // Testo di un PDF con pdf.js (vendor): una riga per ogni fine riga del documento
 export async function testoDelPdf(file) {
+  if(file.size>50*1024*1024)throw Error('PDF oltre 50 MB');
   const pdfjs = await import("../../vendor/pdfjs/pdf.mjs");
   pdfjs.GlobalWorkerOptions.workerSrc = new URL("../../vendor/pdfjs/pdf.worker.mjs", import.meta.url).href;
-  const doc = await pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+  const doc = await pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()),isEvalSupported:false }).promise;
   let testo = "";
+  try {
   for (let i = 1; i <= doc.numPages; i++) {
     const pagina = await doc.getPage(i);
     const contenuto = await pagina.getTextContent();
@@ -172,6 +174,7 @@ export async function testoDelPdf(file) {
     testo += "\n";
   }
   return testo;
+  }finally{await doc.destroy();}
 }
 
 function badge(stato) {
@@ -184,6 +187,7 @@ function badge(stato) {
 
 // Montaggio della scheda nel contenitore
 export function montaScheda(box, { getRigheGSA, onCambio }) {
+  let caricamentoPdf=0;
   const v = valoriIniziali();
   const campi = [
     ["superficie_utile_m2", "Superficie utile (m²)"],
@@ -329,9 +333,11 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
   pdf.onchange = async () => {
     const file = pdf.files?.[0];
     if (!file) return;
+    const richiesta=++caricamentoPdf;
     esitoPdf.textContent = "Lettura del PDF in corso…";
     try {
       const testo = await testoDelPdf(file);
+      if(richiesta!==caricamentoPdf)return;
       const { campi: estratti, trovati, mancanti, ambigui } = parseDatiEnergetici(testo);
       for (const [chiave] of campi) {
         if (estratti[chiave] !== undefined) {
@@ -345,11 +351,11 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
       if (mancanti.length) esitoPdf.textContent += ` Non trovati nel PDF: ${mancanti.join(", ")}.`;
       for (const x of ambigui) esitoPdf.textContent += ` ATTENZIONE: ${x.campo} compare con valori diversi (${x.valori.join(" / ")}), forse per zone diverse: usato ${x.scelto}, controlla.`;
       if (!trovati.length) esitoPdf.textContent += " Se il PDF è una scansione, il testo non si può leggere: inserisci i dati a mano.";
-      aggiorna();
     } catch (e) {
+      if(richiesta!==caricamentoPdf)return;
       esitoPdf.textContent = `PDF non letto: ${e.message}. Inserisci i dati a mano.`;
     }
-    segna();
+    if(richiesta===caricamentoPdf){pdf.value='';segna();onCambio?.();}
   };
 
   // Stato per la scheda Affidabilità
@@ -364,5 +370,19 @@ export function montaScheda(box, { getRigheGSA, onCambio }) {
   }
 
   segna();
-  return { valori: v, aggiorna, segna, contesto };
+  function ripristina(dati) {
+    caricamentoPdf++;pdf.value='';esitoPdf.textContent='';
+    const initial = valoriIniziali();
+    for (const [k, def] of Object.entries(initial)) {
+      const x = dati?.[k];
+      v[k] = x === undefined ? def : (def === null || typeof def === "number") ? (x === null || Number.isFinite(x) ? x : def) : typeof x === typeof def ? x : def;
+    }
+    for (const input of griglia.querySelectorAll('[data-campo]')) input.value = v[input.dataset.campo] ?? '';
+    selPonti.value = v.ponti_modo;
+    ponti.querySelector('#ponti-tipo').value = v.ponti_tipo;
+    ponti.querySelector('#ponti-nodi').value = v.ponti_nodi_testo;
+    mostraPonti();
+    segna();
+  }
+  return { valori: v, aggiorna, segna, contesto, ripristina };
 }

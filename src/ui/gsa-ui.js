@@ -3,39 +3,14 @@
 import { calcolaGSA, LIVELLO3, PLANIMETRIA_ELEMENTI, PIANO_CONTENUTI, GSA_FONTE } from "../core/gsa-incendio.js?v=v20261020bq";
 import { classificaRischio, verificaEsodo, CRITERI_ELEVATO, CRITERI_MEDIO, CRITERI_BASSO, RIDUZIONI, FONTE_1998, RIF_ESODO } from "../core/rischio-incendio.js?v=v20261020bq";
 import { calcolaGsaDaCivico, autocompletaIndirizzo } from "../core/altimetria-civico.js?v=v20261020bq";
+import { datiGSAIniziali,preparaSchedaGSA } from '../core/scheda-gsa.js?v=v20261020bq';
+export { datiGSAIniziali } from '../core/scheda-gsa.js?v=v20261020bq';
 
 function el(tag, cls, testo) {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
   if (testo !== undefined) e.textContent = testo;
   return e;
-}
-
-// Stato iniziale: nessun valore, nessun risultato
-export function datiGSAIniziali() {
-  return {
-    lavoratori: "",
-    aperto_pubblico: false,
-    pubblico_contemporaneo: "",
-    soggettaCPI: "",          // "si" | "no" | "" (non so)
-    cantiereFiamme: false,
-    attivita_complessa: false,
-    livello3: [],
-    data_corso_addetti: "",
-    data_ultima_esercitazione: "",
-    planimetria_elementi: [],
-    piano_contenuti: [],
-    doc_vr: "",
-    doc_piano: "",
-    doc_attestati: "",
-    doc_registro: "",
-    doc_informazione: "",
-    // DM 10/3/1998, punto 1.4.4: criteri del livello di rischio
-    criteri: [],
-    riduzioni: [],
-    // DM 10/3/1998, punti 3.3-3.5: vie di uscita del piano
-    esodo: { distanzaDueVie_m: "", distanzaUnaVia_m: "", affollamento: "", numeroUscite: "", larghezzaUscite_m: "", pubblico: false, assistenza: false, materialiInfiammabili: false, areaRiposo: false },
-  };
 }
 
 // Dal modulo al motore: testo vuoto = dato non noto (null), "si"/"no" = booleano
@@ -89,6 +64,7 @@ export function montaGSA(box) {
   const d = datiGSAIniziali();
   let risultato = null;
   let calcolatoCon = null;
+  let richiestaCivico=0;
   box.innerHTML = "";
 
   // ---- 0. Calcolo Automatico da Civico (LiDAR BDTRE Piemonte + Google Earth) ----
@@ -115,7 +91,9 @@ export function montaGSA(box) {
   boxRicerca.append(inpIndirizzo, listaSuggerimenti);
 
   let timerAuto = null;
+  let richiestaAuto = 0;
   inpIndirizzo.oninput = () => {
+    const numeroRichiesta = ++richiestaAuto;
     inpIndirizzo._selectedSugg = null;
     clearTimeout(timerAuto);
     const q = inpIndirizzo.value.trim();
@@ -127,6 +105,7 @@ export function montaGSA(box) {
     timerAuto = setTimeout(async () => {
       try {
         const suggerimenti = await autocompletaIndirizzo(q, { limit: 5 });
+        if (numeroRichiesta !== richiestaAuto || inpIndirizzo.value.trim() !== q) return;
         listaSuggerimenti.innerHTML = "";
         if (!suggerimenti || suggerimenti.length === 0) {
           listaSuggerimenti.style.display = "none";
@@ -164,6 +143,7 @@ export function montaGSA(box) {
         });
         listaSuggerimenti.style.display = "block";
       } catch (e) {
+        if (numeroRichiesta !== richiestaAuto) return;
         listaSuggerimenti.style.display = "none";
       }
     }, 200);
@@ -195,6 +175,10 @@ export function montaGSA(box) {
   inpGe.placeholder = "Quota davanzale (m)";
   inpGe.style.cssText = "width: 130px;";
   rowGe.append(lblGe, inpGe);
+  const verificaRiferimento = el("label", "hud-stat");
+  const confermaRiferimento = el("input");
+  confermaRiferimento.type = "checkbox";
+  verificaRiferimento.append(confermaRiferimento, " Ho verificato il piano esterno accessibile ai mezzi di soccorso e l'esclusione dei vani tecnici.");
 
   const btnCalcolaCivico = el("button", "gsa-calcola", "Estrai Palazzo e Calcola GSA");
   btnCalcolaCivico.style.cssText = "width: 100%; background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; cursor: pointer;";
@@ -206,6 +190,7 @@ export function montaGSA(box) {
   esitoCivico.style.cssText = "margin-top: 8px;";
 
   btnCalcolaCivico.onclick = async () => {
+    const richiesta=++richiestaCivico;
     const txt = inpIndirizzo.value.trim();
     if (!txt) {
       statoCivico.textContent = "Inserisci un indirizzo valido (es. Via Po 14 Torino, Via Dante 10 Milano, Strada Suniglia 4 Savigliano).";
@@ -219,29 +204,45 @@ export function montaGSA(box) {
     btnCalcolaCivico.disabled = true;
     statoCivico.style.color = "var(--hud-ciano)";
     statoCivico.textContent = suggPrecalcolato
-      ? "1/2 Posizione certificata, acquisizione volumetria in corso…"
+      ? "1/2 Indirizzo selezionato, acquisizione cartografia in corso…"
       : "1/2 Ricerca cartografica indirizzo in corso (Photon / OSM)…";
     esitoCivico.innerHTML = "";
 
     try {
       const valGe = inpGe.value.trim() ? parseFloat(inpGe.value.replace(",", ".")) : null;
       statoCivico.textContent = "2/2 Acquisizione volumetria (LiDAR BDTRE / OpenStreetMap 3D)…";
-      const res = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe, geo_precalcolata: suggPrecalcolato });
+      const riferimenti = { piano_accessibile_vvf: confermaRiferimento.checked, vani_tecnici_esclusi: confermaRiferimento.checked };
+      const res = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe, geo_precalcolata: suggPrecalcolato, ...riferimenti });
 
+      if (richiesta!==richiestaCivico||inpIndirizzo.value.trim() !== txt) return;
       if (res.esito !== "OK") {
         statoCivico.textContent = `Errore: ${res.errore}`;
         statoCivico.style.color = "#ff7b86";
         return;
       }
 
-      statoCivico.textContent = `✓ Edificio individuato in ${res.regione}! (${res.provider})`;
+      statoCivico.textContent = `${res.fonte_tipologica ? "Stima disponibile" : "Cartografia disponibile"} in ${res.regione} (${res.provider})`;
       statoCivico.style.color = "#7ef2b5";
 
+      let sceltaCorrente = 0;
       function renderizzaCard(risposta) {
         esitoCivico.innerHTML = "";
         const gsa = risposta.valutazione_gsa;
         const card = el("div");
         card.style.cssText = "background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px; border: 1px solid rgba(255,255,255,0.1); font-size: 12px; line-height: 1.5;";
+
+        async function aggiornaScelta(opzioni) {
+          const numero = ++sceltaCorrente;
+          card.inert = true;
+          try {
+            const r = await calcolaGsaDaCivico(txt, { quota_google_earth_m: valGe,
+              geo_precalcolata: risposta.geo_dati, cartografia_precalcolata: risposta.cartografia, ...riferimenti, ...opzioni });
+            if (richiesta!==richiestaCivico||numero !== sceltaCorrente || inpIndirizzo.value.trim() !== txt) return;
+            if (r.esito !== "OK") throw new Error(r.errore);
+            renderizzaCard(r);
+          } catch (e) { statoCivico.textContent = `Ricalcolo non riuscito: ${e.message}`; }
+          finally { card.inert = false; }
+        }
 
         const r1 = el("div", "", `Indirizzo: ${risposta.indirizzo_trovato}`);
         r1.style.fontWeight = "600";
@@ -250,6 +251,8 @@ export function montaGSA(box) {
         rProv.style.cssText = "color: var(--hud-ciano); font-size: 11px; margin-bottom: 6px;";
 
         card.append(r1, r2, rProv);
+        card.append(el("div", "hud-stat", risposta.civico_verificato ? `Civico restituito dal provider (${risposta.precisione_indirizzo}). L'associazione al fabbricato va controllata.` : "Il numero civico non è confermato dal provider: verificare posizione e fabbricato."));
+        if (!risposta.misura_lidar) card.append(el("div", "avviso", "Per questo risultato non è disponibile una misura LiDAR. Le quote OSM e le simulazioni non sono un rilievo del civico."));
 
         // Se è una stima tipologica (assenza LiDAR), offre la scelta del modello o piani
         if (risposta.fonte_tipologica) {
@@ -263,14 +266,7 @@ export function montaGSA(box) {
             b.style.cssText = v.selezionato
               ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 4px 8px; border-radius: 4px;"
               : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 8px; cursor: pointer; border-radius: 4px;";
-            b.onclick = async () => {
-              const rRicalcolo = await calcolaGsaDaCivico(txt, {
-                quota_google_earth_m: valGe,
-                indice_volume: v.indice,
-                geo_precalcolata: risposta.geo_dati || { ...risposta.coordinate, regione: risposta.regione, comune: risposta.comune, provincia: risposta.provincia, display_name: risposta.indirizzo_trovato, ok: true }
-              });
-              renderizzaCard(rRicalcolo);
-            };
+            b.onclick = () => aggiornaScelta({ indice_volume: v.indice });
             btnGroup.append(b);
           });
           rTipo.append(btnGroup);
@@ -279,8 +275,7 @@ export function montaGSA(box) {
           // Corpi di fabbrica reali rilevati (LiDAR BDTRE o OpenStreetMap 3D Nazionale)
           const rMulti = el("div");
           rMulti.style.cssText = "margin: 8px 0; padding: 8px; background: rgba(61,220,247,0.06); border: 1px dashed rgba(61,220,247,0.3); border-radius: 6px;";
-          const labelFonte = risposta.provider.includes("LiDAR") ? risposta.provider : "Rilievo Altimetrico 3D / LiDAR";
-          rMulti.append(el("div", "hud-stat", `🏢 Corpi di fabbrica rilevati da ${labelFonte} (${risposta.volumi_rilevati.length} edifici nel lotto/civico). Seleziona:`));
+          rMulti.append(el("div", "hud-stat", `Corpi cartografici nelle vicinanze (${risposta.volumi_rilevati.length}, fonte ${risposta.provider}). Verifica il corpo del civico:`));
           const btnGroup = el("div");
           btnGroup.style.cssText = "display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px;";
           risposta.volumi_rilevati.forEach((v) => {
@@ -289,14 +284,7 @@ export function montaGSA(box) {
             b.style.cssText = v.selezionato
               ? "background: var(--hud-ciano) !important; color: #0a0e18 !important; font-weight: 700; font-size: 11px; padding: 4px 8px; border-radius: 4px;"
               : "background: rgba(255,255,255,0.08); font-size: 11px; padding: 4px 8px; cursor: pointer; border-radius: 4px;";
-            b.onclick = async () => {
-              const rRicalcolo = await calcolaGsaDaCivico(txt, {
-                quota_google_earth_m: valGe,
-                indice_volume: v.indice,
-                geo_precalcolata: risposta.geo_dati || { ...risposta.coordinate, regione: risposta.regione, comune: risposta.comune, provincia: risposta.provincia, display_name: risposta.indirizzo_trovato, ok: true }
-              });
-              renderizzaCard(rRicalcolo);
-            };
+            b.onclick = () => aggiornaScelta({ indice_volume: v.indice });
             btnGroup.append(b);
           });
           rMulti.append(btnGroup);
@@ -310,23 +298,16 @@ export function montaGSA(box) {
         [2, 3, 4, 5, 6, 8, 10, 15].forEach((pNum) => {
           const pb = el("button", "", `${pNum}p`);
           pb.style.cssText = "background: rgba(255,255,255,0.06); color: var(--hud-testo); border: 1px solid rgba(255,255,255,0.12); padding: 2px 6px; font-size: 10px; border-radius: 3px; cursor: pointer;";
-          pb.onclick = async () => {
-            const rOverride = await calcolaGsaDaCivico(txt, {
-              quota_google_earth_m: valGe,
-              numero_piani_override: pNum,
-              geo_precalcolata: risposta.geo_dati || { ...risposta.coordinate, regione: risposta.regione, comune: risposta.comune, provincia: risposta.provincia, display_name: risposta.indirizzo_trovato, ok: true }
-            });
-            renderizzaCard(rOverride);
-          };
+          pb.onclick = () => aggiornaScelta({ numero_piani_override: pNum });
           rSimPiani.append(pb);
         });
         card.append(rSimPiani);
 
-        const r3 = el("div", "", `Altezza volumetrica corpo selezionato: ${risposta.edificio_lidar.altezza_volumetrica_m.toFixed(1)} m (${risposta.edificio_lidar.metodo || risposta.edificio_lidar.ente})`);
+        const r3 = el("div", "", `${risposta.fonte_tipologica ? "Altezza tipologica stimata, non misurata" : "Altezza volumetrica del corpo selezionato"}: ${risposta.edificio_lidar.altezza_volumetrica_m.toFixed(1)} m (${risposta.edificio_lidar.metodo || risposta.edificio_lidar.ente})`);
         r3.style.color = "var(--hud-ciano)";
 
         const alt = gsa.altezza;
-        const hStr = alt.h_mm ? `${(alt.h_mm / 1000).toFixed(2)} m` : `[${(alt.h_min_mm / 1000).toFixed(2)}; ${(alt.h_max_mm / 1000).toFixed(2)}] m`;
+        const hStr = Number.isFinite(alt.h_mm) ? `${(alt.h_mm / 1000).toFixed(2)} m` : Number.isFinite(alt.h_min_mm) && Number.isFinite(alt.h_max_mm) ? `[${(alt.h_min_mm / 1000).toFixed(2)}; ${(alt.h_max_mm / 1000).toFixed(2)}] m` : "dato non disponibile: inserire una quota o simulare i piani";
         const r4 = el("div", "", `Altezza antincendi stimata (h): ${hStr} (${alt.stato})`);
 
         const badgeTipo = el("div");
@@ -369,14 +350,15 @@ export function montaGSA(box) {
 
       renderizzaCard(res);
     } catch (err) {
+      if(richiesta!==richiestaCivico)return;
       statoCivico.textContent = `Errore imprevisto: ${err.message}`;
       statoCivico.style.color = "#ff7b86";
     } finally {
-      btnCalcolaCivico.disabled = false;
+      if(richiesta===richiestaCivico)btnCalcolaCivico.disabled = false;
     }
   };
 
-  sezCivico.append(titCivico, subCivico, boxRicerca, rowGe, btnCalcolaCivico, statoCivico, esitoCivico);
+  sezCivico.append(titCivico, subCivico, boxRicerca, rowGe, verificaRiferimento, btnCalcolaCivico, statoCivico, esitoCivico);
   box.append(sezCivico);
 
   const avviso = el("div", "riga info", "Inserisci i dati, poi premi Calcola GSA. Il calcolo segue il DM 2 settembre 2021 (GU n. 237 del 4/10/2021), in vigore dal 4/10/2022.");
@@ -386,22 +368,26 @@ export function montaGSA(box) {
   const campo = (etichetta, nodo) => { const l = el("label", "gsa-campo"); l.append(el("span", "", etichetta), nodo); form.append(l); return nodo; };
   const numero = (chiave, etichetta, min = 0) => {
     const i = el("input"); i.type = "number"; i.min = String(min); i.value = d[chiave];
+    i.dataset.gsaCampo=chiave;
     i.onchange = () => { d[chiave] = i.value; segna(); };
     return campo(etichetta, i);
   };
   const data = (chiave, etichetta) => {
     const i = el("input"); i.type = "date"; i.value = d[chiave];
+    i.dataset.gsaCampo=chiave;
     i.onchange = () => { d[chiave] = i.value; segna(); };
     return campo(etichetta, i);
   };
   const tri = (chiave, etichetta) => {
     const s = el("select");
+    s.dataset.gsaCampo=chiave;
     for (const [v, t] of [["", "non so"], ["si", "sì"], ["no", "no"]]) s.append(new Option(t, v, false, d[chiave] === v));
     s.onchange = () => { d[chiave] = s.value; segna(); };
     return campo(etichetta, s);
   };
   const check = (chiave, etichetta) => {
     const i = el("input"); i.type = "checkbox"; i.checked = !!d[chiave];
+    i.dataset.gsaCampo=chiave;
     i.onchange = () => { d[chiave] = i.checked; segna(); };
     const l = el("label", "gsa-check"); l.append(i, " " + etichetta); form.append(l);
   };
@@ -410,6 +396,7 @@ export function montaGSA(box) {
     for (const [id, testo] of lista) {
       const l = el("label", "gsa-check");
       const i = el("input"); i.type = "checkbox"; i.checked = d[chiave].includes(id);
+      i.dataset.gsaGruppo=chiave;i.value=id;
       i.onchange = () => { d[chiave] = i.checked ? [...d[chiave], id] : d[chiave].filter((x) => x !== id); segna(); };
       l.append(i, " " + testo); form.append(l);
     }
@@ -445,6 +432,7 @@ export function montaGSA(box) {
   const es = d.esodo;
   const numE = (chiave, etichetta) => {
     const i = el("input"); i.type = "number"; i.min = "0"; i.step = "0.1"; i.value = es[chiave];
+    i.dataset.gsaEsodo=chiave;
     i.onchange = () => { es[chiave] = i.value; segna(); };
     return campo(etichetta, i);
   };
@@ -455,6 +443,7 @@ export function montaGSA(box) {
   numE("larghezzaUscite_m", "Larghezza complessiva delle uscite di piano (m)");
   for (const [k, t] of [["pubblico", "Frequentato dal pubblico"], ["assistenza", "Persone che necessitano di assistenza"], ["materialiInfiammabili", "Materiali infiammabili depositati o manipolati"], ["areaRiposo", "Area di riposo"]]) {
     const i = el("input"); i.type = "checkbox"; i.checked = !!es[k];
+    i.dataset.gsaEsodo=k;
     i.onchange = () => { es[k] = i.checked; segna(); };
     const l = el("label", "gsa-check"); l.append(i, " " + t); form.append(l);
   }
@@ -468,7 +457,11 @@ export function montaGSA(box) {
   box.append(form);
 
   const bottone = el("button", "gsa-calcola", "Calcola GSA");
-  bottone.onclick = () => { risultato = calcolaTutto(d); calcolatoCon = JSON.stringify(d); disegna(); };
+  bottone.onclick = () => {
+    const invalid=form.querySelector(':invalid');
+    if(invalid){risultato=null;esito.textContent='Correggi i valori non validi prima del calcolo.';invalid.reportValidity();return;}
+    risultato = calcolaTutto(d); calcolatoCon = JSON.stringify(d); disegna();
+  };
   const stale = el("div", "gsa-stale");
   const esito = el("div", "gsa-esito");
   box.append(bottone, stale, esito);
@@ -522,5 +515,17 @@ export function montaGSA(box) {
     f.append(el("span", "", "Fonti: "), Object.assign(el("a", "", GSA_FONTE.documento + ", " + GSA_FONTE.gazzetta), { href: GSA_FONTE.url, target: "_blank", rel: "noopener" }), document.createElement("br"), Object.assign(el("a", "", FONTE_1998.documento), { href: FONTE_1998.url, target: "_blank", rel: "noopener" }));
     esito.append(f);
   }
-  return { calcola: () => bottone.click(), stato: () => ({ risultato: !!risultato }) };
+  function ripristina(raw) {
+    const nuovo=preparaSchedaGSA(raw);
+    Object.assign(es,nuovo.esodo);Object.assign(d,{...nuovo,esodo:es});
+    for(const input of form.querySelectorAll('input,select')) {
+      const value=input.dataset.gsaGruppo?d[input.dataset.gsaGruppo].includes(input.value):input.dataset.gsaEsodo?es[input.dataset.gsaEsodo]:d[input.dataset.gsaCampo];
+      if(input.type==='checkbox')input.checked=!!value;else input.value=value??'';
+    }
+    risultato=null;calcolatoCon=null;esito.replaceChildren();stale.textContent='';
+    richiestaAuto++;richiestaCivico++;clearTimeout(timerAuto);btnCalcolaCivico.disabled=false;
+    inpIndirizzo.value='';inpIndirizzo._selectedSugg=null;inpGe.value='';confermaRiferimento.checked=false;
+    statoCivico.textContent='';esitoCivico.replaceChildren();listaSuggerimenti.replaceChildren();listaSuggerimenti.style.display='none';
+  }
+  return { valori:d,ripristina,calcola: () => bottone.click(), stato: () => ({ risultato: !!risultato }) };
 }

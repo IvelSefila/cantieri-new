@@ -1,0 +1,30 @@
+{
+  "data": "2026-10-20T14:38:25.443Z",
+  "limite": "Sono controlli di questi URL specifici, non una prova di assenza di altri servizi nazionali.",
+  "results": [
+    {
+      "descrizione": "Portale ufficiale PST (pagina di download)",
+      "url": "https://sim.mase.gov.it/portalediaccesso/mappe/",
+      "status": 200,
+      "ms": 178,
+      "capabilities_ogc_valide": false,
+      "anteprima": "<!doctype html><html lang=\"it\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"><link rel=\"icon\" type=\"image/x-icon\" href=\"/portalediaccesso/favicon.ico\"/><title>MASE - SIM</title><script src=\"https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js\" nonce=\"FxeKsUk3KcttBNtS4T1j/w==\"></script><script nonce=\"FxeKsUk3KcttBNtS4T1j/w==\">(function () {\n      if (!window.trustedTypes) return;\n\n      // Policy per Vue\n      if (!window.trustedTypes.policies?.vue) {\n        window.trustedTypes.createPolicy('vue', {\n          createScript: code => code,\n          createScriptURL: url => url"
+    },
+    {
+      "descrizione": "Endpoint storico DSM WMS verificato nella sessione",
+      "url": "https://wms.pcn.minambiente.it/ogc?map=/ms_ogc/WMS_v1.3/raster/DSM_LIDAR.map&service=WMS&request=GetCapabilities",
+      "status": 500,
+      "ms": 124,
+      "capabilities_ogc_valide": false,
+      "anteprima": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>500 Internal Server Error</title>\n</head><body>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error or\nmisconfiguration and was unable to complete\nyour request.</p>\n<p>Please contact the server administrator at \n admin@example.com to inform them of the time this error occurred,\n and the actions you performed just before this error.</p>\n<p>More information about this error may be available\nin the server error log.</p>\n</body></html>\n"
+    },
+    {
+      "descrizione": "Endpoint storico DTM WCS verificato nella sessione",
+      "url": "https://wms.pcn.minambiente.it/wcs/dtm_lidar?service=WCS&request=GetCapabilities",
+      "status": 200,
+      "ms": 102,
+      "capabilities_ogc_valide": false,
+      "anteprima": "<HTML>\n<HEAD><TITLE>MapServer Message</TITLE></HEAD>\n<!-- MapServer version 6.4.1 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=KML SUPPORTS=PROJ SUPPORTS=GD SUPPORTS=AGG SUPPORTS=FREETYPE SUPPORTS=CAIRO SUPPORTS=SVG_SYMBOLS SUPPORTS=SVGCAIRO SUPPORTS=ICONV SUPPORTS=FRIBIDI SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=SOS_SERVER SUPPORTS=FASTCGI SUPPORTS=THREADS SUPPORTS=GEOS INPUT=JPEG INPUT=POSTGIS INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE -->\n<BODY BGCOLOR=\"#FFFFFF\">\nmsLoadMap(): Unable to access file. (/ms_ogc/wcs/dtm_lidar.map)\n</BODY></HTML>"
+    }
+  ]
+}

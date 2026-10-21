@@ -9,9 +9,12 @@ import {
   stimaAltezzaAntincendiDaPiani,
   normalizzaRegione,
   pulisciIndirizzoPerGeocodifica,
-  calcolaGsaDaCivico,
+  calcolaGsaDaCivico as calcolaBase,
   REGIONI_ITALIANE,
 } from "../src/core/altimetria-civico.js";
+
+// I casi numerici seguenti presuppongono un piano esterno e vani tecnici verificati.
+const calcolaGsaDaCivico = (indirizzo, opzioni) => calcolaBase(indirizzo, { piano_accessibile_vvf: true, vani_tecnici_esclusi: true, ...opzioni });
 
 const SAMPLE_GML = `<?xml version='1.0' encoding="UTF-8" ?>
 <wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:gml="http://www.opengis.net/gml" xmlns:wfs="http://www.opengis.net/wfs">
@@ -125,7 +128,7 @@ test("calcolaGsaDaCivico (Piemonte): edificio 21 m -> DETERMINATO Tipo a, LP 0",
           lat: "45.0688",
           lon: "7.6888",
           display_name: "Via Po 14, Torino, Piemonte",
-          address: { state: "Piemonte", city: "Torino" }
+          address: { state: "Piemonte", city: "Torino", road: "Via Po", house_number: "14" }
         }],
       };
     }
@@ -158,7 +161,7 @@ test("calcolaGsaDaCivico (Lombardia - Milano): OSM 3D 7 piani -> DETERMINATO Tip
           lat: "45.4658",
           lon: "9.1858",
           display_name: "Via Dante 10, Milano, Lombardia",
-          address: { state: "Lombardia", city: "Milano" }
+          address: { state: "Lombardia", city: "Milano", road: "Via Dante", house_number: "10" }
         }],
       };
     }
@@ -185,7 +188,7 @@ test("calcolaGsaDaCivico (Lombardia - Milano): OSM 3D 7 piani -> DETERMINATO Tip
   assert.equal(res.valutazione_gsa.tipo, "a"); // 7 piani = ~19.3 m -> Tipo a (12-24 m)
 });
 
-test("calcolaGsaDaCivico (Lazio - Roma): Fallback Tipologico Nazionale 8 piani -> Tipo b, LP 1, Attivita 77", async () => {
+test("calcolaGsaDaCivico (Lazio - Roma): fallback tipologico non determina la classe senza una quota", async () => {
   const mockFetch = async (url) => {
     if (url.includes("nominatim")) {
       return {
@@ -194,7 +197,7 @@ test("calcolaGsaDaCivico (Lazio - Roma): Fallback Tipologico Nazionale 8 piani -
           lat: "41.9021",
           lon: "12.4799",
           display_name: "Via del Corso 20, Roma, Lazio",
-          address: { state: "Lazio", city: "Roma" }
+          address: { state: "Lazio", city: "Roma", road: "Via del Corso", house_number: "20" }
         }],
       };
     }
@@ -217,8 +220,8 @@ test("calcolaGsaDaCivico (Lazio - Roma): Fallback Tipologico Nazionale 8 piani -
   assert.ok(res.provider.includes("Lazio"));
   assert.equal(res.edificio_selezionato.piani, 8);
   // 8 piani = 22.35 m (davanzale) -> Tipo a (< 24 m)
-  assert.equal(res.valutazione_gsa.esito, "DETERMINATO");
-  assert.equal(res.valutazione_gsa.tipo, "a");
+  assert.equal(res.valutazione_gsa.esito, "INDETERMINATO");
+  assert.ok(res.valutazione_gsa.tipo == null);
 });
 
 test("calcolaGsaDaCivico (Campania - Napoli): override numero piani a 10 piani -> Tipo b (Attività 77)", async () => {
@@ -230,7 +233,7 @@ test("calcolaGsaDaCivico (Campania - Napoli): override numero piani a 10 piani -
           lat: "40.8416",
           lon: "14.2487",
           display_name: "Via Toledo 100, Napoli, Campania",
-          address: { state: "Campania", city: "Napoli" }
+          address: { state: "Campania", city: "Napoli", road: "Via Toledo", house_number: "100" }
         }],
       };
     }

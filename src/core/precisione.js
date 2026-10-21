@@ -39,6 +39,7 @@ export function valutaMotori(ctx = {}) {
       serve.push("Planimetria vettoriale quotata (DXF/DWG) o rilievo in sito");
     }
     if (g.origine === "esempio") appr.push({ dato: "Piano AR-02", perche: "Quote trascritte a mano dalla tavola cartacea: sono esatte rispetto alla trascrizione, non verificate in sito." });
+    if (g.origine === 'pdf_vettoriale') appr.push({dato:'Segmenti PDF',perche:'Assi selezionati dall’utente, scala confermata e seconda quota controllata. Coordinate arrotondate a mm interi; spessori, altezze e vani richiedono conferma separata.'});
     if (g.origine === "dxf" && g.arrotondamenti > 0) appr.push({ dato: "Coordinate DXF", perche: `${g.arrotondamenti} valori arrotondati al millimetro intero (scarto massimo ${g.scartoMax_mm ?? "?"} mm).` });
     if (g.muriObliqui > 0) appr.push({ dato: "Lunghezza dei muri obliqui", perche: `${g.muriObliqui} muri obliqui: la lunghezza non è un numero intero di mm ed è mostrata a 0,001 mm.` });
     if (g.origine === "disegnato") appr.push({ dato: "Muri disegnati", perche: "Punti agganciati alla griglia scelta: esatti come numeri, ma non derivano da un rilievo." });

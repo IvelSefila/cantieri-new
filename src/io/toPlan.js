@@ -69,6 +69,7 @@ export function dxfToPlan(parsed, opzioni = {}) {
   const spessori = opzioni.spessori ?? {};
   const rep = { arrotondamenti: 0, scostamento_max_mm: 0, avvisi: [], layers: {} };
   const scala = parsed.perMm;
+  if(!Number.isFinite(scala)||scala<=0)throw Error('Unità DXF assenti o non supportate: scegli le unità originali prima di importare');
   const walls = [];
   let contatore = 0;
 
@@ -110,5 +111,5 @@ export function dxfToPlan(parsed, opzioni = {}) {
     openings: [],
   };
   const check = validatePlan(plan);
-  return { plan, check, report: { ...parsed.report, ...rep, muri: walls.length } };
+  return { plan, check, report: { ...parsed.report, ...rep, avvisi:[...parsed.report.avvisi,...rep.avvisi], muri: walls.length } };
 }

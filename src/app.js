@@ -8,9 +8,7 @@ import {
   ruotaArredo, spostaArredo, eliminaElemento, verificaProgetto, LIBRERIA_ARREDI, MATERIALI_PAVIMENTO,
 } from "./core/project.js?v=v20261020bq";
 import { createViewer } from "./view/scene.js?v=v20261020bq";
-import { parseDxf } from "./io/dxf.js?v=v20261020bq";
-import { dxfToPlan } from "./io/toPlan.js?v=v20261020bq";
-import { montaTracciamento } from "./trace/ui.js?v=v20261020bq";
+import { leggiPlanimetria } from './io/planimetrie.js?v=v20261020bq';
 import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020bq";
 import { stanze } from "./core/rooms.js?v=v20261020bq";
 import { planSvg } from "./view2d/plan.js?v=v20261020bq";
@@ -33,6 +31,8 @@ import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bq";
 import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020bq";
 import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020bq";
 import { impostaFunzioneStanza } from "./core/project.js?v=v20261020bq";
+import { preparaProgetto, esportaSessione, PARAMETRI_ANALISI } from "./core/sessione.js?v=v20261020bq";
+import { montaPlanimetrie } from "./ui/planimetrie.js?v=v20261020bq";
 
 // Prima persona: pulsante sopra il ?, messaggio in alto, tasti WASD e frecce sovrimpressi che si illuminano
 let pulsantePP = null;
@@ -482,6 +482,21 @@ const stato = {
   dxfReport: null,
   schedaAnt: { assegnazioni: {}, quote: [] },
 };
+const CHIAVE_RECUPERO = "cantieri.progetto.v1";
+function sessioneCorrente() {
+  const analisi = Object.fromEntries(PARAMETRI_ANALISI.map(k => [k, stato[k] ?? null]));
+  Object.assign(analisi, { orientamenti: stato.orientamenti ?? {}, gsaDaScheda: !!stato.gsaDaScheda, schedaAnt: stato.schedaAnt, energia: stato.energia?.valori ?? null, gsaLavoro:stato.gsaLavoro?.valori??null });
+  return esportaSessione(stato.progetto, stato.assegnazioni, analisi);
+}
+function salvaLocale() {
+  try {
+    localStorage.setItem(CHIAVE_RECUPERO, JSON.stringify(sessioneCorrente()));
+    stato.salvataggioErrore = false;
+  } catch (e) {
+    if (!stato.salvataggioErrore) messaggio(`Recupero automatico non disponibile: ${e.message}. Scarica il progetto JSON.`, "avviso");
+    stato.salvataggioErrore = true;
+  }
+}
 
 function messaggio(testo, tipo = "info") {
   const el = $("messaggi");
@@ -506,16 +521,20 @@ function fmtM2(v) {
 
 // ---- Modifica con storia (annulla) ----
 function applica(nuovo) {
+  const check=verificaProgetto(nuovo);
+  if(!check.ok){messaggio(`Modifica rifiutata: ${check.errors.join('; ')}`,'errore');return;}
   if (stato.origine === "vuoto") stato.origine = "disegnato";
   stato.storia.push(stato.progetto);
   if (stato.storia.length > 60) stato.storia.shift();
   stato.progetto = nuovo;
+  stato.assegnazioni={};
   ricostruisci();
 }
 
 function annullaUltimo() {
   if (!stato.storia.length) return messaggio("Niente da annullare.", "info");
   stato.progetto = stato.storia.pop();
+  stato.assegnazioni={};
   stato.pendente = null;
   ricostruisci();
 }
@@ -750,8 +769,7 @@ function apriVistaFrontale(opId) {
     assegnato: Object.prototype.hasOwnProperty.call(stato.assegnazioni, o.id) ? stato.assegnazioni[o.id] : (o.cdi ?? null),
     esterno: null,
     onScegli: (id) => {
-      stato.assegnazioni[o.id] = id;
-      ricostruisci();
+      applica({...stato.progetto,openings:stato.progetto.openings.map(x=>x.id===o.id?{...x,cdi:id}:x)});
       messaggio(id ? "Infisso montato." : "Vano lasciato aperto.", "ok");
     },
     onChiudi: () => chiudiVistaFrontale(),
@@ -788,8 +806,7 @@ function ricostruisci() {
   }
   for (const w of res.report.warnings) if (!check.warnings.includes(w)) righe.push({ tipo: "avviso", testo: `avviso: ${w}` });
   // i modelli dettagliati sostituiscono i vecchi box di telai/ante/vetri e degli arredi
-  const idVani = new Set(p.openings.map((o) => o.id));
-  const scatole = res.boxes.filter((b) => b.kind !== "arredo" && !(b.id && idVani.has(String(b.id).split(":")[0]) && b.kind !== "muro"));
+  const scatole = res.boxes.filter((b) => b.kind !== "arredo" && !b.vano);
   stato.viewer.setBoxes(scatole);
   stato.viewer.setDettagli(costruisciDettagli(p));
   stato.arredo?.aggiorna();
@@ -814,6 +831,7 @@ function ricostruisci() {
   scrivi(righe);
   messaggio(stato.pendente ? `In attesa del secondo punto (${stato.strumento}). Esc annulla.` : "Pronto. Ogni misura è un intero in mm.", "ok");
   renderVani();
+  salvaLocale();
 }
 
 function renderVani() {
@@ -832,8 +850,7 @@ function renderVani() {
     const corrente = Object.prototype.hasOwnProperty.call(stato.assegnazioni, o.id) ? stato.assegnazioni[o.id] : (o.cdi ?? "");
     sel.value = corrente ?? "";
     sel.onchange = () => {
-      stato.assegnazioni[o.id] = sel.value || null;
-      ricostruisci();
+      applica({...stato.progetto,openings:stato.progetto.openings.map(x=>x.id===o.id?{...x,cdi:sel.value||null}:x)});
     };
     riga.append(titolo, sel);
     lista.appendChild(riga);
@@ -861,9 +878,24 @@ function aggiornaVista2d() {
 }
 
 function caricaProgetto(p, nome, { origine = "json", dxfReport = null } = {}) {
-  stato.progetto = { floors: [], furniture: [], ...p };
-  stato.origine = origine;
-  stato.dxfReport = dxfReport;
+  // Tutti i controlli precedono l'aggiornamento dello stato e della storia.
+  const candidato = preparaProgetto(p);
+  if(dxfReport)candidato.verifica_importazione={metodo:'dxf',rapporto:structuredClone(dxfReport)};
+  if(stato.viewer?.passeggiataAttiva())stato.viewer.esciPasseggiata();
+  chiudiVistaFrontale();chiudiScheda();stato.arredo?.seleziona(null);
+  const analisi = candidato.analisi;
+  stato.energia?.ripristina(analisi.energia);
+  stato.gsaLavoro?.ripristina(analisi.gsaLavoro);
+  for (const k of PARAMETRI_ANALISI) stato[k] = analisi[k];
+  stato.orientamenti = analisi.orientamenti;
+  stato.gsaDaScheda = analisi.gsaDaScheda;
+  stato.schedaAnt = analisi.schedaAnt;
+  stato.asolFirma = null;
+  stato.progetto = candidato;
+  stato.origine = candidato.verifica_importazione?.metodo === 'tracciamento_calibrato' ? 'immagine'
+    : candidato.verifica_importazione?.metodo === 'segmenti_pdf' ? 'pdf_vettoriale'
+    : candidato.verifica_importazione?.metodo === 'dxf' ? 'dxf' : origine;
+  stato.dxfReport = dxfReport || candidato.verifica_importazione?.rapporto || null;
   stato.storia = [];
   stato.assegnazioni = {};
   stato.pendente = null;
@@ -1127,6 +1159,7 @@ function costruisciPannello() {
   stato.viewer.setPasseggiataHandler((on) => {
     btnPasseggiata.textContent = on ? "Esci dalla passeggiata (Esc)" : "Passeggiata in prima persona";
     aggiornaPrimaPersona(on);
+    queueMicrotask(() => { $("stile").value = stato.viewer.statistiche().stile; });
   });
   $("sez-vista").appendChild(btnPasseggiata);
 
@@ -1170,7 +1203,7 @@ async function init() {
   stato.viewer = createViewer($("vista"));
   stato.catalogo = await fetch("data/cdi-catalog.json?v=v20261020ap").then((r) => r.json());
   costruisciPannello();
-  montaGSA($("sez-gsa-incendio"));
+  stato.gsaLavoro=montaGSA($("sez-gsa-incendio"));
   stato.arredo = montaArredo({
     box: $("sez-arredi"),
     viewer: stato.viewer,
@@ -1292,23 +1325,34 @@ async function init() {
   aggiornaVista2d(); // etichette ON/OFF anche nella barra in alto
 
   window.addEventListener("keydown", (e) => {
+    if(document.querySelector('dialog[open]'))return;
+    if (e.target.closest?.("input, textarea, select, [contenteditable=true]")) return;
     if (e.key === "Escape") { stato.pendente = null; stato.arredoSelezionato = null; ricostruisci(); }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); annullaUltimo(); }
     if (e.key.toLowerCase() === "r" && stato.modo === "costruzione") { stato.rotazione = (stato.rotazione + 90) % 360; }
   });
 
   // Avvio: esempio AR-02 completo (pavimento e arredi di esempio). "Nuovo progetto" parte vuoto.
-  await apriEsempio();
+  let recuperato = false;
+  try {
+    const salvato = localStorage.getItem(CHIAVE_RECUPERO);
+    if (salvato) { caricaProgetto(JSON.parse(salvato), "recuperato"); recuperato = true; }
+  } catch (e) { messaggio(`Recupero non riuscito: ${e.message}`, "avviso"); }
+  if (!recuperato) await apriEsempio();
+  document.addEventListener("change", () => salvaLocale());
+  window.addEventListener("pagehide", salvaLocale);
 
-  montaTracciamento(document.getElementById("trc-root"), {
-    onPianta: (p) => caricaProgetto(p, "tracciata su immagine", { origine: "immagine" }),
+  montaPlanimetrie(document.getElementById('sez-planimetrie'), {
+    getSessione: sessioneCorrente,
+    onApri: (p,nome,opzioni) => { caricaProgetto(p,nome,opzioni); },
   });
 
   $("carica").addEventListener("change", async (ev) => {
     const file = ev.target.files[0];
     if (!file) return;
     try {
-      caricaProgetto(JSON.parse(await file.text()), file.name, { origine: "json" });
+      const letto=await leggiPlanimetria(file);
+      caricaProgetto(letto.progetto, file.name, { origine: "json" });
     } catch (e) {
       messaggio(`File non leggibile come JSON: ${e.message}`, "errore");
     }
@@ -1318,12 +1362,13 @@ async function init() {
     const file = ev.target.files[0];
     if (!file) return;
     try {
-      const parsed = parseDxf(await file.text());
-      const { plan, check, report } = dxfToPlan(parsed, {
+      const {progetto:plan, report} = await leggiPlanimetria(file, {
         riferimento: $("dxf-rif").value,
         spessoreDefault: Number($("dxf-t").value),
+        unitaSeAssenti: $('dxf-unita').value,
         nome: file.name,
       });
+      const check=verificaProgetto(plan);
       const righe = [
         { tipo: "ok", testo: `DXF letto: ${report.entita} entità (${report.linee} linee, ${report.polilinee} polilinee), ${report.muri} muri.` },
         { tipo: "info", testo: `Unità del file: ${report.unita ?? "non dichiarate"} • riferimento: ${$("dxf-rif").value}.` },
@@ -1351,9 +1396,14 @@ async function init() {
     const f = ev.target.files[0];
     if (!f) return;
     try {
-      stato.schedaAnt = { assegnazioni: {}, quote: [], ...JSON.parse(await f.text()) };
+      const raw=JSON.parse(await f.text());
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Scheda ambiti non valida');
+      const candidata={assegnazioni:{},quote:[],...raw};
+      const controllata=preparaProgetto({...stato.progetto,analisi:{schedaAnt:candidata}}).analisi.schedaAnt;
+      stato.schedaAnt=controllata;
       $("ant-esito").textContent = `Scheda caricata: ${Object.keys(stato.schedaAnt.assegnazioni).length} stanze assegnate, ${stato.schedaAnt.quote.length} quote.`;
       aggiornaAffidabilita();
+      salvaLocale();
     } catch (e) {
       $("ant-esito").textContent = `Scheda non leggibile: ${e.message}`;
     }
@@ -1369,15 +1419,13 @@ async function init() {
   });
 
   $("scarica").addEventListener("click", () => {
-    const out = structuredClone(stato.progetto);
-    for (const o of out.openings) {
-      if (Object.prototype.hasOwnProperty.call(stato.assegnazioni, o.id)) o.cdi = stato.assegnazioni[o.id];
-    }
+    const out = sessioneCorrente();
     const blob = new Blob([JSON.stringify(out, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = "progetto-mm.json";
     a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   });
 }
 

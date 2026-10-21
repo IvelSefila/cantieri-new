@@ -2,6 +2,7 @@
 // Un progetto nuovo e' VUOTO: nessun muro, nessun pavimento, nessun arredo.
 import { validatePlan, wallLengthMm, SCHEMA } from "./model.js?v=v20261020bq";
 import { LIBRERIA_3D, dimensioniArredo, angoliArredo } from "./arredi.js?v=v20261020bq";
+import { FUNZIONI } from './funzioni-stanze.js?v=v20261020bq';
 
 // Libreria degli arredi: derivata dalla libreria 3D (src/core/arredi.js). Colore in RGB per la pianta 2D.
 const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
@@ -76,8 +77,8 @@ export function progettoVuoto(nome = "Nuovo progetto") {
   };
 }
 
-const intero = (v) => Number.isInteger(v);
-const nuovoId = (prefisso, lista) => `${prefisso}_${String(lista.length + 1).padStart(3, "0")}`;
+const intero = (v) => Number.isSafeInteger(v);
+const nuovoId = (prefisso, lista) => nuovoIdUnico(prefisso, lista);
 // id che non collide anche dopo eliminazioni (n = primo numero libero)
 const nuovoIdUnico = (prefisso, lista) => {
   const usati = new Set(lista.map((x) => x.id));
@@ -214,15 +215,33 @@ export function impostaFunzioneStanza(p, poligono, funzione) {
 // Verifica completa del progetto: muri/vani con il validatore, pavimenti e arredi con i loro vincoli.
 export function verificaProgetto(p) {
   const base = validatePlan(p);
+  if (!base.ok) return base;
   const errori = [...base.errors];
-  for (const f of p.floors) {
+  const ids = new Set([...p.walls, ...p.openings].map(x => x.id));
+  const poligonoValido=pts=>Array.isArray(pts)&&pts.length>=3&&pts.every(pt=>Array.isArray(pt)&&pt.length===2&&pt.every(Number.isSafeInteger))&&pts.reduce((a,q,i)=>a+q[0]*pts[(i+1)%pts.length][1]-q[1]*pts[(i+1)%pts.length][0],0)!==0;
+  for (const key of ["floors", "furniture"]) {
+    if (p[key] !== undefined && !Array.isArray(p[key])) errori.push(`${key}: array richiesto`);
+    for (const x of Array.isArray(p[key]) ? p[key] : []) {
+      if (!x || typeof x !== "object" || typeof x.id!=='string'||!x.id.trim()||['__proto__','constructor','prototype'].includes(x.id)) { errori.push(`${key}: elemento senza id valido`); continue; }
+      if (ids.has(x.id)) errori.push(`id duplicato: ${x.id}`);
+      ids.add(x.id);
+    }
+  }
+  for (const f of Array.isArray(p.floors) ? p.floors : []) {
+    if (!f || typeof f !== "object") continue;
     if (f.poligono) {
-      if (!f.poligono.every(([x, y]) => intero(x) && intero(y))) errori.push(`pavimento ${f.id}: interi mm`);
-    } else if (![f.x0, f.y0, f.x1, f.y1].every(intero)) errori.push(`pavimento ${f.id}: interi mm`);
+      if (!poligonoValido(f.poligono)) errori.push(`pavimento ${f.id}: poligono con area e interi mm richiesto`);
+    } else if (![f.x0, f.y0, f.x1, f.y1].every(Number.isSafeInteger) || f.x1 <= f.x0 || f.y1 <= f.y0) errori.push(`pavimento ${f.id}: rettangolo valido in interi mm richiesto`);
+    if (!Object.hasOwn(MATERIALI_PAVIMENTO,f.materiale)) errori.push(`pavimento ${f.id}: materiale sconosciuto`);
   }
-  for (const a of p.furniture) {
-    if (!LIBRERIA_ARREDI[a.tipo]) errori.push(`arredo ${a.id}: tipo sconosciuto`);
+  for (const a of Array.isArray(p.furniture) ? p.furniture : []) {
+    if (!a || typeof a !== "object") continue;
+    if (!Object.hasOwn(LIBRERIA_ARREDI,a.tipo)) errori.push(`arredo ${a.id}: tipo sconosciuto`);
+    if(a.finitura!==undefined && (typeof a.finitura!=='string'||!LIBRERIA_3D[a.tipo]?.finiture?.some(f=>f.id===a.finitura)))errori.push(`arredo ${a.id}: finitura sconosciuta`);
+    if (![a.x, a.y, a.rot ?? 0].every(Number.isSafeInteger)) errori.push(`arredo ${a.id}: coordinate e rotazione intere richieste`);
+    for (const k of ["L", "D", "H"]) if (a[k] !== undefined && !(Number.isSafeInteger(a[k]) && a[k] > 0)) errori.push(`arredo ${a.id}: ${k} non valida`);
   }
+  if(p.funzioniStanze!==undefined && (!Array.isArray(p.funzioniStanze)||p.funzioniStanze.some(f=>!f||!poligonoValido(f.poligono)||!Object.hasOwn(FUNZIONI,f.funzione))))errori.push('Funzioni delle stanze non valide');
   return { ok: errori.length === 0, errors: errori, warnings: base.warnings };
 }
 
@@ -250,12 +269,16 @@ export function spezzaMuro(p, wallId, mm) {
     return { p, id: w.id };
   }
   const bordi = [0, ...uniche, 1];
+  if (p.openings.some(o => o.wall === w.id && uniche.some(t => t * Math.sqrt(L2) > o.offset && t * Math.sqrt(L2) < o.offset + o.width))) {
+    return { errore: "Il taglio del muro attraversa un vano: correggere la giunzione prima di dividere." };
+  }
   // punti di taglio in mm interi (il modello li richiede interi); lo stesso punto e' condiviso dai due tratti
   const punto = (t) => (t <= 0 ? w.a : t >= 1 ? w.b : [Math.round(w.a[0] + d[0] * t), Math.round(w.a[1] + d[1] * t)]);
   const tratti = [];
   for (let i = 0; i < bordi.length - 1; i++) {
     const t0 = bordi[i], t1 = bordi[i + 1];
-    const id = i === 0 ? w.id : `${w.id}_${i}`;
+    let id = i === 0 ? w.id : `${w.id}_${i}`;
+    while (i > 0 && (p.walls.some(x => x.id === id) || tratti.some(x => x.id === id))) id += "_1";
     tratti.push({ id, t0, t1, muro: { ...w, id, a: punto(t0), b: punto(t1) } });
   }
   const walls = p.walls.flatMap((x) => (x.id === w.id ? tratti.map((tr) => tr.muro) : [x]));

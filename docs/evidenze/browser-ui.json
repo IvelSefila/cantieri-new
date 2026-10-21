@@ -1,0 +1,104 @@
+{
+  "sha256_sorgenti": {
+    "src\\app.js": "9201aa692d769491548eec44794993c71c1e77393f7fa4e1ca01e194827a0ac0",
+    "src\\core\\alloggi.js": "b7db6b5807395a29fea53701294fe4bef05b28a92147c7216cb171219e32d82b",
+    "src\\core\\altimetria-civico.js": "e1ee627e27ecc59d54999d2c7198fd36908fe8b372fdec78903cdd9b5fdb3de9",
+    "src\\core\\antincendio.js": "8a1931695df8439f05ef1ced4f8b98cf5f9357929d3fb98a3c4d022d7fbb3a18",
+    "src\\core\\arredi.js": "3ea2e6af0fb51649c3bcea290966f8fc284f66a75b68f36d8358ceae3f75d49f",
+    "src\\core\\arredo-intelligente.js": "3dea76fd96d9c8426b02a5c38bfbea22a58d1475ba84057079ec899991912762",
+    "src\\core\\automatismi.js": "ffe591bcfed0146a841733bb44fba277228ba1fc2a4f837ffc0b0504496d1f9f",
+    "src\\core\\build.js": "b383ea0027a1ccc273662e7344bcca1af6fa32a913ff491949fb39aaca06a37f",
+    "src\\core\\catalogo.js": "4778dbb9db14c97c84f6e2cb763fae7ecbb4b326901bbc2544eece13b90539d5",
+    "src\\core\\cdi.js": "412587ef0ede34e42d134b4adfc24be0a7cd0f6ee5af040942e68e47124e763a",
+    "src\\core\\civile-abitazione.js": "0634fbc7d9d5ccc9370c68dd400aa32afa23c3d341f09779a666914dfbe2386f",
+    "src\\core\\clima.js": "038d40a52fe3f89fe557ea35355d679701cfe180121b8c08e0e2101048974a89",
+    "src\\core\\elementi.js": "63cfb3161bc06da8e5b7d2c4cdc813ff234edbde7a11fb5474a546064df47a4c",
+    "src\\core\\energia.js": "719afb5c9b15dbc90759bff98810f50ace26749ffef99ff0bb9aa69ed5cf34b6",
+    "src\\core\\fsol.js": "a99dfd54f423d7783d74df93063a5ca9c6641af84b88de49c3a4a66246be84d6",
+    "src\\core\\funzioni-stanze.js": "0ed0261888d879964f726daedb1ebb98e0089fa81d27d692f24d4b416f21db14",
+    "src\\core\\gsa-incendio.js": "2393d96692b80b9d961ba2de2f200bf9e1ee785a713c628a5df4547c3d473b93",
+    "src\\core\\gsa.js": "cb5b0c2bcca859c05d4e3a1352b9a7bfbd79bd9686563899c0e886e0b9f50623",
+    "src\\core\\infissi3d.js": "74c4e8fa5ec94605b49bb53b33ef60567e54718c70e473deb60ba1c8feeda8f7",
+    "src\\core\\inquadratura.js": "cf2c9e9755fa7326e92a7feb534b1b006574c2410ddb49e6987d5b7ddc6a7304",
+    "src\\core\\limiti.js": "ebc298e84302646050b8554b7e9df75272ac7db816f34cf87567dc1b311ae3ee",
+    "src\\core\\measure.js": "f1f58e1b75256a9f0939debff25333488b9ccff85bab7effe26b52ec00f92d05",
+    "src\\core\\mensile.js": "31e6cdfb780ceaffb042c59304e3c5ea158843e6015fde5041da390def37574c",
+    "src\\core\\model.js": "3773ae3a5169eb9372761279e254b7ba9a5890fbf737be4a66be2deda955cd10",
+    "src\\core\\normativa.js": "87d1bef973b78ed88f10d9411155be7f917c65f84c867a76c55109b94d7a4ea2",
+    "src\\core\\passeggiata.js": "e63ffd4d579321592a06b08798865fd3c5fc98bff25097fb774f059556c33061",
+    "src\\core\\pdfdati.js": "cbe94e6d79085a9d9ae319b255aa8c64b69f2ef73424ec9ef7ef5035a1cec7dd",
+    "src\\core\\precisione.js": "e0156fe8d5c26eea929ca545c13b510849196fa0e95d4faa2bd27585dcc93143",
+    "src\\core\\project.js": "528d39759aaeeee48a1b8b6ffedd80db68f2bb42e4ab952f726d96f3e040678e",
+    "src\\core\\registro-norme.js": "3cdab7106418c8fa8801c43ab2ee8b2b1fa864d3992ed313efbca01060c32c74",
+    "src\\core\\regole-dm246.js": "3b5714b4060fa507d23186b73a4d9e5b87ec3e4cc1dc8fa3df2c93d656f1d854",
+    "src\\core\\rischio-incendio.js": "a75e5f0bd3811a2031c02a5de0c0f2bee3e0f2373862ab3a738c25333bec2952",
+    "src\\core\\rooms.js": "bb9046dc1a964c4868540301f14a850d3048768bcf391ee0651cc735c6dab729",
+    "src\\core\\sessione.js": "94fe9db877acabffb266f21e0b6bad4c21138d3e6979e0857bf1bab71df6859f",
+    "src\\core\\snap.js": "38543ddae0c78ed24ef37e3e9d708610b82d62faf9722155ff892de74ff7db7c",
+    "src\\io\\archivio-planimetrie.js": "1429d677e51eb3b98eb7f5c42ffe91daa9cccc0bdccf8a6a37e385a366cd389b",
+    "src\\io\\dxf.js": "bac716a6f67e1bd833cbd0d147910e9a86250ac16fdd99c4625772f754aee0a3",
+    "src\\io\\pdf-plan.js": "8e295ae2096e9dd8b0bf4368ba5bbd404804c231f5fd6485f320d4c36a5d926d",
+    "src\\io\\planimetrie.js": "99d8f4706ebca86b36e7b75fc58d67d5d3a32fc0fd2b25d41203bcdacc3f267a",
+    "src\\io\\toPlan.js": "5eacaa27cf7d427e24f89baaee94a6bd1d1b59e244ee805ce6b5d95d9277bcbb",
+    "src\\trace\\geometry.js": "4df3014fc6db9297b1e5d68f7364576017cfa82e13c5ea54b049f179d43c14c5",
+    "src\\trace\\tracer.js": "957eacec4eda3e7bac81559d72dcd16f6d0964fc8ecc7aff2ca7a4a5ccc8ae8b",
+    "src\\trace\\ui.js": "980c7a795ac808ed6cc458676c521f3264e998375966c395019c8873517c1992",
+    "src\\ui\\affidabilita-ui.js": "1dc99b84ddd4cbd2ecae61f640fcee2d3eed0634ad22695cd0410defedc7d444",
+    "src\\ui\\arredo-ui.js": "d3fc7947af30b9744d1f0440383d8f3e24644658d80a52ee44f33329d1d8c957",
+    "src\\ui\\dock-infissi.js": "891e7b2c363a520f24e01207a05e66337e648c63a37b1cfe592b7751a9bcffe5",
+    "src\\ui\\energia-ui.js": "5d0d28191becdf1b495498de287bebebec42b214d747b479440d21fa6fadcbf1",
+    "src\\ui\\gsa-ui.js": "d631b38981dab9c0c6a2930f068ad37021503882cd5d3b69564ecfa1fd8fe0ff",
+    "src\\ui\\hud.js": "9f15d82e2d7dbe69849855ff6391c947a406d1e8c7fe5f8b5ea4f1715c09d784",
+    "src\\ui\\planimetrie.js": "290ecb928eb1439e61e36ce1808c6a848f4b83897c348581df3fb398c7e54f7e",
+    "src\\ui\\scheda.js": "b5136495884b92ad07ff75201f75b96c9626f91a474c991bdffc2f007344dd04",
+    "src\\view\\materials.js": "cbffca48cd6401a242cdae18067889da2e53de759ca1253dcb9c788aa1a7c8ee",
+    "src\\view\\misure.js": "683c5c56662ef029b4bca99a1439b753699268dc15146b07d476e712f8ef63be",
+    "src\\view\\modelli3d.js": "28b652e29bec1b6cba1273f20cb540f98b43b5b58b4fc171f420dc165fa2b486",
+    "src\\view\\passeggiata-view.js": "22aae6e4d083cdbe77282da2ace0419903a6afc02bcf8a9e69d1e9b138072c2e",
+    "src\\view\\post.js": "1446deba49e648e742dd26c6c7d8ac43acddaf81da27475d70b13371ddef8ee9",
+    "src\\view\\realistico.js": "d78c47c99612c735aca157278b4cf58ff93f57b870e3d3f28d2286993ccbed0d",
+    "src\\view\\scene.js": "0403ea012c0ab7aecedb963a092445d1503da69d6ae158a67af0f6ec8dedc61d",
+    "src\\view2d\\plan.js": "45c8afd81394e36a0642e0e9998b8555579568412bcd0437c4e98ed5e66e943c",
+    "tools\\serve.py": "9972435d77f8481b54331ec5ccb17b7142b8d665ee3931b308b72b5fd6572419"
+  },
+  "ui": [
+    {
+      "nome": "avvio 3D",
+      "pass": true
+    },
+    {
+      "nome": "import invalido preserva progetto precedente",
+      "pass": true
+    },
+    {
+      "nome": "esportazione dopo import rifiutato",
+      "pass": true
+    },
+    {
+      "nome": "refresh recupera progetto vuoto",
+      "pass": true
+    },
+    {
+      "nome": "nord persistito",
+      "pass": true
+    },
+    {
+      "nome": "parametri energia persistiti",
+      "pass": true
+    },
+    {
+      "nome": "vista 2D",
+      "pass": true
+    },
+    {
+      "nome": "viewport mobile senza overflow orizzontale",
+      "pass": true
+    },
+    {
+      "nome": "nessun errore JavaScript",
+      "pass": true
+    }
+  ],
+  "errori_js": [],
+  "live": []
+}

@@ -11,23 +11,27 @@
 export const SCHEMA = 1;
 export const MAZZETTA_MIN_MM = 150; // avviso se un vano lascia meno di 15 cm di muro pieno
 
-const isInt = (v) => Number.isInteger(v);
+const isInt = (v) => Number.isSafeInteger(v);
 const isPair = (p) => Array.isArray(p) && p.length === 2 && p.every(isInt);
+const idValido = v => typeof v === 'string' && v.trim().length > 0 && !['__proto__','constructor','prototype'].includes(v);
 
 export function validatePlan(plan) {
   const errors = [];
   const warnings = [];
-  if (!plan || typeof plan !== "object") return { ok: false, errors: ["plan non valido"], warnings };
+  if (!plan || typeof plan !== "object" || Array.isArray(plan)) return { ok: false, errors: ["plan non valido"], warnings };
   if (plan.schema !== SCHEMA) errors.push(`schema richiesto ${SCHEMA}`);
   if (plan.unit !== "mm") errors.push('unit deve essere "mm"');
   if (!isInt(plan.altezza_muri) || plan.altezza_muri <= 0) errors.push("altezza_muri: intero mm > 0");
 
   const walls = Array.isArray(plan.walls) ? plan.walls : [];
   const openings = Array.isArray(plan.openings) ? plan.openings : [];
+  if (!Array.isArray(plan.walls)) errors.push("walls deve essere un array");
+  if (!Array.isArray(plan.openings)) errors.push("openings deve essere un array");
   const wallById = new Map();
 
   for (const w of walls) {
-    if (!w.id) { errors.push("muro senza id"); continue; }
+    if (!w || typeof w !== "object") { errors.push("muro non valido"); continue; }
+    if (!idValido(w.id)) { errors.push("muro senza id valido"); continue; }
     if (wallById.has(w.id)) errors.push(`muro duplicato: ${w.id}`);
     if (!isPair(w.a) || !isPair(w.b)) { errors.push(`muro ${w.id}: a/b devono essere coppie di interi mm`); continue; }
     if (!isInt(w.t) || w.t <= 0) errors.push(`muro ${w.id}: spessore t intero > 0`);
@@ -36,8 +40,13 @@ export function validatePlan(plan) {
   }
 
   const perWall = new Map();
+  const openingIds = new Set();
   for (const o of openings) {
-    if (!o.id) { errors.push("vano senza id"); continue; }
+    if (!o || typeof o !== "object") { errors.push("vano non valido"); continue; }
+    if (!idValido(o.id)) { errors.push("vano senza id valido"); continue; }
+    if(wallById.has(o.id))errors.push(`id duplicato fra muro e vano: ${o.id}`);
+    if (openingIds.has(o.id)) errors.push(`vano duplicato: ${o.id}`);
+    openingIds.add(o.id);
     const w = wallById.get(o.wall);
     if (!w) { errors.push(`vano ${o.id}: muro ${o.wall} inesistente`); continue; }
     for (const k of ["offset", "width", "height", "sill"]) {
@@ -46,6 +55,8 @@ export function validatePlan(plan) {
     if (errors.some((e) => e.startsWith(`vano ${o.id}`))) continue;
     const L = wallLengthMm(w);
     if (o.width <= 0 || o.height <= 0) errors.push(`vano ${o.id}: larghezza e altezza > 0`);
+    if (!["porta", "finestra", "scorrevole"].includes(o.type)) errors.push(`vano ${o.id}: tipo non ammesso`);
+    if(o.cdi!=null && typeof o.cdi!=='string')errors.push(`vano ${o.id}: codice infisso non valido`);
     if (o.materiale !== undefined && !["legno", "vetro", "vetro_fume"].includes(o.materiale)) errors.push(`vano ${o.id}: materiale non ammesso (${o.materiale})`);
     if (o.sill < 0) errors.push(`vano ${o.id}: davanzale negativo`);
     if (o.offset < 0 || o.offset + o.width > L) errors.push(`vano ${o.id}: fuori dal muro ${w.id} (lunghezza ${L} mm)`);

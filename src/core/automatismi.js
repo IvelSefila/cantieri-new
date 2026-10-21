@@ -60,6 +60,17 @@ export function infissiAutomatici(p) {
     const areaMm2 = s.superficieMm2;
     const minimoMm2 = areaMm2 / 8;
     const voce = { stanza: s.id, funzione, sorgente, superficieM2: +(areaMm2 / 1e6).toFixed(2), minimoM2: +(minimoMm2 / 1e6).toFixed(2), finestreM2: 0, ok: null, norme: [] };
+    for (const o of q.openings) {
+      if (!["finestra", "scorrevole"].includes(o.type) || o.apribile !== true) continue;
+      const w = q.walls.find(x => x.id === o.wall);
+      if (!w) continue;
+      const L = Math.hypot(w.b[0] - w.a[0], w.b[1] - w.a[1]);
+      const ext = latoEsterno(w, poligoniInterni, o.offset + o.width / 2);
+      if (!ext || !L) continue;
+      const k = (o.offset + o.width / 2) / L;
+      const punto = [w.a[0] + k * (w.b[0] - w.a[0]) - ext.nx * (w.t / 2 + 10), w.a[1] + k * (w.b[1] - w.a[1]) - ext.ny * (w.t / 2 + 10)];
+      if (dentroPoligono(punto, s.interno)) voce.finestreM2 += o.width * o.height / 1e6;
+    }
     rapporto.push(voce);
     if (!DEVONO_FINESTRA.has(funzione)) {
       if (funzione === "bagno") {

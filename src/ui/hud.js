@@ -25,6 +25,7 @@ const SLOT = [
 
 const SCHEDE = [
   { id: "progetto", nome: "Progetto" },
+  { id: "planimetrie", nome: "Planimetrie" },
   { id: "costruzione", nome: "Costruzione" },
   { id: "gsa", nome: "GSA antincendio" },
   { id: "asol", nome: "Asol,est" },
@@ -136,10 +137,11 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
   }
 
   window.addEventListener("keydown", (e) => {
-    if (e.target.closest && e.target.closest("input, select, textarea")) return;
+    if(e.defaultPrevented||e.ctrlKey||e.metaKey||e.altKey||document.querySelector('dialog[open]'))return;
+    if (e.target.closest && e.target.closest("input, select, textarea, [contenteditable]")) return;
     const s = SLOT.find((x) => x.tasto === e.key);
     if (s) selezionaStrumento(s.id);
-    if (e.key === "Tab") { e.preventDefault(); aside?.classList.toggle("chiuso"); }
+    if (e.key === "Tab" && (e.target===document.body||e.target.tagName==='CANVAS')) { e.preventDefault(); aside?.classList.toggle("chiuso"); }
   });
 
   impostaModalita("semplice");

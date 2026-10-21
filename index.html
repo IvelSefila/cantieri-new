@@ -15,7 +15,7 @@
   }
   </script>
   <link rel="stylesheet" href="src/ui/hud.css?v=v20261020d">
-  <link rel="stylesheet" href="src/ui/tema.css?v=v20261020d">
+  <link rel="stylesheet" href="src/ui/tema.css?v=v20261020pl">
   <style>
     /* Stili minimi per i controlli generati dal codice: il tema vero e' in hud.css */
     h1 { font-size: 15px; margin: 0 0 6px; }
@@ -46,7 +46,7 @@
   <aside>
     <section class="scheda" data-scheda="progetto">
       <h1>Progetto</h1>
-      <div class="sub">Tutto gira nel tuo browser: nessun dato viene inviato. Misure in millimetri interi.</div>
+      <div class="sub">Modello e planimetrie sono elaborati nel browser. La ricerca di indirizzi usa servizi esterni. Misure in millimetri interi.</div>
       <div id="sez-progetto-azioni" class="riga-azioni"></div>
       <div class="riga-azioni">
         <button id="scarica">Scarica progetto (JSON)</button>
@@ -61,11 +61,12 @@
         <div class="riga-azioni">
           <label>Riferimento <select id="dxf-rif"><option value="asse">asse del muro</option><option value="faccia_esterna">filo esterno</option></select></label>
           <label>Spessore (mm) <input id="dxf-t" type="number" value="250" min="2" step="2" style="width:80px"></label>
+          <label>Unità se assenti <select id="dxf-unita"><option value="">Scegli</option><option value="4">Millimetri</option><option value="5">Centimetri</option><option value="6">Metri</option></select></label>
         </div>
       </div>
       <details id="trc-root" class="blocco avanzato">
-        <summary><b>Tracciamento su immagine</b> (calibrato in mm)</summary>
-        <div class="riga-azioni"><input id="trc-file" type="file" accept="image/*"></div>
+        <summary><b>Tavola PDF o immagine</b> (calibrata in mm)</summary>
+        <div class="riga-azioni"><label>Cambia tavola <input id="trc-file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp"></label></div>
         <div class="riga-azioni">
           Spessore (mm) <input id="trc-spessore" type="number" value="250" step="2" style="width:70px">
           Altezza muri <input id="trc-altezza-muri" type="number" value="2800" style="width:70px">
@@ -94,6 +95,12 @@
         <h2>Vani</h2>
         <div id="vani"></div>
       </div>
+    </section>
+
+    <section class="scheda" data-scheda="planimetrie">
+      <h1>Planimetrie</h1>
+      <div class="sub">Scegli una planimetria salvata o un file dal PC. Per PDF e immagini conferma la scala e i muri: il disegno viene elaborato qui, senza inviare il documento.</div>
+      <div id="sez-planimetrie"></div>
     </section>
 
     <section class="scheda" data-scheda="costruzione">

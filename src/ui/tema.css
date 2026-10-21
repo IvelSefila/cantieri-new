@@ -188,3 +188,22 @@ aside button.dock-card:disabled { opacity: .45; }
   aside.dock-infissi { left: 8px !important; right: 8px; width: auto !important; }
   .arr-griglia, .dock-griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+/* Raccolta locale e tavola PDF/immagine: stessi colori dei pannelli del progetto. */
+[hidden] { display: none !important; }
+#sez-planimetrie h2 { margin: 20px 0 8px; font-size: 14px; color: var(--hud-ciano); }
+#pl-file { display: block; max-width: 100%; margin: 10px 0; }
+#pl-titolo { display: block; box-sizing: border-box; width: 100%; margin-bottom: 8px; }
+#pl-stato { margin: 12px 0; color: var(--hud-testo-2); font-size: 12px; overflow-wrap: anywhere; }
+.pl-card { display: grid; gap: 8px; border: 1px solid var(--hud-riga); border-radius: 12px; padding: 12px; margin: 10px 0; }
+.pl-card div { font-size: 11px; color: var(--hud-muto); }
+.pl-esempio { display: block; width: 100%; margin: 8px 0; }
+#pl-editor { box-sizing: border-box; width: min(1180px, 95vw); max-height: 92dvh; padding: 18px; border: 1px solid var(--hud-ciano); border-radius: 16px; background: #101a2d; color: #eef4ff; font: 13px/1.5 system-ui, sans-serif; }
+#pl-editor::backdrop { background: rgba(0,0,0,.7); }
+#pl-editor button, #pl-editor select, #pl-editor input { font: inherit; color: #edf5ff; background: #1f304e; border: 1px solid #56749b; border-radius: 7px; padding: 6px 9px; }
+#pl-editor button { cursor: pointer; }
+#pl-editor button:disabled { opacity: .45; cursor: default; }
+#pl-editor summary { font-size: 16px; margin: 8px 0 14px; }
+#pl-editor .trc-stato { min-height: 35px; color: #a9e6f6; }
+#pl-editor .trc-wrap { background: white; }
+#pl-editor canvas { margin: 0 auto; }
+#pl-chiudi { float: right; }

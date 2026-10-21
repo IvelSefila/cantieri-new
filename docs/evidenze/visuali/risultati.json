@@ -1,0 +1,1176 @@
+{
+  "prove": [
+    {
+      "nome": "menu app fotorealistico",
+      "pass": true
+    },
+    {
+      "nome": "menu app solido",
+      "pass": true
+    },
+    {
+      "nome": "menu app argilla",
+      "pass": true
+    },
+    {
+      "nome": "menu app vetro",
+      "pass": true
+    },
+    {
+      "nome": "menu app ultra-glass",
+      "pass": true
+    },
+    {
+      "nome": "menu app blueprint",
+      "pass": true
+    },
+    {
+      "nome": "menu app notte",
+      "pass": true
+    },
+    {
+      "nome": "menu app neon",
+      "pass": true
+    },
+    {
+      "nome": "menu app dollhouse",
+      "pass": true
+    },
+    {
+      "nome": "menu app iso-dollhouse",
+      "pass": true
+    },
+    {
+      "nome": "menu app vetro-dollhouse",
+      "pass": true
+    },
+    {
+      "nome": "prima persona sospende dollhouse e sincronizza menu",
+      "pass": true
+    },
+    {
+      "nome": "uscita prima persona ripristina dollhouse e menu",
+      "pass": true
+    },
+    {
+      "nome": "basso fotorealistico modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso fotorealistico centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso solido modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso solido centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso argilla modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso argilla centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "basso iso-dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso iso-dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso iso-dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "basso vetro modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso vetro centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso vetro muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "basso vetro-dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso vetro-dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso vetro-dollhouse muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "basso vetro-dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "basso ultra-glass modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso ultra-glass centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso ultra-glass muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "basso blueprint modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso blueprint centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso notte modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso notte centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "basso notte luci calde reali",
+      "pass": true
+    },
+    {
+      "nome": "basso neon modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "basso neon centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "qualita dopo isometrica basso",
+      "pass": true
+    },
+    {
+      "nome": "medio fotorealistico modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio fotorealistico centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio solido modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio solido centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio argilla modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio argilla centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "medio iso-dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio iso-dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio iso-dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "medio vetro modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio vetro centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio vetro muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "medio vetro-dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio vetro-dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio vetro-dollhouse muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "medio vetro-dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "medio ultra-glass modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio ultra-glass centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio ultra-glass muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "medio blueprint modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio blueprint centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio notte modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio notte centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "medio notte luci calde reali",
+      "pass": true
+    },
+    {
+      "nome": "medio neon modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "medio neon centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "qualita dopo isometrica medio",
+      "pass": true
+    },
+    {
+      "nome": "alto fotorealistico modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto fotorealistico centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto solido modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto solido centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto argilla modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto argilla centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "alto iso-dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto iso-dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto iso-dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "alto vetro modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto vetro centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto vetro muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "alto vetro-dollhouse modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto vetro-dollhouse centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto vetro-dollhouse muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "alto vetro-dollhouse muri tagliati",
+      "pass": true
+    },
+    {
+      "nome": "alto ultra-glass modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto ultra-glass centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto ultra-glass muri trasparenti senza foto opache",
+      "pass": true
+    },
+    {
+      "nome": "alto blueprint modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto blueprint centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto notte modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto notte centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "alto notte luci calde reali",
+      "pass": true
+    },
+    {
+      "nome": "alto neon modello davanti alla nebbia",
+      "pass": true
+    },
+    {
+      "nome": "alto neon centrato sul progetto importato",
+      "pass": true
+    },
+    {
+      "nome": "qualita dopo isometrica alto",
+      "pass": true
+    },
+    {
+      "nome": "stile cancella offset e orientamento della vista tecnica",
+      "pass": true
+    },
+    {
+      "nome": "arredo glTF rispetta argilla",
+      "pass": true
+    },
+    {
+      "nome": "arredo glTF rispetta taglio dollhouse",
+      "pass": true
+    },
+    {
+      "nome": "WASD orbitale muove in metri senza salto chilometrico",
+      "pass": true
+    },
+    {
+      "nome": "nessun errore JavaScript",
+      "pass": true
+    }
+  ],
+  "errori_js": [],
+  "sorgenti": {
+    "src\\view\\scene.js": "c98de977de95327ce8b8b32dad8623294f7a00fea37c3bde64e8ae3a7a2fe903",
+    "src\\view\\modelli3d.js": "e14dc0085fd8a2bd2732994579a467216ce919a6de09b26b3b47507394c7362f",
+    "src\\app.js": "ad7e3a3b04e18be94405498416328dce2aead5aeafeaaa163707ac56459608f3"
+  },
+  "stili": {
+    "basso-fotorealistico": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "fotorealistico"
+    },
+    "basso-solido": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "solido"
+    },
+    "basso-argilla": {
+      "mats": [
+        {
+          "op": 1,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "argilla"
+    },
+    "basso-dollhouse": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "dollhouse"
+    },
+    "basso-iso-dollhouse": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 65.65525153630657,
+      "dist": 57.77220009666721,
+      "fov": 9,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "iso-dollhouse"
+    },
+    "basso-vetro": {
+      "mats": [
+        {
+          "op": 0.4,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "vetro"
+    },
+    "basso-vetro-dollhouse": {
+      "mats": [
+        {
+          "op": 0.4,
+          "map": false,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "vetro-dollhouse"
+    },
+    "basso-ultra-glass": {
+      "mats": [
+        {
+          "op": 0.2,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "ultra-glass"
+    },
+    "basso-blueprint": {
+      "mats": [
+        {
+          "op": 0.2,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "blueprint"
+    },
+    "basso-notte": {
+      "mats": [
+        {
+          "op": 1,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 1,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "notte"
+    },
+    "basso-neon": {
+      "mats": [
+        {
+          "op": 0.3,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "neon"
+    },
+    "medio-fotorealistico": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "fotorealistico"
+    },
+    "medio-solido": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "solido"
+    },
+    "medio-argilla": {
+      "mats": [
+        {
+          "op": 1,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "argilla"
+    },
+    "medio-dollhouse": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "dollhouse"
+    },
+    "medio-iso-dollhouse": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 65.65525153630657,
+      "dist": 57.77220009666721,
+      "fov": 9,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "iso-dollhouse"
+    },
+    "medio-vetro": {
+      "mats": [
+        {
+          "op": 0.4,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "vetro"
+    },
+    "medio-vetro-dollhouse": {
+      "mats": [
+        {
+          "op": 0.4,
+          "map": false,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "vetro-dollhouse"
+    },
+    "medio-ultra-glass": {
+      "mats": [
+        {
+          "op": 0.2,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "ultra-glass"
+    },
+    "medio-blueprint": {
+      "mats": [
+        {
+          "op": 0.2,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "blueprint"
+    },
+    "medio-notte": {
+      "mats": [
+        {
+          "op": 1,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 1,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "notte"
+    },
+    "medio-neon": {
+      "mats": [
+        {
+          "op": 0.3,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "neon"
+    },
+    "alto-fotorealistico": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "fotorealistico"
+    },
+    "alto-solido": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "solido"
+    },
+    "alto-argilla": {
+      "mats": [
+        {
+          "op": 1,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "argilla"
+    },
+    "alto-dollhouse": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "dollhouse"
+    },
+    "alto-iso-dollhouse": {
+      "mats": [
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        },
+        {
+          "op": 1,
+          "map": true,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 65.65525153630657,
+      "dist": 57.77220009666721,
+      "fov": 9,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "iso-dollhouse"
+    },
+    "alto-vetro": {
+      "mats": [
+        {
+          "op": 0.4,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "vetro"
+    },
+    "alto-vetro-dollhouse": {
+      "mats": [
+        {
+          "op": 0.4,
+          "map": false,
+          "clip": 1,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "vetro-dollhouse"
+    },
+    "alto-ultra-glass": {
+      "mats": [
+        {
+          "op": 1,
+          "map": false,
+          "clip": 0,
+          "trans": 0.92
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "ultra-glass"
+    },
+    "alto-blueprint": {
+      "mats": [
+        {
+          "op": 0.2,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "blueprint"
+    },
+    "alto-notte": {
+      "mats": [
+        {
+          "op": 1,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 1,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "notte"
+    },
+    "alto-neon": {
+      "mats": [
+        {
+          "op": 0.3,
+          "map": false,
+          "clip": 0,
+          "trans": 0
+        }
+      ],
+      "near": 20.531377227544812,
+      "dist": 12.648325787905463,
+      "fov": 42,
+      "lights": 0,
+      "target": [
+        32.95,
+        1.3750000000000004,
+        21.95
+      ],
+      "style": "neon"
+    }
+  }
+}

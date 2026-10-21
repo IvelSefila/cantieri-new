@@ -273,14 +273,23 @@ export function gruppoArredo(parti, a, opz = {}, sostituto = null) {
   }
   g.userData = dati;
   const def = LIBRERIA_3D[a.tipo];
-  if (def?.modello) g.userData.pronto = collocaModello(g, def.modello, dimensioniArredo(a), segnaposti);
+  if (def?.modello) g.userData.pronto = collocaModello(g, def.modello, dimensioniArredo(a), segnaposti, opz, sostituto);
   return g;
 }
 
 // Modello glTF di un arredo: scalato sull'ingombro L x D x H del progetto e centrato in pianta; il segnaposto si nasconde al caricamento
-function collocaModello(g, url, { L, D, H }, segnaposti) {
+function collocaModello(g, url, { L, D, H }, segnaposti, opz = {}, sostituto = null) {
   return modelloGlb(url).then((scena) => {
     const obj = scena.clone(true);
+    obj.traverse((m) => {
+      if (!m.isMesh) return;
+      m.userData = { ...g.userData };
+      m.material = sostituto ? sostituto({ mat: "tessuto" }) : Array.isArray(m.material) ? m.material.map((x) => x.clone()) : m.material.clone();
+      for (const mat of [].concat(m.material)) {
+        mat.clippingPlanes = opz.clip ?? null;
+        mat.clipShadows = !!opz.clip;
+      }
+    });
     obj.updateMatrixWorld(true);
     const misura = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3());
     obj.scale.set((L * MM) / misura.x, (H * MM) / misura.y, (D * MM) / misura.z);
@@ -291,6 +300,7 @@ function collocaModello(g, url, { L, D, H }, segnaposti) {
     segnaposti.forEach((m) => { m.visible = false; });
     g.add(obj);
     g.userData.modelloCaricato = true;
+    opz.onCaricato?.();
   }).catch(() => { /* file assente: resta il segnaposto */ });
 }
 

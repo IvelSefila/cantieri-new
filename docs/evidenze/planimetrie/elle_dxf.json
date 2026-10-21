@@ -1,0 +1,175 @@
+{
+  "floors": [],
+  "furniture": [],
+  "schema": 1,
+  "unit": "mm",
+  "altezza_muri": 2800,
+  "name": "elle.dxf",
+  "fonte": "DXF (unita' originali: 4, riferimento: asse)",
+  "walls": [
+    {
+      "id": "MURI_001",
+      "a": [
+        0,
+        0
+      ],
+      "b": [
+        8000,
+        0
+      ],
+      "t": 250,
+      "kind": "MURI"
+    },
+    {
+      "id": "MURI_002",
+      "a": [
+        8000,
+        0
+      ],
+      "b": [
+        8000,
+        3000
+      ],
+      "t": 250,
+      "kind": "MURI"
+    },
+    {
+      "id": "MURI_003",
+      "a": [
+        8000,
+        3000
+      ],
+      "b": [
+        4000,
+        3000
+      ],
+      "t": 250,
+      "kind": "MURI"
+    },
+    {
+      "id": "MURI_004",
+      "a": [
+        4000,
+        3000
+      ],
+      "b": [
+        4000,
+        6000
+      ],
+      "t": 250,
+      "kind": "MURI"
+    },
+    {
+      "id": "MURI_005",
+      "a": [
+        4000,
+        6000
+      ],
+      "b": [
+        0,
+        6000
+      ],
+      "t": 250,
+      "kind": "MURI"
+    },
+    {
+      "id": "MURI_006",
+      "a": [
+        0,
+        6000
+      ],
+      "b": [
+        0,
+        0
+      ],
+      "t": 250,
+      "kind": "MURI"
+    }
+  ],
+  "openings": [],
+  "analisi": {
+    "nordGradi": null,
+    "gsaFsh": null,
+    "gsaFf": null,
+    "gsaGglsh": null,
+    "gsaFfTelaio": null,
+    "gsaFshOb": null,
+    "orientamenti": {},
+    "gsaDaScheda": false,
+    "schedaAnt": {
+      "assegnazioni": {},
+      "quote": []
+    },
+    "energia": {
+      "superficie_utile_m2": null,
+      "volume_m3": null,
+      "superficie_disperdente_m2": null,
+      "U_medio_W_m2K": null,
+      "zona": "D",
+      "gg": 1415,
+      "theta_ext_inv_C": 0,
+      "theta_ext_est_C": 33.8,
+      "ricambi_h": 0.5,
+      "FF": 0.2,
+      "gglsh": null,
+      "interni_W": null,
+      "tau_h": null,
+      "E_elettrico_kWh": null,
+      "orientamento_FV": "S",
+      "collettori_m2": null,
+      "persone": null,
+      "ponti_modo": "assenti",
+      "ponti_tipo": "cassa_vuota",
+      "ponti_nodi_testo": "",
+      "pdfCaricato": false
+    },
+    "gsaLavoro": {
+      "lavoratori": "",
+      "aperto_pubblico": false,
+      "pubblico_contemporaneo": "",
+      "soggettaCPI": "",
+      "cantiereFiamme": false,
+      "attivita_complessa": false,
+      "livello3": [],
+      "data_corso_addetti": "",
+      "data_ultima_esercitazione": "",
+      "planimetria_elementi": [],
+      "piano_contenuti": [],
+      "doc_vr": "",
+      "doc_piano": "",
+      "doc_attestati": "",
+      "doc_registro": "",
+      "doc_informazione": "",
+      "criteri": [],
+      "riduzioni": [],
+      "esodo": {
+        "distanzaDueVie_m": "",
+        "distanzaUnaVia_m": "",
+        "affollamento": "",
+        "numeroUscite": "",
+        "larghezzaUscite_m": "",
+        "pubblico": false,
+        "assistenza": false,
+        "materialiInfiammabili": false,
+        "areaRiposo": false
+      }
+    }
+  },
+  "verifica_importazione": {
+    "metodo": "dxf",
+    "rapporto": {
+      "entita": 1,
+      "linee": 0,
+      "polilinee": 1,
+      "altre": {},
+      "unita": 4,
+      "avvisi": [],
+      "arrotondamenti": 0,
+      "scostamento_max_mm": 0,
+      "layers": {
+        "MURI": 1
+      },
+      "muri": 6
+    }
+  }
+}

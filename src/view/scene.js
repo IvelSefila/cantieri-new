@@ -142,6 +142,8 @@ export function createViewer(container) {
   let ultime = [];
   let gruppo = new THREE.Group();
   scene.add(gruppo);
+  const luciNotte = new THREE.Group();
+  scene.add(luciNotte);
   let pickHandler = null;
   let hoverHandler = null;
   let richiesta = true;
@@ -225,7 +227,7 @@ export function createViewer(container) {
         return new THREE.MeshStandardMaterial({ ...base, color: 0xffffff, roughness: 0.7 });
       default:
         return new THREE.MeshStandardMaterial({
-          ...base, color: 0xf6f4ef, map: texIntonaco, roughness: 0.92,
+          ...base, color: 0xf6f4ef, map: cfg.modo === "vetro" ? null : texIntonaco, roughness: 0.92,
           transparent: cfg.modo === "vetro", opacity: cfg.modo === "vetro" ? 0.4 : 1, depthWrite: cfg.modo !== "vetro",
         });
     }
@@ -259,7 +261,7 @@ export function createViewer(container) {
     });
   }
   // Le finiture si vedono solo negli stili realistici e solidi; gli altri stili restano invariati
-  const finitureVisibili = () => !["argilla", "blueprint", "neon", "notte"].includes(cfg.modo);
+  const finitureVisibili = () => !["argilla", "blueprint", "neon", "notte", "vetro", "ultra"].includes(cfg.modo);
 
   function materialeGruppo(kind) {
     if (cfg.modo === "realistico") {
@@ -309,6 +311,7 @@ export function createViewer(container) {
   const TASTI_MOVIMENTO = { w: "avanti", arrowup: "avanti", s: "indietro", arrowdown: "indietro", a: "sinistra", arrowleft: "sinistra", d: "destra", arrowright: "destra" };
   const tastiPremuti = new Set();
   window.addEventListener("keydown", (e) => {
+    if(document.querySelector('dialog[open]'))return;
     if (e.target.closest?.("input, textarea, select, [contenteditable]")) return;
     const k = e.key.toLowerCase();
     if (k in TASTI_MOVIMENTO) { tastiPremuti.add(k); e.preventDefault(); }
@@ -317,6 +320,7 @@ export function createViewer(container) {
   window.addEventListener("blur", () => tastiPremuti.clear());
   let ultimoMovimento = 0;
   function muoviConTasti() {
+    if(document.querySelector('dialog[open]')){tastiPremuti.clear();return false;}
     // velocita' in mm al secondo, indipendente dai fotogrammi
     const ora = performance.now();
     const dt = Math.min(0.1, (ora - (ultimoMovimento || ora)) / 1000);
@@ -339,7 +343,7 @@ export function createViewer(container) {
       if (a === "sinistra") v.sub(destra);
     }
     if (v.lengthSq() === 0) return false;
-    v.normalize().multiplyScalar(Math.max(1000, camera.position.distanceTo(controls.target) * 0.4) * dt);
+    v.normalize().multiplyScalar(Math.max(1, camera.position.distanceTo(controls.target) * 0.4) * dt);
     camera.position.add(v);
     controls.target.add(v);
     return true;
@@ -381,8 +385,7 @@ export function createViewer(container) {
     sole.shadow.mapSize.set(q.ombre, q.ombre);
     if (sole.shadow.map) { sole.shadow.map.dispose(); sole.shadow.map = null; }
     scene.environment = q.ambiente ? ambiente : null;
-    scene.environmentIntensity = 0.55;
-    scene.fog.near = q.nebbia ? 70 : 500;
+    scene.environmentIntensity = cfg.modo === "notte" ? 0.04 : 0.55;
     post ??= creaPost(renderer, scene, camera);
     post.imposta(livello);
     resize();
@@ -392,16 +395,34 @@ export function createViewer(container) {
 
   // Vista isometrica: prospettiva a campo stretto, quasi ortogonale. Vista libera: ritorna alla prospettiva.
   function applicaVista() {
+    volo = null;
+    inVolo = false;
+    camera.clearViewOffset();
+    camera.up.set(0, 1, 0);
+    controls.enabled = true;
+    const limiti = new THREE.Box3();
+    for (const b of ultime) {
+      const c = Math.abs(Math.cos(b.ang)), s = Math.abs(Math.sin(b.ang));
+      const rx = (c * b.L + s * b.D) * MM_TO_M / 2;
+      const rz = (s * b.L + c * b.D) * MM_TO_M / 2;
+      limiti.expandByPoint(new THREE.Vector3(b.cx * MM_TO_M - rx, (b.cz - b.H / 2) * MM_TO_M, b.cy * MM_TO_M - rz));
+      limiti.expandByPoint(new THREE.Vector3(b.cx * MM_TO_M + rx, (b.cz + b.H / 2) * MM_TO_M, b.cy * MM_TO_M + rz));
+    }
+    const centro = limiti.isEmpty() ? TARGET.clone() : limiti.getCenter(new THREE.Vector3());
+    const raggio = limiti.isEmpty() ? 16 : Math.max(1, limiti.getSize(new THREE.Vector3()).length() / 2);
     if (cfg.iso && !vistaIso) vistaIso = true;
     else if (!cfg.iso && vistaIso) vistaIso = false;
     if (vistaIso) {
       camera.fov = 9;
-      camera.position.copy(TARGET).add(new THREE.Vector3(1, 0.9, 1).normalize().multiplyScalar(260));
+      camera.position.copy(centro).add(new THREE.Vector3(1, 1, 1).normalize().multiplyScalar(raggio / Math.sin(THREE.MathUtils.degToRad(9 * Math.min(1, camera.aspect) / 2)) * 1.15));
     } else {
       camera.fov = 42;
-      camera.position.copy(POSIZIONE_LIBERA);
+      camera.position.copy(centro).add(POSIZIONE_LIBERA.clone().sub(TARGET).normalize().multiplyScalar(raggio / Math.sin(THREE.MathUtils.degToRad(42 * Math.min(1, camera.aspect) / 2)) * 1.15));
     }
-    controls.target.copy(TARGET);
+    controls.target.copy(centro);
+    const distanza = camera.position.distanceTo(centro);
+    scene.fog.near = distanza + raggio * 2;
+    scene.fog.far = distanza + raggio * 8 + 100;
     camera.updateProjectionMatrix();
     controls.update();
     richiesta = true;
@@ -418,6 +439,7 @@ export function createViewer(container) {
     sole.intensity = cfg.sole;
     renderer.toneMappingExposure = cfg.modo === "realistico" ? 1.12 : 1.05;
     cielo.intensity = cfg.cielo;
+    scene.environmentIntensity = cfg.modo === "notte" ? 0.04 : 0.55;
     sole.castShadow = cfg.ombre !== false;
     piano.material.opacity = cfg.piano ?? 0.28;
     applicaVista();
@@ -583,6 +605,14 @@ export function createViewer(container) {
   // boxes in mm. Piano (x, y) -> scena (x, z); altezza cz -> scena y.
   function setBoxes(boxes) {
     ultime = boxes;
+    luciNotte.clear();
+    if (cfg.modo === "notte") {
+      for (const b of boxes.filter((b) => b.kind === "pavimento").slice(0, 12)) {
+        const luce = new THREE.PointLight(0xffbd79, 35, 12, 2);
+        luce.position.set(b.cx * MM_TO_M, 2.2, b.cy * MM_TO_M);
+        luciNotte.add(luce);
+      }
+    }
     scene.remove(gruppo);
     gruppo.traverse((o) => {
       // la geometria unitaria e' condivisa: si libera solo materiale e contorni
@@ -612,7 +642,7 @@ export function createViewer(container) {
       mesh.castShadow = kind !== "vetro" && cfg.ombre !== false;
       mesh.receiveShadow = true;
       mesh.userData = { kind, scatole: lista.map((b) => ({ id: b.id, kind: b.kind, wall: b.wall })) };
-      const coloriArredo = cfg.modo !== "argilla";
+      const coloriArredo = !["argilla", "blueprint", "neon", "ultra"].includes(cfg.modo);
       lista.forEach((b, i) => {
         scala.set(b.L * MM_TO_M, b.H * MM_TO_M, b.D * MM_TO_M);
         pos.set(b.cx * MM_TO_M, b.cz * MM_TO_M, b.cy * MM_TO_M);
@@ -694,7 +724,10 @@ export function createViewer(container) {
     richiesta = true;
   }
 
-  function setStile(id) { applicaStile(id); }
+  function setStile(id) {
+    if (passeggiata.attiva()) esciPasseggiata();
+    applicaStile(id);
+  }
 
   // Modelli dettagliati: [{ tipo: "infisso", parti, op, wall } | { tipo: "arredo", parti, a }]
   let dettagli = new THREE.Group();
@@ -706,6 +739,7 @@ export function createViewer(container) {
       case "blueprint": return () => materialeBlueprint();
       case "neon": return (p) => materialeNeon(p.mat === "vetro" ? "vetro" : "altro");
       case "ultra": return (p) => materialeUltra(p.mat === "tessuto" ? "arredo" : "muro");
+      case "notte": return (p) => materialeNotte(p.mat === "vetro" ? "vetro" : "arredo");
       default: return null;
     }
   }
@@ -717,7 +751,7 @@ export function createViewer(container) {
   function renderDettagli(lista, anteFuori) {
     scene.remove(dettagli);
     dettagli = new THREE.Group();
-    const opz = { clip: clip(), alta: livello === "alto" };
+    const opz = { clip: clip(), alta: livello === "alto", onCaricato: () => { richiesta = true; } };
     const sost = sostitutoStile();
     for (const d of lista) {
       const parti = d.tipo === "infisso" && anteFuori?.has(d.op.id) ? d.parti.filter((p) => !RUOLI_ANTA.has(p.ruolo)) : d.parti;

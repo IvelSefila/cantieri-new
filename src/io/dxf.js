@@ -18,7 +18,7 @@ function coppie(testo) {
   return out;
 }
 
-export function parseDxf(testo) {
+export function parseDxf(testo,opzioni={}) {
   const cp = coppie(testo);
   const report = { entita: 0, linee: 0, polilinee: 0, altre: {}, unita: null, avvisi: [] };
 
@@ -31,9 +31,13 @@ export function parseDxf(testo) {
   }
   report.unita = insunits;
   if (insunits === null || !(insunits in INSUNITS_A_MM)) {
-    report.avvisi.push("unita' non dichiarate nell'header: assumo metri (verificare)");
+    const scelta=Number(opzioni.unitaSeAssenti);
+    if(Object.hasOwn(INSUNITS_A_MM,scelta)){
+      insunits=scelta;report.unita=scelta;report.unita_confermate=true;
+      report.avvisi.push(`Unità assenti o non supportate nell'header: ${NOME_UNITA[scelta]} confermati dall'utente`);
+    }else report.avvisi.push('Unità DXF assenti o non supportate: scegli le unità originali prima di importare');
   }
-  const perMm = insunits in INSUNITS_A_MM ? INSUNITS_A_MM[insunits] : 1000;
+  const perMm = Object.hasOwn(INSUNITS_A_MM,insunits) ? INSUNITS_A_MM[insunits] : null;
 
   // Sezione ENTITIES
   const start = cp.findIndex(([c, v]) => c === 2 && v === "ENTITIES");
@@ -44,13 +48,26 @@ export function parseDxf(testo) {
   }
   let k = start + 1;
   let corrente = null;
-  const chiudi = () => { if (corrente) entities.push(corrente); corrente = null; };
+  const chiudiVertice=()=>{
+    if(corrente?._inVertex) {corrente.punti.push([corrente._vx,corrente._vy]);delete corrente._vx;delete corrente._vy;corrente._inVertex=false;}
+  };
+  const chiudi = () => {
+    if(corrente){
+      chiudiVertice();
+      if(corrente.tipo==='LINE')corrente.punti=[[corrente._x1,corrente._y1],[corrente._x2,corrente._y2]];
+      if(corrente.curva)report.avvisi.push(`layer ${corrente.layer}: polilinea curva (bulge) esclusa; serve una rappresentazione rettilinea verificata`);
+      else if(corrente.nonSupportata)report.avvisi.push(`layer ${corrente.layer}: polilinea 3D, mesh, spline o piano non XY esclusi; serve geometria 2D rettilinea`);
+      else if(corrente.punti.some(p=>!p.every(Number.isFinite)))report.avvisi.push(`layer ${corrente.layer}: coordinate incomplete o non numeriche, entità esclusa`);
+      else entities.push(corrente);
+    }
+    corrente=null;
+  };
 
   for (; k < cp.length; k++) {
     const [c, v] = cp[k];
     if (c === 0) {
       if (v === "ENDSEC") break;
-      if (v === "VERTEX") { if (corrente) corrente._inVertex = true; continue; } // vertice: la POLYLINE resta corrente
+      if (v === "VERTEX") { if (corrente?.tipo==='POLYLINE') {chiudiVertice();corrente._inVertex = true;} continue; }
       if (v === "SEQEND") { chiudi(); continue; }
       chiudi();
       report.entita++;
@@ -61,27 +78,30 @@ export function parseDxf(testo) {
       continue;
     }
     if (!corrente) continue;
-    if (c === 8) corrente.layer = v;
+    if (c === 8 && !corrente._inVertex) corrente.layer = v;
+    if(c===42 && Number(v)!==0)corrente.curva=true;
+    if((c===210||c===220)&&Number(v)!==0 || c===230&&Number(v)!==1)corrente.nonSupportata=true;
     if (corrente.tipo === "LINE") {
       if (c === 10) corrente._x1 = parseFloat(v);
       if (c === 20) corrente._y1 = parseFloat(v);
       if (c === 11) corrente._x2 = parseFloat(v);
-      if (c === 21) {
-        corrente._y2 = parseFloat(v);
-        corrente.punti = [[corrente._x1, corrente._y1], [corrente._x2, corrente._y2]];
-      }
+      if (c === 21) corrente._y2 = parseFloat(v);
     } else if (corrente.tipo === "LWPOLYLINE") {
-      if (c === 70) corrente.chiusa = (parseInt(v, 10) & 1) === 1;
+      if (c === 70 && !corrente._inVertex) corrente.chiusa = (parseInt(v, 10) & 1) === 1;
       if (c === 10) corrente._pt = [parseFloat(v), null];
       if (c === 20 && corrente._pt) { corrente._pt[1] = parseFloat(v); corrente.punti.push(corrente._pt); corrente._pt = null; }
     } else if (corrente.tipo === "POLYLINE") {
-      if (c === 70) corrente.chiusa = (parseInt(v, 10) & 1) === 1;
+      if (c === 70 && !corrente._inVertex) {
+        const flags=parseInt(v,10);corrente.chiusa=(flags&1)===1;
+        if(flags&(2|4|8|16|64))corrente.nonSupportata=true;
+      }
       if (!corrente._inVertex) { /* coordinate dell'intestazione POLYLINE: non sono vertici */ }
       else if (c === 10) corrente._vx = parseFloat(v);
-      else if (c === 20 && corrente._vx !== undefined) { corrente.punti.push([corrente._vx, parseFloat(v)]); corrente._vx = undefined; corrente._inVertex = false; }
+      else if (c === 20) corrente._vy = parseFloat(v);
     }
   }
   chiudi();
+  for(const [tipo,n]of Object.entries(report.altre))report.avvisi.push(`${n} entità ${tipo} non supportate, escluse dall'importazione`);
   // Rimuove il punto di chiusura duplicato (polilinea che ritorna sul primo vertice)
   for (const e of entities) {
     delete e._pt; delete e._x1; delete e._y1; delete e._x2; delete e._y2; delete e._vx; delete e._inVertex;
