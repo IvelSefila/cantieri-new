@@ -47,3 +47,9 @@ in dettagli apribili. Nella scheda dell'utente la prova con pollici espliciti
 ha generato e salvato il modello. Le unità restano un'ipotesi da verificare.
 Prove aggiornate: 307 test Node, 5 test server e prova DXF browser sulla
 porta reale 8765, con recupero da errore e annullamento.
+
+
+## Importazione automatica e inquadratura (release 20261021d)
+Il file reale floorplan.dxf ora genera 253 segmenti con unità automatiche dall'header, senza scelta manuale dei pollici. Le coordinate rimangono in mm dichiarati dal file. Se l'ingombro è incompatibile con lo spessore predefinito, solo lo spessore aggiunto e l'altezza di visualizzazione vengono ridotti proporzionalmente e segnalati nel rapporto. Non è una deduzione delle dimensioni reali della casa.
+Il caricamento inquadra ora il modello dopo la ricostruzione; la prova screenshot ha rivelato che prima il modello piccolo risultava quasi invisibile. Limite minimo del raggio camera ridotto a 5 cm.
+Verifica Edge reale con file originale: generazione e salvataggio, screenshot ispezionato, zero errori JS, annullamento e stress 100000 LINE con timer UI attivo. Node: 307/307 PASS. Restano limiti su doppi fili, blocchi INSERT e aperture; non certificata fedeltà architettonica completa.

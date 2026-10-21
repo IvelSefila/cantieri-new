@@ -65,7 +65,8 @@ function contornoInterno(pts, d) {
 
 export function dxfToPlan(parsed, opzioni = {}) {
   const rif = opzioni.riferimento === "faccia_esterna" ? "faccia_esterna" : "asse";
-  const spessoreDefault = opzioni.spessoreDefault ?? 250;
+  let spessoreDefault = opzioni.spessoreDefault ?? 250;
+  let altezzaMuri = opzioni.altezzaMuri ?? 2800;
   const spessori = opzioni.spessori ?? {};
   const rep = { arrotondamenti: 0, scostamento_max_mm: 0, avvisi: [], layers: {} };
   const scala = parsed.perMm;
@@ -75,6 +76,21 @@ export function dxfToPlan(parsed, opzioni = {}) {
   const layerMuri=parsed.entities.filter(e=>/(?:^|[$_\s-])(?:wall|walls|muro|muri|murature)(?:$|[$_\s-])/i.test(e.layer));
   const sorgenti=opzioni.soloLayerMuri&&layerMuri.length?layerMuri:parsed.entities;
   if(sorgenti.length!==parsed.entities.length)rep.avvisi.push(`Filtro layer muri: ${parsed.entities.length-sorgenti.length} entità di altri layer escluse. Verifica il disegno: i nomi dei layer non certificano la geometria.`);
+
+  // Le coordinate restano nelle unità dichiarate dal file. Solo le dimensioni
+  // aggiunte per l'estrusione si adattano ai disegni piccoli.
+  const punti = sorgenti.flatMap(e => e.punti);
+  if (punti.length) {
+    let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+    for(const [x,y] of punti){minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);}
+    const ingombro=Math.max(maxX-minX,maxY-minY)*scala;
+    if(ingombro>0 && ingombro<spessoreDefault*4){
+      const rapporto=ingombro/20000;
+      spessoreDefault=Math.max(2,Math.round(spessoreDefault*rapporto/2)*2);
+      if(opzioni.altezzaMuri==null)altezzaMuri=Math.max(1,Math.round(2800*rapporto));
+      rep.avvisi.push(`Ingombro DXF ${ingombro.toFixed(1)} mm: coordinate e unità del file preservate. Spessore indicativo ${spessoreDefault} mm e altezza di visualizzazione ${altezzaMuri} mm; verifica la scala prima di usare le misure.`);
+    }
+  }
 
   for (const e of sorgenti) {
     const t = spessori[e.layer] ?? spessoreDefault;
@@ -108,18 +124,12 @@ export function dxfToPlan(parsed, opzioni = {}) {
   const plan = {
     schema: SCHEMA,
     unit: "mm",
-    altezza_muri: opzioni.altezzaMuri ?? 2800,
+    altezza_muri: altezzaMuri,
     name: opzioni.nome ?? "Planimetria importata da DXF",
     fonte: `DXF (unita' originali: ${parsed.report.unita ?? "non dichiarate"}, riferimento: ${rif})`,
     walls,
     openings: [],
   };
-  if(walls.length){
-    const points=walls.flatMap(w=>[w.a,w.b]);
-    const extent=i=>Math.max(...points.map(p=>p[i]))-Math.min(...points.map(p=>p[i]));
-    const span=Math.max(extent(0),extent(1));
-    if(span<spessoreDefault*4)throw Error(`Scala DXF da verificare: ingombro ${extent(0)} × ${extent(1)} mm con muri spessi ${spessoreDefault} mm. Seleziona le unità originali DXF e ricarica il file; l'header potrebbe essere errato.`);
-  }
   const check = validatePlan(plan);
   return { plan, check, report: { ...parsed.report, ...rep, avvisi:[...parsed.report.avvisi,...rep.avvisi], muri: walls.length } };
 }

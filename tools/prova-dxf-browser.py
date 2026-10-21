@@ -16,9 +16,8 @@ try:
   page.on('pageerror',lambda e:errors.append(str(e)))
   page.goto(os.environ.get('CANTIERI_TEST_BASE',f'http://127.0.0.1:{server.server_port}/'),wait_until='networkidle')
   page.locator('button.hud-tab[data-scheda="planimetrie"]').click()
-  # Ipotesi esplicita di prova: questo file dichiara mm ma ha ingombro 796×564.
-  # Non deduciamo né imponiamo questa unità nell'importatore.
-  page.locator('#pl-dxf-unita').select_option('1')
+  # Usa le unità dichiarate nel file, senza override manuale.
+  page.locator('#pl-dxf-unita').select_option('')
   page.evaluate('window.ticks=0;setInterval(()=>window.ticks++,10)')
   page.locator('#pl-file').set_input_files(sys.argv[1])
   page.wait_for_function('()=>!document.querySelector("#pl-file").disabled',timeout=60000)

@@ -21,7 +21,8 @@ test('unità manuali prevalgono su header e sono dichiarate nel rapporto',()=>{
  assert.equal(p.perMm,25.4);assert.ok(p.report.avvisi.some(x=>x.includes('header: 4')));
 });
 test('scala minuscola rispetto allo spessore viene segnalata prima delle stanze',()=>{
- assert.throws(()=>dxfToPlan(parsed([{tipo:'LINE',layer:'A-WALL',punti:[[0,0],[796,0]]}])),/Scala DXF da verificare/);
+ const r=dxfToPlan(parsed([{tipo:'LINE',layer:'A-WALL',punti:[[0,0],[796,0]]}]));
+ assert.ok(r.check.ok);assert.deepEqual(r.plan.walls[0].b,[796,0]);assert.equal(r.plan.walls[0].t,10);assert.equal(r.plan.altezza_muri,111);assert.ok(r.report.avvisi.some(x=>x.includes('preservate')));
 });
 test('intersezioni quasi coincidenti non moltiplicano i frammenti',()=>{
  const muri=Array.from({length:35},(_,i)=>({id:String(i),a:[0,i],b:[100000,100001-i],t:100}));

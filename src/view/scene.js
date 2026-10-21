@@ -409,7 +409,7 @@ export function createViewer(container) {
       limiti.expandByPoint(new THREE.Vector3(b.cx * MM_TO_M + rx, (b.cz + b.H / 2) * MM_TO_M, b.cy * MM_TO_M + rz));
     }
     const centro = limiti.isEmpty() ? TARGET.clone() : limiti.getCenter(new THREE.Vector3());
-    const raggio = limiti.isEmpty() ? 16 : Math.max(1, limiti.getSize(new THREE.Vector3()).length() / 2);
+    const raggio = limiti.isEmpty() ? 16 : Math.max(0.05, limiti.getSize(new THREE.Vector3()).length() / 2);
     if (cfg.iso && !vistaIso) vistaIso = true;
     else if (!cfg.iso && vistaIso) vistaIso = false;
     if (vistaIso) {
@@ -917,7 +917,7 @@ export function createViewer(container) {
   return {
     avviaPasseggiata, esciPasseggiata, passeggiataAttiva: () => passeggiata.attiva(), setStickPasseggiata: (m, l) => passeggiata.setStick(m, l),
     setPasseggiataHandler: (fn) => { passeggHandler = fn; },
-    setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
+    inquadraModello: applicaVista, setBoxes, setStile, setPickHandler, setHoverHandler, setQualita: applicaLivello, setMisure, setMisureVisibili,
     setDoppioClicHandler, setEvidenzaMuro, setEvidenza, setMisureScala: (v) => { sovra.scala(v); richiesta = true; },
     setDettagli, setFantasma, setSelezione, volaA, vistaDallAltoSubito, ripristinaVistaCamera, vistaAttuale, pianoDaEvento, oggettoDaEvento,
     inVolo: () => inVolo, ridisegna: () => { richiesta = true; },
