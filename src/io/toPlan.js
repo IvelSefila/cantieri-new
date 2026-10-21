@@ -6,6 +6,8 @@
 // Ogni arrotondamento a intero e' contato e riportato: nessuna correzione silenziosa.
 import { validatePlan, SCHEMA } from "../core/model.js?v=v20261021a";
 
+import { riconosciPorteDxf } from './dxf-porte.js?v=v20261021g';
+
 const TOL_MM = 0.0005; // sotto questa soglia un valore e' considerato gia' intero
 
 function arrotonda(v, rep) {
@@ -192,6 +194,8 @@ export function dxfToPlan(parsed, opzioni = {}) {
     }
   }
   if(plan.openings.length)rep.avvisi.push(`${plan.openings.length} finestre da layer vetri: altezze e davanzali indicativi.`);
+  rep.porte=riconosciPorteDxf(parsed,plan,scala);
+  rep.avvisi.push(...rep.porte.avvisi);
   const check = validatePlan(plan);
   return { plan, check, report: { ...parsed.report, ...rep, avvisi:[...parsed.report.avvisi,...rep.avvisi], muri: walls.length } };
 }

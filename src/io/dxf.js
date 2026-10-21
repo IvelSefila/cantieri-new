@@ -108,7 +108,7 @@ export function parseDxf(testo,opzioni={}) {
     }
   }
   chiudi();
-  for(const [tipo,n]of Object.entries(report.altre))report.avvisi.push(`${n} entità ${tipo} non supportate, escluse dall'importazione`);
+  for(const [tipo,n]of Object.entries(report.altre))report.avvisi.push(tipo==='ARC'?`${n} archi non estrusi; i simboli sui layer porte sono analizzati separatamente`:`${n} entità ${tipo} non supportate, escluse dall'importazione`);
   // Rimuove il punto di chiusura duplicato (polilinea che ritorna sul primo vertice)
   for (const e of entities) {
     delete e._pt; delete e._x1; delete e._y1; delete e._x2; delete e._y2; delete e._vx; delete e._inVertex;
@@ -118,6 +118,14 @@ export function parseDxf(testo,opzioni={}) {
       e.chiusa = true;
     }
   }
+  const archiPorta=[];
+  for(let i=start+1;i<cp.length;i++){
+    if(cp[i][0]!==0||cp[i][1]!=='ARC')continue;
+    const v={};for(let j=i+1;j<cp.length&&cp[j][0]!==0;j++)v[cp[j][0]]=cp[j][1];
+    if(!/(?:DOOR|PORT)/i.test(v[8]||''))continue;
+    const a={layer:v[8],centro:[Number(v[10]),Number(v[20])],raggio:Number(v[40]),inizio:Number(v[50]),fine:Number(v[51])};
+    if(a.centro.every(Number.isFinite)&&[a.raggio,a.inizio,a.fine].every(Number.isFinite)&&a.raggio>0&&(!v[210]||Number(v[210])===0)&&(!v[220]||Number(v[220])===0)&&(!v[230]||Number(v[230])===1))archiPorta.push(a);
+  }
   const quoteTesto=[];
   for(let i=start+1;i<cp.length;i++){
     if(cp[i][0]!==0||cp[i][1]!=='TEXT')continue;
@@ -125,5 +133,5 @@ export function parseDxf(testo,opzioni={}) {
     for(let j=i+1;j<cp.length&&cp[j][0]!==0;j++){if(cp[j][0]===8)layer=cp[j][1];if(cp[j][0]===1)testo=cp[j][1];}
     if(/DIM|QUOTE/i.test(layer)&&/^\d+(?:\.\d+)?$/.test(testo))quoteTesto.push(Number(testo));
   }
-  return { entities: entities.filter((e) => e.punti.length >= 2), report, perMm, quoteTesto };
+  return { entities: entities.filter((e) => e.punti.length >= 2), report, perMm, quoteTesto, archiPorta };
 }

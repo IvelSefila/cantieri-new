@@ -1,6 +1,6 @@
-import { apriArchivio } from '../io/archivio-planimetrie.js?v=v20261021f';
-import { leggiPlanimetria } from '../io/planimetrie.js?v=v20261021f';
-import { montaTracciamento } from '../trace/ui.js?v=v20261021f';
+import { apriArchivio } from '../io/archivio-planimetrie.js?v=v20261021g';
+import { leggiPlanimetria } from '../io/planimetrie.js?v=v20261021g';
+import { montaTracciamento } from '../trace/ui.js?v=v20261021g';
 
 const el=(tag,testo)=>{const e=document.createElement(tag);if(testo)e.textContent=testo;return e;};
 export function montaPlanimetrie(root,{getSessione,onApri}) {
@@ -80,6 +80,7 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
         const messaggioArchivio=await salvaImportazione({...attiva,progetto:getSessione()});
         stato.textContent=`${f.name}: modello generato nel browser. ${letto.report ? `${letto.report.muri} segmenti muro. ${letto.report.avvisi.length} avvisi: apri i dettagli.` : 'Misure lette dal JSON in mm.'}`;
         if(letto.report){dettaglioTesto.textContent=`${letto.report.arrotondamenti} arrotondamenti, scarto massimo ${letto.report.scostamento_max_mm.toFixed(3)} mm. ${letto.report.avvisi.join('; ')}`;dettagli.hidden=false;}
+        if(letto.report?.porte)stato.textContent+=` Porte: ${letto.report.porte.riconosciute} riconosciute, ${letto.report.porte.da_verificare} da verificare.`;
         if(letto.report?.scala_da_quote)stato.textContent+=` Scala ricavata dalle quote (fattore ${letto.report.scala_da_quote}), da verificare.`;
         stato.textContent+=messaggioArchivio;
       } else {

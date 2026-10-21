@@ -24,6 +24,14 @@ try:
   report['stato']=page.locator('#pl-stato').inner_text()
   assert 'modello generato' in report['stato'],report['stato']
   assert 'Filtro layer muri' in page.locator('#pl-dettagli').text_content()
+  if 'floor-plan-apartment' in Path(sys.argv[1]).name:
+   assert 'Porte: 2 riconosciute, 2 da verificare' in report['stato']
+   report['porte']=page.evaluate("""()=>{
+     const p=Object.values(localStorage).map(v=>{try{return JSON.parse(v)}catch{return null}}).find(v=>v?.walls?.length===8&&v?.openings?.length===6);
+     if(!p)throw Error('Progetto con porte non persistito');
+     return p.openings.filter(o=>o.type==='porta');
+   }""")
+   assert len(report['porte'])==2 and all(o['width']==850 and o['height']==2100 for o in report['porte'])
   page.screenshot(path=str(out/'modello.png'))
   report['worker']=page.evaluate('''async()=>{
    const {importaDxfLocale}=await import('/src/io/dxf-locale.js');
