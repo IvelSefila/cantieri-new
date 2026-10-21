@@ -53,7 +53,11 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
     b.className = "hud-tab";
     b.dataset.scheda = s.id;
     b.textContent = s.nome;
-    b.onclick = () => apriScheda(s.id);
+    // ricliccando la scheda gia' aperta il pannello si chiude
+    b.onclick = () => {
+      if (b.classList.contains("attiva") && aside && !aside.classList.contains("chiuso")) aside.classList.add("chiuso");
+      else apriScheda(s.id);
+    };
     tabs.appendChild(b);
   }
   top.appendChild(tabs);
@@ -136,9 +140,20 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
     }
   }
 
+  // nessuno strumento selezionato nella barra (tasto destro, Esc, clic sul vuoto)
+  function deselezionaStrumento() {
+    for (const b of barra.querySelectorAll(".hud-slot")) b.classList.remove("attivo");
+    onStrumento?.("nessuno");
+  }
+  window.addEventListener("contextmenu", (e) => {
+    if (e.target.closest && e.target.closest("input, select, textarea")) return;
+    deselezionaStrumento();
+  });
+
   window.addEventListener("keydown", (e) => {
     if(e.defaultPrevented||e.ctrlKey||e.metaKey||e.altKey||document.querySelector('dialog[open]'))return;
     if (e.target.closest && e.target.closest("input, select, textarea, [contenteditable]")) return;
+    if (e.key === "Escape") deselezionaStrumento();
     const s = SLOT.find((x) => x.tasto === e.key);
     if (s) selezionaStrumento(s.id);
     if (e.key === "Tab" && (e.target===document.body||e.target.tagName==='CANVAS')) { e.preventDefault(); aside?.classList.toggle("chiuso"); }
@@ -171,6 +186,7 @@ export function montaHud({ onScheda, onStrumento, onModo, onVista2d, onModalita 
     },
     evidenziaStrumento: (id) => { for (const b of barra.querySelectorAll(".hud-slot")) b.classList.toggle("attivo", b.dataset.strumento === id); },
     apriScheda,
+    deselezionaStrumento,
     impostaModalita,
   };
 }

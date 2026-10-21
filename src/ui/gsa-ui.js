@@ -1,10 +1,10 @@
 // Scheda GSA (Gestione della Sicurezza Antincendio, DM 2/9/2021): dati inseriti dall'utente, risultato solo
 // dopo il pulsante "Calcola GSA". Ogni obbligo mostra l'articolo o l'allegato del decreto.
-import { calcolaGSA, LIVELLO3, PLANIMETRIA_ELEMENTI, PIANO_CONTENUTI, GSA_FONTE } from "../core/gsa-incendio.js?v=v20261020bq";
-import { classificaRischio, verificaEsodo, CRITERI_ELEVATO, CRITERI_MEDIO, CRITERI_BASSO, RIDUZIONI, FONTE_1998, RIF_ESODO } from "../core/rischio-incendio.js?v=v20261020bq";
-import { calcolaGsaDaCivico, autocompletaIndirizzo } from "../core/altimetria-civico.js?v=v20261020bq";
-import { datiGSAIniziali,preparaSchedaGSA } from '../core/scheda-gsa.js?v=v20261020bq';
-export { datiGSAIniziali } from '../core/scheda-gsa.js?v=v20261020bq';
+import { calcolaGSA, LIVELLO3, PLANIMETRIA_ELEMENTI, PIANO_CONTENUTI, GSA_FONTE } from "../core/gsa-incendio.js?v=v20261021a";
+import { classificaRischio, verificaEsodo, CRITERI_ELEVATO, CRITERI_MEDIO, CRITERI_BASSO, RIDUZIONI, FONTE_1998, RIF_ESODO } from "../core/rischio-incendio.js?v=v20261021a";
+import { calcolaGsaDaCivico, autocompletaIndirizzo } from "../core/altimetria-civico.js?v=v20261021a";
+import { datiGSAIniziali,preparaSchedaGSA } from '../core/scheda-gsa.js?v=v20261021a';
+export { datiGSAIniziali } from '../core/scheda-gsa.js?v=v20261021a';
 
 function el(tag, cls, testo) {
   const e = document.createElement(tag);

@@ -1,6 +1,6 @@
 // Dati serializzabili del modulo GSA: nessun DOM e nessun risultato precompilato.
-import {LIVELLO3,PLANIMETRIA_ELEMENTI,PIANO_CONTENUTI} from './gsa-incendio.js?v=v20261020bq';
-import {CRITERI_ELEVATO,CRITERI_MEDIO,CRITERI_BASSO,RIDUZIONI} from './rischio-incendio.js?v=v20261020bq';
+import {LIVELLO3,PLANIMETRIA_ELEMENTI,PIANO_CONTENUTI} from './gsa-incendio.js?v=v20261021a';
+import {CRITERI_ELEVATO,CRITERI_MEDIO,CRITERI_BASSO,RIDUZIONI} from './rischio-incendio.js?v=v20261021a';
 export function datiGSAIniziali() {
   return {
     lavoratori:'',aperto_pubblico:false,pubblico_contemporaneo:'',soggettaCPI:'',cantiereFiamme:false,attivita_complessa:false,

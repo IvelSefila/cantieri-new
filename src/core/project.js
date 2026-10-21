@@ -1,8 +1,8 @@
 // Progetto modificabile: muri, vani, pavimenti, arredi. Tutto in mm interi. Funzioni pure.
 // Un progetto nuovo e' VUOTO: nessun muro, nessun pavimento, nessun arredo.
-import { validatePlan, wallLengthMm, SCHEMA } from "./model.js?v=v20261020bq";
-import { LIBRERIA_3D, dimensioniArredo, angoliArredo } from "./arredi.js?v=v20261020bq";
-import { FUNZIONI } from './funzioni-stanze.js?v=v20261020bq';
+import { validatePlan, wallLengthMm, SCHEMA } from "./model.js?v=v20261021a";
+import { LIBRERIA_3D, dimensioniArredo, angoliArredo } from "./arredi.js?v=v20261021a";
+import { FUNZIONI } from './funzioni-stanze.js?v=v20261021a';
 
 // Libreria degli arredi: derivata dalla libreria 3D (src/core/arredi.js). Colore in RGB per la pianta 2D.
 const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));

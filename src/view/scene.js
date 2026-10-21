@@ -7,17 +7,17 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { parquet, intonaco, marmo, fotoSet } from "./materials.js?v=v20261020bq";
-import { MATERIALI_PAVIMENTO, MATERIALI_MURO, TINTE_MURO } from "../core/project.js?v=v20261020bq";
-import { materialeRealistico, texturaRilievo } from "./realistico.js?v=v20261020bq";
-import { creaSovrimpressione, proiettore } from "./misure.js?v=v20261020bq";
-import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js?v=v20261020bq";
-import { creaPost } from "./post.js?v=v20261020bq";
-import { creaPasseggiata } from "./passeggiata-view.js?v=v20261020bq";
+import { parquet, intonaco, marmo, fotoSet } from "./materials.js?v=v20261021a";
+import { MATERIALI_PAVIMENTO, MATERIALI_MURO, TINTE_MURO } from "../core/project.js?v=v20261021a";
+import { materialeRealistico, texturaRilievo } from "./realistico.js?v=v20261021a";
+import { creaSovrimpressione, proiettore } from "./misure.js?v=v20261021a";
+import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js?v=v20261021a";
+import { creaPost } from "./post.js?v=v20261021a";
+import { creaPasseggiata } from "./passeggiata-view.js?v=v20261021a";
 
 // Parti dell'infisso che seguono l'anta quando la porta si apre (il resto e' telaio, fisso nel muro)
 const RUOLI_ANTA = new Set(["anta", "maniglia", "fresatura", "cilindro_serratura"]);
-import { onTexturaCaricata } from "./materials.js?v=v20261020bq";
+import { onTexturaCaricata } from "./materials.js?v=v20261021a";
 
 const MM_TO_M = 0.001;
 const TAGLIO_DOLLHOUSE_MM = 1300;
@@ -457,6 +457,9 @@ export function createViewer(container) {
     raycaster.setFromCamera(puntatore, camera);
   }
   function colpito() {
+    // dopo una ricostruzione (es. il primo clic di un doppio clic) le matrici dei nuovi oggetti non sono ancora aggiornate:
+    // senza questo il raggio non colpisce nulla fino al prossimo disegno
+    scene.updateMatrixWorld(true);
     const hits = raycaster.intersectObjects([...gruppo.children.filter((o) => o.isInstancedMesh || o.userData?.finito), dettagli, fantasma].filter(Boolean), true)
       .filter((h) => !h.object.userData.fantasma);
     if (!hits.length) return null;

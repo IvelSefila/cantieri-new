@@ -1,6 +1,6 @@
 // Unico formato per importazione, esportazione e recupero locale.
-import { verificaProgetto } from './project.js?v=v20261020bq';
-import { preparaSchedaGSA } from './scheda-gsa.js?v=v20261020bq';
+import { verificaProgetto } from './project.js?v=v20261021a';
+import { preparaSchedaGSA } from './scheda-gsa.js?v=v20261021a';
 
 export const PARAMETRI_ANALISI = ['nordGradi', 'gsaFsh', 'gsaFf', 'gsaGglsh', 'gsaFfTelaio', 'gsaFshOb'];
 export function preparaProgetto(raw) {

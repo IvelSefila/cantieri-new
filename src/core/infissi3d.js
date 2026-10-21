@@ -5,13 +5,13 @@
 //             { forma: "cil", s, z0, z1, n, r, mat, ruolo }  (cilindro verticale)  oppure
 //             { forma: "cilN", s, z, n0, n1, r, mat, ruolo }  (cilindro lungo la normale: pomoli, rosette)
 // mat: chiave del materiale. Per le porte con foto: "foto" (la vista applica la foto del catalogo sulle facce +n e -n).
-import { TIPO_PER_CATEGORIA, materialeVano } from "./cdi.js?v=v20261020bq";
+import { TIPO_PER_CATEGORIA, materialeVano } from "./cdi.js?v=v20261021a";
 
 const box = (ruolo, mat, s0, s1, z0, z1, n0, n1) => ({ forma: "box", ruolo, mat, s0, s1, z0, z1, n0, n1 });
 
 // Stile di resa: dal catalogo (item.resa3d) o, senza infisso, dal materiale del vano
 export function stileVano(op, item) {
-  if (item?.resa3d) return { ...item.resa3d, categoria: item.categoria, id: item.id, profondita_qfort_mm: item.profondita_qfort_mm, spessore_pannello_qfort_mm: item.spessore_pannello_qfort_mm };
+  if (item?.resa3d) return { ...item.resa3d, categoria: item.categoria, id: item.id, profondita_qfort_mm: item.profondita_qfort_mm, spessore_pannello_qfort_mm: item.spessore_pannello_qfort_mm, foto3d: item.foto3d };
   const m = materialeVano(op);
   if (op.type === "porta") return m === "vetro_fume"
     ? { pannello: "vetro_fume", scrigno: true, colore: "#2b2d31", maniglia: "incasso", materiale: "vetro", categoria: "porte_interne", generico: true }
@@ -85,6 +85,11 @@ function finestra(op, wallT, st, scorrevole, esterno) {
     const nDentro = lato > 0 ? [-Math.floor(wallT / 2) - 25, nA] : [nB, Math.ceil(wallT / 2) + 25];
     out.push(box("davanzale", "pietra", -20, W + 20, z0 - 20, z0, ...nDentro));
   }
+  if (st.foto3d) {
+    // la foto del catalogo CDI mostra l'infisso dall'interno: va sulla faccia verso la stanza
+    const internoNeg = (esterno || 1) > 0;
+    return [...out.filter((x) => x.ruolo === "davanzale"), { forma: "box", ruolo: "anta", mat: "fotofinestra", foto3d: st.foto3d, internoNeg, s0: 0, s1: W, z0, z1, n0: -6, n1: 6 }];
+  }
   const zi0 = z0 + (scorrevole ? 30 : tv), zi1 = z1 - tv, si0 = tv, si1 = W - tv;
   if (scorrevole) {
     // binari, due (o piu') ante scorrevoli su piani diversi, montante di sovrapposizione
@@ -103,20 +108,23 @@ function finestra(op, wallT, st, scorrevole, esterno) {
   }
   // battente: una o due ante (nodo centrale)
   const due = W > 1000;
+  // la finestra si apre verso l'interno: maniglia e cerniere sulla faccia verso la stanza
+  const lato = (esterno || 1) > 0 ? -1 : 1;
   const nAnta = [nA + 8, nB - 4];
+  const faccia = lato < 0 ? nAnta[0] : nAnta[1];
   const meta = due ? Math.round((si0 + si1) / 2) : si1;
   out.push(...anta(op.id, si0, meta, zi0, zi1, nAnta, av, col, "anta_sx", st));
   if (due) {
     out.push(...anta(op.id, meta, si1, zi0, zi1, nAnta, av, col, "anta_dx", st));
-    maniglia(out, st.maniglia, meta + av / 2 + 25, Math.min(zi1 - 200, z0 + 1050), nAnta[0], -1);
+    maniglia(out, st.maniglia, meta + av / 2 + 25, Math.min(zi1 - 200, z0 + 1050), faccia, lato);
   } else {
-    maniglia(out, st.maniglia, si1 - av / 2, Math.min(zi1 - 200, zi0 + (zi1 - zi0) / 2), nAnta[0], -1);
+    maniglia(out, st.maniglia, si1 - av / 2, Math.min(zi1 - 200, zi0 + (zi1 - zi0) / 2), faccia, lato);
   }
   // cerniere visibili (non per le ante a scomparsa)
   if ((st.anta_vista_mm ?? 1) > 0) {
     for (const zz of [zi0 + 120, zi1 - 160]) {
-      out.push({ forma: "cil", ruolo: "cerniera", mat: "inox", s: si0 + 4, z0: zz, z1: zz + 70, n: nAnta[0] - 6, r: 7 });
-      if (due) out.push({ forma: "cil", ruolo: "cerniera", mat: "inox", s: si1 - 4, z0: zz, z1: zz + 70, n: nAnta[0] - 6, r: 7 });
+      out.push({ forma: "cil", ruolo: "cerniera", mat: "inox", s: si0 + 4, z0: zz, z1: zz + 70, n: faccia + lato * 6, r: 7 });
+      if (due) out.push({ forma: "cil", ruolo: "cerniera", mat: "inox", s: si1 - 4, z0: zz, z1: zz + 70, n: faccia + lato * 6, r: 7 });
     }
   }
   return out;

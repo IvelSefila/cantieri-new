@@ -1,6 +1,6 @@
-import { apriArchivio } from '../io/archivio-planimetrie.js?v=v20261020bq';
-import { leggiPlanimetria } from '../io/planimetrie.js?v=v20261020bq';
-import { montaTracciamento } from '../trace/ui.js?v=v20261020bq';
+import { apriArchivio } from '../io/archivio-planimetrie.js?v=v20261021a';
+import { leggiPlanimetria } from '../io/planimetrie.js?v=v20261021a';
+import { montaTracciamento } from '../trace/ui.js?v=v20261021a';
 
 const el=(tag,testo)=>{const e=document.createElement(tag);if(testo)e.textContent=testo;return e;};
 export function montaPlanimetrie(root,{getSessione,onApri}) {

@@ -1,278 +1,59 @@
-
-> cantieri-new@0.1.0 test
-> node --test tests/*.test.mjs
-
-✔ parseGmlUnVol: estrae altezza e metadati dai volumi BDTRE (1.2419ms)
-✔ parseGmlUnVol: testo nullo o vuoto restituisce array vuoto (1.1012ms)
-✔ parseOverpassElements: estrae altezza e building:levels 3D (0.286ms)
-✔ normalizzaRegione: riconosce tutte le 20 Regioni italiane comprese varianti bilingui (0.6306ms)
-✔ stimaAltezzaAntincendiDaEdificio: calcola intervallo prudenziale davanzale (0.1826ms)
-✔ stimaAltezzaAntincendiDaPiani: calcola quota davanzale e altezza volumetrica (0.1779ms)
-✔ generaVolumiArchetipoItaliano: fornisce i 4 archetipi standard italiani (0.1244ms)
-✔ calcolaGsaDaCivico (Piemonte): edificio 21 m -> DETERMINATO Tipo a, LP 0 (3.3856ms)
-✔ calcolaGsaDaCivico (Lombardia - Milano): OSM 3D 7 piani -> DETERMINATO Tipo a (1.1131ms)
-✔ calcolaGsaDaCivico (Lazio - Roma): fallback tipologico non determina la classe senza una quota (1.1195ms)
-✔ calcolaGsaDaCivico (Campania - Napoli): override numero piani a 10 piani -> Tipo b (Attività 77) (1.0125ms)
-✔ calcolaGsaDaCivico (mock mix): fusione LiDAR + Google Earth concordi (0.8439ms)
-✔ calcolaGsaDaCivico (mock conflitto): LiDAR e Google Earth discordi oltre 500 mm (1.0248ms)
-✔ pulisciIndirizzoPerGeocodifica: rimuove condominio, palazzo, scala e interno (0.1047ms)
-✔ formattaIndirizzoItaliano: genera indirizzo canonico pulito (0.1608ms)
-✔ clusterVolumiResidenziali: raggruppa palazzine dello stesso cortile ed esclude edifici isolati di lotti confinanti (0.3854ms)
-✔ autocompletaIndirizzo: supporta Photon OSM per lookup stile Amazon ed esclude vie non pertinenti (1.1418ms)
-✔ geocodificaIndirizzo: tolleranza odonimi (via suniglia 4 -> Strada Suniglia 4 Savigliano) e rifiuto Via Mellea (0.5098ms)
-✔ estraiCivicoEsplicito: estrae correttamente il numero civico e tollera date e CAP (0.193ms)
-✔ geocodificaIndirizzo: risolve con successo tramite ArcGIS World Geocoder (0.3284ms)
-✔ geocodificaIndirizzo & autocompletaIndirizzo: conservano il civico digitato anche in fallback senza housenumber (0.6634ms)
-✔ superficie lorda per piano: uguale alla somma delle stanze, in mm2 esatti (1.6884ms)
-✔ multipiano: due piani uguali con stesso ambito sommano le superfici (1.4297ms)
-✔ affollamento = densita' x superficie lorda, arrotondato per eccesso; nullo senza densita' (0.6287ms)
-✔ attivita' dalla Tabella S.4-12: densita' e riferimento ufficiale ricavati dal codice (0.287ms)
-✔ attivita' sconosciuta: segnalata; densita' esplicita prevale sulla tabella (0.9351ms)
-✔ densita' o destinazione incoerenti nello stesso ambito: segnalate (2.4485ms)
-✔ controllo quote: quota uguale al modello = ok, quota diversa = discrepanza con scarto (0.2587ms)
-✔ rapporto: contiene riferimento, documenti da allegare e avvertenza di responsabilita' (1.5397ms)
-✔ Fsol,est dai dati UNI 10349:2016 di Roma: luglio sull'esposizione / media annua orizzontale (0.9045ms)
-✔ Asol,est: un vano a sud, valori a mano (0.3251ms)
-✔ Asol,est: dati mancanti esclusi dal totale e dichiarati (0.1653ms)
-✔ Limite Tabella 11: 0,030 per E.1 residenziale, 0,040 per gli altri edifici (0.0999ms)
-✔ Back-test Poroton: senza tendaggi non rispetta, con tendaggi rispetta (0.2794ms)
-✔ funzione: la stanza piu' grande e' il soggiorno, scelta salvata prevale sul suggerimento (3.6909ms)
-✔ arredo: ogni pezzo sta nella stanza della sua funzione, niente divano in bagno (31.9798ms)
-✔ finestre: stanze abitabili ottengono 1/8 di aeroilluminante con finestra apribile (2.0928ms)
-✔ finestre: nessuna sovrapposizione sullo stesso muro (0.769ms)
-✔ altezza interna sotto 2,70 m: segnalata (1.061ms)
-✔ finiture: tutti i muri e una stanza con pavimento (0.9386ms)
-✔ arredo: il letto della camera ha la testata contro il muro a Nord (1.7169ms)
-✔ regole: il file JSON e il modulo JS coincidono (rules/dm246_gsa.json) (2.2378ms)
-✔ T1 h = 11,99 m: fuori campo (0.8522ms)
-✔ T2 h = 12,00 m: tipo a, LP 0 (0.2593ms)
-✔ T3 h = 24,00 m: tipo a, LP 0, con avviso di disomogeneita' (0.2428ms)
-✔ T4 h = 24,01 m: tipo b, LP 1 (0.2546ms)
-✔ T5 h = 32,00 e 32,01 m: LP 1 (tipo b e c) (0.2236ms)
-✔ T6 h = 54,01 m: tipo d, LP 2 (1.0222ms)
-✔ T7 h = 80,01 m: tipo e, LP 3 (0.1766ms)
-✔ T8 h = 30 m, attivita' comunicante non pertinente soggetta: LP incrementato (1 -> 2) (0.3578ms)
-✔ T9 h = 30 m, autorimessa pertinente comunicante: nessun incremento (0.451ms)
-✔ T10 h = 30 m, comunicante da verificare: INDETERMINATO con due scenari (0.2949ms)
-✔ T11 quote: apertura +25,20, piano esterno -0,80 -> h = 26,00 m esatto (0.2243ms)
-✔ T12 piano esterno non accessibile ai mezzi VVF: avviso bloccante (0.1324ms)
-✔ T13 solo altezza stimata: risultato provvisorio (0.0923ms)
-✔ T14 h < 12 m con autorimessa 400 m2: FUORI_CAMPO per la GSA, altre attivita' non calcolate (0.141ms)
-✔ attivita 77: classe A/B/C dalla sola altezza, non prevista sotto 24 m (0.2591ms)
-✔ altre attivita' 74/49: soglie 116 e 25 kW, classi A/B/C ai limiti 350 e 700 (0.1642ms)
-✔ altre attivita' 75: soglia 300 m2, classe di dettaglio non ancora codificata (0.0943ms)
-✔ F1 pratica 30,00 m e LiDAR [29,70; 30,30]: fusione su intervallo, DETERMINATO tipo b (0.2065ms)
-✔ F2 LiDAR [23,60; 24,40] attraversa 24 m: INDETERMINATO, soglia e azione richiesta (0.1902ms)
-✔ F3 pratica 30,00 m e LiDAR [25,00; 25,40]: conflitto oltre 500 mm, INDETERMINATO (0.1409ms)
-✔ F4 intervallo a 250 mm dalla soglia 32 m: INDETERMINATO per soglia vicina (0.0926ms)
-✔ F5 intervallo lontano dalle soglie [26,00; 28,00]: DETERMINATO tipo b (0.0889ms)
-✔ F6 fonte stimata: risultato provvisorio anche su intervallo (0.1128ms)
-✔ F7 attivita 77 su intervallo [31,00; 33,00]: classi possibili A e B (0.1254ms)
-✔ F8 fonte non valida (min > max) produce ERRORE, nessuna fonte produce INDETERMINATO (0.1076ms)
-✔ dato mancante: quota assente -> INDETERMINATO con elenco, mai un 'no' (0.1124ms)
-✔ proprietà: per ogni h >= 12 m esiste esattamente un tipo (nessun buco, nessuna sovrapposizione) (20.3484ms)
-✔ quote: conversione in mm senza errori binari, stringhe non valide rifiutate (0.1647ms)
-✔ planimetria AR-02: valida, tutti i valori interi in mm (1.638ms)
-✔ AR-02: conteggi di riferimento (15 muri interni + 4 perimetrali, 9 porte, 2 vetrate) (0.2152ms)
-✔ precisione al millimetro: pieni + vani = lunghezza del muro, senza scarti (2.1042ms)
-✔ nessuna scatola di muro attraversa un vano (0.592ms)
-✔ perimetro chiuso: ogni punto del perimetro e' coperto, tranne le vetrate (1.7351ms)
-✔ validazione: rifiuta valori non interi, vani fuori muro e vani sovrapposti (0.7722ms)
-✔ avviso mazzetta: vano troppo vicino all'angolo (0.3431ms)
-✔ infisso procedurale: ogni scatola sta dentro il vano (0.5093ms)
-✔ telai e ante stanno dentro il proprio vano, non all'inizio del muro (0.7525ms)
-✔ catalogo: 27 modelli CDI, tutti con categoria riconosciuta (0.2744ms)
-✔ misure: superfici in mm^2 esatte e coerenti con la somma per muro (0.3614ms)
-✔ arredi: 56 elementi decorativi in mm interi, dentro l'edificio, senza alterare i muri (2.2314ms)
-✔ LWPOLYLINE chiusa con punto di chiusura duplicato: un solo contorno da 4 vertici (1.4161ms)
-✔ POLYLINE vecchio stile (VERTEX/SEQEND) letta come contorno, senza coordinate dell'intestazione (0.9071ms)
-✔ asse: il perimetro resta sulle coordinate del DXF, in mm interi (0.8658ms)
-✔ faccia esterna: il contorno si sposta di t/2 verso l'interno, angoli chiusi (miter) (0.5065ms)
-✔ unita' mm (INSUNITS 4): nessuna conversione (0.2666ms)
-✔ valori non interi in mm: arrotondati e contati nel report, mai in silenzio (0.2694ms)
-✔ layer con spessore dispari: rifiutato con avviso, nessun muro generato (1.0361ms)
-✔ flusso completo: DXF -> piano -> modello con muri interi e nessun vano (1.0024ms)
-✔ muri: spina e perimetrale portanti, tramezzo non portante (1.0778ms)
-✔ punto dentro poligono (0.219ms)
-✔ descrizione muro: muro portante non abbattibile (azione disabilitata) (16.0487ms)
-✔ abbattimento muro: rimuove anche i suoi vani (1.0534ms)
-✔ stanza al punto: trova la stanza che contiene il punto (1.6639ms)
-✔ trasmittanza da stratigrafia: 300 mm lambda 0,8 (1.3904ms)
-✔ trasmittanza rifiuta strati non validi (0.3836ms)
-✔ dispersione per trasmissione senza ponti termici: H = somma U A b, segnalata come mancante (0.3872ms)
-✔ ponti termici con psi x lunghezza: somma esatta dei nodi (0.3073ms)
-✔ ponti termici a percentuale: prospetto 4 UNI/TS 11300-1:2008, solo stima (0.449ms)
-✔ dispersione rifiuta U o area non positivi (0.1782ms)
-✔ ventilazione 0,34 * n * V (0.1428ms)
-✔ carico invernale di progetto = (H_tr + H_v) * (20 - 0) con temperatura di Roma 0 C (0.1616ms)
-✔ guadagni solari invernali: Aw (1-FF) g Fsh I(orientamento) con dati UNI 10349 di Roma, zona D (0.3101ms)
-✔ fabbisogno stagionale gradi giorno con guadagni solari invernali (0.3297ms)
-✔ fabbisogno non negativo: i guadagni oltre le perdite non producono energia negativa (0.2228ms)
-✔ radiatore: potenza a salto medio 40 K con P50 1000 W e n=1,3 (0.164ms)
-✔ radiatori necessari: inversa della potenza a salto dato (0.1156ms)
-✔ salto termico non positivo rifiutato (0.941ms)
-✔ COP pompa di calore: Carnot 45 C mandata, -5 C esterna, eta 0,45 (0.1609ms)
-✔ condizionatore: EER di progetto a 34 C esterni, 20 C interni (0.1374ms)
-✔ carico estivo: trasmissione + ventilazione + solare (g con schermo, picco di Roma) + interni (0.4518ms)
-✔ fotovoltaico: resa PVGIS di Roma a sud (1492,3 kWh/kWp) senza PR aggiuntivo (0.3292ms)
-✔ solare termico ACS: 2 persone, 25 L/g, 40 C da acqua a 15 C (0.1947ms)
-✔ solare termico: frazione solare proporzionale quando il collettore e' piccolo (0.0956ms)
-✔ potenza minima FER: calcolata solo se K e' fornito (0.0944ms)
-✔ pompa di calore: energia elettrica = fabbisogno / COP (0.0676ms)
-✔ pavimento: si cambia il materiale tra parquet e marmo, materiale ignoto rifiutato (1.5863ms)
-✔ muro: finitura intonaco o marmo, default intonaco bianco (17.2034ms)
-✔ muro tramezzo: si puo' abbattere, azione applicata (0.3363ms)
-✔ muro portante: non abbattibile, azione disabilitata e rifiutata (0.2976ms)
-✔ finitura applicata dalla scheda: 'finitura:<id>' cambia il materiale (0.2097ms)
-✔ tinta del muro: naturale di default, tinte note, tinta sconosciuta rifiutata (0.3221ms)
-✔ catalogo: ogni finitura con foto ha il set di file dichiarato (0.4034ms)
-✔ snap: vertice esistente entro tolleranza ha la precedenza (1.6652ms)
-✔ snap: direzione a 45 gradi dal punto di partenza con lunghezza intera (0.7495ms)
-✔ snap: griglia quando nessun vertice o angolo e' vicino (0.2417ms)
-✔ lunghezza: esatta per segmenti assiali, arrotondata e segnalata per gli obliqui (0.2204ms)
-✔ stanze: rettangolo 4x3 m con muri di 200 mm: superficie interna 10,64 m2 (1.2468ms)
-✔ stanze: divisorio centrale crea due stanze con superficie interna corretta (0.9845ms)
-✔ giunzione: un muro che finisce sul filo interno si porta sull'asse del perimetro (0.1378ms)
-✔ spezzatura: un muro con un estremo sul suo interno viene diviso (0.4023ms)
-✔ piano di emergenza: 10 lavoratori o pubblico oltre 50 persone (art. 2 comma 2) (0.8891ms)
-✔ misure semplificate solo per pubblico oltre 50 con meno di 10 lavoratori (all. II par. 4) (0.1524ms)
-✔ livello di rischio: 3 dall'elenco, 2 per DPR 151/2011 o fiamme, altrimenti 1 (1.3209ms)
-✔ durata dei corsi (all. III 3.2.5-3.2.6): 1 = 4/2 ore, 2 = 8/5 ore, 3 = 16/8 ore (0.197ms)
-✔ calcolo: dati mancanti segnalati, nessun valore assunto (0.4763ms)
-✔ calcolo: piano obbligatorio chiede planimetria, contenuti, esercitazione e scadenze (1.5636ms)
-✔ calcolo: senza piano nessuna planimetria richiesta, il rischio va nel DVR (0.563ms)
-✔ GSA AR-02: solo i terrazzi, lo scrigno interno e' escluso (6.3816ms)
-✔ GSA: orientamento ricavato dalla geometria del perimetro (Y cresce a sud) (2.3804ms)
-✔ GSA: un orientamento dichiarato prevale sulla geometria (1.891ms)
-✔ GSA: un vano in legno non entra nel calcolo (3.2435ms)
-✔ Tabella 10 (nuove costruzioni): valori del testo ufficiale (1.2968ms)
-✔ Tabella 11 (ristrutturazioni): colonna immediatamente inferiore al vetrato (0.1998ms)
-✔ Tabelle complete: ogni riga ha 20 valori crescenti con il vetrato (0.3402ms)
-✔ Controprova con le relazioni reali: i limiti coincidono con quelli stampati (0.111ms)
-✔ verificaHT: H'T = Htr,adj / A (0.1988ms)
-✔ Registro normativo: dati di verifica, stati ammessi e moduli collegati (0.1888ms)
-✔ regola: una porta senza materiale dichiarato e' in legno (0.6705ms)
-✔ regola: una finestra o una vetrata senza materiale dichiarato e' in vetro (0.1413ms)
-✔ regola: il materiale dichiarato prevale sul default (0.0965ms)
-✔ porta in legno: nessuna parte in vetro, maniglia verticale alta 900 mm, telaio sottile 40 mm (0.5391ms)
-✔ il vetro compare solo su finestre e vetrate (0.1912ms)
-✔ vetro fume' dichiarato: scrigno in vetro scuro, profilo sottile, binario, nessun vetro chiaro (0.1512ms)
-✔ materiale non ammesso: rifiutato dal validatore (1.9277ms)
-✔ Dati UNI 10349 di Roma: flusso solare = Asol x irradianza media mensile (5 finestre x 12 mesi) (1.7526ms)
-✔ Riscaldamento ZH1: mesi pieni identici alla relazione (gen, feb, mar, dic) (0.3974ms)
-✔ Riscaldamento ZH1: mesi parziali (apr, nov) con temperatura e sole dei soli giorni attivi (0.1603ms)
-✔ Raffrescamento ZC1: mesi pieni identici alla relazione (giu, lug, ago, set) (0.2029ms)
-✔ Fattore di utilizzazione: casi limite (0.1505ms)
-✔ Senza ore, terreno ed extraflusso il bilancio dichiara cosa manca (0.2757ms)
-✔ Tabella S.4-12: sedici righe, valori come stampati nel testo ufficiale (1.2295ms)
-✔ Tabella S.4-12: ristorazione 0,7 e civile abitazione 0,05 (0.1767ms)
-✔ voceDensita: codice sconosciuto restituisce null (0.092ms)
-✔ Tabella S.4-13: cinque criteri (0.7493ms)
-✔ fonte: edizione e pagina riportate (0.2222ms)
-✔ geometria porta: cerniera e centro sul muro (1.5734ms)
-✔ senso di apertura: lato + sposta l'anta verso la normale +n (0.2194ms)
-✔ senso di apertura: lato - e cardine b invertono la direzione (0.1522ms)
-✔ porta senza apertura: default dichiarato come dato mancante (0.1153ms)
-✔ ostacoli: muro spezzato dal vano porta, anta chiusa contro il muro (0.3505ms)
-✔ collisione: il corpo non attraversa un muro in un solo salto (0.3096ms)
-✔ collisione: la porta chiusa blocca, la porta aperta lascia passare (1.013ms)
-✔ passo: avanti sposta lungo yaw, senza superare la velocità (0.2097ms)
-✔ aggiornaPorte: si apre avvicinandosi e si richiude allontanandosi (0.4905ms)
-✔ posizione iniziale: vicino a un vano porta (0.7474ms)
-✔ vettore di sguardo: yaw 0 guarda in +y, yaw pi/2 in +x, pitch pi/2 verso l'alto (0.129ms)
-✔ passeggiata: la porta si apre da sola e il corpo passa nel vano (0.8839ms)
-✔ passeggiata: senza input il corpo resta fermo (0.3124ms)
-✔ arredo: il corpo non attraversa un divano in pianta (0.3391ms)
-✔ partenza: lo sguardo punta verso l'interno dell'edificio (0.2017ms)
-✔ posizione iniziale: mai dentro un muro, anche se il lato interno e' bloccato (0.5898ms)
-✔ anta: non si apre sopra chi sta passando davanti al vano (2.2525ms)
-✔ sguardo di partenza: guarda verso lo spazio libero, non verso un muro vicino (0.3225ms)
-✔ crea il pavimento della stanza con il materiale scelto (1.5354ms)
-✔ stessa stanza: aggiorna il materiale senza duplicare (0.2242ms)
-✔ scheda stanza: finiture e azione finitura creano il pavimento (0.6946ms)
-✔ il modello 3D riconosce il pavimento poligonale e lo centra sul riquadro (0.6739ms)
-✔ verifica: pavimento di stanza con coordinate non intere segnalato (0.255ms)
-✔ ogni motore ha stato valido, spiegazioni e documenti (1.241ms)
-✔ Asol,est: manca ggl+sh -> MANCANO DATI; con scheda tecnica -> ESATTO SUI DATI (0.2461ms)
-✔ H'T: ponti assenti -> MANCANO DATI, percentuale -> STIMA, psi -> ESATTO SUI DATI (0.2865ms)
-✔ stanze con monconi: stima con l'elenco delle stanze da controllare (0.2946ms)
-✔ geometria tracciata su immagine e' una stima; muri portanti sempre presunti (0.3231ms)
-✔ la nota sul 10 % spiega l'origine e l'abrogazione (0.1203ms)
-✔ scheda Energia: ogni risultato porta lo stato e senza dati elenca cosa manca (1.624ms)
-✔ righe dei ponti termici: lettura e errori (0.1608ms)
-✔ nuovo progetto: vuoto, nessuna scatola, nessun pavimento, nessun arredo (1.696ms)
-✔ muro: coordinate intere obbligatorie, lunghezza nulla e spessore dispari rifiutati (0.3339ms)
-✔ vano: deve stare dentro il muro, altrimenti rifiutato (0.2987ms)
-✔ eliminare un muro elimina anche i suoi vani (0.2183ms)
-✔ arredi: ingombro esatto a 0 e 90 gradi, sempre interi (0.3445ms)
-✔ libreria: tutte le dimensioni sono pari in mm (centro esatto a meta' dimensione) (0.1543ms)
-✔ spostare un arredo con coordinate non intere: nessuna modifica (0.1397ms)
-✔ pavimento: area nulla rifiutata, valido crea una scatola sottile (0.2114ms)
-✔ verifica progetto: vuoto e' valido (0.3201ms)
-✔ audit: crea/elimina/ricrea mantiene ID univoci per muri, vani e pavimenti (2.169ms)
-✔ audit: schema incompleto, null e ID vani duplicati sono rifiutati senza eccezioni (0.3284ms)
-✔ audit: due divisori incrociati generano quattro stanze con area indipendente (1.5137ms)
-✔ audit: divisione muro rifiuta un taglio attraverso un vano e preserva input (1.0093ms)
-✔ audit: finestre automatiche idempotenti quando il requisito è soddisfatto (2.2135ms)
-✔ audit: geocoder scarta una via diversa anche se coincide il comune (2.3541ms)
-✔ audit: normalizza trattini e spazi nelle regioni (0.1541ms)
-✔ audit: BDTRE mantiene principale il corpo vicino anche se più basso (1.3778ms)
-✔ audit: impronta OSM senza altezza non diventa LiDAR o esito determinato (1.5147ms)
-✔ audit: timeout copre anche un corpo WFS bloccato e termina il trasporto (42.766ms)
-✔ audit: OSM e Overpass non rimangono in attesa indefinita (31.8206ms)
-✔ audit: simulare altri piani riusa la cartografia e non esegue nuove richieste (0.4923ms)
-✔ audit: un avviso bloccante sul riferimento impedisce una classificazione determinata (0.3861ms)
-✔ audit: edificio che contiene il punto precede quello con baricentro più vicino (0.2102ms)
-✔ classificazione: un solo criterio di rischio elevato rende il luogo elevato (lett. C) (0.7078ms)
-✔ classificazione: medio e basso senza criteri elevati (0.1711ms)
-✔ riduzione del livello: consentita solo se non ci sono sostanze o esplosivi (dichiarata) (0.197ms)
-✔ esodo: limiti del punto 3.3 lett. c, e: rischio elevato 15-30 m con due vie, 6-15 m con una (0.9267ms)
-✔ esodo: pubblico o persone assistite portano al limite piu' basso (punto 3.4) (0.1637ms)
-✔ esodo: larghezza medio/basso = A/50 x 0,60 m arrotondato al modulo, minimo 0,80 m (punto 3.5) (0.1778ms)
-✔ esodo: piu' di 50 persone richiedono due uscite (punto 3.5 lett. a) (0.2218ms)
-✔ esodo: dati assenti elencati (0.0935ms)
-✔ sessione: round trip conserva geometria, prodotto CDI e parametri tecnici (2.0378ms)
-✔ sessione: input invalido non modifica progetto e rifiuta parametri HTML (0.3703ms)
-✔ sessione: vecchio JSON geometrico ottiene analisi vuota senza dati del progetto precedente (0.1353ms)
-✔ stanze: area esatta di un appartamento rettangolare con tramezzo (300 casi) (71.358ms)
-✔ validatePlan: coordinate frazionarie e vani fuori dal muro sempre rifiutati (200 casi) (1.3548ms)
-✔ validatePlan: vani ammessi dentro il muro passano (200 casi) (0.5665ms)
-✔ buildModel: nessuna eccezione e geometria finita su planimetrie casuali (80 casi) (1.8968ms)
-✔ antincendio e stanze concordano sul piano AR-02: 278,329350 m2 (cross-check tra motori) (2.8181ms)
-✔ Fsol,est e Asol,est: invarianti su 300 casi casuali (2.7609ms)
-✔ GSA su AR-02: ogni vano perimetrale ha orientamento o e' segnalato; nessun NaN (1.6206ms)
-✔ Energia: invarianti su 300 casi casuali (nessun NaN, monotonia, limiti fisici) (1.8403ms)
-✔ Energia: carico estivo cresce con la superficie vetrata e con il solare (0.4629ms)
-✔ Energia: controprova a mano del carico invernale di un appartamento tipo (0.169ms)
-✔ Parser PDF: numeri con virgola o punto, migliaia e unita' (500 casi) (0.8335ms)
-✔ Parser PDF: campi estratti dalle due relazioni reali (Blumatica e ACCA TerMus) (2.5144ms)
-✔ Parser PDF: relazione di Roma a due zone (Blumatica UNI 10349): giorni non scambiati per gradi giorno, zone segnalate (1.1547ms)
-✔ Parser PDF: testo senza dati restituisce tutti i campi mancanti, senza eccezioni (0.3838ms)
-✔ Involucro dalla geometria: vetri su ogni lato riconosciuti senza il tipo 'perimetrale' (200 casi) (9.2121ms)
-✔ Involucro: Nord del disegno ruotato di 90 gradi sposta gli orientamenti (0.2078ms)
-✔ Stanze con moncone di muro: si toglie l'impronta intera del moncone (200 casi) (20.657ms)
-✔ infissi 3D: ogni tipo genera parti finite, dentro il vano (150 casi) (3.9083ms)
-✔ arredi 3D: tutti i modelli producono parti finite e ingombro coerente (1.9797ms)
-✔ arredi: rotazione di 90 gradi scambia larghezza e profondita', posizione agganciata al muro (0.1956ms)
-✔ calibrazione: scala da distanza nota, origine nel punto cliccato (1.0521ms)
-✔ calibrazione non valida: distanza zero o punti coincidenti (0.2276ms)
-✔ snap alla griglia di 10 mm: valori interi e multipli del passo (0.117ms)
-✔ andata e ritorno px -> mm -> px senza perdita sulla griglia (0.1065ms)
-✔ proiezione su muro: offset e distanza perpendicolare in mm interi (0.1129ms)
-✔ muro piu' vicino: scarta i punti troppo lontani (0.1184ms)
-✔ flusso muri: due clic creano un muro; annulla lo riporta indietro (0.2344ms)
-✔ vano da due clic sullo stesso muro: offset e larghezza esatti (0.2365ms)
-✔ vano con due clic su muri diversi: rifiutato con errore (0.1696ms)
-✔ toPlan: il risultato del tracciamento passa la validazione del motore (0.4863ms)
-✔ vista 2D: una quota per ogni muro, con la lunghezza esatta in mm (4.4364ms)
-✔ vista 2D: una etichetta di superficie per ogni stanza (4.0333ms)
-✔ vista 2D: progetto vuoto senza errori (0.1042ms)
-✔ escape HTML: id con caratteri speciali non rompono la vista (0.0803ms)
-ℹ tests 266
-ℹ suites 0
-ℹ pass 266
-ℹ fail 0
-ℹ cancelled 0
-ℹ skipped 0
-ℹ todo 0
-ℹ duration_ms 364.7252
+PASS nuova voce Planimetrie accessibile
+PASS rettangolo json
+PASS rettangolo json — scena 3D presente
+PASS rettangolo json — misure mesh 3D
+PASS rettangolo dxf
+PASS rettangolo dxf — scena 3D presente
+PASS rettangolo dxf — rapporto unità e arrotondamenti esportato
+PASS rettangolo dxf — misure mesh 3D
+PASS elle json
+PASS elle json — scena 3D presente
+PASS elle json — misure mesh 3D
+PASS elle dxf
+PASS elle dxf — scena 3D presente
+PASS elle dxf — rapporto unità e arrotondamenti esportato
+PASS elle dxf — misure mesh 3D
+PASS DXF filo esterno
+PASS DXF filo esterno — scena 3D presente
+PASS DXF filo esterno — misure mesh 3D
+PASS DXF esterno conserva ingombro 6000 x 4000 mm
+PASS raccolta persiste dopo refresh
+PASS modello riaperto
+PASS modello riaperto — scena 3D presente
+PASS modello riaperto — misure mesh 3D
+PASS PDF due pagine interamente locale
+PASS scala errata blocca generazione
+PASS PDF vettoriale rettangolo — seconda quota
+PASS PDF vettoriale rettangolo
+PASS PDF vettoriale rettangolo — scena 3D presente
+PASS PDF vettoriale rettangolo — misure mesh 3D
+PASS cambio pagina richiede nuova verifica
+PASS ritorno alle pagine conserva segmenti vettoriali
+PASS PDF vettoriale ruotato elle — seconda quota
+PASS PDF vettoriale ruotato elle
+PASS PDF vettoriale ruotato elle — scena 3D presente
+PASS PDF vettoriale ruotato elle — misure mesh 3D
+PASS PDF scansione riconosciuto senza vettori
+PASS scansione.pdf — quota verificata
+PASS scansione.pdf
+PASS scansione.pdf — scena 3D presente
+PASS scansione.pdf — misure mesh 3D
+PASS scansione.png — quota verificata
+PASS scansione.png
+PASS scansione.png — scena 3D presente
+PASS scansione.png — misure mesh 3D
+PASS scansione.jpg — quota verificata
+PASS scansione.jpg
+PASS scansione.jpg — scena 3D presente
+PASS scansione.jpg — misure mesh 3D
+PASS scansione.webp — quota verificata
+PASS scansione.webp
+PASS scansione.webp — scena 3D presente
+PASS scansione.webp — misure mesh 3D
+PASS PDF corrotto rifiutato senza salvare né sostituire modello
+PASS salvataggio manuale nella raccolta
+PASS recupero non nasconde origine raster stimata
+PASS menu mobile senza overflow
+PASS nessun upload HTTP dei documenti
+PASS nessuna dipendenza da richieste esterne
+PASS nessun errore JavaScript

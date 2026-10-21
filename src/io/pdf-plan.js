@@ -1,6 +1,6 @@
 // Segmenti vettoriali PDF.js 5.4: non identifica da solo quali linee siano muri.
-import { pxToMm } from '../trace/geometry.js?v=v20261020bq';
-import { validatePlan } from '../core/model.js?v=v20261020bq';
+import { pxToMm } from '../trace/geometry.js?v=v20261021a';
+import { validatePlan } from '../core/model.js?v=v20261021a';
 
 const identita = () => [1,0,0,1,0,0];
 const moltiplica = (a,b) => [a[0]*b[0]+a[2]*b[1],a[1]*b[0]+a[3]*b[1],a[0]*b[2]+a[2]*b[3],a[1]*b[2]+a[3]*b[3],a[0]*b[4]+a[2]*b[5]+a[4],a[1]*b[4]+a[3]*b[5]+a[5]];

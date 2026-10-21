@@ -1,4 +1,4 @@
-import { preparaProgetto } from '../core/sessione.js?v=v20261020bq';
+import { preparaProgetto } from '../core/sessione.js?v=v20261021a';
 
 // I documenti originali sono separati dai metadati: l'elenco non carica tutti i PDF in RAM.
 export function apriArchivio(factory = globalThis.indexedDB) {

@@ -1,38 +1,38 @@
 // Interfaccia: progetto modificabile (vuoto all'avvio), modalità vista e costruzione, import/export.
-import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261020bq";
-import { buildModel } from "./core/build.js?v=v20261020bq";
-import { measurePlan } from "./core/measure.js?v=v20261020bq";
-import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261020bq";
+import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261021a";
+import { buildModel } from "./core/build.js?v=v20261021a";
+import { measurePlan } from "./core/measure.js?v=v20261021a";
+import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261021a";
 import {
   progettoVuoto, aggiungiMuro, aggiungiVano, aggiungiPavimento, aggiungiArredo,
   ruotaArredo, spostaArredo, eliminaElemento, verificaProgetto, LIBRERIA_ARREDI, MATERIALI_PAVIMENTO,
-} from "./core/project.js?v=v20261020bq";
-import { createViewer } from "./view/scene.js?v=v20261020bq";
-import { leggiPlanimetria } from './io/planimetrie.js?v=v20261020bq';
-import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261020bq";
-import { stanze } from "./core/rooms.js?v=v20261020bq";
-import { planSvg } from "./view2d/plan.js?v=v20261020bq";
-import { montaHud } from "./ui/hud.js?v=v20261020bq";
-import { rapportoAntincendio } from "./core/antincendio.js?v=v20261020bq";
-import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261020bq";
-import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261020bq";
-import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261020bq";
+} from "./core/project.js?v=v20261021a";
+import { createViewer } from "./view/scene.js?v=v20261021a";
+import { leggiPlanimetria } from './io/planimetrie.js?v=v20261021a';
+import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261021a";
+import { stanze } from "./core/rooms.js?v=v20261021a";
+import { planSvg } from "./view2d/plan.js?v=v20261021a";
+import { montaHud } from "./ui/hud.js?v=v20261021a";
+import { rapportoAntincendio } from "./core/antincendio.js?v=v20261021a";
+import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261021a";
+import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261021a";
+import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261021a";
 
 // Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
 const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
-import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261020bq";
-import { montaScheda } from "./ui/energia-ui.js?v=v20261020bq";
-import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261020bq";
-import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261020bq";
-import { partiArredo } from "./core/arredi.js?v=v20261020bq";
-import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261020bq";
-import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261020bq";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261020bq";
-import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261020bq";
-import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261020bq";
-import { impostaFunzioneStanza } from "./core/project.js?v=v20261020bq";
-import { preparaProgetto, esportaSessione, PARAMETRI_ANALISI } from "./core/sessione.js?v=v20261020bq";
-import { montaPlanimetrie } from "./ui/planimetrie.js?v=v20261020bq";
+import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261021a";
+import { montaScheda } from "./ui/energia-ui.js?v=v20261021a";
+import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261021a";
+import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261021a";
+import { partiArredo } from "./core/arredi.js?v=v20261021a";
+import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261021a";
+import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261021a";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261021a";
+import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261021a";
+import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261021a";
+import { impostaFunzioneStanza } from "./core/project.js?v=v20261021a";
+import { preparaProgetto, esportaSessione, PARAMETRI_ANALISI } from "./core/sessione.js?v=v20261021a";
+import { montaPlanimetrie } from "./ui/planimetrie.js?v=v20261021a";
 
 // Prima persona: pulsante sopra il ?, messaggio in alto, tasti WASD e frecce sovrimpressi che si illuminano
 let pulsantePP = null;
@@ -454,7 +454,7 @@ function montaAutomatismi() {
   barra.append(bArredo, bFiniture, bInfissi);
   document.body.append(barra, pannello, icona);
 }
-import { montaGSA } from "./ui/gsa-ui.js?v=v20261020bq";
+import { montaGSA } from "./ui/gsa-ui.js?v=v20261021a";
 
 let hud = null;
 
@@ -465,7 +465,7 @@ const stato = {
   assegnazioni: {},
   viewer: null,
   modo: "vista",
-  strumento: "muro",
+  strumento: "nessuno", // nessuno strumento finche' non si sceglie un pulsante della barra
   griglia: 100,
   spessore: 250,
   altezza: 2100,
@@ -741,13 +741,23 @@ function finisciDettagli(r, box) {
 // Modelli dettagliati di infissi (solo vani con un modello CDI montato) e arredi
 function costruisciDettagli(p) {
   const lista = [];
+  // baricentro dell'edificio: per i muri perimetrali l'esterno e' dal lato opposto
+  const pts = p.walls.flatMap((w) => [w.a, w.b]);
+  const cx = pts.reduce((a, q) => a + q[0], 0) / (pts.length || 1), cy = pts.reduce((a, q) => a + q[1], 0) / (pts.length || 1);
+  const latoEsterno = (w) => {
+    if (w.kind !== "perimetrale") return 0;
+    const L = Math.hypot(w.b[0] - w.a[0], w.b[1] - w.a[1]) || 1;
+    const nx = -(w.b[1] - w.a[1]) / L, ny = (w.b[0] - w.a[0]) / L;
+    const mx = (w.a[0] + w.b[0]) / 2, my = (w.a[1] + w.b[1]) / 2;
+    return (cx - mx) * nx + (cy - my) * ny > 0 ? -1 : 1;
+  };
   for (const o of p.openings) {
     const w = p.walls.find((x) => x.id === o.wall);
     if (!w) continue;
     const itemId = Object.prototype.hasOwnProperty.call(stato.assegnazioni, o.id) ? stato.assegnazioni[o.id] : (o.cdi ?? null);
     const item = itemId ? stato.catalogo.items.find((i) => i.id === itemId) : null;
     if (!item) continue; // vano aperto: solo il foro nel muro
-    lista.push({ tipo: "infisso", parti: partiInfisso(o, w.t, item), op: o, wall: w });
+    lista.push({ tipo: "infisso", parti: partiInfisso(o, w.t, item, { esterno: latoEsterno(w) }), op: o, wall: w });
   }
   for (const a of p.furniture) lista.push({ tipo: "arredo", parti: partiArredo(a), a });
   return lista;
@@ -938,6 +948,8 @@ function gestisciVista(hit) {
 
 // Doppio clic: scheda dell'elemento (o della stanza), con le azioni possibili
 function gestisciDoppio(hit) {
+  // il doppio clic annulla un punto di muro lasciato in sospeso dal primo clic
+  stato.pendente = null;
   let p = stato.progetto;
   // porte e finestre (qualsiasi pezzo dell'infisso) aprono la vista del vano; un muro, anche vicino a una porta, resta un muro
   const suMuroHit = !!hit.kind && hit.kind.startsWith("muro");
@@ -993,6 +1005,8 @@ function gestisciClic(hit) {
   try {
     switch (stato.strumento) {
       case "muro": {
+        // clic su porte, finestre o arredi: non si comincia un muro (serve per il doppio clic sugli infissi)
+        if (hit.kind && !hit.kind.startsWith("muro") && hit.kind !== "pavimento") return;
         if (!stato.pendente) { stato.pendente = p; break; }
         if (p[0] === stato.pendente[0] && p[1] === stato.pendente[1]) break;
         const r = aggiungiMuro(pr, stato.pendente, p, stato.spessore);
@@ -1002,13 +1016,19 @@ function gestisciClic(hit) {
         break;
       }
       case "vano": {
+        // un clic su porta o finestra esistente non crea un altro vano (il doppio clic apre l'infisso)
+        if (hit.kind && !hit.kind.startsWith("muro")) return;
         if (!hit.wall) return errore("Clicca su un muro per inserire il vano.");
         const muro = pr.walls.find((w) => w.id === hit.wall);
         const L = Math.hypot(muro.b[0] - muro.a[0], muro.b[1] - muro.a[1]);
         const larg = stato.larghezzaVano;
         let off = offsetSuMuro(hit.mm, muro) - Math.round(larg / 2);
         off = Math.max(0, Math.min(off, Math.round(L) - larg));
-        const r = aggiungiVano(pr, muro.id, off, larg, stato.altezza, stato.sbalzo, stato.tipoVano);
+        // una finestra nasce gia' con l'infisso CDI predefinito (PVC 6Stars), non come semplice foro
+        const cdiPredefinito = stato.tipoVano === "finestra" ? "pvc-termico" : null;
+        const r = aggiungiVano(pr, muro.id, off, larg, stato.altezza, stato.sbalzo, stato.tipoVano, cdiPredefinito);
+        // niente vani sovrapposti a quelli esistenti
+        if (!r.errore && (r.avvisi ?? []).some((x) => x.includes("sovrapposti"))) return errore("Qui c'e' gia' un vano: scegli un altro punto del muro.");
         if (r.errore) return errore(r.errore);
         applica(r.p);
         break;
@@ -1066,6 +1086,7 @@ function costruisciPannello() {
     <div id="pannello-costruzione" style="display:none; margin-top:6px;">
       <div>Strumento:
         <select id="strumento">
+          <option value="nessuno" selected>— nessuno —</option>
           <option value="muro">Muro</option>
           <option value="vano">Vano (clic su un muro)</option>
           <option value="pavimento">Pavimento (2 clic)</option>
@@ -1262,7 +1283,15 @@ async function init() {
     if (st) $("statistiche").textContent = `Qualità ${st.livello} · ${st.fps ? `${st.fps} fps` : "ferma (disegna solo quando muovi la vista)"} · ${st.chiamate} gruppi · ${st.triangoli.toLocaleString("it-IT")} triangoli`;
   }, 1000);
   // con il secchiello attivo il clic riempie pavimento o muro; altrimenti vale il normale strumento
-  stato.viewer.setPickHandler((hit) => { if (stato.arredo?.riempi(hit)) return; gestisciClic(hit); });
+  stato.viewer.setPickHandler((hit) => {
+    if (stato.arredo?.riempi(hit)) return;
+    // clic sul vuoto: lo strumento della barra si deseleziona (non per Muro e Pavimento, che si disegnano sul vuoto)
+    if (!hit.kind && !stato.pendente && !["muro", "pavimento", "nessuno"].includes(stato.strumento)) {
+      hud?.deselezionaStrumento();
+      return;
+    }
+    gestisciClic(hit);
+  });
   stato.viewer.setDoppioClicHandler(gestisciDoppio);
   // Il menu del browser non si apre su tutta l'app: il tasto destro e' dell'editor 3D (campi di testo esclusi)
   document.addEventListener("contextmenu", (ev) => {

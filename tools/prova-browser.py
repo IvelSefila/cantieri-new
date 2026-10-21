@@ -81,7 +81,7 @@ try:
             samples = json.loads((ROOT / "tests/fixtures/civici-italia.json").read_text(encoding="utf-8"))
             for sample in samples:
                 result = page.evaluate("""async sample => {
-                  const {calcolaGsaDaCivico} = await import('./src/core/altimetria-civico.js?v=v20261020bq');
+                  const {calcolaGsaDaCivico} = await import('./src/core/altimetria-civico.js?v=v20261021a');
                   const requests=[];
                   const fetchFn=async (url,opts={})=>{
                     const q={url:String(url)}; requests.push(q); const start=performance.now();

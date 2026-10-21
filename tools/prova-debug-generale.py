@@ -36,7 +36,9 @@ try:
     ctx.route('**/*',route)
     page=ctx.new_page();page.set_default_timeout(12000)
     page.on('pageerror',lambda e:report['errori_js'].append(str(e)))
-    def tab(name='progetto'):page.locator(f'button.hud-tab[data-scheda="{name}"]').click()
+    def tab(name='progetto'):
+      btn=page.locator(f'button.hud-tab[data-scheda="{name}"]')
+      if 'attiva' not in (btn.get_attribute('class') or '') or 'chiuso' in (page.locator('aside').first.get_attribute('class') or ''):btn.click()
     def load(p,name='modello.json'):
         tab();page.locator('#carica').set_input_files({'name':name,'mimeType':'application/json','buffer':json.dumps(p).encode()})
         page.wait_for_function('()=>!document.querySelector("#nome-plan").textContent.includes("Caricamento")')

@@ -4,8 +4,8 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { marmo, fotoFile } from "./materials.js?v=v20261020bq";
-import { LIBRERIA_3D, dimensioniArredo } from "../core/arredi.js?v=v20261020bq";
+import { marmo, fotoFile } from "./materials.js?v=v20261021a";
+import { LIBRERIA_3D, dimensioniArredo } from "../core/arredi.js?v=v20261021a";
 
 // Un glTF per url, caricato una sola volta e clonato per ogni arredo
 const GLB = new Map();
@@ -207,10 +207,36 @@ function materialiFoto(parte, opz) {
   return arr;
 }
 
+// Foto CDI di una finestra: ritaglio della foto sulla finestra, vetro trasparente come nella foto
+function materialiFotoFinestra(parte, opz) {
+  const f = parte.foto3d;
+  const k = `fotofin|${f.file}|${parte.internoNeg ? "n" : "p"}|${opz.clip ? "c" : ""}`;
+  if (CACHE.has(k)) return CACHE.get(k);
+  const carica = (specchio) => {
+    const t = caricatore.load(f.file);
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.anisotropy = 8;
+    t.wrapS = THREE.RepeatWrapping;
+    const lu = f.u1 - f.u0, lv = f.v1 - f.v0;
+    t.repeat.set(specchio ? -lu : lu, lv);
+    t.offset.set(specchio ? f.u1 : f.u0, 1 - f.v1);
+    return t;
+  };
+  const base = { clippingPlanes: opz.clip, clipShadows: !!opz.clip, roughness: 0.35, metalness: 0.1, envMap: AMBIENTE, envMapIntensity: 0.6, transparent: true, alphaTest: 0.2 };
+  // alphaTest 0.2: nelle foto il vetro e' semitrasparente (alfa 8-13%) con i riflessi del fotografo; sotto la soglia si scarta e il vetro resta pulito
+  const interno = new THREE.MeshStandardMaterial({ ...base, map: carica(false) });
+  const esterno = new THREE.MeshStandardMaterial({ ...base, map: carica(true) });
+  const lato = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false });
+  // faccia 4 = lato n positivo, faccia 5 = lato n negativo
+  const arr = parte.internoNeg ? [lato, lato, lato, lato, esterno, interno] : [lato, lato, lato, lato, interno, esterno];
+  CACHE.set(k, arr);
+  return arr;
+}
+
 function meshParte(p, opz, sostituto, assi) {
   // assi: "infisso" (s, z, n) oppure "arredo" (x, z, y)
   let mesh;
-  let mat = sostituto ? sostituto(p) : p.mat === "foto" ? materialiFoto(p, opz) : materiale(p.mat, { colore: p.colore, clip: opz.clip, alta: opz.alta });
+  let mat = sostituto ? sostituto(p) : p.mat === "foto" ? materialiFoto(p, opz) : p.mat === "fotofinestra" ? materialiFotoFinestra(p, opz) : materiale(p.mat, { colore: p.colore, clip: opz.clip, alta: opz.alta });
   // esterno dal lato n negativo: la faccia con la foto giusta e' l'altra
   if (p.facciaEsternaNeg && Array.isArray(mat)) mat = [mat[0], mat[1], mat[2], mat[3], mat[5], mat[4]];
   if (p.forma === "box") {

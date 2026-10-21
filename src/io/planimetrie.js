@@ -1,6 +1,6 @@
-import { preparaProgetto } from '../core/sessione.js?v=v20261020bq';
-import { parseDxf } from './dxf.js?v=v20261020bq';
-import { dxfToPlan } from './toPlan.js?v=v20261020bq';
+import { preparaProgetto } from '../core/sessione.js?v=v20261021a';
+import { parseDxf } from './dxf.js?v=v20261021a';
+import { dxfToPlan } from './toPlan.js?v=v20261021a';
 
 export function formatoPlanimetria(file) {
   const ext = String(file.name || '').split('.').pop().toLowerCase();

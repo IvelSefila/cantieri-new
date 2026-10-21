@@ -31,7 +31,7 @@ try:
   page.keyboard.press('Escape');page.wait_for_timeout(150)
   check('uscita prima persona ripristina dollhouse e menu',page.locator('#stile').input_value()=='dollhouse')
   page.evaluate("""async()=>{
-   const THREE=await import('three');const {createViewer,STILI}=await import('./src/view/scene.js?v=v20261020bq');
+   const THREE=await import('three');const {createViewer,STILI}=await import('./src/view/scene.js?v=v20261021a');
    window.stili=Object.keys(STILI);const el=document.createElement('div');el.style='position:fixed;inset:0;z-index:9999;background:black';document.body.append(el);
    const add=THREE.Scene.prototype.add;
    THREE.Scene.prototype.add=function(...objects){if(objects.some(o=>o.isDirectionalLight))window.scena=this;return add.apply(this,objects)};
@@ -62,7 +62,7 @@ try:
   page.evaluate("()=>{v.vistaDallAltoSubito({camera:[33000,22000,15000],bersaglio:[33000,22000,0],spostamentoPx:250,su:[0,0,-1]});v.setStile('solido')}")
   check('stile cancella offset e orientamento della vista tecnica',page.evaluate('!v.camera.view.enabled && v.camera.up.y===1'))
   page.evaluate("""async()=>{
-   const {partiArredo}=await import('./src/core/arredi.js?v=v20261020bq');
+   const {partiArredo}=await import('./src/core/arredi.js?v=v20261021a');
    const a={id:'poltrona-test',tipo:'poltrona_poly',x:33000,y:22000,rot:0};
    v.setDettagli([{tipo:'arredo',a,parti:partiArredo(a)}]);v.setStile('argilla');
   }""")
