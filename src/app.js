@@ -1,38 +1,38 @@
 // Interfaccia: progetto modificabile (vuoto all'avvio), modalità vista e costruzione, import/export.
-import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261021d";
-import { buildModel } from "./core/build.js?v=v20261021d";
-import { measurePlan } from "./core/measure.js?v=v20261021d";
-import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261021d";
+import { validatePlan, wallLengthMm } from "./core/model.js?v=v20261021f";
+import { buildModel } from "./core/build.js?v=v20261021f";
+import { measurePlan } from "./core/measure.js?v=v20261021f";
+import { TIPO_PER_CATEGORIA } from "./core/cdi.js?v=v20261021f";
 import {
   progettoVuoto, aggiungiMuro, aggiungiVano, aggiungiPavimento, aggiungiArredo,
   ruotaArredo, spostaArredo, eliminaElemento, verificaProgetto, LIBRERIA_ARREDI, MATERIALI_PAVIMENTO,
-} from "./core/project.js?v=v20261021d";
-import { createViewer } from "./view/scene.js?v=v20261021d";
-import { leggiPlanimetria } from './io/planimetrie.js?v=v20261021d';
-import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261021d";
-import { stanze } from "./core/rooms.js?v=v20261021d";
-import { planSvg } from "./view2d/plan.js?v=v20261021d";
-import { montaHud } from "./ui/hud.js?v=v20261021d";
-import { rapportoAntincendio } from "./core/antincendio.js?v=v20261021d";
-import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261021d";
-import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261021d";
-import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261021d";
+} from "./core/project.js?v=v20261021f";
+import { createViewer } from "./view/scene.js?v=v20261021f";
+import { leggiPlanimetria } from './io/planimetrie.js?v=v20261021f';
+import { agganciaPunto, puntiNotevoli } from "./core/snap.js?v=v20261021f";
+import { stanze } from "./core/rooms.js?v=v20261021f";
+import { planSvg } from "./view2d/plan.js?v=v20261021f";
+import { montaHud } from "./ui/hud.js?v=v20261021f";
+import { rapportoAntincendio } from "./core/antincendio.js?v=v20261021f";
+import { apriScheda, chiudiScheda } from "./ui/scheda.js?v=v20261021f";
+import { descrivi, eseguiAzione, stanzaAPunto } from "./core/elementi.js?v=v20261021f";
+import { impostaPavimentoStanza, spezzaMuro, muroAPunto, impostaTintaMuro } from "./core/project.js?v=v20261021f";
 
 // Tipi di scatola che appartengono a un vano (telai, ante, vetri, maniglie): servono per risalire al vano cliccato
 const PEZZI_VANO = ["telaio", "telaio_legno", "telaio_scrigno", "vetro", "vetro_fume", "anta", "anta_legno", "maniglia", "binario"];
-import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261021d";
-import { montaScheda } from "./ui/energia-ui.js?v=v20261021d";
-import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261021d";
-import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261021d";
-import { partiArredo } from "./core/arredi.js?v=v20261021d";
-import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261021d";
-import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261021d";
-import { montaArredo } from "./ui/arredo-ui.js?v=v20261021d";
-import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261021d";
-import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261021d";
-import { impostaFunzioneStanza } from "./core/project.js?v=v20261021d";
-import { preparaProgetto, esportaSessione, PARAMETRI_ANALISI } from "./core/sessione.js?v=v20261021d";
-import { montaPlanimetrie } from "./ui/planimetrie.js?v=v20261021d";
+import { calcolaGSA, calcolaAsolEst, ORIENTAMENTI } from "./core/gsa.js?v=v20261021f";
+import { montaScheda } from "./ui/energia-ui.js?v=v20261021f";
+import { renderAffidabilita } from "./ui/affidabilita-ui.js?v=v20261021f";
+import { partiInfisso, telaioPorta } from "./core/infissi3d.js?v=v20261021f";
+import { partiArredo } from "./core/arredi.js?v=v20261021f";
+import { inquadraturaFrontale } from "./core/inquadratura.js?v=v20261021f";
+import { apriDockInfissi, chiudiDockInfissi } from "./ui/dock-infissi.js?v=v20261021f";
+import { montaArredo } from "./ui/arredo-ui.js?v=v20261021f";
+import { arredaTutto, finiturTutto, infissiAutomatici, funzioneStanza, FUNZIONI } from "./core/automatismi.js?v=v20261021f";
+import { alloggiDelProgetto, analizzaAlloggi } from "./core/alloggi.js?v=v20261021f";
+import { impostaFunzioneStanza } from "./core/project.js?v=v20261021f";
+import { preparaProgetto, esportaSessione, PARAMETRI_ANALISI } from "./core/sessione.js?v=v20261021f";
+import { montaPlanimetrie } from "./ui/planimetrie.js?v=v20261021f";
 
 // Prima persona: pulsante sopra il ?, messaggio in alto, tasti WASD e frecce sovrimpressi che si illuminano
 let pulsantePP = null;
@@ -454,7 +454,7 @@ function montaAutomatismi() {
   barra.append(bArredo, bFiniture, bInfissi);
   document.body.append(barra, pannello, icona);
 }
-import { montaGSA } from "./ui/gsa-ui.js?v=v20261021d";
+import { montaGSA } from "./ui/gsa-ui.js?v=v20261021f";
 
 let hud = null;
 
@@ -891,7 +891,7 @@ function aggiornaVista2d() {
 function caricaProgetto(p, nome, { origine = "json", dxfReport = null } = {}) {
   // Tutti i controlli precedono l'aggiornamento dello stato e della storia.
   const candidato = preparaProgetto(p);
-  if(dxfReport)candidato.verifica_importazione={metodo:'dxf',rapporto:structuredClone(dxfReport)};
+  if(dxfReport)candidato.verifica_importazione={metodo:'dxf',dimensioni_stimate:!!dxfReport.scala_da_quote,rapporto:structuredClone(dxfReport)};
   if(stato.viewer?.passeggiataAttiva())stato.viewer.esciPasseggiata();
   chiudiVistaFrontale();chiudiScheda();stato.arredo?.seleziona(null);
   const analisi = candidato.analisi;

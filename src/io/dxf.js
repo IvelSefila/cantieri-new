@@ -118,5 +118,12 @@ export function parseDxf(testo,opzioni={}) {
       e.chiusa = true;
     }
   }
-  return { entities: entities.filter((e) => e.punti.length >= 2), report, perMm };
+  const quoteTesto=[];
+  for(let i=start+1;i<cp.length;i++){
+    if(cp[i][0]!==0||cp[i][1]!=='TEXT')continue;
+    let layer='',testo='';
+    for(let j=i+1;j<cp.length&&cp[j][0]!==0;j++){if(cp[j][0]===8)layer=cp[j][1];if(cp[j][0]===1)testo=cp[j][1];}
+    if(/DIM|QUOTE/i.test(layer)&&/^\d+(?:\.\d+)?$/.test(testo))quoteTesto.push(Number(testo));
+  }
+  return { entities: entities.filter((e) => e.punti.length >= 2), report, perMm, quoteTesto };
 }

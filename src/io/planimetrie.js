@@ -1,6 +1,6 @@
-import { preparaProgetto } from '../core/sessione.js?v=v20261021d';
-import { parseDxf } from './dxf.js?v=v20261021d';
-import { dxfToPlan } from './toPlan.js?v=v20261021d';
+import { preparaProgetto } from '../core/sessione.js?v=v20261021f';
+import { parseDxf } from './dxf.js?v=v20261021f';
+import { dxfToPlan } from './toPlan.js?v=v20261021f';
 import { importaDxfLocale } from './dxf-locale.js';
 
 export function formatoPlanimetria(file) {

@@ -42,7 +42,10 @@ try:
   page.locator('#pl-file').set_input_files(sys.argv[1])
   page.wait_for_function('()=>!document.querySelector("#pl-file").disabled')
   report['limite_ui']=page.locator('#pl-stato').inner_text()
-  assert 'oltre 500 segmenti' in report['limite_ui']
+  if Path(sys.argv[1]).stat().st_size>100000:
+   assert 'oltre 500 segmenti' in report['limite_ui']
+  else:
+   assert 'modello generato' in report['limite_ui']
   report['errori_js']=errors;assert not errors
   b.close()
  print(json.dumps(report,ensure_ascii=False))

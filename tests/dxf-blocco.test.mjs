@@ -30,3 +30,21 @@ test('intersezioni quasi coincidenti non moltiplicano i frammenti',()=>{
  assert.ok(out.length<=35*35);
  assert.ok(out.every(w=>Math.hypot(w.b[0]-w.a[0],w.b[1]-w.a[1])>1e-6));
 });
+
+
+test('doppi fili e due quote coerenti ricostruiscono spessore e scala',()=>{
+ const entities=[
+ {tipo:'LINE',layer:'A-WALL',punti:[[0,-.125],[12,-.125]]},
+ {tipo:'LINE',layer:'A-WALL',punti:[[0,.125],[12,.125]]},
+ {tipo:'LINE',layer:'A-WALL',punti:[[-.125,0],[-.125,9]]},
+ {tipo:'LINE',layer:'A-WALL',punti:[[.125,0],[.125,9]]},
+ {tipo:'LINE',layer:'A-GLAZ',punti:[[2,0],[4,0]]}];
+ const p={...parsed(entities),quoteTesto:[12000,9000]};
+ const r=dxfToPlan(p,{soloLayerMuri:true});
+ assert.ok(r.check.ok);assert.equal(r.plan.walls.length,2);
+ assert.equal(r.plan.walls[0].t,250);assert.deepEqual(r.plan.walls[0].b,[12000,0]);
+ assert.equal(r.plan.openings.length,1);assert.equal(r.plan.openings[0].width,2000);
+ assert.equal(r.report.scala_da_quote,1000);
+ const manuale=dxfToPlan({...p,report:{...p.report,unita_confermate:true}},{soloLayerMuri:true});
+ assert.equal(manuale.report.scala_da_quote,undefined);
+});
