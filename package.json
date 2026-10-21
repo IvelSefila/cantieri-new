@@ -11,6 +11,8 @@
     "test:planimetrie": "python tools/prova-planimetrie.py",
     "test:debug": "python tools/prova-debug-generale.py",
     "test:visuali": "python tools/prova-visuali.py",
+    "test:casa": "python tools/prova-riconoscimento-casa.py",
+    "test:raster": "python tools/prova-raster-automatico.py",
     "start": "python tools/serve.py"
   },
   "license": "UNLICENSED"

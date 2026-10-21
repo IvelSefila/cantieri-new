@@ -22,6 +22,7 @@ def save(): (OUT/'risultati.json').write_text(json.dumps(report,ensure_ascii=Fal
 def check(name,ok,**details):
     report['prove'].append(dict(nome=name,passa=bool(ok),**details));save()
     print(f'{"PASS" if ok else "FAIL"} {name}',flush=True)
+    if not ok:print(page.locator('#trc-verifica-info').inner_text(),page.locator('.trc-stato').inner_text(),flush=True)
     assert ok,name
 class Handler(CantieriHandler):
     def log_message(self,*args):pass

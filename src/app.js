@@ -794,6 +794,7 @@ function chiudiVistaFrontale() {
 }
 
 function ricostruisci() {
+  $('scala-stimata').hidden=!stato.progetto.verifica_importazione?.dimensioni_stimate;
   const p = stato.progetto;
   renderGSA();
   stato.energia?.segna();
@@ -839,7 +840,7 @@ function ricostruisci() {
     );
   }
   scrivi(righe);
-  messaggio(stato.pendente ? `In attesa del secondo punto (${stato.strumento}). Esc annulla.` : "Pronto. Ogni misura è un intero in mm.", "ok");
+  messaggio(stato.pendente ? `In attesa del secondo punto (${stato.strumento}). Esc annulla.` : stato.progetto.verifica_importazione?.dimensioni_stimate ? 'Dimensioni STIMATE: modello indicativo, quote non misurate.' : "Pronto. Ogni misura è un intero in mm.", "ok");
   renderVani();
   salvaLocale();
 }
@@ -909,7 +910,7 @@ function caricaProgetto(p, nome, { origine = "json", dxfReport = null } = {}) {
   stato.storia = [];
   stato.assegnazioni = {};
   stato.pendente = null;
-  $("nome-plan").textContent = `${nome}: ${p.name ?? ""}`;
+  $("nome-plan").textContent = `${nome}: ${p.name ?? ""}${candidato.verifica_importazione?.dimensioni_stimate ? ' - DIMENSIONI STIMATE' : ''}`;
   ricostruisci();
 }
 

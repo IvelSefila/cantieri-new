@@ -11,11 +11,11 @@
       "id": "muro_001",
       "a": [
         0,
-        4
+        -4
       ],
       "b": [
         8000,
-        4
+        -4
       ],
       "t": 200
     },
@@ -23,7 +23,7 @@
       "id": "muro_002",
       "a": [
         8000,
-        4
+        -4
       ],
       "b": [
         8000,
@@ -51,7 +51,7 @@
       ],
       "b": [
         0,
-        4
+        -4
       ],
       "t": 200
     }
@@ -63,11 +63,12 @@
     "snap_mm": 0,
     "seconda_quota": {
       "attesa_mm": 4000,
-      "misurata_mm": 3999.999999999999,
-      "scarto_mm": -9.094947017729282e-13,
+      "misurata_mm": 3991.304347826086,
+      "scarto_mm": -8.695652173913913,
       "tolleranza_mm": 8.695652173913043,
       "conforme": true
-    }
+    },
+    "dimensioni_stimate": false
   },
   "analisi": {
     "nordGradi": null,

@@ -1,0 +1,67 @@
+{
+  "prove": [
+    {
+      "nome": "upload avvia riconoscimento senza ricalco",
+      "pass": true
+    },
+    {
+      "nome": "scala assente non inventa misure",
+      "pass": true
+    },
+    {
+      "nome": "quattro muri creati senza clic sui muri",
+      "pass": true
+    },
+    {
+      "nome": "seconda quota ancora richiesta",
+      "pass": true
+    },
+    {
+      "nome": "seconda quota compatibile abilita 3D",
+      "pass": true
+    },
+    {
+      "nome": "modello 3D e archivio collegati",
+      "pass": true
+    },
+    {
+      "nome": "provenienza automatica esportata",
+      "pass": true
+    },
+    {
+      "nome": "nessuna falsa apertura su rettangolo chiuso",
+      "pass": true
+    },
+    {
+      "nome": "scala e spessore ricavati dai pixel",
+      "pass": true
+    },
+    {
+      "nome": "ON abilita 3D senza quote",
+      "pass": true
+    },
+    {
+      "nome": "OFF ripristina obbligo calibrazione",
+      "pass": true
+    },
+    {
+      "nome": "3D stimato esportato con provenienza",
+      "pass": true
+    },
+    {
+      "nome": "zero errori JavaScript",
+      "pass": true
+    },
+    {
+      "nome": "nessuna rete esterna",
+      "pass": true
+    }
+  ],
+  "errori_js": [],
+  "rete": [],
+  "sorgenti": {
+    "src\\io\\raster-muri.js": "5c776106392678021c5884440e9c38da469ace4252889ba9101cfefdcd063e7c",
+    "src\\trace\\ui.js": "981fd8813aae4029492c8b9fa42fb2436b27cd4ce79b8f5a7848be5265add20f",
+    "src\\ui\\planimetrie.js": "86000ecee984f13a9c9cfb6dbba5b0de60821b389298948841a95ea6086c5ccc"
+  }
+}

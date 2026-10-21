@@ -75,7 +75,7 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
         attiva=null;await mostraTavola(f);
         attiva={titolo:f.name,origine:letto.formato};
         const messaggioArchivio=await salvaImportazione({...attiva,file:f});
-        stato.textContent='Tavola caricata: conferma la scala o calibra su una quota, poi seleziona/traccia i muri.'+messaggioArchivio;
+        stato.textContent='Tavola analizzata localmente: controlla muri, porte, finestre e stanze. Stima ON per un modello indicativo senza quote; OFF per calibrazione e seconda quota. Sui PDF puoi anche selezionare gli assi vettoriali.'+messaggioArchivio;
       }
       titolo.value=f.name;await aggiorna();
     } catch(e) {stato.textContent=`Importazione non completata: ${e.message}`;}

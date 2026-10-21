@@ -65,7 +65,7 @@
         </div>
       </div>
       <details id="trc-root" class="blocco avanzato">
-        <summary><b>Tavola PDF o immagine</b> (calibrata in mm)</summary>
+        <summary><b>Tavola PDF o immagine</b> (riconoscimento locale e scala)</summary>
         <div class="riga-azioni"><label>Cambia tavola <input id="trc-file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp"></label></div>
         <div class="riga-azioni">
           Spessore (mm) <input id="trc-spessore" type="number" value="250" step="2" style="width:70px">
@@ -99,7 +99,7 @@
 
     <section class="scheda" data-scheda="planimetrie">
       <h1>Planimetrie</h1>
-      <div class="sub">Scegli una planimetria salvata o un file dal PC. Per PDF e immagini conferma la scala e i muri: il disegno viene elaborato qui, senza inviare il documento.</div>
+      <div class="sub">Scegli una planimetria salvata o un file dal PC. Il motore locale cerca muri, porte, finestre e stanze. Attiva la stima per un 3D indicativo oppure calibra e verifica le quote. Il documento resta su questo PC.</div>
       <div id="sez-planimetrie"></div>
     </section>
 
@@ -147,6 +147,7 @@
 
   </aside>
   <main id="vista"></main>
+  <div id="scala-stimata" hidden role="status" style="position:fixed;right:16px;bottom:110px;z-index:20;max-width:calc(100vw - 32px);box-sizing:border-box;padding:8px 12px;border:1px solid #b58a37;border-radius:10px;background:#101a2eef;color:#ffda83;font:600 12px/1.4 system-ui,sans-serif;pointer-events:none">DIMENSIONI STIMATE - modello indicativo, quote non misurate</div>
   <script type="module" src="src/app.js?v=v20261021a"></script>
 </body>
 </html>

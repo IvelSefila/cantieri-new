@@ -1,0 +1,2308 @@
+{
+  "prove": [
+    {
+      "nome": "immagine vuota non inventa elementi",
+      "pass": true
+    },
+    {
+      "nome": "png riconosce porta finestra e due stanze",
+      "pass": true
+    },
+    {
+      "nome": "png motore effettivo senza fallback",
+      "pass": true
+    },
+    {
+      "nome": "OFF con quote abilita modello semantico",
+      "pass": true
+    },
+    {
+      "nome": "ON poi OFF ripristina muri aperture e quote",
+      "pass": true
+    },
+    {
+      "nome": "png generazione senza quote",
+      "pass": true
+    },
+    {
+      "nome": "png aperture reali nel modello",
+      "pass": true
+    },
+    {
+      "nome": "png pavimenti e nome persistiti",
+      "pass": true
+    },
+    {
+      "nome": "png scala dichiarata stimata",
+      "pass": true
+    },
+    {
+      "nome": "png componenti importati eseguiti",
+      "pass": true
+    },
+    {
+      "nome": "png geometria valida e mesh presenti",
+      "pass": true
+    },
+    {
+      "nome": "png varchi effettivamente scavati nei muri",
+      "pass": true
+    },
+    {
+      "nome": "png stima visibile nel progetto",
+      "pass": true
+    },
+    {
+      "nome": "png avviso stima permanente sul viewport",
+      "pass": true
+    },
+    {
+      "nome": "jpg riconosce porta finestra e due stanze",
+      "pass": true
+    },
+    {
+      "nome": "jpg motore effettivo senza fallback",
+      "pass": true
+    },
+    {
+      "nome": "jpg generazione senza quote",
+      "pass": true
+    },
+    {
+      "nome": "jpg aperture reali nel modello",
+      "pass": true
+    },
+    {
+      "nome": "jpg pavimenti e nome persistiti",
+      "pass": true
+    },
+    {
+      "nome": "jpg scala dichiarata stimata",
+      "pass": true
+    },
+    {
+      "nome": "jpg componenti importati eseguiti",
+      "pass": true
+    },
+    {
+      "nome": "jpg geometria valida e mesh presenti",
+      "pass": true
+    },
+    {
+      "nome": "jpg varchi effettivamente scavati nei muri",
+      "pass": true
+    },
+    {
+      "nome": "jpg stima visibile nel progetto",
+      "pass": true
+    },
+    {
+      "nome": "jpg avviso stima permanente sul viewport",
+      "pass": true
+    },
+    {
+      "nome": "webp riconosce porta finestra e due stanze",
+      "pass": true
+    },
+    {
+      "nome": "webp motore effettivo senza fallback",
+      "pass": true
+    },
+    {
+      "nome": "webp generazione senza quote",
+      "pass": true
+    },
+    {
+      "nome": "webp aperture reali nel modello",
+      "pass": true
+    },
+    {
+      "nome": "webp pavimenti e nome persistiti",
+      "pass": true
+    },
+    {
+      "nome": "webp scala dichiarata stimata",
+      "pass": true
+    },
+    {
+      "nome": "webp componenti importati eseguiti",
+      "pass": true
+    },
+    {
+      "nome": "webp geometria valida e mesh presenti",
+      "pass": true
+    },
+    {
+      "nome": "webp varchi effettivamente scavati nei muri",
+      "pass": true
+    },
+    {
+      "nome": "webp stima visibile nel progetto",
+      "pass": true
+    },
+    {
+      "nome": "webp avviso stima permanente sul viewport",
+      "pass": true
+    },
+    {
+      "nome": "pdf riconosce porta finestra e due stanze",
+      "pass": true
+    },
+    {
+      "nome": "pdf motore effettivo senza fallback",
+      "pass": true
+    },
+    {
+      "nome": "pdf generazione senza quote",
+      "pass": true
+    },
+    {
+      "nome": "pdf aperture reali nel modello",
+      "pass": true
+    },
+    {
+      "nome": "pdf pavimenti e nome persistiti",
+      "pass": true
+    },
+    {
+      "nome": "pdf scala dichiarata stimata",
+      "pass": true
+    },
+    {
+      "nome": "pdf componenti importati eseguiti",
+      "pass": true
+    },
+    {
+      "nome": "pdf geometria valida e mesh presenti",
+      "pass": true
+    },
+    {
+      "nome": "pdf varchi effettivamente scavati nei muri",
+      "pass": true
+    },
+    {
+      "nome": "pdf stima visibile nel progetto",
+      "pass": true
+    },
+    {
+      "nome": "pdf avviso stima permanente sul viewport",
+      "pass": true
+    },
+    {
+      "nome": "ruotata riconosce porta finestra e due stanze",
+      "pass": true
+    },
+    {
+      "nome": "ruotata motore effettivo senza fallback",
+      "pass": true
+    },
+    {
+      "nome": "ruotata generazione senza quote",
+      "pass": true
+    },
+    {
+      "nome": "ruotata aperture reali nel modello",
+      "pass": true
+    },
+    {
+      "nome": "ruotata pavimenti e nome persistiti",
+      "pass": true
+    },
+    {
+      "nome": "ruotata scala dichiarata stimata",
+      "pass": true
+    },
+    {
+      "nome": "ruotata componenti importati eseguiti",
+      "pass": true
+    },
+    {
+      "nome": "ruotata geometria valida e mesh presenti",
+      "pass": true
+    },
+    {
+      "nome": "ruotata varchi effettivamente scavati nei muri",
+      "pass": true
+    },
+    {
+      "nome": "ruotata stima visibile nel progetto",
+      "pass": true
+    },
+    {
+      "nome": "ruotata avviso stima permanente sul viewport",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero riconosce porta finestra e due stanze",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero motore effettivo senza fallback",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero generazione senza quote",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero aperture reali nel modello",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero pavimenti e nome persistiti",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero scala dichiarata stimata",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero componenti importati eseguiti",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero geometria valida e mesh presenti",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero varchi effettivamente scavati nei muri",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero stima visibile nel progetto",
+      "pass": true
+    },
+    {
+      "nome": "fondo-nero avviso stima permanente sul viewport",
+      "pass": true
+    },
+    {
+      "nome": "trasparente riconosce porta finestra e due stanze",
+      "pass": true
+    },
+    {
+      "nome": "trasparente motore effettivo senza fallback",
+      "pass": true
+    },
+    {
+      "nome": "trasparente generazione senza quote",
+      "pass": true
+    },
+    {
+      "nome": "trasparente aperture reali nel modello",
+      "pass": true
+    },
+    {
+      "nome": "trasparente pavimenti e nome persistiti",
+      "pass": true
+    },
+    {
+      "nome": "trasparente scala dichiarata stimata",
+      "pass": true
+    },
+    {
+      "nome": "trasparente componenti importati eseguiti",
+      "pass": true
+    },
+    {
+      "nome": "trasparente geometria valida e mesh presenti",
+      "pass": true
+    },
+    {
+      "nome": "trasparente varchi effettivamente scavati nei muri",
+      "pass": true
+    },
+    {
+      "nome": "trasparente stima visibile nel progetto",
+      "pass": true
+    },
+    {
+      "nome": "trasparente avviso stima permanente sul viewport",
+      "pass": true
+    },
+    {
+      "nome": "riapertura IndexedDB conserva geometria e provenienza",
+      "pass": true
+    },
+    {
+      "nome": "casa riconosciuta visitabile in prima persona",
+      "pass": true
+    },
+    {
+      "nome": "uscita passeggiata ripristina la vista",
+      "pass": true
+    },
+    {
+      "nome": "annullamento termina il worker",
+      "pass": true
+    },
+    {
+      "nome": "zero errori JavaScript",
+      "pass": true
+    },
+    {
+      "nome": "nessun servizio esterno",
+      "pass": true
+    }
+  ],
+  "errori_js": [],
+  "rete_esterna": [],
+  "risultati": {
+    "png": {
+      "floors": [
+        {
+          "id": "auto_pav_1",
+          "poligono": [
+            [
+              232,
+              240
+            ],
+            [
+              232,
+              9415
+            ],
+            [
+              7157,
+              9415
+            ],
+            [
+              7157,
+              240
+            ]
+          ],
+          "materiale": "gres"
+        },
+        {
+          "id": "auto_pav_2",
+          "poligono": [
+            [
+              7482,
+              240
+            ],
+            [
+              7482,
+              4015
+            ],
+            [
+              8807,
+              4040
+            ],
+            [
+              8732,
+              4540
+            ],
+            [
+              8457,
+              5015
+            ],
+            [
+              8007,
+              5390
+            ],
+            [
+              7707,
+              5515
+            ],
+            [
+              7482,
+              5540
+            ],
+            [
+              7482,
+              9415
+            ],
+            [
+              14407,
+              9415
+            ],
+            [
+              14407,
+              240
+            ]
+          ],
+          "materiale": "gres"
+        }
+      ],
+      "furniture": [],
+      "schema": 1,
+      "unit": "mm",
+      "altezza_muri": 2800,
+      "name": "Casa riconosciuta dalla tavola",
+      "fonte": "Ricostruzione indicativa — dimensioni stimate, non misurate",
+      "walls": [
+        {
+          "id": "auto_1",
+          "a": [
+            -67,
+            52
+          ],
+          "b": [
+            14682,
+            52
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_2",
+          "a": [
+            7294,
+            -60
+          ],
+          "b": [
+            7294,
+            9690
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_3",
+          "a": [
+            45,
+            -60
+          ],
+          "b": [
+            45,
+            9690
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_4",
+          "a": [
+            14545,
+            -60
+          ],
+          "b": [
+            14545,
+            9690
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_5",
+          "a": [
+            -67,
+            9553
+          ],
+          "b": [
+            14682,
+            9553
+          ],
+          "t": 250
+        }
+      ],
+      "openings": [
+        {
+          "id": "apertura_1",
+          "wall": "auto_1",
+          "offset": 2374,
+          "width": 1975,
+          "height": 1200,
+          "sill": 900,
+          "type": "finestra"
+        },
+        {
+          "id": "apertura_2",
+          "wall": "auto_2",
+          "offset": 4124,
+          "width": 1475,
+          "height": 2100,
+          "sill": 0,
+          "type": "porta"
+        }
+      ],
+      "verifica_importazione": {
+        "metodo": "raster_muri_automatici",
+        "scala_mm_px": 25,
+        "snap_mm": 10,
+        "seconda_quota": null,
+        "avvisi": [
+          "Riconoscimento geometrico sperimentale: controllare aperture, stanze e muri.",
+          "Le stanze sono contorni chiusi, non una classificazione della destinazione d'uso.",
+          "Muri obliqui, simboli insoliti, scansioni deformate e arredi possono richiedere correzioni."
+        ],
+        "porte_finestre_riconosciute": true,
+        "classificazione": "geometrica_non_neurale",
+        "motore": "OpenCV + Simplify.js / geometria Cantieri",
+        "versione": "General configuration for OpenCV 4.13.0 =====================================",
+        "stanze": [
+          {
+            "id": "stanza_1",
+            "nome": "Zona giorno"
+          },
+          {
+            "id": "stanza_2",
+            "nome": "Stanza 2"
+          }
+        ],
+        "aperture": [
+          {
+            "id": "apertura_1",
+            "indizio": "linee parallele",
+            "punteggio": 0.8
+          },
+          {
+            "id": "apertura_2",
+            "indizio": "arco di apertura",
+            "punteggio": 1
+          }
+        ],
+        "dimensioni_stimate": true,
+        "ipotesi_scala": "Spessore mediano 250 mm, ingombro limitato a 4–30 m"
+      },
+      "analisi": {
+        "nordGradi": null,
+        "gsaFsh": null,
+        "gsaFf": null,
+        "gsaGglsh": null,
+        "gsaFfTelaio": null,
+        "gsaFshOb": null,
+        "orientamenti": {},
+        "gsaDaScheda": false,
+        "schedaAnt": {
+          "assegnazioni": {},
+          "quote": []
+        },
+        "energia": {
+          "superficie_utile_m2": null,
+          "volume_m3": null,
+          "superficie_disperdente_m2": null,
+          "U_medio_W_m2K": null,
+          "zona": "D",
+          "gg": 1415,
+          "theta_ext_inv_C": 0,
+          "theta_ext_est_C": 33.8,
+          "ricambi_h": 0.5,
+          "FF": 0.2,
+          "gglsh": null,
+          "interni_W": null,
+          "tau_h": null,
+          "E_elettrico_kWh": null,
+          "orientamento_FV": "S",
+          "collettori_m2": null,
+          "persone": null,
+          "ponti_modo": "assenti",
+          "ponti_tipo": "cassa_vuota",
+          "ponti_nodi_testo": "",
+          "pdfCaricato": false
+        },
+        "gsaLavoro": {
+          "lavoratori": "",
+          "aperto_pubblico": false,
+          "pubblico_contemporaneo": "",
+          "soggettaCPI": "",
+          "cantiereFiamme": false,
+          "attivita_complessa": false,
+          "livello3": [],
+          "data_corso_addetti": "",
+          "data_ultima_esercitazione": "",
+          "planimetria_elementi": [],
+          "piano_contenuti": [],
+          "doc_vr": "",
+          "doc_piano": "",
+          "doc_attestati": "",
+          "doc_registro": "",
+          "doc_informazione": "",
+          "criteri": [],
+          "riduzioni": [],
+          "esodo": {
+            "distanzaDueVie_m": "",
+            "distanzaUnaVia_m": "",
+            "affollamento": "",
+            "numeroUscite": "",
+            "larghezzaUscite_m": "",
+            "pubblico": false,
+            "assistenza": false,
+            "materialiInfiammabili": false,
+            "areaRiposo": false
+          }
+        }
+      }
+    },
+    "jpg": {
+      "floors": [
+        {
+          "id": "auto_pav_1",
+          "poligono": [
+            [
+              300,
+              300
+            ],
+            [
+              300,
+              9475
+            ],
+            [
+              7225,
+              9475
+            ],
+            [
+              7225,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        },
+        {
+          "id": "auto_pav_2",
+          "poligono": [
+            [
+              7550,
+              300
+            ],
+            [
+              7550,
+              4075
+            ],
+            [
+              8875,
+              4100
+            ],
+            [
+              8800,
+              4600
+            ],
+            [
+              8525,
+              5075
+            ],
+            [
+              8075,
+              5450
+            ],
+            [
+              7775,
+              5575
+            ],
+            [
+              7550,
+              5600
+            ],
+            [
+              7550,
+              9475
+            ],
+            [
+              14475,
+              9475
+            ],
+            [
+              14475,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        }
+      ],
+      "furniture": [],
+      "schema": 1,
+      "unit": "mm",
+      "altezza_muri": 2800,
+      "name": "Casa riconosciuta dalla tavola",
+      "fonte": "Ricostruzione indicativa — dimensioni stimate, non misurate",
+      "walls": [
+        {
+          "id": "auto_1",
+          "a": [
+            0,
+            113
+          ],
+          "b": [
+            14750,
+            113
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_2",
+          "a": [
+            7363,
+            0
+          ],
+          "b": [
+            7363,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_3",
+          "a": [
+            113,
+            0
+          ],
+          "b": [
+            113,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_4",
+          "a": [
+            14613,
+            0
+          ],
+          "b": [
+            14613,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_5",
+          "a": [
+            0,
+            9613
+          ],
+          "b": [
+            14750,
+            9613
+          ],
+          "t": 250
+        }
+      ],
+      "openings": [
+        {
+          "id": "apertura_1",
+          "wall": "auto_1",
+          "offset": 2375,
+          "width": 1975,
+          "height": 1200,
+          "sill": 900,
+          "type": "finestra"
+        },
+        {
+          "id": "apertura_2",
+          "wall": "auto_2",
+          "offset": 4125,
+          "width": 1475,
+          "height": 2100,
+          "sill": 0,
+          "type": "porta"
+        }
+      ],
+      "verifica_importazione": {
+        "metodo": "raster_muri_automatici",
+        "scala_mm_px": 25,
+        "snap_mm": 10,
+        "seconda_quota": null,
+        "avvisi": [
+          "Riconoscimento geometrico sperimentale: controllare aperture, stanze e muri.",
+          "Le stanze sono contorni chiusi, non una classificazione della destinazione d'uso.",
+          "Muri obliqui, simboli insoliti, scansioni deformate e arredi possono richiedere correzioni."
+        ],
+        "porte_finestre_riconosciute": true,
+        "classificazione": "geometrica_non_neurale",
+        "motore": "OpenCV + Simplify.js / geometria Cantieri",
+        "versione": "General configuration for OpenCV 4.13.0 =====================================",
+        "stanze": [
+          {
+            "id": "stanza_1",
+            "nome": "Zona giorno"
+          },
+          {
+            "id": "stanza_2",
+            "nome": "Stanza 2"
+          }
+        ],
+        "aperture": [
+          {
+            "id": "apertura_1",
+            "indizio": "linee parallele",
+            "punteggio": 0.8
+          },
+          {
+            "id": "apertura_2",
+            "indizio": "arco di apertura",
+            "punteggio": 1
+          }
+        ],
+        "dimensioni_stimate": true,
+        "ipotesi_scala": "Spessore mediano 250 mm, ingombro limitato a 4–30 m"
+      },
+      "analisi": {
+        "nordGradi": null,
+        "gsaFsh": null,
+        "gsaFf": null,
+        "gsaGglsh": null,
+        "gsaFfTelaio": null,
+        "gsaFshOb": null,
+        "orientamenti": {},
+        "gsaDaScheda": false,
+        "schedaAnt": {
+          "assegnazioni": {},
+          "quote": []
+        },
+        "energia": {
+          "superficie_utile_m2": null,
+          "volume_m3": null,
+          "superficie_disperdente_m2": null,
+          "U_medio_W_m2K": null,
+          "zona": "D",
+          "gg": 1415,
+          "theta_ext_inv_C": 0,
+          "theta_ext_est_C": 33.8,
+          "ricambi_h": 0.5,
+          "FF": 0.2,
+          "gglsh": null,
+          "interni_W": null,
+          "tau_h": null,
+          "E_elettrico_kWh": null,
+          "orientamento_FV": "S",
+          "collettori_m2": null,
+          "persone": null,
+          "ponti_modo": "assenti",
+          "ponti_tipo": "cassa_vuota",
+          "ponti_nodi_testo": "",
+          "pdfCaricato": false
+        },
+        "gsaLavoro": {
+          "lavoratori": "",
+          "aperto_pubblico": false,
+          "pubblico_contemporaneo": "",
+          "soggettaCPI": "",
+          "cantiereFiamme": false,
+          "attivita_complessa": false,
+          "livello3": [],
+          "data_corso_addetti": "",
+          "data_ultima_esercitazione": "",
+          "planimetria_elementi": [],
+          "piano_contenuti": [],
+          "doc_vr": "",
+          "doc_piano": "",
+          "doc_attestati": "",
+          "doc_registro": "",
+          "doc_informazione": "",
+          "criteri": [],
+          "riduzioni": [],
+          "esodo": {
+            "distanzaDueVie_m": "",
+            "distanzaUnaVia_m": "",
+            "affollamento": "",
+            "numeroUscite": "",
+            "larghezzaUscite_m": "",
+            "pubblico": false,
+            "assistenza": false,
+            "materialiInfiammabili": false,
+            "areaRiposo": false
+          }
+        }
+      }
+    },
+    "webp": {
+      "floors": [
+        {
+          "id": "auto_pav_1",
+          "poligono": [
+            [
+              300,
+              300
+            ],
+            [
+              300,
+              9475
+            ],
+            [
+              7225,
+              9475
+            ],
+            [
+              7225,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        },
+        {
+          "id": "auto_pav_2",
+          "poligono": [
+            [
+              7550,
+              300
+            ],
+            [
+              7550,
+              4075
+            ],
+            [
+              8875,
+              4100
+            ],
+            [
+              8800,
+              4600
+            ],
+            [
+              8525,
+              5075
+            ],
+            [
+              8075,
+              5450
+            ],
+            [
+              7775,
+              5575
+            ],
+            [
+              7550,
+              5600
+            ],
+            [
+              7550,
+              9475
+            ],
+            [
+              14475,
+              9475
+            ],
+            [
+              14475,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        }
+      ],
+      "furniture": [],
+      "schema": 1,
+      "unit": "mm",
+      "altezza_muri": 2800,
+      "name": "Casa riconosciuta dalla tavola",
+      "fonte": "Ricostruzione indicativa — dimensioni stimate, non misurate",
+      "walls": [
+        {
+          "id": "auto_1",
+          "a": [
+            0,
+            113
+          ],
+          "b": [
+            14750,
+            113
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_2",
+          "a": [
+            7363,
+            0
+          ],
+          "b": [
+            7363,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_3",
+          "a": [
+            113,
+            0
+          ],
+          "b": [
+            113,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_4",
+          "a": [
+            14613,
+            0
+          ],
+          "b": [
+            14613,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_5",
+          "a": [
+            0,
+            9613
+          ],
+          "b": [
+            14750,
+            9613
+          ],
+          "t": 250
+        }
+      ],
+      "openings": [
+        {
+          "id": "apertura_1",
+          "wall": "auto_1",
+          "offset": 2375,
+          "width": 1975,
+          "height": 1200,
+          "sill": 900,
+          "type": "finestra"
+        },
+        {
+          "id": "apertura_2",
+          "wall": "auto_2",
+          "offset": 4125,
+          "width": 1475,
+          "height": 2100,
+          "sill": 0,
+          "type": "porta"
+        }
+      ],
+      "verifica_importazione": {
+        "metodo": "raster_muri_automatici",
+        "scala_mm_px": 25,
+        "snap_mm": 10,
+        "seconda_quota": null,
+        "avvisi": [
+          "Riconoscimento geometrico sperimentale: controllare aperture, stanze e muri.",
+          "Le stanze sono contorni chiusi, non una classificazione della destinazione d'uso.",
+          "Muri obliqui, simboli insoliti, scansioni deformate e arredi possono richiedere correzioni."
+        ],
+        "porte_finestre_riconosciute": true,
+        "classificazione": "geometrica_non_neurale",
+        "motore": "OpenCV + Simplify.js / geometria Cantieri",
+        "versione": "General configuration for OpenCV 4.13.0 =====================================",
+        "stanze": [
+          {
+            "id": "stanza_1",
+            "nome": "Zona giorno"
+          },
+          {
+            "id": "stanza_2",
+            "nome": "Stanza 2"
+          }
+        ],
+        "aperture": [
+          {
+            "id": "apertura_1",
+            "indizio": "linee parallele",
+            "punteggio": 0.8
+          },
+          {
+            "id": "apertura_2",
+            "indizio": "arco di apertura",
+            "punteggio": 1
+          }
+        ],
+        "dimensioni_stimate": true,
+        "ipotesi_scala": "Spessore mediano 250 mm, ingombro limitato a 4–30 m"
+      },
+      "analisi": {
+        "nordGradi": null,
+        "gsaFsh": null,
+        "gsaFf": null,
+        "gsaGglsh": null,
+        "gsaFfTelaio": null,
+        "gsaFshOb": null,
+        "orientamenti": {},
+        "gsaDaScheda": false,
+        "schedaAnt": {
+          "assegnazioni": {},
+          "quote": []
+        },
+        "energia": {
+          "superficie_utile_m2": null,
+          "volume_m3": null,
+          "superficie_disperdente_m2": null,
+          "U_medio_W_m2K": null,
+          "zona": "D",
+          "gg": 1415,
+          "theta_ext_inv_C": 0,
+          "theta_ext_est_C": 33.8,
+          "ricambi_h": 0.5,
+          "FF": 0.2,
+          "gglsh": null,
+          "interni_W": null,
+          "tau_h": null,
+          "E_elettrico_kWh": null,
+          "orientamento_FV": "S",
+          "collettori_m2": null,
+          "persone": null,
+          "ponti_modo": "assenti",
+          "ponti_tipo": "cassa_vuota",
+          "ponti_nodi_testo": "",
+          "pdfCaricato": false
+        },
+        "gsaLavoro": {
+          "lavoratori": "",
+          "aperto_pubblico": false,
+          "pubblico_contemporaneo": "",
+          "soggettaCPI": "",
+          "cantiereFiamme": false,
+          "attivita_complessa": false,
+          "livello3": [],
+          "data_corso_addetti": "",
+          "data_ultima_esercitazione": "",
+          "planimetria_elementi": [],
+          "piano_contenuti": [],
+          "doc_vr": "",
+          "doc_piano": "",
+          "doc_attestati": "",
+          "doc_registro": "",
+          "doc_informazione": "",
+          "criteri": [],
+          "riduzioni": [],
+          "esodo": {
+            "distanzaDueVie_m": "",
+            "distanzaUnaVia_m": "",
+            "affollamento": "",
+            "numeroUscite": "",
+            "larghezzaUscite_m": "",
+            "pubblico": false,
+            "assistenza": false,
+            "materialiInfiammabili": false,
+            "areaRiposo": false
+          }
+        }
+      }
+    },
+    "pdf": {
+      "floors": [
+        {
+          "id": "auto_pav_1",
+          "poligono": [
+            [
+              263,
+              263
+            ],
+            [
+              263,
+              9488
+            ],
+            [
+              7238,
+              9488
+            ],
+            [
+              7238,
+              263
+            ]
+          ],
+          "materiale": "gres"
+        },
+        {
+          "id": "auto_pav_2",
+          "poligono": [
+            [
+              7513,
+              263
+            ],
+            [
+              7513,
+              4088
+            ],
+            [
+              8875,
+              4100
+            ],
+            [
+              8875,
+              4288
+            ],
+            [
+              8850,
+              4300
+            ],
+            [
+              8850,
+              4438
+            ],
+            [
+              8825,
+              4450
+            ],
+            [
+              8800,
+              4613
+            ],
+            [
+              8750,
+              4675
+            ],
+            [
+              8700,
+              4838
+            ],
+            [
+              8525,
+              5050
+            ],
+            [
+              8525,
+              5088
+            ],
+            [
+              8338,
+              5275
+            ],
+            [
+              8300,
+              5275
+            ],
+            [
+              8238,
+              5350
+            ],
+            [
+              8050,
+              5450
+            ],
+            [
+              8038,
+              5550
+            ],
+            [
+              8013,
+              5500
+            ],
+            [
+              7925,
+              5500
+            ],
+            [
+              7788,
+              5575
+            ],
+            [
+              7513,
+              5625
+            ],
+            [
+              7513,
+              9488
+            ],
+            [
+              14488,
+              9488
+            ],
+            [
+              14488,
+              263
+            ]
+          ],
+          "materiale": "gres"
+        }
+      ],
+      "furniture": [],
+      "schema": 1,
+      "unit": "mm",
+      "altezza_muri": 2800,
+      "name": "Casa riconosciuta dalla tavola",
+      "fonte": "Ricostruzione indicativa — dimensioni stimate, non misurate",
+      "walls": [
+        {
+          "id": "auto_1",
+          "a": [
+            0,
+            119
+          ],
+          "b": [
+            14750,
+            119
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_2",
+          "a": [
+            7369,
+            0
+          ],
+          "b": [
+            7369,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_3",
+          "a": [
+            119,
+            0
+          ],
+          "b": [
+            119,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_4",
+          "a": [
+            14619,
+            0
+          ],
+          "b": [
+            14619,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_5",
+          "a": [
+            0,
+            9619
+          ],
+          "b": [
+            14750,
+            9619
+          ],
+          "t": 250
+        }
+      ],
+      "openings": [
+        {
+          "id": "apertura_1",
+          "wall": "auto_1",
+          "offset": 2375,
+          "width": 1975,
+          "height": 1200,
+          "sill": 900,
+          "type": "finestra"
+        },
+        {
+          "id": "apertura_2",
+          "wall": "auto_2",
+          "offset": 4125,
+          "width": 1475,
+          "height": 2100,
+          "sill": 0,
+          "type": "porta"
+        }
+      ],
+      "verifica_importazione": {
+        "metodo": "raster_muri_automatici",
+        "scala_mm_px": 8.333333333333334,
+        "snap_mm": 10,
+        "seconda_quota": null,
+        "avvisi": [
+          "Riconoscimento geometrico sperimentale: controllare aperture, stanze e muri.",
+          "Le stanze sono contorni chiusi, non una classificazione della destinazione d'uso.",
+          "Muri obliqui, simboli insoliti, scansioni deformate e arredi possono richiedere correzioni."
+        ],
+        "porte_finestre_riconosciute": true,
+        "classificazione": "geometrica_non_neurale",
+        "motore": "OpenCV + Simplify.js / geometria Cantieri",
+        "versione": "General configuration for OpenCV 4.13.0 =====================================",
+        "stanze": [
+          {
+            "id": "stanza_1",
+            "nome": "Zona giorno"
+          },
+          {
+            "id": "stanza_2",
+            "nome": "Stanza 2"
+          }
+        ],
+        "aperture": [
+          {
+            "id": "apertura_1",
+            "indizio": "linee parallele",
+            "punteggio": 0.8
+          },
+          {
+            "id": "apertura_2",
+            "indizio": "arco di apertura",
+            "punteggio": 1
+          }
+        ],
+        "dimensioni_stimate": true,
+        "ipotesi_scala": "Spessore mediano 250 mm, ingombro limitato a 4–30 m"
+      },
+      "analisi": {
+        "nordGradi": null,
+        "gsaFsh": null,
+        "gsaFf": null,
+        "gsaGglsh": null,
+        "gsaFfTelaio": null,
+        "gsaFshOb": null,
+        "orientamenti": {},
+        "gsaDaScheda": false,
+        "schedaAnt": {
+          "assegnazioni": {},
+          "quote": []
+        },
+        "energia": {
+          "superficie_utile_m2": null,
+          "volume_m3": null,
+          "superficie_disperdente_m2": null,
+          "U_medio_W_m2K": null,
+          "zona": "D",
+          "gg": 1415,
+          "theta_ext_inv_C": 0,
+          "theta_ext_est_C": 33.8,
+          "ricambi_h": 0.5,
+          "FF": 0.2,
+          "gglsh": null,
+          "interni_W": null,
+          "tau_h": null,
+          "E_elettrico_kWh": null,
+          "orientamento_FV": "S",
+          "collettori_m2": null,
+          "persone": null,
+          "ponti_modo": "assenti",
+          "ponti_tipo": "cassa_vuota",
+          "ponti_nodi_testo": "",
+          "pdfCaricato": false
+        },
+        "gsaLavoro": {
+          "lavoratori": "",
+          "aperto_pubblico": false,
+          "pubblico_contemporaneo": "",
+          "soggettaCPI": "",
+          "cantiereFiamme": false,
+          "attivita_complessa": false,
+          "livello3": [],
+          "data_corso_addetti": "",
+          "data_ultima_esercitazione": "",
+          "planimetria_elementi": [],
+          "piano_contenuti": [],
+          "doc_vr": "",
+          "doc_piano": "",
+          "doc_attestati": "",
+          "doc_registro": "",
+          "doc_informazione": "",
+          "criteri": [],
+          "riduzioni": [],
+          "esodo": {
+            "distanzaDueVie_m": "",
+            "distanzaUnaVia_m": "",
+            "affollamento": "",
+            "numeroUscite": "",
+            "larghezzaUscite_m": "",
+            "pubblico": false,
+            "assistenza": false,
+            "materialiInfiammabili": false,
+            "areaRiposo": false
+          }
+        }
+      }
+    },
+    "ruotata": {
+      "floors": [
+        {
+          "id": "auto_pav_1",
+          "poligono": [
+            [
+              300,
+              300
+            ],
+            [
+              300,
+              7225
+            ],
+            [
+              4075,
+              7225
+            ],
+            [
+              4100,
+              5850
+            ],
+            [
+              4600,
+              5925
+            ],
+            [
+              5075,
+              6200
+            ],
+            [
+              5450,
+              6650
+            ],
+            [
+              5625,
+              7225
+            ],
+            [
+              9475,
+              7225
+            ],
+            [
+              9475,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        },
+        {
+          "id": "auto_pav_2",
+          "poligono": [
+            [
+              300,
+              7550
+            ],
+            [
+              300,
+              14475
+            ],
+            [
+              9475,
+              14475
+            ],
+            [
+              9475,
+              7550
+            ]
+          ],
+          "materiale": "gres"
+        }
+      ],
+      "furniture": [],
+      "schema": 1,
+      "unit": "mm",
+      "altezza_muri": 2800,
+      "name": "Casa riconosciuta dalla tavola",
+      "fonte": "Ricostruzione indicativa — dimensioni stimate, non misurate",
+      "walls": [
+        {
+          "id": "auto_1",
+          "a": [
+            113,
+            0
+          ],
+          "b": [
+            113,
+            14750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_2",
+          "a": [
+            0,
+            7363
+          ],
+          "b": [
+            9750,
+            7363
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_3",
+          "a": [
+            0,
+            113
+          ],
+          "b": [
+            9750,
+            113
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_4",
+          "a": [
+            0,
+            14613
+          ],
+          "b": [
+            9750,
+            14613
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_5",
+          "a": [
+            9613,
+            0
+          ],
+          "b": [
+            9613,
+            14750
+          ],
+          "t": 250
+        }
+      ],
+      "openings": [
+        {
+          "id": "apertura_1",
+          "wall": "auto_1",
+          "offset": 10400,
+          "width": 1975,
+          "height": 1200,
+          "sill": 900,
+          "type": "finestra"
+        },
+        {
+          "id": "apertura_2",
+          "wall": "auto_2",
+          "offset": 4125,
+          "width": 1475,
+          "height": 2100,
+          "sill": 0,
+          "type": "porta"
+        }
+      ],
+      "verifica_importazione": {
+        "metodo": "raster_muri_automatici",
+        "scala_mm_px": 25,
+        "snap_mm": 10,
+        "seconda_quota": null,
+        "avvisi": [
+          "Riconoscimento geometrico sperimentale: controllare aperture, stanze e muri.",
+          "Le stanze sono contorni chiusi, non una classificazione della destinazione d'uso.",
+          "Muri obliqui, simboli insoliti, scansioni deformate e arredi possono richiedere correzioni."
+        ],
+        "porte_finestre_riconosciute": true,
+        "classificazione": "geometrica_non_neurale",
+        "motore": "OpenCV + Simplify.js / geometria Cantieri",
+        "versione": "General configuration for OpenCV 4.13.0 =====================================",
+        "stanze": [
+          {
+            "id": "stanza_1",
+            "nome": "Zona giorno"
+          },
+          {
+            "id": "stanza_2",
+            "nome": "Stanza 2"
+          }
+        ],
+        "aperture": [
+          {
+            "id": "apertura_1",
+            "indizio": "linee parallele",
+            "punteggio": 0.8
+          },
+          {
+            "id": "apertura_2",
+            "indizio": "arco di apertura",
+            "punteggio": 1
+          }
+        ],
+        "dimensioni_stimate": true,
+        "ipotesi_scala": "Spessore mediano 250 mm, ingombro limitato a 4–30 m"
+      },
+      "analisi": {
+        "nordGradi": null,
+        "gsaFsh": null,
+        "gsaFf": null,
+        "gsaGglsh": null,
+        "gsaFfTelaio": null,
+        "gsaFshOb": null,
+        "orientamenti": {},
+        "gsaDaScheda": false,
+        "schedaAnt": {
+          "assegnazioni": {},
+          "quote": []
+        },
+        "energia": {
+          "superficie_utile_m2": null,
+          "volume_m3": null,
+          "superficie_disperdente_m2": null,
+          "U_medio_W_m2K": null,
+          "zona": "D",
+          "gg": 1415,
+          "theta_ext_inv_C": 0,
+          "theta_ext_est_C": 33.8,
+          "ricambi_h": 0.5,
+          "FF": 0.2,
+          "gglsh": null,
+          "interni_W": null,
+          "tau_h": null,
+          "E_elettrico_kWh": null,
+          "orientamento_FV": "S",
+          "collettori_m2": null,
+          "persone": null,
+          "ponti_modo": "assenti",
+          "ponti_tipo": "cassa_vuota",
+          "ponti_nodi_testo": "",
+          "pdfCaricato": false
+        },
+        "gsaLavoro": {
+          "lavoratori": "",
+          "aperto_pubblico": false,
+          "pubblico_contemporaneo": "",
+          "soggettaCPI": "",
+          "cantiereFiamme": false,
+          "attivita_complessa": false,
+          "livello3": [],
+          "data_corso_addetti": "",
+          "data_ultima_esercitazione": "",
+          "planimetria_elementi": [],
+          "piano_contenuti": [],
+          "doc_vr": "",
+          "doc_piano": "",
+          "doc_attestati": "",
+          "doc_registro": "",
+          "doc_informazione": "",
+          "criteri": [],
+          "riduzioni": [],
+          "esodo": {
+            "distanzaDueVie_m": "",
+            "distanzaUnaVia_m": "",
+            "affollamento": "",
+            "numeroUscite": "",
+            "larghezzaUscite_m": "",
+            "pubblico": false,
+            "assistenza": false,
+            "materialiInfiammabili": false,
+            "areaRiposo": false
+          }
+        }
+      }
+    },
+    "fondo-nero": {
+      "floors": [
+        {
+          "id": "auto_pav_1",
+          "poligono": [
+            [
+              300,
+              300
+            ],
+            [
+              300,
+              9475
+            ],
+            [
+              7225,
+              9475
+            ],
+            [
+              7225,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        },
+        {
+          "id": "auto_pav_2",
+          "poligono": [
+            [
+              7550,
+              300
+            ],
+            [
+              7550,
+              4075
+            ],
+            [
+              8875,
+              4100
+            ],
+            [
+              8800,
+              4600
+            ],
+            [
+              8525,
+              5075
+            ],
+            [
+              8075,
+              5450
+            ],
+            [
+              7775,
+              5575
+            ],
+            [
+              7550,
+              5600
+            ],
+            [
+              7550,
+              9475
+            ],
+            [
+              14475,
+              9475
+            ],
+            [
+              14475,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        }
+      ],
+      "furniture": [],
+      "schema": 1,
+      "unit": "mm",
+      "altezza_muri": 2800,
+      "name": "Casa riconosciuta dalla tavola",
+      "fonte": "Ricostruzione indicativa — dimensioni stimate, non misurate",
+      "walls": [
+        {
+          "id": "auto_1",
+          "a": [
+            0,
+            113
+          ],
+          "b": [
+            14750,
+            113
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_2",
+          "a": [
+            7363,
+            0
+          ],
+          "b": [
+            7363,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_3",
+          "a": [
+            113,
+            0
+          ],
+          "b": [
+            113,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_4",
+          "a": [
+            14613,
+            0
+          ],
+          "b": [
+            14613,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_5",
+          "a": [
+            0,
+            9613
+          ],
+          "b": [
+            14750,
+            9613
+          ],
+          "t": 250
+        }
+      ],
+      "openings": [
+        {
+          "id": "apertura_1",
+          "wall": "auto_1",
+          "offset": 2375,
+          "width": 1975,
+          "height": 1200,
+          "sill": 900,
+          "type": "finestra"
+        },
+        {
+          "id": "apertura_2",
+          "wall": "auto_2",
+          "offset": 4125,
+          "width": 1475,
+          "height": 2100,
+          "sill": 0,
+          "type": "porta"
+        }
+      ],
+      "verifica_importazione": {
+        "metodo": "raster_muri_automatici",
+        "scala_mm_px": 25,
+        "snap_mm": 10,
+        "seconda_quota": null,
+        "avvisi": [
+          "Riconoscimento geometrico sperimentale: controllare aperture, stanze e muri.",
+          "Le stanze sono contorni chiusi, non una classificazione della destinazione d'uso.",
+          "Muri obliqui, simboli insoliti, scansioni deformate e arredi possono richiedere correzioni."
+        ],
+        "porte_finestre_riconosciute": true,
+        "classificazione": "geometrica_non_neurale",
+        "motore": "OpenCV + Simplify.js / geometria Cantieri",
+        "versione": "General configuration for OpenCV 4.13.0 =====================================",
+        "stanze": [
+          {
+            "id": "stanza_1",
+            "nome": "Zona giorno"
+          },
+          {
+            "id": "stanza_2",
+            "nome": "Stanza 2"
+          }
+        ],
+        "aperture": [
+          {
+            "id": "apertura_1",
+            "indizio": "linee parallele",
+            "punteggio": 0.8
+          },
+          {
+            "id": "apertura_2",
+            "indizio": "arco di apertura",
+            "punteggio": 1
+          }
+        ],
+        "dimensioni_stimate": true,
+        "ipotesi_scala": "Spessore mediano 250 mm, ingombro limitato a 4–30 m"
+      },
+      "analisi": {
+        "nordGradi": null,
+        "gsaFsh": null,
+        "gsaFf": null,
+        "gsaGglsh": null,
+        "gsaFfTelaio": null,
+        "gsaFshOb": null,
+        "orientamenti": {},
+        "gsaDaScheda": false,
+        "schedaAnt": {
+          "assegnazioni": {},
+          "quote": []
+        },
+        "energia": {
+          "superficie_utile_m2": null,
+          "volume_m3": null,
+          "superficie_disperdente_m2": null,
+          "U_medio_W_m2K": null,
+          "zona": "D",
+          "gg": 1415,
+          "theta_ext_inv_C": 0,
+          "theta_ext_est_C": 33.8,
+          "ricambi_h": 0.5,
+          "FF": 0.2,
+          "gglsh": null,
+          "interni_W": null,
+          "tau_h": null,
+          "E_elettrico_kWh": null,
+          "orientamento_FV": "S",
+          "collettori_m2": null,
+          "persone": null,
+          "ponti_modo": "assenti",
+          "ponti_tipo": "cassa_vuota",
+          "ponti_nodi_testo": "",
+          "pdfCaricato": false
+        },
+        "gsaLavoro": {
+          "lavoratori": "",
+          "aperto_pubblico": false,
+          "pubblico_contemporaneo": "",
+          "soggettaCPI": "",
+          "cantiereFiamme": false,
+          "attivita_complessa": false,
+          "livello3": [],
+          "data_corso_addetti": "",
+          "data_ultima_esercitazione": "",
+          "planimetria_elementi": [],
+          "piano_contenuti": [],
+          "doc_vr": "",
+          "doc_piano": "",
+          "doc_attestati": "",
+          "doc_registro": "",
+          "doc_informazione": "",
+          "criteri": [],
+          "riduzioni": [],
+          "esodo": {
+            "distanzaDueVie_m": "",
+            "distanzaUnaVia_m": "",
+            "affollamento": "",
+            "numeroUscite": "",
+            "larghezzaUscite_m": "",
+            "pubblico": false,
+            "assistenza": false,
+            "materialiInfiammabili": false,
+            "areaRiposo": false
+          }
+        }
+      }
+    },
+    "trasparente": {
+      "floors": [
+        {
+          "id": "auto_pav_1",
+          "poligono": [
+            [
+              300,
+              300
+            ],
+            [
+              300,
+              9475
+            ],
+            [
+              7225,
+              9475
+            ],
+            [
+              7225,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        },
+        {
+          "id": "auto_pav_2",
+          "poligono": [
+            [
+              7550,
+              300
+            ],
+            [
+              7550,
+              4075
+            ],
+            [
+              8875,
+              4100
+            ],
+            [
+              8800,
+              4600
+            ],
+            [
+              8525,
+              5075
+            ],
+            [
+              8075,
+              5450
+            ],
+            [
+              7775,
+              5575
+            ],
+            [
+              7550,
+              5600
+            ],
+            [
+              7550,
+              9475
+            ],
+            [
+              14475,
+              9475
+            ],
+            [
+              14475,
+              300
+            ]
+          ],
+          "materiale": "gres"
+        }
+      ],
+      "furniture": [],
+      "schema": 1,
+      "unit": "mm",
+      "altezza_muri": 2800,
+      "name": "Casa riconosciuta dalla tavola",
+      "fonte": "Ricostruzione indicativa — dimensioni stimate, non misurate",
+      "walls": [
+        {
+          "id": "auto_1",
+          "a": [
+            0,
+            113
+          ],
+          "b": [
+            14750,
+            113
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_2",
+          "a": [
+            7363,
+            0
+          ],
+          "b": [
+            7363,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_3",
+          "a": [
+            113,
+            0
+          ],
+          "b": [
+            113,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_4",
+          "a": [
+            14613,
+            0
+          ],
+          "b": [
+            14613,
+            9750
+          ],
+          "t": 250
+        },
+        {
+          "id": "auto_5",
+          "a": [
+            0,
+            9613
+          ],
+          "b": [
+            14750,
+            9613
+          ],
+          "t": 250
+        }
+      ],
+      "openings": [
+        {
+          "id": "apertura_1",
+          "wall": "auto_1",
+          "offset": 2375,
+          "width": 1975,
+          "height": 1200,
+          "sill": 900,
+          "type": "finestra"
+        },
+        {
+          "id": "apertura_2",
+          "wall": "auto_2",
+          "offset": 4125,
+          "width": 1475,
+          "height": 2100,
+          "sill": 0,
+          "type": "porta"
+        }
+      ],
+      "verifica_importazione": {
+        "metodo": "raster_muri_automatici",
+        "scala_mm_px": 25,
+        "snap_mm": 10,
+        "seconda_quota": null,
+        "avvisi": [
+          "Riconoscimento geometrico sperimentale: controllare aperture, stanze e muri.",
+          "Le stanze sono contorni chiusi, non una classificazione della destinazione d'uso.",
+          "Muri obliqui, simboli insoliti, scansioni deformate e arredi possono richiedere correzioni."
+        ],
+        "porte_finestre_riconosciute": true,
+        "classificazione": "geometrica_non_neurale",
+        "motore": "OpenCV + Simplify.js / geometria Cantieri",
+        "versione": "General configuration for OpenCV 4.13.0 =====================================",
+        "stanze": [
+          {
+            "id": "stanza_1",
+            "nome": "Zona giorno"
+          },
+          {
+            "id": "stanza_2",
+            "nome": "Stanza 2"
+          }
+        ],
+        "aperture": [
+          {
+            "id": "apertura_1",
+            "indizio": "linee parallele",
+            "punteggio": 0.8
+          },
+          {
+            "id": "apertura_2",
+            "indizio": "arco di apertura",
+            "punteggio": 1
+          }
+        ],
+        "dimensioni_stimate": true,
+        "ipotesi_scala": "Spessore mediano 250 mm, ingombro limitato a 4–30 m"
+      },
+      "analisi": {
+        "nordGradi": null,
+        "gsaFsh": null,
+        "gsaFf": null,
+        "gsaGglsh": null,
+        "gsaFfTelaio": null,
+        "gsaFshOb": null,
+        "orientamenti": {},
+        "gsaDaScheda": false,
+        "schedaAnt": {
+          "assegnazioni": {},
+          "quote": []
+        },
+        "energia": {
+          "superficie_utile_m2": null,
+          "volume_m3": null,
+          "superficie_disperdente_m2": null,
+          "U_medio_W_m2K": null,
+          "zona": "D",
+          "gg": 1415,
+          "theta_ext_inv_C": 0,
+          "theta_ext_est_C": 33.8,
+          "ricambi_h": 0.5,
+          "FF": 0.2,
+          "gglsh": null,
+          "interni_W": null,
+          "tau_h": null,
+          "E_elettrico_kWh": null,
+          "orientamento_FV": "S",
+          "collettori_m2": null,
+          "persone": null,
+          "ponti_modo": "assenti",
+          "ponti_tipo": "cassa_vuota",
+          "ponti_nodi_testo": "",
+          "pdfCaricato": false
+        },
+        "gsaLavoro": {
+          "lavoratori": "",
+          "aperto_pubblico": false,
+          "pubblico_contemporaneo": "",
+          "soggettaCPI": "",
+          "cantiereFiamme": false,
+          "attivita_complessa": false,
+          "livello3": [],
+          "data_corso_addetti": "",
+          "data_ultima_esercitazione": "",
+          "planimetria_elementi": [],
+          "piano_contenuti": [],
+          "doc_vr": "",
+          "doc_piano": "",
+          "doc_attestati": "",
+          "doc_registro": "",
+          "doc_informazione": "",
+          "criteri": [],
+          "riduzioni": [],
+          "esodo": {
+            "distanzaDueVie_m": "",
+            "distanzaUnaVia_m": "",
+            "affollamento": "",
+            "numeroUscite": "",
+            "larghezzaUscite_m": "",
+            "pubblico": false,
+            "assistenza": false,
+            "materialiInfiammabili": false,
+            "areaRiposo": false
+          }
+        }
+      }
+    }
+  },
+  "hash_sorgenti": {
+    "src\\io\\riconoscimento-geometria.js": "9b2f4dc820e76ce41011bbe595864863bb5c22c5c0bbbb8ca5060e76c6fce2dc",
+    "src\\io\\riconoscimento-locale.js": "ab7af3ef9b72826e2aca1d29bb561cd0ba8240f131acc3c5b177cff73755066a",
+    "src\\io\\riconoscimento-worker.js": "332e52052410b3941542f07bec262943ce200e0b4ec8c5eeaf4401bb3b55b094",
+    "src\\trace\\ui.js": "981fd8813aae4029492c8b9fa42fb2436b27cd4ce79b8f5a7848be5265add20f",
+    "src\\app.js": "9cc4499c2ecd7d0391663d7f1d3f181e24919b666b7dd451ae7cf973518ea3ad",
+    "src\\ui\\planimetrie.js": "86000ecee984f13a9c9cfb6dbba5b0de60821b389298948841a95ea6086c5ccc",
+    "index.html": "d7064b6077f7fa469788a0cf594aa5206dc72d84a915ca676d42ed12116f6356",
+    "vendor\\opencv\\opencv.js": "63366510248adf3a7eddf3e793dd825404efb7df3749f4d6f8557c7fa4ca8aa0",
+    "vendor\\simplify\\simplify.js": "e4c7a1a8a141d47103eb82c64eb5286b483ed0efae28ecd238f6232b6d0b7b85"
+  }
+}

@@ -1,0 +1,3 @@
+# Preserve imported artifacts exactly as downloaded, including upstream whitespace.
+vendor/opencv/** -text -whitespace
+vendor/simplify/** -text -whitespace

@@ -4,6 +4,8 @@ Implementazione locale su base Git `e3efbd9b82a90fd1c13cd70db172290f70b622b2`, s
 
 ## Funzionamento
 
+Aggiornamento 21 ottobre: è disponibile un primo [motore automatico per muri da immagini](RASTER_AUTOMATICO_2026-10-21.md), locale e sperimentale. Non richiede il ricalco dei tratti riconosciuti; occorre confermare la scala e controllare i candidati. Porte e finestre non sono classificate automaticamente.
+
 La nuova voce **Planimetrie** è presente nel menu desktop e mobile, anche in modalità Semplice. Riunisce:
 
 - scelta dal PC di JSON, DXF ASCII, PDF, PNG, JPG/JPEG e WebP;
@@ -65,3 +67,6 @@ Il supporto dei formati non equivale al riconoscimento automatico perfetto di qu
 Per ottenere misure affidabili servono riferimenti quotati e la corretta interpretazione degli assi. La precisione di scansioni e fotografie dipende dalla risoluzione originale, dallo zoom di selezione, dalla griglia e dalla deformazione. Lo scarto del raster non viene presentato come esattezza al millimetro. Le prove su tavole sintetiche non certificano tavole dell'utente non ancora fornite.
 
 L'archivio è locale al profilo del browser e all'origine, senza sincronizzazione; la cancellazione dei dati del sito lo elimina. Un JSON esportato conserva il modello e le verifiche, ma non incorpora il file PDF originale. Il file originale resta nella raccolta IndexedDB. File oltre 50 MB e immagini oltre 20 megapixel vengono rifiutati; PDF con password non sbloccati.
+## Riconoscimento casa locale
+
+Per muri, porte, finestre, stanze e switch scala ON/OFF vedere [il rapporto del motore locale](RICONOSCIMENTO_CASA_2026-10-21.md). Usa OpenCV e Simplify.js inclusi nel progetto, senza servizi di riconoscimento esterni.
