@@ -19,6 +19,8 @@ function coppie(testo) {
 }
 
 export function parseDxf(testo,opzioni={}) {
+  if(typeof testo!=='string'||testo.length>50*1024*1024)throw Error('DXF troppo grande o non valido');
+  if(testo.startsWith('AutoCAD Binary DXF'))throw Error('DXF binario non supportato: esporta un DXF ASCII 2D');
   const cp = coppie(testo);
   const report = { entita: 0, linee: 0, polilinee: 0, altre: {}, unita: null, avvisi: [] };
 
@@ -30,6 +32,11 @@ export function parseDxf(testo,opzioni={}) {
     }
   }
   report.unita = insunits;
+  const forzata=Number(opzioni.unitaOriginali);
+  if(Object.hasOwn(INSUNITS_A_MM,forzata)){
+    report.avvisi.push(`Unità originali impostate dall'utente: ${NOME_UNITA[forzata]} (header: ${insunits??'assente'})`);
+    insunits=forzata;report.unita=forzata;report.unita_confermate=true;
+  }
   if (insunits === null || !(insunits in INSUNITS_A_MM)) {
     const scelta=Number(opzioni.unitaSeAssenti);
     if(Object.hasOwn(INSUNITS_A_MM,scelta)){

@@ -1,6 +1,6 @@
 // Analisi geometrica locale: tratti scuri rettilinei, senza modelli neurali o upload.
 // Restituisce candidati, non una classificazione semantica di porte/finestre.
-export function rilevaMuriRaster({data,width,height}, {soglia=115,minLunghezza=Math.max(20,Math.min(width,height)*.035),minSpessore=2}={}) {
+export function rilevaMuriRaster({data,width,height}, {soglia=115,minLunghezza=Math.max(20,Math.min(width,height)*.035),minSpessore=2,minRapporto=5}={}) {
   if(!Number.isInteger(width)||!Number.isInteger(height)||width<8||height<8||width*height>2200000||data.length!==width*height*4)throw Error('Raster non valido o troppo grande');
   const mask=new Uint8Array(width*height);
   let neri=0;
@@ -16,7 +16,9 @@ export function rilevaMuriRaster({data,width,height}, {soglia=115,minLunghezza=M
       let start=-1;
       const fine=(end)=>{
         if(start<0||end-start<minLunghezza)return;
-        let g=gruppi.findLast(g=>g.fineAsse===asse-1 && Math.min(g.fine,end)-Math.max(g.inizio,start)>.8*Math.min(g.fine-g.inizio,end-start));
+        // Una mazzetta corta non deve gonfiare lo spessore dell'intera parete:
+        // il confronto sul minimo inglobava i pilastri e scartava le facciate corte.
+        let g=gruppi.findLast(g=>g.fineAsse===asse-1 && Math.min(g.fine,end)-Math.max(g.inizio,start)>.85*Math.max(g.fine-g.inizio,end-start));
         if(g){g.inizio=Math.min(g.inizio,start);g.fine=Math.max(g.fine,end);g.fineAsse=asse;}
         else gruppi.push({inizio:start,fine:end,inizioAsse:asse,fineAsse:asse});
       };
@@ -28,7 +30,7 @@ export function rilevaMuriRaster({data,width,height}, {soglia=115,minLunghezza=M
     }
     for(const g of gruppi) {
       const sp=g.fineAsse-g.inizioAsse+1,L=g.fine-g.inizio;
-      if(sp<minSpessore||sp>Math.min(width,height)*.06||L<sp*5)continue;
+      if(sp<minSpessore||sp>Math.min(width,height)*.06||L<sp*minRapporto)continue;
       const c=(g.inizioAsse+g.fineAsse)/2;
       candidati.push({a:verticale?[c,g.inizio]:[g.inizio,c],b:verticale?[c,g.fine]:[g.fine,c],spessore_px:sp});
     }

@@ -4,6 +4,11 @@ import {rilevaMuriRaster,muriRasterInMm} from '../src/io/raster-muri.js';
 import {validatePlan} from '../src/core/model.js';
 function immagine(w=400,h=300){const data=new Uint8ClampedArray(w*h*4).fill(255);return {data,width:w,height:h};}
 function rettangolo(im,x,y,w,h){for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++){const k=(j*im.width+i)*4;im.data[k]=im.data[k+1]=im.data[k+2]=0;}}
+test('un pilastro corto adiacente non assorbe la banda della facciata',()=>{
+ const im=immagine();rettangolo(im,50,50,250,6);rettangolo(im,50,56,18,10);
+ const r=rilevaMuriRaster(im);
+ assert.ok(r.muri.some(w=>Math.abs(w.b[0]-w.a[0])>=240&&w.spessore_px<=8));
+});
 test('raster: ricostruisce quattro muri da pixel, senza coordinate di progetto',()=>{
   const im=immagine();for(const r of [[50,50,300,6],[50,244,300,6],[50,50,6,200],[344,50,6,200]])rettangolo(im,...r);
   const r=rilevaMuriRaster(im);assert.equal(r.muri.length,4);

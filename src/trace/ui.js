@@ -62,7 +62,7 @@ export function montaTracciamento(root, { onPianta }) {
       for(const [value,text]of [['porta','Porta'],['finestra','Finestra']])tipo.add(new Option(text,value));
       tipo.value=o.type;tipo.setAttribute('aria-label',`Tipo ${o.id}`);
       check.onchange=()=>{o.escluso=!check.checked;disegna();};tipo.onchange=()=>{o.type=tipo.value;disegna();};
-      row.append(check,tipo,` ${o.id}: ${o.indizio}. Da controllare.`);lista.append(row,document.createElement('br'));
+      row.append(check,tipo,` ${o.id}: ${o.inferita?'IPOTESI — ':''}${o.indizio}. Da controllare.`);lista.append(row,document.createElement('br'));
     }
     for(const s of rapportoAuto?.stanze||[]){
       const row=document.createElement('label'),check=document.createElement('input'),nome=document.createElement('input');

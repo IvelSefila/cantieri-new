@@ -6,6 +6,15 @@ import {validatePlan} from '../src/core/model.js';
 
 const muri=[{a:[20,100],b:[80,100],spessore_px:8},{a:[120,100],b:[200,100],spessore_px:8}];
 function pixel(mask,x,y){if(x>=0&&x<240&&y>=0&&y<200)mask[Math.round(y)*240+Math.round(x)]=255;}
+test('una finestra candidata non cancella un pilastro nero nel varco',()=>{
+ const mask=new Uint8Array(240*200),solido=new Uint8Array(240*200);
+ for(const y of [97,100,103])for(let x=80;x<=120;x++)pixel(mask,x,y);
+ for(let y=96;y<=104;y++)for(let x=96;x<=104;x++)pixel(solido,x,y);
+ const r=collegaAperture(muri,mask,240,200,{solido});
+ assert.ok(r.aperture.length>0);
+ const w=r.muri.find(w=>w.id===r.aperture[0].wall);
+ assert.equal(r.aperture.some(o=>w.a[0]+o.offset<100&&w.a[0]+o.offset+o.width>100),false);
+});
 test('interruzione senza simboli non viene inventata come porta',()=>{
  const r=collegaAperture(muri,new Uint8Array(240*200),240,200);
  assert.equal(r.muri.length,2);assert.equal(r.aperture.length,0);assert.equal(r.dubbi.length,1);

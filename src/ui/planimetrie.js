@@ -10,15 +10,20 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
   const file=el('input'); file.type='file';file.id='pl-file';file.accept='.json,.dxf,.pdf,.png,.jpg,.jpeg,.webp';
   const label=el('label','Inserisci dal tuo PC: JSON, DXF, PDF, PNG, JPG o WebP');label.append(file);
   const stato=el('div','Le planimetrie e i documenti originali restano nel browser di questo PC.');stato.id='pl-stato';stato.setAttribute('role','status');
+  let importazione=null;
+  const annulla=el('button','Annulla importazione');annulla.id='pl-annulla';annulla.hidden=true;
+  annulla.onclick=()=>importazione?.abort();
   const controlli=el('div');controlli.className='riga-azioni';
   const rif=el('select');rif.id='pl-dxf-rif';rif.add(new Option('Assi dei muri','asse'));rif.add(new Option('Filo esterno (polilinee chiuse)','faccia_esterna'));
   const spessore=el('input');spessore.id='pl-spessore';spessore.type='number';spessore.min='2';spessore.step='2';spessore.value='250';spessore.style.width='80px';
   const r=el('label','Riferimento DXF ');r.append(rif);const t=el('label','Spessore muri (mm) ');t.append(spessore);controlli.append(r,t);
   const unita=el('select');unita.id='pl-dxf-unita';
-  for(const [v,n]of [['','Scegli se assenti nel file'],['4','Millimetri'],['5','Centimetri'],['6','Metri'],['1','Pollici'],['2','Piedi']])unita.add(new Option(n,v));
-  const u=el('label','Unità DXF se assenti ');u.append(unita);controlli.append(u);
+  for(const [v,n]of [['','Automatiche dall’header'],['4','Millimetri'],['5','Centimetri'],['6','Metri'],['1','Pollici'],['2','Piedi']])unita.add(new Option(n,v));
+  const u=el('label','Unità originali DXF (scelta manuale prevale sull’header) ');u.append(unita);controlli.append(u);
+  const layerMuri=el('input');layerMuri.type='checkbox';layerMuri.id='pl-dxf-layer-muri';layerMuri.checked=true;
+  const filtro=el('label','DXF: usa solo layer WALL / MURI se presenti (esclude quote e arredi) ');filtro.append(layerMuri);controlli.append(filtro);
   const elenco=el('div');elenco.id='pl-elenco';
-  root.append(el('h2','Dal PC'),label,controlli,el('h2','Progetto corrente'),titolo,salva,stato,el('h2','In memoria su questo browser'),elenco,el('h2','Esempi'));
+  root.append(el('h2','Dal PC'),label,controlli,annulla,el('h2','Progetto corrente'),titolo,salva,stato,el('h2','In memoria su questo browser'),elenco,el('h2','Esempi'));
   const dialog=el('dialog');dialog.id='pl-editor';
   const chiudi=el('button','Chiudi tavola');chiudi.id='pl-chiudi';chiudi.onclick=()=>dialog.close();
   const trc=document.getElementById('trc-root');trc.classList.remove('avanzato');trc.open=true;
@@ -62,7 +67,8 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
     const token=++generazione;impostaOccupato(true);
     try {
       stato.textContent=`Lettura locale di ${f.name}…`;
-      const letto=await leggiPlanimetria(f,{riferimento:rif.value,spessoreDefault:Number(spessore.value),unitaSeAssenti:unita.value});
+      importazione=new AbortController();annulla.hidden=!f.name.toLowerCase().endsWith('.dxf');
+      const letto=await leggiPlanimetria(f,{riferimento:rif.value,spessoreDefault:Number(spessore.value),unitaOriginali:unita.value,soloLayerMuri:layerMuri.checked,signal:importazione.signal});
       if(token!==generazione)return;
       if(letto.progetto) {
         onApri(letto.progetto,f.name,{origine:letto.formato,dxfReport:letto.report});
@@ -79,7 +85,7 @@ export function montaPlanimetrie(root,{getSessione,onApri}) {
       }
       titolo.value=f.name;await aggiorna();
     } catch(e) {stato.textContent=`Importazione non completata: ${e.message}`;}
-    finally {impostaOccupato(false);file.value='';}
+    finally {importazione=null;annulla.hidden=true;impostaOccupato(false);file.value='';}
   };
   async function salvaImportazione(voce){
     if(!archivio)return ' Archivio non disponibile: conserva il file originale e scarica il progetto JSON.';

@@ -52,10 +52,10 @@ export function connettiMuri(muri) {
 // Spezza i muri dove l'estremo di un altro muro cade sul loro interno.
 export function spezzaMuri(muri) {
   let tratti = muri.map((w) => ({ ...w }));
-  let cambiato = true;
-  let giro = 0;
-  while (cambiato && giro++ < 100) {
-    cambiato = false;
+  // Tutte le intersezioni sono già calcolate fra i segmenti originali.
+  // Reiterare sui frammenti amplifica gli errori floating point e può creare
+  // migliaia di microsegmenti su DXF con diagonali o coordinate frazionarie.
+  {
     const nuovi = [];
     for (const w of tratti) {
       const punti = [];
@@ -70,7 +70,8 @@ export function spezzaMuri(muri) {
           const t = (q[0] * d[1] - q[1] * d[0]) / den;
           const s = (q[0] * u[1] - q[1] * u[0]) / den;
           if (t > 1e-9 && t < 1 - 1e-9 && s >= 0 && s <= 1) {
-            punti.push([w.a[0] + t * u[0], w.a[1] + t * u[1]]);
+            const p=[w.a[0] + t * u[0], w.a[1] + t * u[1]].map(x=>Math.abs(x-Math.round(x))<1e-6?Math.round(x):x);
+            punti.push(p);
           }
         }
         for (const p of [v.a, v.b]) {
@@ -79,12 +80,12 @@ export function spezzaMuri(muri) {
         }
       }
       if (!punti.length) { nuovi.push(w); continue; }
-      cambiato = true;
       // ordina i punti lungo il muro e crea i tratti
-      const ordinati = [w.a, ...punti.filter((p, i, arr) => arr.findIndex((q) => q[0] === p[0] && q[1] === p[1]) === i), w.b];
+      const ordinati = [w.a, ...punti.filter((p, i, arr) => Math.hypot(p[0]-w.a[0],p[1]-w.a[1])>1e-6&&Math.hypot(p[0]-w.b[0],p[1]-w.b[1])>1e-6&&arr.findIndex(q=>Math.hypot(q[0]-p[0],q[1]-p[1])<1e-6)===i), w.b];
       ordinati.sort((p, q) => ((p[0] - w.a[0]) * (w.b[0] - w.a[0]) + (p[1] - w.a[1]) * (w.b[1] - w.a[1])) - ((q[0] - w.a[0]) * (w.b[0] - w.a[0]) + (q[1] - w.a[1]) * (w.b[1] - w.a[1])));
       for (let i = 0; i < ordinati.length - 1; i++) {
         nuovi.push({ ...w, id: `${w.id}.${i}`, a: ordinati[i], b: ordinati[i + 1] });
+        if(nuovi.length>20000)throw Error('Geometria troppo complessa: oltre 20000 tratti alle intersezioni. Riduci i layer o separa i piani.');
       }
     }
     tratti = nuovi;

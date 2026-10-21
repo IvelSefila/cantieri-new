@@ -60,8 +60,8 @@
   "errori_js": [],
   "rete": [],
   "sorgenti": {
-    "src\\io\\raster-muri.js": "5c776106392678021c5884440e9c38da469ace4252889ba9101cfefdcd063e7c",
-    "src\\trace\\ui.js": "981fd8813aae4029492c8b9fa42fb2436b27cd4ce79b8f5a7848be5265add20f",
+    "src\\io\\raster-muri.js": "f84533e731c93c3a07906812292b0abce1a05ce256db70a0adb345d9012585f3",
+    "src\\trace\\ui.js": "6f6d99cf104800d84956f963a2bc658fa1fa9c20040c652a13d8c3256877687b",
     "src\\ui\\planimetrie.js": "86000ecee984f13a9c9cfb6dbba5b0de60821b389298948841a95ea6086c5ccc"
   }
 }

@@ -72,8 +72,11 @@ export function dxfToPlan(parsed, opzioni = {}) {
   if(!Number.isFinite(scala)||scala<=0)throw Error('Unità DXF assenti o non supportate: scegli le unità originali prima di importare');
   const walls = [];
   let contatore = 0;
+  const layerMuri=parsed.entities.filter(e=>/(?:^|[$_\s-])(?:wall|walls|muro|muri|murature)(?:$|[$_\s-])/i.test(e.layer));
+  const sorgenti=opzioni.soloLayerMuri&&layerMuri.length?layerMuri:parsed.entities;
+  if(sorgenti.length!==parsed.entities.length)rep.avvisi.push(`Filtro layer muri: ${parsed.entities.length-sorgenti.length} entità di altri layer escluse. Verifica il disegno: i nomi dei layer non certificano la geometria.`);
 
-  for (const e of parsed.entities) {
+  for (const e of sorgenti) {
     const t = spessori[e.layer] ?? spessoreDefault;
     if (!Number.isInteger(t) || t <= 0 || t % 2 !== 0) {
       rep.avvisi.push(`layer ${e.layer}: spessore ${t} non valido (intero pari > 0)`);
@@ -97,6 +100,7 @@ export function dxfToPlan(parsed, opzioni = {}) {
       const b = ip[(i + 1) % ip.length];
       if (a[0] === b[0] && a[1] === b[1]) continue; // segmento nullo dopo arrotondamento
       contatore++;
+      if(contatore>500)throw Error('DXF troppo complesso: oltre 500 segmenti da trasformare in muri. Esporta soltanto i layer dei muri, escludendo arredi, quote e tratteggi. Nessun modello è stato applicato.');
       walls.push({ id: `${e.layer}_${String(contatore).padStart(3, "0")}`, a, b, t, kind: e.layer });
     }
   }
