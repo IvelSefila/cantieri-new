@@ -38,14 +38,27 @@ try:
   print('rilevamenti:',len(r['muri']),'muri,',len(r['aperture']),'aperture,',len(r['stanze']),'stanze',flush=True)
   page.locator('button.hud-tab[data-scheda="planimetrie"]').click();page.locator('#pl-file').set_input_files(str(originale))
   page.wait_for_function('()=>!document.querySelector("#pl-file").disabled')
-  page.locator('#trc-stima').check();page.locator('#trc-auto-usa').click()
-  print(page.locator('#trc-auto-info').inner_text(),flush=True)
-  assert page.locator('#trc-invia').is_enabled()
-  page.locator('#trc-invia').click();page.wait_for_function('()=>document.querySelector("#pl-stato").textContent.includes("generato e salvato")')
+  page.locator('#trc-genera-casa').click()
+  page.wait_for_function('()=>document.querySelector("#pl-stato").textContent.includes("generato e salvato")')
   page.locator('button.hud-tab[data-scheda="progetto"]').click()
   with page.expect_download() as dl:page.locator('#scarica').click()
   report['progetto']=json.loads(Path(dl.value.path()).read_text(encoding='utf-8'))
+  progetto=report['progetto']
+  assert progetto['verifica_importazione']['dimensioni_stimate']
+  assert progetto['verifica_importazione']['finiture_dimostrative']
+  assert progetto['floors'] and progetto['openings'] and all(o.get('cdi') for o in progetto['openings'])
+  report['infissi_montati']=page.evaluate("""async p=>{
+   const {buildModel}=await import('/src/core/build.js');const c=await (await fetch('/data/cdi-catalog.json')).json();
+   const r=buildModel(p,c);if(!r.ok)throw Error(JSON.stringify(r.report));return r.stats.vani_con_infisso;
+  }""",progetto)
+  assert report['infissi_montati']==len(progetto['openings'])
+  page.locator('button.hud-tab[data-scheda="progetto"]').click()
+  page.wait_for_function('()=>document.querySelector("aside").getBoundingClientRect().right<5')
   page.screenshot(path=str(out/'modello-3d.png'))
+  page.locator('#btn-pp').click()
+  assert 'Esci' in page.locator('#btn-pp').inner_text() or 'Esci' in (page.locator('#btn-pp').get_attribute('aria-label') or '')
+  page.keyboard.press('Escape')
+  report['prima_persona']=True
   assert not report['errori_js'] and not report['rete_esterna']
   b.close()
 finally:

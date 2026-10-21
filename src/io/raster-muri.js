@@ -48,13 +48,18 @@ export function muriRasterInMm(muri,cal) {
 }
 
 // Ipotesi visiva: spessore mediano 250 mm, limitato da un ingombro di 4–30 m.
-export function stimaScalaRaster(muri) {
+export function stimaScalaRaster(muri, aperture=[]) {
   if(!muri.length)throw Error('Nessun muro da cui stimare la scala');
   const punti=muri.flatMap(w=>[w.a,w.b]);
   const origine=[0,1].map(i=>Math.min(...punti.map(p=>p[i])));
   const lato=Math.max(...[0,1].map(i=>Math.max(...punti.map(p=>p[i]))-origine[i]));
   const sp=muri.map(w=>w.spessore_px).filter(x=>Number.isFinite(x)&&x>0).sort((a,b)=>a-b);
   if(!lato||!sp.length)throw Error('Geometria insufficiente per la stima');
-  const mmPerPx=Math.min(30000/lato,Math.max(4000/lato,250/sp[Math.floor(sp.length/2)]));
-  return {origine,mmPerPx};
+  const porte=aperture.filter(o=>!o.escluso&&o.type==='porta'&&!o.inferita&&o.punteggio>=.75&&o.width>0).map(o=>o.width).sort((a,b)=>a-b);
+  const mediana=porte[Math.floor(porte.length/2)];
+  // Tre simboli concordanti sono più utili dello spessore di un tratto raster.
+  const coerenti=porte.filter(w=>Math.abs(w-mediana)<=mediana*.25);
+  const daPorte=coerenti.length>=3?900/coerenti[Math.floor(coerenti.length/2)]:null;
+  const mmPerPx=Math.min(30000/lato,Math.max(4000/lato,daPorte??250/sp[Math.floor(sp.length/2)]));
+  return {origine,mmPerPx,ipotesi:daPorte?'Larghezza indicativa porte 900 mm, ingombro limitato a 4–30 m':'Spessore mediano 250 mm, ingombro limitato a 4–30 m'};
 }

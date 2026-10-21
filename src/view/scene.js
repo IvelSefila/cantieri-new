@@ -13,7 +13,7 @@ import { materialeRealistico, texturaRilievo } from "./realistico.js?v=v20261021
 import { creaSovrimpressione, proiettore } from "./misure.js?v=v20261021a";
 import { preparaAmbiente, gruppoInfisso, gruppoArredo } from "./modelli3d.js?v=v20261021a";
 import { creaPost } from "./post.js?v=v20261021a";
-import { creaPasseggiata } from "./passeggiata-view.js?v=v20261021a";
+import { creaPasseggiata } from "./passeggiata-view.js?v=v20261021h";
 
 // Parti dell'infisso che seguono l'anta quando la porta si apre (il resto e' telaio, fisso nel muro)
 const RUOLI_ANTA = new Set(["anta", "maniglia", "fresatura", "cilindro_serratura"]);

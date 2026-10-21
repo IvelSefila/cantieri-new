@@ -2,10 +2,10 @@
 import { nuovoStato, calibra, clicMuro, clicVano, annulla, annullaPunto, toPlan, mmToPx } from "./tracer.js?v=v20261021a";
 import { validatePlan } from "../core/model.js?v=v20261021a";
 import { segmentiPdf, calibrazioneScalaPdf, pianoDaSegmenti } from "../io/pdf-plan.js?v=v20261021a";
-import { rilevaMuriRaster, stimaScalaRaster } from '../io/raster-muri.js?v=v20261021a';
+import { rilevaMuriRaster, stimaScalaRaster } from '../io/raster-muri.js?v=v20261021h';
 
 import { riconosciCasa } from '../io/riconoscimento-locale.js?v=1';
-import { elementiInMm } from '../io/riconoscimento-geometria.js';
+import { elementiInMm } from '../io/riconoscimento-geometria.js?v=v20261021h';
 
 export function montaTracciamento(root, { onPianta }) {
   let stato = nuovoStato({ spessore: 250, altezza: 2800, snapMm: 10 });
@@ -31,7 +31,7 @@ export function montaTracciamento(root, { onPianta }) {
   function applicaStima() {
     const candidati=rilevati.filter(w=>!w.escluso);
     const sorgente=candidati.length?candidati:stato.muri.map(w=>({a:w.a,b:w.b,spessore_px:w.t}));
-    const cal=stimaScalaRaster(sorgente);
+    const cal=stimaScalaRaster(sorgente,rapportoAuto?.aperture);
     if(stato.muri.length&&stato.cal) {
       const vecchia=stato.cal,ratio=cal.mmPerPx/(candidati.length?vecchia.mmPerPx:1);
       stato={...stato,muri:stato.muri.map(w=>({...w,a:w.a.map(x=>Math.round(x*ratio)),b:w.b.map(x=>Math.round(x*ratio)),t:Math.max(2,Math.round(w.t*ratio/2)*2)})),vani:stato.vani.map(v=>({...v,offset:Math.round(v.offset*ratio),width:Math.round(v.width*ratio)})),storia:[],pending:null,pendingVano:null};
@@ -45,15 +45,18 @@ export function montaTracciamento(root, { onPianta }) {
       else if(copiaMetrica){stato=copiaMetrica.stato;verificaQuota=copiaMetrica.verificaQuota;automaticoUsato=copiaMetrica.automaticoUsato;copiaMetrica=null;dettagli.inert=automaticoUsato;}
       verificaBar.hidden=stima.checked;
       $('#trc-calibra').disabled=stima.checked;usaScala.disabled=stima.checked;
-      autoInfo.textContent=stima.checked?'Dimensioni STIMATE: ipotesi di spessore medio 250 mm e ingombro 4–30 m. Proporzioni conservate; nessuna quota reale verificata. Usa i muri rilevati e invia al 3D.':'Modalità metrica: calibra e verifica la seconda quota. Ripristinato il tracciato precedente alla stima.';
+      autoInfo.textContent=stima.checked?'Dimensioni STIMATE: scala ricavata dai simboli delle porte o dallo spessore dei muri, ingombro 4–30 m. Proporzioni conservate; nessuna quota reale verificata. Usa i muri rilevati e invia al 3D.':'Modalità metrica: calibra e verifica la seconda quota. Ripristinato il tracciato precedente alla stima.';
       infoVettori();disegna();aggiornaInfo(stima.checked?'Dimensioni stimate.':'Modalità metrica.');
     }catch(e){stima.checked=false;copiaMetrica=null;autoInfo.textContent=e.message;}
   };
   const autoBar=document.createElement('div');autoBar.className='riga-azioni';
   const riconosci=document.createElement('button');riconosci.id='trc-auto';riconosci.textContent='Riconosci casa dalla tavola';
   const usaAuto=document.createElement('button');usaAuto.id='trc-auto-usa';usaAuto.textContent='Usa muri, porte, finestre e stanze';usaAuto.disabled=true;
+  const generaCasa=document.createElement('button');generaCasa.id='trc-genera-casa';generaCasa.textContent='Genera casa 3D indicativa con porte e finestre';generaCasa.disabled=true;
+  const completa=document.createElement('input');completa.type='checkbox';completa.id='trc-completa';completa.checked=true;
+  const completaLabel=document.createElement('label');completaLabel.append(completa,' Monta porte e finestre dimostrative (non riconoscimento dei prodotti)');
   const autoInfo=document.createElement('div');autoInfo.id='trc-auto-info';autoInfo.setAttribute('role','status');
-  autoBar.append(riconosci,usaAuto,autoInfo);root.prepend(autoBar);
+  autoBar.append(generaCasa,completaLabel,riconosci,usaAuto,autoInfo);root.prepend(autoBar);
   function aggiornaDettagli() {
     lista.replaceChildren();
     for(const o of rapportoAuto?.aperture||[]){
@@ -77,7 +80,7 @@ export function montaTracciamento(root, { onPianta }) {
     if(!img)return;
     if(stato.muri.length){autoInfo.textContent='Per conservare le modifiche, riapri la tavola prima di riconoscerla di nuovo.';return;}
     analisiController?.abort();const controller=new AbortController();analisiController=controller;
-    riconosci.disabled=true;usaAuto.disabled=true;stima.disabled=true;
+    riconosci.disabled=true;usaAuto.disabled=true;generaCasa.disabled=true;stima.disabled=true;
     autoInfo.textContent='Analisi locale di muri, simboli e stanze in corso...';
     const w=img.naturalWidth||img.width,h=img.naturalHeight||img.height,k=Math.min(1,1400/Math.max(w,h));
     const buffer=document.createElement('canvas');buffer.width=Math.round(w*k);buffer.height=Math.round(h*k);
@@ -92,7 +95,7 @@ export function montaTracciamento(root, { onPianta }) {
     rilevati=rapportoAuto.muri.map(s=>({...s,a:s.a.map(x=>x/k),b:s.b.map(x=>x/k),spessore_px:s.spessore_px/k}));
     rapportoAuto={...rapportoAuto,muri:rilevati,aperture:rapportoAuto.aperture.map(o=>({...o,offset:o.offset/k,width:o.width/k})),stanze:rapportoAuto.stanze.map(s=>({...s,poligono:s.poligono.map(p=>p.map(v=>v/k))}))};
     autoInfo.textContent=`${rilevati.length} tratti murari candidati (arancioni), ${rapportoAuto.aperture.filter(o=>o.type==='porta').length} porte, ${rapportoAuto.aperture.filter(o=>o.type==='finestra').length} finestre, ${rapportoAuto.stanze.length} stanze. Controlla i rilevamenti, scegli scala stimata ON oppure quote verificate OFF, poi usa il risultato. ${rapportoAuto.motore?'':rapportoAuto.avvisi.join(' ')}`;
-    usaAuto.disabled=!rilevati.length;
+    usaAuto.disabled=!rilevati.length;generaCasa.disabled=!rilevati.length;
     if(stima.checked&&rilevati.length)applicaStima();
     aggiornaDettagli();disegna();
   }
@@ -290,6 +293,7 @@ export function montaTracciamento(root, { onPianta }) {
   function reset() {
     analisiController?.abort();analisiController=null;riconosci.disabled=false;stima.disabled=false;lista.replaceChildren();dettagli.inert=false;dettagli.open=false;
     copiaMetrica=null;stima.checked=false;verificaBar.hidden=false;$('#trc-calibra').disabled=false;usaScala.disabled=false;
+    generaCasa.disabled=true;
     rilevati=[];rapportoAuto=null;automaticoUsato=false;autoInfo.textContent='';usaAuto.disabled=true;
     stato = nuovoStato({spessore:Number($('#trc-spessore').value),altezza:Number($('#trc-altezza-muri').value),snapMm:Number($('#trc-snap').value)});
     punti=[]; modo='calibra0'; direzioneCal=null;selezionati=new Set();resetVerifica();
@@ -400,9 +404,23 @@ export function montaTracciamento(root, { onPianta }) {
       const elementi=elementiInMm(rapportoAuto,stato.cal,stato.altezza);plan.floors=rilevati.some(w=>w.escluso)?[]:elementi.floors;
       plan.verifica_importazione.stanze=rapportoAuto.stanze.filter(s=>!s.escluso).map(s=>({id:s.id,nome:s.nome}));plan.verifica_importazione.aperture=rapportoAuto.aperture.filter(o=>!o.escluso).map(o=>({id:o.id,indizio:o.indizio,punteggio:o.punteggio}));}
     plan.verifica_importazione.dimensioni_stimate=stima.checked;
-    if(stima.checked){plan.fonte='Ricostruzione indicativa — dimensioni stimate, non misurate';plan.verifica_importazione.seconda_quota=null;plan.verifica_importazione.ipotesi_scala='Spessore mediano 250 mm, ingombro limitato a 4–30 m';}
+    if(stima.checked){plan.fonte='Ricostruzione indicativa — dimensioni stimate, non misurate';plan.verifica_importazione.seconda_quota=null;plan.verifica_importazione.ipotesi_scala=stato.cal.ipotesi||'Scala indicativa';}
+    if(automaticoUsato&&stima.checked&&completa.checked){
+      plan.openings=plan.openings.map(o=>({...o,cdi:o.type==='porta'?'porta-filomuro-bianca':o.type==='scorrevole'?'scorrevole-alzante-pvc':'pvc-essenziale-4'}));
+      plan.verifica_importazione.finiture_dimostrative=true;
+      plan.verifica_importazione.avvisi=[...(plan.verifica_importazione.avvisi||[]),'Porte e finestre montate con modelli dimostrativi; prodotti, altezze e misure non rilevati dalla foto.'];
+    }
     return plan;
   }
+  generaCasa.onclick=()=>{
+    try{
+      if(!rapportoAuto?.muri.length)throw Error('Prima attendi il riconoscimento della tavola.');
+      if(!stima.checked){stima.checked=true;stima.onchange();}
+      if(!automaticoUsato)usaAuto.onclick();
+      if(!automaticoUsato)throw Error(autoInfo.textContent);
+      onPianta(progettoTracciato());
+    }catch(e){autoInfo.textContent=`Casa non generata: ${e.message}`;}
+  };
   $("#trc-invia").addEventListener("click", () => {
     try{onPianta(progettoTracciato());aggiornaInfo('Inviato al modello 3D.');}
     catch(e){aggiornaInfo(`Non inviato: ${e.message}`);}
